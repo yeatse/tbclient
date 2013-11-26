@@ -1,0 +1,112 @@
+import QtQuick 1.1
+import com.nokia.symbian 1.1
+
+Item {
+    id: root;
+
+    signal likeButtonClicked;
+    signal signButtonClicked;
+
+    width: screen.width;
+    height: constant.thumbnailSize;
+
+    BorderImage {
+        id: bgImg;
+        anchors.fill: parent;
+        source: privateStyle.imagePath("qtg_fr_list_heading_normal",
+                                       tbsettings.whiteTheme);
+        border { left: 28; top: 5; right: 28; bottom: 0 }
+        smooth: true;
+    }
+
+    Image {
+        id: icon;
+        anchors {
+            left: parent.left; top: parent.top;
+            bottom: parent.bottom; margins: constant.paddingLarge;
+        }
+        width: height;
+        source: internal.forum.avatar||"";
+    }
+    Column {
+        anchors {
+            left: icon.right;
+            leftMargin: constant.paddingLarge;
+            verticalCenter: parent.verticalCenter;
+        }
+        Text {
+            font: constant.titleFont;
+            color: constant.colorLight;
+            text: internal.forum.name||"";
+        }
+        Text {
+            font: constant.subTitleFont;
+            color: constant.colorMid;
+            text: qsTr("<b>%1</b> members, <b>%2</b> posts")
+            .arg(internal.forum.member_num).arg(internal.forum.post_num);
+            textFormat: Text.StyledText;
+        }
+        Item { width: 1; height: constant.paddingSmall; }
+        Row {
+            spacing: constant.paddingLarge;
+            Column {
+                visible: internal.isLike;
+                anchors.verticalCenter: parent.verticalCenter;
+                Text {
+                    font.pixelSize: constant.fontXSmall;
+                    font.weight: Font.Light;
+                    color: constant.colorMid;
+                    text: (internal.forum.level_name)+"  "
+                          +qsTr("Lv.%1").arg(internal.forum.level_id);
+                }
+                ProgressBar {
+                    width: constant.thumbnailSize;
+                    platformInverted: tbsettings.whiteTheme;
+                    minimumValue: 0;
+                    maximumValue: internal.forum.levelup_score||0;
+                    value: internal.forum.cur_score||0;
+                }
+            }
+            Image {
+                width: constant.thumbnailSize; height: Math.floor(width/111*46);
+                visible: !internal.isLike;
+                anchors.verticalCenter: parent.verticalCenter;
+                sourceSize: Qt.size(width, height);
+                source: "../../gfx/btn_like_"+likeBtnMouseArea.stateString+constant.invertedString+".png";
+                MouseArea {
+                    id: likeBtnMouseArea;
+                    property string stateString: pressed ? "s" : "n";
+                    anchors.fill: parent;
+                    onClicked: root.likeButtonClicked();
+                }
+            }
+            Image {
+                width: constant.thumbnailSize; height: Math.floor(width/111*46);
+                visible: !internal.hasSigned;
+                anchors.verticalCenter: parent.verticalCenter;
+                sourceSize: Qt.size(width, height);
+                source: "../../gfx/btn_sign_"+signBtnMouseArea.stateString+constant.invertedString+".png";
+                MouseArea {
+                    id: signBtnMouseArea;
+                    property string stateString: pressed ? "s" : "n";
+                    anchors.fill: parent;
+                    enabled: !internal.signing;
+                    onClicked: root.signButtonClicked();
+                }
+            }
+            Image {
+                width: constant.thumbnailSize; height: Math.floor(width/111*46);
+                visible: internal.hasSigned;
+                anchors.verticalCenter: parent.verticalCenter;
+                source: "../../gfx/ico_sign.png";
+                smooth: true;
+                Text {
+                    anchors.centerIn: parent;
+                    font: constant.subTitleFont;
+                    color: "darkred";
+                    text: qsTr("Signed %1 days").arg(internal.signDays);
+                }
+            }
+        }
+    }
+}

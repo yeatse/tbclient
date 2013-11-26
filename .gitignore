@@ -18,3 +18,12 @@ moc_*.cpp
 qrc_*.cpp
 Makefile
 *-build-*
+.make.cache
+
+# Symbian-es
+bld.inf
+*.loc
+*.rss
+*_exe.mmp
+*.pkg
+*.sis
