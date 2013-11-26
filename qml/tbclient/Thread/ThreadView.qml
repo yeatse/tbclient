@@ -27,7 +27,7 @@ MyPage {
     }
 
     function positionAtTop(){
-        view.scrollToTop();
+        internal.openContextMenu();
     }
     function focus(){
         view.forceActiveFocus();

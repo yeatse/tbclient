@@ -4,7 +4,7 @@
 <context>
     <name>AtmePage</name>
     <message>
-        <location filename="../qml/tbclient/Message/AtmePage.qml" line="11"/>
+        <location filename="../qml/tbclient/Message/AtmePage.qml" line="10"/>
         <source>At me</source>
         <translation>@我</translation>
     </message>
@@ -28,14 +28,19 @@
 <context>
     <name>ForumHeader</name>
     <message>
-        <location filename="../qml/tbclient/Forum/ForumHeader.qml" line="42"/>
+        <location filename="../qml/tbclient/Forum/ForumHeader.qml" line="45"/>
         <source>&lt;b&gt;%1&lt;/b&gt; members, &lt;b&gt;%2&lt;/b&gt; posts</source>
         <translation>关注 &lt;b&gt;%1&lt;/b&gt;    贴子 &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Forum/ForumHeader.qml" line="54"/>
+        <location filename="../qml/tbclient/Forum/ForumHeader.qml" line="60"/>
         <source>Lv.%1</source>
         <translation>%1级</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Forum/ForumHeader.qml" line="107"/>
+        <source>Signed %1 days</source>
+        <translation>已签到%1天</translation>
     </message>
 </context>
 <context>
@@ -56,24 +61,34 @@
         <translation>菜单</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Forum/ForumPage.qml" line="149"/>
-        <location filename="../qml/tbclient/Forum/ForumPage.qml" line="184"/>
-        <location filename="../qml/tbclient/Forum/ForumPage.qml" line="202"/>
+        <location filename="../qml/tbclient/Forum/ForumPage.qml" line="151"/>
+        <source>Success! Rank: %1</source>
+        <translation>签到成功！今日第%1个签到</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Forum/ForumPage.qml" line="167"/>
+        <source>Followed</source>
+        <translation>关注成功</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Forum/ForumPage.qml" line="186"/>
+        <location filename="../qml/tbclient/Forum/ForumPage.qml" line="221"/>
+        <location filename="../qml/tbclient/Forum/ForumPage.qml" line="239"/>
         <source>Boutique</source>
         <translation>精品区</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Forum/ForumPage.qml" line="162"/>
+        <location filename="../qml/tbclient/Forum/ForumPage.qml" line="199"/>
         <source>View photos</source>
         <translation>看图</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Forum/ForumPage.qml" line="168"/>
+        <location filename="../qml/tbclient/Forum/ForumPage.qml" line="205"/>
         <source>Jump to page</source>
         <translation>跳页</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Forum/ForumPage.qml" line="173"/>
+        <location filename="../qml/tbclient/Forum/ForumPage.qml" line="210"/>
         <source>Opened tabs</source>
         <translation>打开的贴子</translation>
     </message>
@@ -277,7 +292,7 @@
 <context>
     <name>PletterPage</name>
     <message>
-        <location filename="../qml/tbclient/Message/PletterPage.qml" line="11"/>
+        <location filename="../qml/tbclient/Message/PletterPage.qml" line="10"/>
         <source>Private letters</source>
         <translation>私信</translation>
     </message>
@@ -343,22 +358,22 @@
 <context>
     <name>ReplyPage</name>
     <message>
-        <location filename="../qml/tbclient/Message/ReplyPage.qml" line="11"/>
+        <location filename="../qml/tbclient/Message/ReplyPage.qml" line="10"/>
         <source>Reply me</source>
         <translation>回复</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Message/ReplyPage.qml" line="116"/>
+        <location filename="../qml/tbclient/Message/ReplyPage.qml" line="127"/>
         <source>Post</source>
         <translation>贴子</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Message/ReplyPage.qml" line="117"/>
+        <location filename="../qml/tbclient/Message/ReplyPage.qml" line="128"/>
         <source>Thread</source>
         <translation>主题</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Message/ReplyPage.qml" line="127"/>
+        <location filename="../qml/tbclient/Message/ReplyPage.qml" line="138"/>
         <source>From %1</source>
         <translation>来自%1吧</translation>
     </message>
@@ -497,83 +512,83 @@
 <context>
     <name>Utility</name>
     <message>
-        <location filename="../src/utility.cpp" line="110"/>
+        <location filename="../src/utility.cpp" line="288"/>
         <source>%1 %2 %3</source>
         <comment>e.g. %1 is number value such as 2, %2 is mins, %3 is ago</comment>
         <translation>%1%2%3</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="175"/>
+        <location filename="../src/utility.cpp" line="306"/>
         <source>ago</source>
         <translation>前</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="176"/>
+        <location filename="../src/utility.cpp" line="307"/>
         <source>From Now</source>
         <translation>后</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="177"/>
+        <location filename="../src/utility.cpp" line="308"/>
         <source>just now</source>
         <translation>1分钟前</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="178"/>
+        <location filename="../src/utility.cpp" line="309"/>
         <source>min</source>
         <translation>分钟</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="179"/>
+        <location filename="../src/utility.cpp" line="310"/>
         <source>mins</source>
         <translation>分钟</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="180"/>
+        <location filename="../src/utility.cpp" line="311"/>
         <source>hr</source>
         <translation>小时</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="181"/>
+        <location filename="../src/utility.cpp" line="312"/>
         <source>hrs</source>
         <translation>小时</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="182"/>
+        <location filename="../src/utility.cpp" line="313"/>
         <source>day</source>
         <translation>天</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="183"/>
+        <location filename="../src/utility.cpp" line="314"/>
         <source>days</source>
         <translation>天</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="184"/>
+        <location filename="../src/utility.cpp" line="315"/>
         <source>wk</source>
         <translation>周</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="185"/>
+        <location filename="../src/utility.cpp" line="316"/>
         <source>wks</source>
         <translation>周</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="186"/>
+        <location filename="../src/utility.cpp" line="317"/>
         <source>mth</source>
         <translation>个月</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="187"/>
+        <location filename="../src/utility.cpp" line="318"/>
         <source>mths</source>
         <translation>个月</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="188"/>
+        <location filename="../src/utility.cpp" line="319"/>
         <source>yr</source>
         <translation>年</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="189"/>
+        <location filename="../src/utility.cpp" line="320"/>
         <source>yrs</source>
         <translation>年</translation>
     </message>

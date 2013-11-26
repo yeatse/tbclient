@@ -197,7 +197,7 @@ MyPage {
     ViewHeader {
         visible: viewHeader.layout.children.length === 0;
         title: qsTr("Tab page");
-        enabled: false;
+        onClicked: internal.openContextMenu();
     }
 
     TabGroup {
@@ -258,11 +258,6 @@ MyPage {
                 MenuItem {
                     text: qsTr("Open browser");
                     enabled: menu.currentEnabled;
-                }
-                MenuItem {
-                    text: qsTr("Tabs manage");
-                    platformSubItemIndicator: true;
-                    onClicked: internal.openContextMenu();
                 }
             }
         }
