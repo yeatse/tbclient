@@ -9,6 +9,7 @@ QtObject {
     signal userChanged;
     signal userLogout;
     signal vcodeSent(variant caller, string vcode, string vcodeMd5);
+    signal imageSelected(variant caller, string urls);
 
     function needAuthorization(forceLogin){
         if(pageStack.currentPage.objectName !== "LoginPage"){

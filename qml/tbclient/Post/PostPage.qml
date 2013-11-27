@@ -45,29 +45,36 @@ MyPage {
 
     Item {
         id: toolsBanner;
-        anchors.left: parent.left;
-        anchors.right: parent.right;
-        anchors.bottom: attachedArea.top;
-        anchors.margins: constant.paddingMedium;
+        anchors {
+            left: parent.left; leftMargin: constant.paddingMedium;
+            right: parent.right; rightMargin: constant.paddingMedium;
+            bottom: attachedArea.top;
+        }
         height: childrenRect.height;
         Row {
             id: toolsRow;
             spacing: constant.paddingSmall;
             ToolButton {
                 platformInverted: tbsettings.whiteTheme;
-                iconSource: "toolbar-list";
+                iconSource: "../../gfx/btn_insert_face"+constant.invertedString+".png"
             }
             ToolButton {
                 platformInverted: tbsettings.whiteTheme;
-                iconSource: "toolbar-list";
+                iconSource: "../../gfx/btn_insert_at"+constant.invertedString+".png";
             }
             ToolButton {
+                id: picBtn;
+                checkable: true;
                 platformInverted: tbsettings.whiteTheme;
-                iconSource: "toolbar-list";
+                iconSource: "../../gfx/btn_insert_pics"+constant.invertedString+".png";
+                onClicked: attachedArea.state = attachedArea.state == "Image" ? "" : "Image";
             }
             ToolButton {
+                id: voiBtn;
+                checkable: true;
                 platformInverted: tbsettings.whiteTheme;
-                iconSource: "toolbar-list";
+                iconSource: "../../gfx/btn_insert_voice"+constant.invertedString+".png";
+                onClicked: attachedArea.state = attachedArea.state == "Voice" ? "" : "Voice";
             }
         }
         ToolButton {
@@ -78,18 +85,31 @@ MyPage {
         }
     }
 
-    AttchedArea {
+    AttachedArea {
         id: attachedArea;
-        anchors.bottom: parent.bottom;
-        BackButton {
-            anchors { left: parent.left; bottom: parent.bottom; }
+        onStateChanged: {
+            picBtn.checked = state === "Image";
+            voiBtn.checked = state === "Voice";
         }
     }
 
+    states: [
+        State {
+            name: "VKBOpened";
+            PropertyChanges { target: viewHeader; visible: false; }
+            PropertyChanges { target: contentArea; anchors.bottom: page.bottom; }
+            PropertyChanges { target: toolsBanner; visible: false; }
+            PropertyChanges { target: attachedArea; visible: false; }
+            when: app.platformSoftwareInputPanelEnabled && inputContext.visible;
+        }
+    ]
+
     onStatusChanged: {
-        if (status === PageStatus.Activating) app.showToolBar = false;
-        else if (status === PageStatus.Deactivating) app.showToolBar = true;
-        else if (status === PageStatus.Active){
+        if (status === PageStatus.Activating){
+            app.showToolBar = false;
+        } else if (status === PageStatus.Deactivating){
+            app.showToolBar = true;
+        } else if (status === PageStatus.Active){
             if (titlefield.visible){
                 titlefield.forceActiveFocus();
                 titlefield.openSoftwareInputPanel();

@@ -216,6 +216,8 @@ QString Utility::selectImage(int param)
     case 2:
         TRAP_IGNORE(result = CaptureImage());
         break;
+    case 3:
+        TRAP_IGNORE(result = LaunchLibrary2());
     default:
         break;
     }
@@ -461,14 +463,24 @@ QString Utility::LaunchLibrary()
 {
     HBufC* result = NULL;
     CDesCArrayFlat* fileArray = new(ELeave)CDesCArrayFlat(3);
-    CDesCArrayFlat* aMineType = new(ELeave)CDesCArrayFlat(1);
-    aMineType->AppendL(_L("image/jpeg"));
-    aMineType->AppendL(_L("image/png"));
-    if (MGFetch::RunL(*fileArray, EImageFile, EFalse, _L("select"), _L("select image"), aMineType)){
+    QString res;
+    if (MGFetch::RunL(*fileArray, EImageFile, EFalse)){
         result = fileArray->MdcaPoint(0).Alloc();
-        QString res((QChar*)result->Des().Ptr(), result->Length());
-        return res;
-    } else
-        return QString();
+        res = QString((QChar*)result->Des().Ptr(), result->Length());
+    }
+    return res;
+}
+QString Utility::LaunchLibrary2()
+{
+    HBufC* result = NULL;
+    CDesCArrayFlat* fileArray = new(ELeave)CDesCArrayFlat(10);
+    QStringList res;
+    if (MGFetch::RunL(*fileArray, EImageFile, ETrue)){
+        for (int i=0; i<fileArray->MdcaCount(); i++){
+            result = fileArray->MdcaPoint(i).Alloc();
+            res.append(QString((QChar*)result->Des().Ptr(), result->Length()));
+        }
+    }
+    return res.join("\n");
 }
 #endif

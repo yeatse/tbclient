@@ -1,6 +1,6 @@
 import QtQuick 1.1
 
-Item {
+Rectangle {
     id: root;
 
     property alias text: text.text;
@@ -8,6 +8,7 @@ Item {
     width: screen.width;
     height: visible ? constant.headerHeight : 0;
     z: 10;
+    color: "black";
 
     BorderImage {
         anchors.fill: parent;

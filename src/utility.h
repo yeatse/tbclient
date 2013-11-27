@@ -46,7 +46,7 @@ public:             // Symbian avkon helper.
     // Launch player
     Q_INVOKABLE void launchPlayer(const QString &url);
 
-    // Symbian: 0 ---- library, 1 ---- folder, 2 ------ camera
+    // Symbian: 0 ---- library, 1 ---- folder, 2 ---- camera, 3 ---- multiple images
     // Else: just from folder
     // Return empty string if canceled.
     Q_INVOKABLE QString selectImage(int param = 0);
@@ -92,6 +92,7 @@ private:
     // Return empty string if canceled;
     // Otherwise return selected image url;
     QString LaunchLibrary();
+    QString LaunchLibrary2();
 #endif
 };
 
