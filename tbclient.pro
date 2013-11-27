@@ -47,10 +47,10 @@ folder_gfx.target = qml
 folder_emo.source = qml/emo
 folder_emo.target = qml
 
-DEPLOYMENTFOLDERS = folder_js folder_gfx folder_emo
+DEPLOYMENTFOLDERS = folder_js folder_gfx #folder_emo
 
 simulator {
-    DEPLOYMENTFOLDERS += folder_symbian3 folder_harmattan
+    DEPLOYMENTFOLDERS += folder_symbian3 #folder_harmattan
 }
 
 contains(MEEGO_EDITION,harmattan){

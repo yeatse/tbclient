@@ -95,12 +95,14 @@ Item {
                 }
             }
             Image {
-                width: constant.thumbnailSize; height: Math.floor(width/111*46);
+                width: Math.max(constant.thumbnailSize, signInfoText.width+constant.paddingMedium*2);
+                height: Math.floor(constant.thumbnailSize/111*46);
                 visible: internal.hasSigned;
                 anchors.verticalCenter: parent.verticalCenter;
                 source: "../../gfx/ico_sign.png";
                 smooth: true;
                 Text {
+                    id: signInfoText;
                     anchors.centerIn: parent;
                     font: constant.subTitleFont;
                     color: "darkred";

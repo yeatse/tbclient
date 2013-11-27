@@ -160,11 +160,11 @@ function getPhotoPage(option, onSuccess, onFailed){
         var page = option.page;
         page.forum = obj.forum;
         var photoData = obj.photo_data;
-        page.hasMore = photoData.has_more == 1;
+        page.hasMore = photoData.has_more === "1";
         page.batchStart = photoData.batch_start;
         page.batchEnd = photoData.batch_end;
         page.photolist = photoData.alb_id_list;
-        page.cursor = photoData.thread_list.length;
+        page.cursor = photoData.current_amount;
         BaiduParser.loadForumPicture(option, photoData.thread_list);
         onSuccess();
     }
