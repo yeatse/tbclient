@@ -22,6 +22,9 @@ MyPage {
         ToolButtonWithTip {
             toolTipText: qsTr("Create a thread");
             iconSource: "../../gfx/edit"+constant.invertedString+".svg"
+            onClicked: {
+                pageStack.push(Qt.resolvedUrl("../Post/PostPage.qml"));
+            }
         }
         ToolButtonWithTip {
             toolTipText: qsTr("Menu");

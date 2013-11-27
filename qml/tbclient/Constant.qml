@@ -45,9 +45,7 @@ QtObject {
     // others
     property int headerHeight: app.inPortrait ? privateStyle.tabBarHeightPortrait
                                               : privateStyle.tabBarHeightLandscape;
-    property string invertedString: tbsettings.whiteTheme ? "_inverted"
-                                                          : "";
-
+    property string invertedString: tbsettings.whiteTheme ? "_inverted" : "";
     // private
     property ListItemText __titleText: ListItemText {}
     property ListItemText __subTitleText: ListItemText { role: "SubTitle"; }
