@@ -130,6 +130,8 @@ MyPage {
                             textFormat: Text.PlainText;
                             font: constant.labelFont;
                             color: constant.colorMid;
+                            wrapMode: Text.WrapAnywhere;
+                            maximumLineCount: 1;
                         }
                     }
                     Text {
