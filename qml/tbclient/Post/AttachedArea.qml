@@ -9,7 +9,7 @@ Item {
     
     anchors.bottom: parent.bottom;
     width: screen.width;
-    height: screen.height < 480 ? 120 : 180;
+    height: screen.height < 480 ? 120 : 200;
     
     ToolBar {
         id: toolBar;

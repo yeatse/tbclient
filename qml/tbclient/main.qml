@@ -7,8 +7,9 @@ import "../js/main.js" as Script
 PageStackWindow {
     id: app;
 
-    platformSoftwareInputPanelEnabled: utility.qtVersion > 0x040800;
     platformInverted: tbsettings.whiteTheme;
+    platformSoftwareInputPanelEnabled: utility.qtVersion > 0x040800;
+    showStatusBar: inPortrait || !(platformSoftwareInputPanelEnabled && inputContext.visible);
 
     initialPage: MainPage { id: mainPage; }
 

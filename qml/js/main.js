@@ -288,3 +288,26 @@ function likeForum(option, onSuccess, onFailed){
     req.signForm(param);
     req.sendRequest(onSuccess, onFailed);
 }
+
+function getFloorPage(option, onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_F_Pb_Floor);
+    var param = {
+        pn: option.pn||1,
+        pid: option.pid,
+        kz: option.kz
+    };
+    req.signForm(param);
+    function s(obj){
+        tbs = obj.anti.tbs;
+        var page = obj.page;
+        page.forum = obj.forum;
+        page.thread = obj.thread;
+        page.post = obj.post;
+        page.currentPage = obj.page.current_page;
+        page.pageSize = obj.page.page_size;
+        page.totalPage = obj.page.totalPage;
+        BaiduParser.loadFloorPage(option, obj.subpost_list);
+        onSuccess();
+    }
+    req.sendRequest(s, onFailed);
+}

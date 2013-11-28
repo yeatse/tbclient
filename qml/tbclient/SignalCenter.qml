@@ -34,7 +34,9 @@ QtObject {
     }
 
     function enterForum(name){
-        pageStack.push(Qt.resolvedUrl("Forum/ForumPage.qml"), { name: name });
+        var p = pageStack.find(function(page){return page.objectName === "ForumPage" && page.name === name});
+        if (p) pageStack.pop(p);
+        else pageStack.push(Qt.resolvedUrl("Forum/ForumPage.qml"), { name: name });
     }
 
     function enterThread(option){
@@ -46,7 +48,11 @@ QtObject {
             threaPage.addThreadView(option);
     }
 
-    function readMessage(param){
+    function enterFloor(tid, pid){
+        var prop = { threadId: tid, postId: pid }
+        pageStack.push(Qt.resolvedUrl("Floor/FloorPage.qml"), prop);
+    }
 
+    function readMessage(param){
     }
 }

@@ -111,6 +111,7 @@ MyPage {
         cacheBuffer: view.height*5;
         model: ListModel {}
         delegate: ThreadDelegate {
+            onClicked: signalCenter.enterFloor(thread.id, model.id);
         }
         footer: FooterItem {
             visible: view.count > 0;

@@ -10,6 +10,8 @@ MyPage {
     property string name;
     onNameChanged: internal.getlist();
 
+    objectName: "ForumPage";
+
     title: internal.getName()
 
     tools: ToolBarLayout {

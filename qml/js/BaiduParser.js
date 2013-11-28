@@ -327,5 +327,55 @@ var BaiduParser = {
                          }
                          model.append(prop);
                      });
+    },
+
+    __parseFloorContent:
+    function(content){
+        var result = "", textFormat = 0;
+        var parse = function(c){
+            switch(c.type){
+            case "0":
+                result += c.text||"";
+                break;
+            case "1":
+                result += "<a href='link:%1'>%2</a>".arg(c.link).arg(c.text);
+                textFormat = 1;
+                break;
+            case "2":
+                result += getEmoticon(c.text, c.c);
+                textFormat = 1;
+                break;
+            case "4":
+                result += "<a href='at:%1'>%2</a>".arg(c.uid).arg(c.text);
+                textFormat = 1;
+                break;
+            case "9":
+                result += c.text;
+                break;
+            default:
+                break;
+            }
+        };
+        content.forEach(parse);
+        return [result, textFormat];
+    },
+
+    loadFloorPage:
+    function(option, list){
+        var self = this;
+        var model = option.model;
+        if (option.renew) model.clear();
+        list.forEach(function(value){
+                         var content = self.__parseFloorContent(value.content);
+                         var time = Qt.formatDateTime(new Date(Number(value.time+"000")));
+                         var prop = {
+                             id: value.id,
+                             author: value.author.name_show,
+                             content: content[0],
+                             format: content[1],
+                             time: time
+                         }
+                         model.append(prop);
+                     });
     }
 };
