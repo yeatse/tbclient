@@ -26,6 +26,8 @@ QtObject {
     property int maxTabCount: utility.getValue("maxTabCount", 4);
     onMaxTabCountChanged: utility.setValue("maxTabCount", maxTabCount);
 
+    property int fontSize: utility.getValue("fontSize", platformStyle.fontSizeMedium);
+
     // remind
     property int remindInterval: utility.getValue("remind/interval", 5);
     // by minutes

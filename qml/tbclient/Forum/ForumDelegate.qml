@@ -81,7 +81,7 @@ AbstractItem {
             right: root.paddingItem.right;
             bottom: root.paddingItem.bottom;
         }
-        text: utility.easyDate(new Date(last_time));
+        text: last_time;
         font: constant.subTitleFont;
         color: constant.colorMid;
     }

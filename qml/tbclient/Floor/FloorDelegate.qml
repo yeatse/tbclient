@@ -32,8 +32,14 @@ AbstractItem {
             wrapMode: Text.Wrap;
             textFormat: format;
             text: content;
-            font: constant.labelFont;
+            font.pixelSize: tbsettings.fontSize;
             color: constant.colorLight;
+        }
+        Loader {
+            width: parent.width;
+            property string text: voiceMd5;
+            property int format: voiceDuration;
+            source: text ? "../Thread/AudioDelegate.qml" : "";
         }
     }
 }

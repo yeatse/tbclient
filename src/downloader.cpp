@@ -73,13 +73,13 @@ QString Downloader::saveFileName(const QString &oriName)
     if (suffix.isEmpty())
         suffix = "dl";
 
-    if (QFile::exists(path+"/"+basename+"."+suffix)){
+    if (QFile::exists(path+QDir::separator()+basename+"."+suffix)){
         int i = 1;
-        while (QFile::exists(path+"/"+basename+QString::number(i)+"."+suffix))
+        while (QFile::exists(path+QDir::separator()+basename+QString::number(i)+"."+suffix))
             i++;
         basename += QString::number(i);
     }
-    return path+'/'+basename+"."+suffix;
+    return path+QDir::separator()+basename+"."+suffix;
 }
 
 void Downloader::appendDownload(const QString &url, const QString &filename)

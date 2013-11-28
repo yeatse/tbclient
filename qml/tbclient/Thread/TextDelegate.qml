@@ -5,7 +5,7 @@ Text {
     textFormat: format;
     width: parent.width;
     wrapMode: Text.WrapAnywhere;
-    font: constant.labelFont;
+    font.pixelSize: tbsettings.fontSize;
     color: constant.colorLight;
     onLinkActivated: console.log(link);
 }

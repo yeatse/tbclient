@@ -299,13 +299,14 @@ function getFloorPage(option, onSuccess, onFailed){
     req.signForm(param);
     function s(obj){
         tbs = obj.anti.tbs;
-        var page = obj.page;
+        var page = option.page;
         page.forum = obj.forum;
         page.thread = obj.thread;
         page.post = obj.post;
         page.currentPage = obj.page.current_page;
         page.pageSize = obj.page.page_size;
-        page.totalPage = obj.page.totalPage;
+        page.totalPage = obj.page.total_page;
+        page.totalCount = obj.page.total_count||0;
         BaiduParser.loadFloorPage(option, obj.subpost_list);
         onSuccess();
     }

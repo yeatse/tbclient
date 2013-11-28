@@ -107,7 +107,7 @@ MyPage {
                         color: constant.colorLight;
                     }
                     Text {
-                        text: utility.easyDate(new Date(time));
+                        text: time;
                         font: constant.subTitleFont;
                         color: constant.colorMid;
                     }

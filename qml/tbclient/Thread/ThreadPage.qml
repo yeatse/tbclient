@@ -17,6 +17,7 @@ MyPage {
             onClicked: currentTab.getlist();
         }
         ToolButtonWithTip {
+            id: editBtn;
             visible: currentTab != null;
             toolTipText: qsTr("Reply");
             iconSource: "../../gfx/edit"+constant.invertedString+".svg";
@@ -383,6 +384,7 @@ MyPage {
         switch (event.key){
         case Qt.Key_M: internal.openMenu(); event.accepted = true; break;
         case Qt.Key_R: if(currentTab)currentTab.getlist(); event.accepted = true; break;
+        case Qt.Key_E: if(currentTab)editBtn.clicked(); event.accepted = true; break;
         case Qt.Key_Left: internal.switchTab("left"); event.accepted = true; break;
         case Qt.Key_Right: internal.switchTab("right"); event.accepted = true; break;
         }

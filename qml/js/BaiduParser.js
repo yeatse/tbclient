@@ -52,7 +52,7 @@ var BaiduParser = {
                          var prop = {
                              id: value.id,
                              title: value.title,
-                             last_time: Number(value.last_time_int+"000"),
+                             last_time: utility.easyDate(new Date(Number(value.last_time_int+"000"))),
                              is_top: value.is_top === "1",
                              is_good: value.is_good === "1",
                              author: value.author.name_show,
@@ -271,7 +271,7 @@ var BaiduParser = {
                              user_id: value.user_id,
                              name_show: value.name_show,
                              portrait: portrait,
-                             time: Number(value.time+"000"),
+                             time: utility.easyDate(new Date(Number(value.time+"000"))),
                              unread_count: Number(value.unread_count),
                              text: text
                          };
@@ -300,7 +300,7 @@ var BaiduParser = {
                              thread_id: value.thread_id,
                              post_id: value.post_id,
                              quote_pid: value.quote_pid,
-                             time: Number(value.time+"000"),
+                             time: utility.easyDate(new Date(Number(value.time+"000"))),
                              fname: value.fname
                          }
                          model.append(prop);
@@ -322,7 +322,7 @@ var BaiduParser = {
                              content: value.content,
                              thread_id: value.thread_id,
                              post_id: value.post_id,
-                             time: Number(value.time+"000"),
+                             time: utility.easyDate(new Date(Number(value.time+"000"))),
                              fname: value.fname
                          }
                          model.append(prop);
@@ -357,6 +357,7 @@ var BaiduParser = {
             }
         };
         content.forEach(parse);
+        if (textFormat == 1) result = result.replace(/\n/g,"<br/>");
         return [result, textFormat];
     },
 
@@ -367,13 +368,20 @@ var BaiduParser = {
         if (option.renew) model.clear();
         list.forEach(function(value){
                          var content = self.__parseFloorContent(value.content);
-                         var time = Qt.formatDateTime(new Date(Number(value.time+"000")));
+                         var time = Qt.formatDateTime(new Date(Number(value.time+"000")), "yyyy-MM-dd hh:mm:ss");
+                         var voiceMd5 = "", voiceDuration = 0;
+                         if (value.voice_info && value.voice_info.length){
+                             voiceMd5 = value.voice_info[0].voice_md5;
+                             voiceDuration = Number(value.voice_info[0].during_time);
+                         }
                          var prop = {
                              id: value.id,
                              author: value.author.name_show,
                              content: content[0],
                              format: content[1],
-                             time: time
+                             time: time,
+                             voiceMd5: voiceMd5,
+                             voiceDuration: voiceDuration
                          }
                          model.append(prop);
                      });

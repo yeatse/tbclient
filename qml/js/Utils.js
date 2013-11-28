@@ -33,3 +33,16 @@ function milliSecondsToString(milliseconds) {
 function getEmoticon(text, c){
     return "["+c+"]"
 }
+
+var TextSlicer = {
+    textLength: function(text){
+                    return text.replace(/^[\x00-\xff]/g,"**").length;
+                },
+    slice: function(text, maxLength){
+               var result = "";
+               for (var i=0; this.textLength(result)<=maxLength && i<text.length; i++){
+                   result += text.charAt(i);
+               }
+               return result;
+           }
+}

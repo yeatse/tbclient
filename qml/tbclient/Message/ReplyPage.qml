@@ -137,7 +137,7 @@ MyPage {
                     Text {
                         color: constant.colorMid;
                         font: constant.subTitleFont;
-                        text: qsTr("From %1").arg(fname)+"  "+utility.easyDate(new Date(time));
+                        text: qsTr("From %1").arg(fname)+"  "+time;
                     }
                 }
             }

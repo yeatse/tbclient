@@ -2,6 +2,7 @@ import QtQuick 1.1
 import com.nokia.symbian 1.1
 import "../Component"
 import "../../js/main.js" as Script
+import "../../js/Utils.js" as Utils
 
 MyPage {
     id: page;
@@ -29,6 +30,12 @@ MyPage {
                 contentArea.forceActiveFocus();
                 contentArea.openSoftwareInputPanel();
                 event.accepted = true;
+            }
+        }
+        onTextChanged: {
+            var max = 60;
+            if (Utils.TextSlicer.textLength(text) > max){
+                text = Utils.TextSlicer.slice(text, max);
             }
         }
     }

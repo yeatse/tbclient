@@ -212,6 +212,16 @@ MyPage {
 
 
     // For keypad
+    Connections {
+        target: platformPopupManager;
+        onPopupStackDepthChanged: {
+            if (platformPopupManager.popupStackDepth === 0
+                    && page.status === PageStatus.Active){
+                unField.forceActiveFocus();
+            }
+        }
+    }
+
     onStatusChanged: {
         if (status === PageStatus.Active){
             unField.forceActiveFocus();

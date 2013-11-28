@@ -22,6 +22,7 @@ MyPage {
             onClicked: internal.getlist();
         }
         ToolButtonWithTip {
+            id: editBtn;
             toolTipText: qsTr("Create a thread");
             iconSource: "../../gfx/edit"+constant.invertedString+".svg"
             onClicked: {
@@ -310,6 +311,7 @@ MyPage {
         switch (event.key){
         case Qt.Key_M: internal.openMenu(); event.accepted = true; break;
         case Qt.Key_R: internal.getlist(); event.accepted = true; break;
+        case Qt.Key_E: editBtn.clicked(); event.accepted = true; break;
         }
     }
 }

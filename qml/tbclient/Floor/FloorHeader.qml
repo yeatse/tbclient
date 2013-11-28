@@ -1,4 +1,5 @@
 import QtQuick 1.1
+import "../../js/main.js" as Script
 
 Item {
     id: root;
@@ -7,6 +8,12 @@ Item {
 
     width: screen.width;
     height: contentCol.height + constant.paddingLarge*2;
+
+    BorderImage {
+        anchors.fill: parent;
+        source: privateStyle.imagePath("qtg_fr_list_heading_normal", tbsettings.whiteTheme);
+        border { left: 28; top: 5; right: 28; bottom: 0 }
+    }
 
     Image {
         id: avatar;
@@ -17,6 +24,7 @@ Item {
         width: constant.graphicSizeMedium;
         height: constant.graphicSizeMedium;
         sourceSize: constant.sizeMedium;
+        source: Script.getPortrait(tbsettings.showImage?post.author.portrait:"");
     }
 
     Column {
@@ -38,9 +46,55 @@ Item {
                 return name;
             }
         }
-        Text {
+        MouseArea {
+            id: contentMouseArea;
             width: parent.width;
-            wrapMode: Text.WrapAnywhere;
+            height: Math.min(contentLabel.height, constant.graphicSizeLarge);
+            onHeightChanged: view.positionViewAtBeginning();
+            clip: true;
+            onClicked: state = state === "" ? "Expanded" : "";
+            states: [
+                State {
+                    name: "Expanded";
+                    PropertyChanges {
+                        target: contentMouseArea; height: contentLabel.height;
+                    }
+                }
+            ]
+            transitions: [
+                Transition {
+                    PropertyAnimation { property: "height"; }
+                }
+
+            ]
+            Text {
+                id: contentLabel;
+                width: parent.width;
+                wrapMode: Text.WrapAnywhere;
+                font.pixelSize: tbsettings.fontSize;
+                color: constant.colorLight;
+                text: Script.BaiduParser.__parseFloorContent(post.content)[0];
+            }
+        }
+        Item {
+            width: parent.width; height: childrenRect.height;
+            Text {
+                font: constant.subTitleFont;
+                color: constant.colorMid;
+                text: Qt.formatDateTime(new Date(Number(post.time+"000")), "yyyy-MM-dd hh:mm:ss");
+            }
+            Row {
+                anchors.right: parent.right;
+                Image {
+                    source: "../../gfx/btn_icon_comment_n"+constant.invertedString+".png";
+                }
+                Text {
+                    anchors.verticalCenter: parent.verticalCenter;
+                    text: internal.totalCount+"";
+                    font: constant.subTitleFont;
+                    color: constant.colorMid;
+                }
+            }
         }
     }
 }

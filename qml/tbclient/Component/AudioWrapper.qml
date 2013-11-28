@@ -84,8 +84,7 @@ Item {
         id: downloader;
         onStateChanged: {
             if (state == 3 && error == 0){
-                console.log("finished", currentFile);
-                if (currentFile === audioFileName(currentMd5)){
+                if (currentRequest === Utils.getAudioUrl(currentMd5)){
                     changeFile("file:///"+currentFile);
                 }
             }

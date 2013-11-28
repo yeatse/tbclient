@@ -115,7 +115,7 @@ MyPage {
                     }
                     font: constant.subTitleFont;
                     color: constant.colorMid;
-                    text: utility.easyDate(new Date(time));
+                    text: time;
                 }
             }
         }

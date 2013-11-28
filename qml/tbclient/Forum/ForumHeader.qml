@@ -88,14 +88,14 @@ Item {
                 source: "../../gfx/btn_sign_"+signBtnMouseArea.stateString+constant.invertedString+".png";
                 MouseArea {
                     id: signBtnMouseArea;
-                    property string stateString: pressed ? "s" : "n";
+                    property string stateString: pressed||internal.signing ? "s" : "n";
                     anchors.fill: parent;
                     enabled: !internal.signing;
                     onClicked: root.signButtonClicked();
                 }
             }
             Image {
-                width: Math.max(constant.thumbnailSize, signInfoText.width+constant.paddingMedium*2);
+                width: Math.max(constant.thumbnailSize, signInfoText.width+constant.paddingLarge*2);
                 height: Math.floor(constant.thumbnailSize/111*46);
                 visible: internal.hasSigned;
                 anchors.verticalCenter: parent.verticalCenter;

@@ -1,6 +1,7 @@
 import QtQuick 1.1
 import com.nokia.symbian 1.1
 import "../Component"
+import "../../js/Utils.js" as Utils
 
 Item {
     id: root;
@@ -8,38 +9,6 @@ Item {
     anchors.bottom: parent.bottom;
     width: screen.width;
     height: toolBar.height;
-
-    states: [
-        State {
-            name: "Input";
-            PropertyChanges { target: viewHeader; visible: app.showStatusBar; }
-            PropertyChanges { target: root; height: inputBar.height; }
-            PropertyChanges { target: toolBar; y: root.height; opacity: 0; }
-            PropertyChanges { target: inputBar; y: 0; opacity: 1; }
-        }
-    ]
-
-    transitions: [
-        Transition {
-            to: "Input";
-            SequentialAnimation {
-                PropertyAnimation { properties: "y,opacity"; }
-                ScriptAction {
-                    script: {
-                        inputArea.forceActiveFocus();
-                        inputArea.openSoftwareInputPanel();
-                    }
-                }
-            }
-        },
-        Transition {
-            to: "";
-            PropertyAnimation { properties: "y,opacity"; }
-            ScriptAction {
-                script: view.forceActiveFocus();
-            }
-        }
-    ]
 
     ToolBar {
         id: toolBar;
@@ -100,7 +69,7 @@ Item {
                 verticalCenter: parent.verticalCenter;
             }
             toolTipText: qsTr("Send");
-            iconSource: "toolbar-refresh";
+            iconSource: "../../gfx/message_send"+constant.invertedString+".svg";
         }
         TextArea {
             id: inputArea;
@@ -110,6 +79,56 @@ Item {
             }
             platformInverted: tbsettings.whiteTheme;
             platformMaxImplicitHeight: 150;
+            onTextChanged: {
+                var max = 280;
+                if (Utils.TextSlicer.textLength(text) > max){
+                    text = Utils.TextSlicer.slice(text, max);
+                }
+            }
+        }
+    }
+
+    states: [
+        State {
+            name: "Input";
+            PropertyChanges { target: viewHeader; visible: app.showStatusBar; }
+            PropertyChanges { target: root; height: inputBar.height; }
+            PropertyChanges { target: toolBar; y: root.height; opacity: 0; }
+            PropertyChanges { target: inputBar; y: 0; opacity: 1; }
+        }
+    ]
+
+    transitions: [
+        Transition {
+            to: "Input";
+            SequentialAnimation {
+                PropertyAnimation { properties: "y,opacity"; }
+                ScriptAction {
+                    script: {
+                        inputArea.forceActiveFocus();
+                        inputArea.openSoftwareInputPanel();
+                    }
+                }
+            }
+        },
+        Transition {
+            to: "";
+            PropertyAnimation { properties: "y,opacity"; }
+            ScriptAction {
+                script: view.forceActiveFocus();
+            }
+        }
+    ]
+
+    // For keypad
+    Connections {
+        target: platformPopupManager;
+        onPopupStackDepthChanged: {
+            if (platformPopupManager.popupStackDepth === 0
+                    && page.status === PageStatus.Active){
+                if (root.state == "") view.forceActiveFocus();
+                else inputArea.forceActiveFocus();
+            }
         }
     }
 }
