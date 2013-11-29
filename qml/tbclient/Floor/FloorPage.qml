@@ -13,6 +13,25 @@ MyPage {
     property string postId;
     onPostIdChanged: internal.getlist();
 
+    tools: ToolBarLayout {
+        BackButton {}
+        ToolButtonWithTip {
+            toolTipText: qsTr("Refresh");
+            iconSource: "toolbar-refresh";
+            onClicked: internal.getlist();
+        }
+        ToolButtonWithTip {
+            toolTipText: qsTr("Reply");
+            iconSource: "../../gfx/edit"+constant.invertedString+".svg";
+            onClicked: toolsArea.state = "Input";
+        }
+        ToolButtonWithTip {
+            toolTipText: qsTr("Menu");
+            iconSource: "toolbar-menu";
+            onClicked: internal.openMenu();
+        }
+    }
+
     QtObject {
         id: internal;
 
@@ -56,8 +75,9 @@ MyPage {
         id: view;
         anchors {
             left: parent.left; right: parent.right;
-            top: viewHeader.bottom; bottom: toolsArea.top;
+            top: viewHeader.bottom;
         }
+        height: screen.height - privateStyle.statusBarHeight - viewHeader.height - toolsArea.height;
         cacheBuffer: height * 3;
         model: ListModel {}
         header: internal.post ? headerComp : null;
@@ -84,12 +104,10 @@ MyPage {
 
     // For keypad
     onStatusChanged: {
-        if (status === PageStatus.Activating){
-            app.showToolBar = false;
-        } else if (status === PageStatus.Deactivating){
-            app.showToolBar = true;
-        } else if (status === PageStatus.Active){
+        if (status === PageStatus.Active){
             view.forceActiveFocus();
+        } else if (status === PageStatus.Deactivating){
+            toolsArea.state = "";
         }
     }
 

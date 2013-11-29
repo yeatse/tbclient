@@ -9,6 +9,10 @@ MyPage {
 
     title: qsTr("Create a new thread");
 
+    tools: ToolBarLayout {
+        BackButton {}
+    }
+
     PostHeader {
         id: viewHeader;
         visible: app.inPortrait;
@@ -36,6 +40,7 @@ MyPage {
             var max = 60;
             if (Utils.TextSlicer.textLength(text) > max){
                 text = Utils.TextSlicer.slice(text, max);
+                titlefield.cursorPosition = text.length;
             }
         }
     }
@@ -45,17 +50,23 @@ MyPage {
         anchors.left: parent.left;
         anchors.right: parent.right;
         anchors.top: titlefield.bottom;
-        anchors.bottom: toolsBanner.top;
+        anchors.bottom: undefined;
         anchors.margins: constant.paddingMedium;
+        height: screen.height
+                - privateStyle.statusBarHeight
+                - viewHeader.height
+                - titlefield.height
+                - toolsBanner.height
+                - attachedArea.height
+                - constant.paddingMedium*4;
         platformInverted: tbsettings.whiteTheme;
     }
 
     Item {
         id: toolsBanner;
         anchors {
-            left: parent.left; leftMargin: constant.paddingMedium;
-            right: parent.right; rightMargin: constant.paddingMedium;
-            bottom: attachedArea.top;
+            left: parent.left; right: parent.right;
+            top: contentArea.bottom; margins: constant.paddingMedium;
         }
         height: childrenRect.height;
         Row {
@@ -104,7 +115,8 @@ MyPage {
         State {
             name: "VKBOpened";
             PropertyChanges { target: viewHeader; visible: false; }
-            PropertyChanges { target: contentArea; anchors.bottom: page.bottom; }
+            PropertyChanges { target: contentArea; height: undefined; }
+            AnchorChanges { target: contentArea; anchors.bottom: page.bottom; }
             PropertyChanges { target: toolsBanner; visible: false; }
             PropertyChanges { target: attachedArea; visible: false; }
             when: app.platformSoftwareInputPanelEnabled && inputContext.visible;
@@ -112,11 +124,7 @@ MyPage {
     ]
 
     onStatusChanged: {
-        if (status === PageStatus.Activating){
-            app.showToolBar = false;
-        } else if (status === PageStatus.Deactivating){
-            app.showToolBar = true;
-        } else if (status === PageStatus.Active){
+        if (status === PageStatus.Active){
             if (titlefield.visible){
                 titlefield.forceActiveFocus();
                 titlefield.openSoftwareInputPanel();
@@ -124,6 +132,8 @@ MyPage {
                 contentArea.forceActiveFocus();
                 contentArea.openSoftwareInputPanel();
             }
+        } else if (status === PageStatus.Deactivating){
+            attachedArea.state = "";
         }
     }
 }

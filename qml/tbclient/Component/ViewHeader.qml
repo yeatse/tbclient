@@ -8,7 +8,7 @@ Rectangle {
     signal clicked;
 
     implicitWidth: screen.width;
-    implicitHeight: constant.headerHeight;
+    implicitHeight: visible ? constant.headerHeight : 0;
     color: "#1080dd";
     z: 10;
 

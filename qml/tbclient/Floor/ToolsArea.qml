@@ -6,38 +6,19 @@ import "../../js/Utils.js" as Utils
 Item {
     id: root;
 
+    property int toolBarHeight: (screen.width < screen.height)
+                                ? privateStyle.toolBarHeightPortrait
+                                : privateStyle.toolBarHeightLandscape
     anchors.bottom: parent.bottom;
     width: screen.width;
-    height: toolBar.height;
-
-    ToolBar {
-        id: toolBar;
-        y: root.height - height;
-        opacity: 1;
-        tools: ToolBarLayout {
-            BackButton {}
-            ToolButtonWithTip {
-                toolTipText: qsTr("Refresh");
-                iconSource: "toolbar-refresh";
-            }
-            ToolButtonWithTip {
-                toolTipText: qsTr("Reply");
-                iconSource: "../../gfx/edit"+constant.invertedString+".svg";
-                onClicked: root.state = "Input";
-            }
-            ToolButtonWithTip {
-                toolTipText: qsTr("Menu");
-                iconSource: "toolbar-menu";
-            }
-        }
-    }
+    height: toolBarHeight;
 
     Item {
         id: inputBar;
         y: root.height;
         opacity: 0;
         width: parent.width;
-        height: Math.max(toolBar.height, inputArea.height+constant.paddingMedium);
+        height: Math.max(toolBarHeight, inputArea.height+constant.paddingMedium);
         BorderImage {
             anchors.fill: parent
             source: privateStyle.imagePath("qtg_fr_toolbar", tbsettings.whiteTheme);
@@ -78,11 +59,12 @@ Item {
                 verticalCenter: parent.verticalCenter;
             }
             platformInverted: tbsettings.whiteTheme;
-            platformMaxImplicitHeight: 150;
+            platformMaxImplicitHeight: app.inPortrait ? 150 : 100;
             onTextChanged: {
                 var max = 280;
                 if (Utils.TextSlicer.textLength(text) > max){
                     text = Utils.TextSlicer.slice(text, max);
+                    cursorPosition = text.length;
                 }
             }
         }
@@ -91,9 +73,9 @@ Item {
     states: [
         State {
             name: "Input";
+            PropertyChanges { target: app; showToolBar: false; }
             PropertyChanges { target: viewHeader; visible: app.showStatusBar; }
             PropertyChanges { target: root; height: inputBar.height; }
-            PropertyChanges { target: toolBar; y: root.height; opacity: 0; }
             PropertyChanges { target: inputBar; y: 0; opacity: 1; }
         }
     ]
