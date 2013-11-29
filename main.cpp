@@ -4,6 +4,8 @@
 #include "src/utility.h"
 #include "src/tbnetworkaccessmanagerfactory.h"
 #include "src/downloader.h"
+#include "src/httpuploader.h"
+#include "src/audiorecorder.h"
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
@@ -26,7 +28,12 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     if (translator.load(app->applicationName()+"_"+locale, ":/i18n/"))
         app->installTranslator(&translator);
 
+    qmlRegisterUncreatableType<HttpPostField>("HttpUp", 1, 0, "HttpPostField", "Can't touch this");
+    qmlRegisterType<HttpPostFieldValue>("HttpUp", 1, 0, "HttpPostFieldValue");
+    qmlRegisterType<HttpPostFieldFile>("HttpUp", 1, 0, "HttpPostFieldFile");
+    qmlRegisterType<HttpUploader>("HttpUp", 1, 0, "HttpUploader");
     qmlRegisterType<Downloader>("com.yeatse.tbclient", 1, 0, "Downloader");
+    qmlRegisterType<AudioRecorder>("com.yeatse.tbclient", 1, 0, "AudioRecorder");
 
     QmlApplicationViewer viewer;
     viewer.setAttribute(Qt::WA_NoSystemBackground);

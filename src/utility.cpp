@@ -74,6 +74,14 @@ QString Utility::cachePath() const
     return path;
 }
 
+QString Utility::tempPath() const
+{
+    QString path = QDir::tempPath();
+    QDir dir(path);
+    if (!dir.exists()) dir.mkpath(path);
+    return path;
+}
+
 QVariant Utility::getValue(const QString &key, const QVariant defaultValue)
 {
     if (map.contains(key)){
@@ -182,10 +190,7 @@ void Utility::openURLDefault(const QString &url)
 void Utility::launchPlayer(const QString &url)
 {
 #ifdef Q_OS_SYMBIAN
-    QString path = QDir::tempPath();
-    QDir dir(path);
-    if (!dir.exists()) dir.mkpath(path);
-    QString ramPath = path + QDir::separator() + "video.ram";
+    QString ramPath = tempPath() + QDir::separator() + "video.ram";
     QFile file(ramPath);
     if (file.open(QIODevice::ReadWrite)){
         QTextStream out(&file);
@@ -446,7 +451,7 @@ QString Utility::CaptureImage()
     const TUid KUidCamera = { 0x101F857A }; // Camera UID for S60 5th edition
 
     TBool result = fileClient->NewFileL( KUidCamera, *fileNames, paramList,
-                               ENewFileServiceImage, EFalse );
+                                         ENewFileServiceImage, EFalse );
 
     QString ret;
 

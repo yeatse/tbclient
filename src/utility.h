@@ -10,6 +10,7 @@ class Utility : public QObject
     Q_PROPERTY(int qtVersion READ qtVersion CONSTANT)
     Q_PROPERTY(QString imei READ imei CONSTANT)
     Q_PROPERTY(QString cachePath READ cachePath CONSTANT)
+    Q_PROPERTY(QString tempPath READ tempPath CONSTANT)
 
 public:             // Properties
     static Utility* Instance();
@@ -18,6 +19,7 @@ public:             // Properties
     int qtVersion() const;
     QString imei() const;
     QString cachePath() const;
+    QString tempPath() const;
 
 public:             // Cache and network
     // Save and load settings.

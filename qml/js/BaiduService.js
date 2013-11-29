@@ -31,6 +31,7 @@ var BaiduApi = {
     C_F_Pb_Floor: HOST + "/c/f/pb/floor",
 
     C_C_Post_Add: HOST + "/c/c/post/add",
+    C_C_Thread_Add: HOST + "/c/c/thread/add",
     C_C_Forum_Sign: HOST + "/c/c/forum/sign",
     C_C_Forum_Like: HOST + "/c/c/forum/like",
 

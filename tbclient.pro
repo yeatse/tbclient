@@ -13,18 +13,24 @@ INCLUDEPATH += src
 HEADERS += \
     src/utility.h \
     src/tbnetworkaccessmanagerfactory.h \
-    src/downloader.h
+    src/downloader.h \
+    src/httpuploader.h \
+    src/audiorecorder.h
 
 SOURCES += main.cpp \
     src/utility.cpp \
     src/tbnetworkaccessmanagerfactory.cpp \
     src/downloader.cpp \
+    src/httpuploader.cpp \
+    src/audiorecorder.cpp \
 #    qml/tbclient/*.qml \
 #    qml/tbclient/Thread/*.qml \
 #    qml/tbclient/Message/*.qml \
 #    qml/tbclient/Forum/*.qml \
 #    qml/tbclient/Dialog/*.qml \
-#    qml/tbclient/Component/*.qml
+#    qml/tbclient/Component/*.qml \
+#    qml/tbclient/Floor/*.qml \
+#    qml/tbclient/Post/*.qml
 
 TRANSLATIONS += i18n/tbclient_zh.ts
 RESOURCES += tbclient-res.qrc

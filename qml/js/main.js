@@ -312,3 +312,21 @@ function getFloorPage(option, onSuccess, onFailed){
     }
     req.sendRequest(s, onFailed);
 }
+
+function addThread(option, onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_C_Thread_Add);
+    var param = {
+        during_time: option.during_time||"",
+        fid: option.fid,
+        new_vcode: 1,
+        content: option.content,
+        tbs: tbs,
+        kw: option.kw,
+        vcode_tag: 11,
+        voice_md5: option.voice_md5||"",
+        title: option.title,
+        anonymous: 0
+    }
+    req.signForm(param);
+    req.sendRequest(onSuccess, onFailed);
+}

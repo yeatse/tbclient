@@ -86,6 +86,12 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter;
                 sourceSize: Qt.size(width, height);
                 source: "../../gfx/btn_sign_"+signBtnMouseArea.stateString+constant.invertedString+".png";
+                BusyIndicator {
+                    anchors.centerIn: parent;
+                    platformInverted: tbsettings.whiteTheme;
+                    running: true;
+                    visible: internal.signing;
+                }
                 MouseArea {
                     id: signBtnMouseArea;
                     property string stateString: pressed||internal.signing ? "s" : "n";

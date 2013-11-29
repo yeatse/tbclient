@@ -75,6 +75,8 @@ Item {
         }
     }
 
+    visible: false;
+
     Audio {
         id: audio;
         volume: root.volume;
