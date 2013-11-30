@@ -75,6 +75,10 @@ Item {
         }
     }
 
+    function stop(){
+        audio.stop();
+    }
+
     visible: false;
 
     Audio {

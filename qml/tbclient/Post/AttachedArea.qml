@@ -5,6 +5,8 @@ Item {
     id: root;
     
     property alias imageList: imageArea.imageList;
+    property alias audioFile: voiceArea.audioUrl;
+    property alias audioDuration: voiceArea.duration;
     
     anchors.bottom: parent.bottom;
     width: screen.width;
@@ -40,4 +42,6 @@ Item {
             PropertyAnimation { properties: "y,opacity"; }
         }
     ]
+
+    onStateChanged: if (state != "Voice") audioWrapper.stop();
 }

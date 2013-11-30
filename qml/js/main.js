@@ -4,15 +4,16 @@ Qt.include("BaiduService.js");
 Qt.include("storage.js");
 Qt.include("BaiduParser.js");
 
-var signalCenter, tbsettings, utility, workerScript;
+var signalCenter, tbsettings, utility, workerScript, uploader;
 var __name, __bduss, __portrait;
 var tbs;
 
-function initialize(sc, ts, ut, ws){
+function initialize(sc, ts, ut, ws, ul){
     signalCenter = sc;
     tbsettings = ts;
     utility = ut;
     workerScript = ws;
+    uploader = ul;
     if (checkAuthData(tbsettings.currentUid)){
         signalCenter.userChanged();
     } else {
@@ -54,9 +55,9 @@ function login(option, onSuccess, onFailed){
     var param = {
         token: BaiduApi.token,
         isphone: option.isphone?1:0,
-        m_api: "/c/s/sync",
-        passwd: Qt.btoa(option.passwd),
-        un: option.un
+                                 m_api: "/c/s/sync",
+                                 passwd: Qt.btoa(option.passwd),
+                                 un: option.un
     }
     if (option.vcode){
         param.vcode = option.vcode;
@@ -327,6 +328,90 @@ function addThread(option, onSuccess, onFailed){
         title: option.title,
         anonymous: 0
     }
+    req.signForm(param);
+    req.sendRequest(onSuccess, onFailed);
+}
+
+function uploadImage(caller, filename){
+    if (uploader.uploadState == 2)
+        uploader.abort();
+    uploader.caller = caller;
+    uploader.open(BaiduApi.C_C_Img_Upload);
+    uploader.addField("net_type", BaiduConst.net_type);
+    uploader.addField("ka", BaiduConst.ka);
+    uploader.addField("_phone_imei", BaiduConst._phone_imei);
+    uploader.addField("BDUSS", __bduss);
+    uploader.addField("_timestamp", Date.now());
+    uploader.addField("_client_version", BaiduConst._client_version);
+    uploader.addField("_phone_newimei", BaiduConst._phone_newimei);
+    uploader.addField("from", BaiduConst.from);
+    uploader.addField("_client_type", BaiduConst._client_type);
+    uploader.addField("_client_id", BaiduConst._client_id);
+    uploader.addField("cuid", BaiduConst.cuid);
+    uploader.addField("pic_type", 0);
+    uploader.addFile("pic", filename);
+    uploader.send();
+}
+
+function uploadVoice(caller, filename, offset){
+    if (uploader.uploadState == 2)
+        uploader.abort();
+    var chunk = utility.chunkFile(filename, offset);
+    var size = utility.fileSize(filename);
+
+    uploader.caller = caller;
+    BaiduConst._client_type = tbsettings.clientType;
+    BaiduConst._phone_newimei = Qt.md5(utility.imei+"0").toUpperCase();
+    BaiduConst.cuid = Qt.md5(utility.imei).toUpperCase();
+    BaiduConst._timestamp = Date.now();
+    BaiduConst._phone_imei = BaiduConst.cuid;
+    BaiduConst._client_id = tbsettings.clientId;
+    var paramArray = [];
+    for (var i in BaiduConst){
+        paramArray.push(i+"="+BaiduConst[i]);
+    }
+    var param = {
+        chunk_md5: utility.fileHash(chunk),
+        chunk_no: Math.floor(offset/30720)+1,
+        total_length: size,
+        length: utility.fileSize(chunk),
+        voice_md5: utility.fileHash(filename),
+        total_num: Math.ceil(size/30720),
+        offset: offset
+    }
+    for (var i in param){
+        paramArray.push(i+"="+param[i]);
+    }
+    paramArray = paramArray.sort();
+    var tmp = decodeURIComponent(paramArray.join(""))+"tiebaclient!!!";
+    var sign = Qt.md5(tmp).toUpperCase();
+    paramArray.push("sign="+sign);
+
+    uploader.open(BaiduApi.C_C_Voice_Upload);
+    paramArray.forEach(function(value){
+                           var eq = value.indexOf("=");
+                           uploader.addField(value.substring(0, eq), value.substring(eq+1));
+                       });
+    uploader.addFile("voice_chunk", chunk);
+    uploader.send();
+}
+
+function uploadStateChanged(){
+    if (uploader.uploadState == 3){
+        signalCenter.showMessage(qsTr("Operation canceled"));
+    } else if (uploader.uploadState == 4){
+        if (uploader.status === 200){
+            signalCenter.uploadFinished(uploader.caller, uploader.responseText);
+        } else {
+            signalCenter.uploadFailed(uploader.caller);
+        }
+        uploader.clear();
+    }
+}
+
+function voiceFinChunkUpload(option, onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_C_Voice_FinUpload);
+    var param = { voice_md5: option.voiceMd5 }
     req.signForm(param);
     req.sendRequest(onSuccess, onFailed);
 }

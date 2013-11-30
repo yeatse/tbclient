@@ -11,6 +11,9 @@ QtObject {
     signal vcodeSent(variant caller, string vcode, string vcodeMd5);
     signal imageSelected(variant caller, string urls);
 
+    signal uploadFinished(variant caller, string response);
+    signal uploadFailed(variant caller);
+
     function needAuthorization(forceLogin){
         if(pageStack.currentPage.objectName !== "LoginPage"){
             var prop = { forceLogin: forceLogin||false }

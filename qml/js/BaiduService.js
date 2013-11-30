@@ -34,6 +34,9 @@ var BaiduApi = {
     C_C_Thread_Add: HOST + "/c/c/thread/add",
     C_C_Forum_Sign: HOST + "/c/c/forum/sign",
     C_C_Forum_Like: HOST + "/c/c/forum/like",
+    C_C_Img_Upload: HOST + "/c/c/img/upload",
+    C_C_Voice_Upload: HOST + "/c/c/voice/chunkupload",
+    C_C_Voice_FinUpload: HOST + "/c/c/voice/voice_fin_chunk_upload",
 
     C_U_Feed_Replyme: HOST + "/c/u/feed/replyme",
     C_U_Feed_Atme: HOST + "/c/u/feed/atme"
@@ -74,9 +77,7 @@ BaiduRequest.prototype.signForm = function(param){
 BaiduRequest.prototype.sendRequest = function(onSuccess, onFailed){
             console.log("==============\n",
                         this.method,
-                        this.action,
-                        "\n",
-                        this.encodedParameters);
+                        this.action);
             // onSuccess(obj)
             // onFailed(message, [obj]);
             var xhr = new XMLHttpRequest();

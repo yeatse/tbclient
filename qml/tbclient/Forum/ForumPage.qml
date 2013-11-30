@@ -24,9 +24,11 @@ MyPage {
         ToolButtonWithTip {
             id: editBtn;
             toolTipText: qsTr("Create a thread");
+            enabled: internal.forum.hasOwnProperty("id");
             iconSource: "../../gfx/edit"+constant.invertedString+".svg"
             onClicked: {
-                pageStack.push(Qt.resolvedUrl("../Post/PostPage.qml"));
+                var prop = { caller: internal };
+                pageStack.push(Qt.resolvedUrl("../Post/PostPage.qml"), prop);
             }
         }
         ToolButtonWithTip {

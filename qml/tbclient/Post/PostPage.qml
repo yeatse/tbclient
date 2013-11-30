@@ -1,16 +1,38 @@
 import QtQuick 1.1
 import com.nokia.symbian 1.1
+import HttpUp 1.0
 import "../Component"
 import "../../js/main.js" as Script
 import "../../js/Utils.js" as Utils
+import "PostPage.js" as Post
 
 MyPage {
     id: page;
 
+    property variant caller;
+
     title: qsTr("Create a new thread");
 
     tools: ToolBarLayout {
-        BackButton {}
+        BackButton {
+            onClicked: {
+                if (uploader.uploadState == HttpUploader.Loading){
+                    uploader.abort();
+                }
+            }
+        }
+    }
+
+    Connections {
+        target: signalCenter;
+        onUploadFailed: if (caller === page) Post.uploadFailed();
+        onUploadFinished: if (caller === page) Post.uploadFinished(response);
+    }
+
+    Timer {
+        id: postTimer;
+        interval: 100;
+        onTriggered: Post.post();
     }
 
     PostHeader {
@@ -21,6 +43,7 @@ MyPage {
 
     TextField {
         id: titlefield;
+        property bool acceptableInput: Utils.TextSlicer.textLength(text) <= 60;
         anchors.left: parent.left;
         anchors.right: parent.right;
         anchors.top: viewHeader.bottom;
@@ -34,13 +57,6 @@ MyPage {
                 contentArea.forceActiveFocus();
                 contentArea.openSoftwareInputPanel();
                 event.accepted = true;
-            }
-        }
-        onTextChanged: {
-            var max = 60;
-            if (Utils.TextSlicer.textLength(text) > max){
-                text = Utils.TextSlicer.slice(text, max);
-                titlefield.cursorPosition = text.length;
             }
         }
     }
@@ -86,6 +102,11 @@ MyPage {
                 platformInverted: tbsettings.whiteTheme;
                 iconSource: "../../gfx/btn_insert_pics"+constant.invertedString+".png";
                 onClicked: attachedArea.state = attachedArea.state == "Image" ? "" : "Image";
+                Image {
+                    anchors { top: parent.top; right: parent.right; }
+                    source: "../../gfx/ico_mbar_news_point.png";
+                    visible: attachedArea.imageList.length > 0;
+                }
             }
             ToolButton {
                 id: voiBtn;
@@ -93,21 +114,44 @@ MyPage {
                 platformInverted: tbsettings.whiteTheme;
                 iconSource: "../../gfx/btn_insert_voice"+constant.invertedString+".png";
                 onClicked: attachedArea.state = attachedArea.state == "Voice" ? "" : "Voice";
+                Image {
+                    anchors { top: parent.top; right: parent.right; }
+                    source: "../../gfx/ico_mbar_news_point.png";
+                    visible: attachedArea.audioFile.length > 0;
+                }
             }
         }
         ToolButton {
             anchors.top: app.inPortrait ? toolsRow.bottom : parent.top;
             anchors.right: parent.right;
             platformInverted: tbsettings.whiteTheme;
+            enabled: !loading && attachedArea.enabled;
             text: qsTr("Post");
+            onClicked: postTimer.start();
         }
     }
 
     AttachedArea {
         id: attachedArea;
+        enabled: uploader.uploadState != HttpUploader.Loading||uploader.caller != page;
         onStateChanged: {
             picBtn.checked = state === "Image";
             voiBtn.checked = state === "Voice";
+        }
+        BusyIndicator {
+            anchors.centerIn: parent;
+            running: true;
+            width: constant.graphicSizeLarge;
+            height: constant.graphicSizeLarge;
+            platformInverted: tbsettings.whiteTheme;
+            visible: !(attachedArea.enabled||attachedArea.state=="");
+        }
+        ProgressBar {
+            anchors.bottom: parent.bottom;
+            width: parent.width;
+            value: uploader.progress;
+            platformInverted: tbsettings.whiteTheme;
+            visible: !(attachedArea.enabled||attachedArea.state=="");
         }
     }
 
@@ -122,6 +166,17 @@ MyPage {
             when: app.platformSoftwareInputPanelEnabled && inputContext.visible;
         }
     ]
+
+    // for keypad
+    Connections {
+        target: platformPopupManager;
+        onPopupStackDepthChanged: {
+            if (platformPopupManager.popupStackDepth === 0
+                    && page.status === PageStatus.Active){
+                contentArea.forceActiveFocus();
+            }
+        }
+    }
 
     onStatusChanged: {
         if (status === PageStatus.Active){

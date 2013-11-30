@@ -29,7 +29,11 @@ PageStackWindow {
 
     AudioWrapper { id: audioWrapper; }
 
-    HttpUploader { id: uploader; }
+    HttpUploader {
+        id: uploader;
+        property variant caller: null;
+        onUploadStateChanged: Script.uploadStateChanged();
+    }
 
     AudioRecorder { id: recorder; outputLocation: utility.tempPath+"/audio.amr"; }
 
@@ -48,5 +52,5 @@ PageStackWindow {
     Keys.onVolumeUpPressed: audioWrapper.volumeUp();
     Keys.onVolumeDownPressed: audioWrapper.volumeDown();
 
-    Component.onCompleted: Script.initialize(signalCenter, tbsettings, utility, worker);
+    Component.onCompleted: Script.initialize(signalCenter, tbsettings, utility, worker, uploader);
 }

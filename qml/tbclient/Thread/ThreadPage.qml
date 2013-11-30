@@ -378,6 +378,8 @@ MyPage {
         if (status === PageStatus.Active){
             if (currentTab) currentTab.focus();
             else page.forceActiveFocus();
+        } else if (status === PageStatus.Deactivating){
+            audioWrapper.stop();
         }
     }
     Keys.onPressed: {

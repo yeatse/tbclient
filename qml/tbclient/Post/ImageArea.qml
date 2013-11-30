@@ -60,7 +60,7 @@ Item {
                         anchors.fill: parent;
                         fillMode: Image.PreserveAspectCrop;
                         sourceSize.width: parent.width;
-                        source: modelData;
+                        source: "file:///"+modelData;
                         clip: true;
                     }
                     ToolButton {

@@ -250,6 +250,7 @@ QColor Utility::selectColor(const QColor &defaultColor)
 
 void Utility::showNotification(const QString &title, const QString &message) const
 {
+    QApplication::beep();
 #ifdef Q_OS_SYMBIAN
     TPtrC16 sTitle(static_cast<const TUint16 *>(title.utf16()), title.length());
     TPtrC16 sMessage(static_cast<const TUint16 *>(message.utf16()), message.length());
@@ -263,6 +264,44 @@ void Utility::showNotification(const QString &title, const QString &message) con
 bool Utility::existsFile(const QString &filename)
 {
     return QFile::exists(filename);
+}
+
+int Utility::fileSize(const QString &filename)
+{
+    QFileInfo info(filename);
+    return info.size();
+}
+
+QString Utility::fileHash(const QString &filename)
+{
+    QFile file(filename);
+    QString result;
+    if (file.open(QIODevice::ReadOnly)){
+        QByteArray content = file.readAll();
+        QByteArray md5 = QCryptographicHash::hash(content, QCryptographicHash::Md5);
+        result = QString(md5.toHex());
+        file.close();
+    }
+    return result;
+}
+
+QString Utility::chunkFile(const QString &filename, int pos, int length)
+{
+    QFile file(filename);
+    QString result;
+    if (file.open(QIODevice::ReadOnly)){
+        QFile output(filename+"_chunk_"+QString::number(pos));
+        if (output.open(QIODevice::WriteOnly)){
+            if (file.seek(pos)){
+                QByteArray chunked = file.read(length);
+                output.write(chunked);
+                result = output.fileName();
+            }
+            output.close();
+        }
+        file.close();
+    }
+    return result;
 }
 
 void Utility::copyToClipbord(const QString &text)

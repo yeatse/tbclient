@@ -65,6 +65,9 @@ public:             // Symbian avkon helper.
 
 public:             // Other functions.
     Q_INVOKABLE bool existsFile(const QString &filename);
+    Q_INVOKABLE int fileSize(const QString &filename);
+    Q_INVOKABLE QString fileHash(const QString &filename);
+    Q_INVOKABLE QString chunkFile(const QString &filename, int pos, int length = 30720);
     Q_INVOKABLE void copyToClipbord(const QString &text);
 
     // Make date readable
