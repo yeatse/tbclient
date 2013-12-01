@@ -10,8 +10,9 @@ MyPage {
     id: page;
 
     property variant caller;
+    property bool isReply: false;
 
-    title: qsTr("Create a new thread");
+    title: isReply ? qsTr("Send reply") : qsTr("Create a new thread");
 
     tools: ToolBarLayout {
         BackButton {
@@ -44,6 +45,8 @@ MyPage {
     TextField {
         id: titlefield;
         property bool acceptableInput: Utils.TextSlicer.textLength(text) <= 60;
+        visible: !isReply;
+        height: visible ? implicitHeight : 0;
         anchors.left: parent.left;
         anchors.right: parent.right;
         anchors.top: viewHeader.bottom;
@@ -65,7 +68,7 @@ MyPage {
         id: contentArea;
         anchors.left: parent.left;
         anchors.right: parent.right;
-        anchors.top: titlefield.bottom;
+        anchors.top: isReply ? viewHeader.bottom : titlefield.bottom;
         anchors.bottom: undefined;
         anchors.margins: constant.paddingMedium;
         height: screen.height

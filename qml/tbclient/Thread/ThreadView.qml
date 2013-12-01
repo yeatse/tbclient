@@ -9,6 +9,7 @@ MyPage {
 
     property string threadId;
     property variant thread: null;
+    property variant forum: null;
 
     property int currentPage: 0;
     property int totalPage: 0;
@@ -77,6 +78,7 @@ MyPage {
         function s(obj, modelAffected){
             loading = false;
             thread = obj.thread;
+            forum = obj.forum;
             currentPage = obj.page.current_page;
             totalPage = obj.page.total_page;
 

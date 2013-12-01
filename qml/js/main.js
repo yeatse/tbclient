@@ -415,3 +415,24 @@ function voiceFinChunkUpload(option, onSuccess, onFailed){
     req.signForm(param);
     req.sendRequest(onSuccess, onFailed);
 }
+
+function addPost(option, onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_C_Post_Add);
+    var param = {
+        tid: option.tid,
+        fid: option.fid,
+        new_vcode: 1,
+        content: option.content,
+        tbs: tbs,
+        kw: option.kw,
+        vcode_tag: 11,
+        anonymous: 0,
+        floor: 2
+    }
+    if (option.during_time){
+        param.during_time = option.during_time;
+        param.voice_md5 = option.voice_md5;
+    }
+    req.signForm(param);
+    req.sendRequest(onSuccess, onFailed);
+}

@@ -19,8 +19,13 @@ MyPage {
         ToolButtonWithTip {
             id: editBtn;
             visible: currentTab != null;
+            enabled: visible && currentTab.thread != null;
             toolTipText: qsTr("Reply");
             iconSource: "../../gfx/edit"+constant.invertedString+".svg";
+            onClicked: {
+                var prop = { isReply: true, caller: currentTab }
+                pageStack.push(Qt.resolvedUrl("../Post/PostPage.qml"), prop);
+            }
         }
         ToolButtonWithTip {
             toolTipText: qsTr("Menu");

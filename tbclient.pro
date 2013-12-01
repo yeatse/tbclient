@@ -30,7 +30,8 @@ SOURCES += main.cpp \
 #    qml/tbclient/Dialog/*.qml \
 #    qml/tbclient/Component/*.qml \
 #    qml/tbclient/Floor/*.qml \
-#    qml/tbclient/Post/*.qml
+#    qml/tbclient/Post/*.* \
+#    qml/js/main.js
 
 TRANSLATIONS += i18n/tbclient_zh.ts
 RESOURCES += tbclient-res.qrc
