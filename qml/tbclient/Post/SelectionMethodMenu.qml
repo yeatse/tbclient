@@ -22,6 +22,7 @@ ContextMenu {
         }
         MenuItem {
             text: qsTr("Scribble");
+            onClicked: pageStack.push(Qt.resolvedUrl("ScribblePage.qml"), {caller: caller});
         }
     }
 

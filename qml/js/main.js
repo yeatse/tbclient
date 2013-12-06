@@ -36,7 +36,7 @@ function checkAuthData(aUid){
 }
 
 function sync(){
-    var req = new BaiduRequest(BaiduApi.C_S_Sync);
+    var req = new BaiduRequest(BaiduApi.C_S_SYNC);
     var param = {
         msg_status: 1,
         manager_model: 0,
@@ -51,9 +51,9 @@ function sync(){
 }
 
 function login(option, onSuccess, onFailed){
-    var req = new BaiduRequest(BaiduApi.C_S_Login);
+    var req = new BaiduRequest(BaiduApi.C_S_LOGIN);
     var param = {
-        token: BaiduApi.token,
+        token: BaiduApi.TOKEN,
         isphone: option.isphone?1:0,
                                  m_api: "/c/s/sync",
                                  passwd: Qt.btoa(option.passwd),
@@ -80,14 +80,14 @@ function login(option, onSuccess, onFailed){
 }
 
 function getMessage(onSuccess, onFailed){
-    var req = new BaiduRequest(BaiduApi.C_S_Msg);
+    var req = new BaiduRequest(BaiduApi.C_S_MSG);
     var param = { bookmark: 1 }
     req.signForm(param);
     req.sendRequest(onSuccess, onFailed);
 }
 
 function getRecommentForum(option, onSuccess, onFailed){
-    var req = new BaiduRequest(BaiduApi.C_F_Forum_Forumrecommend);
+    var req = new BaiduRequest(BaiduApi.C_F_FORUM_FORUMRECOMMEND);
     req.signForm();
     function s(obj){
         BaiduParser.loadLikeForum(option.model, obj.like_forum);
@@ -99,7 +99,7 @@ function getRecommentForum(option, onSuccess, onFailed){
 }
 
 function getForumPage(option, onSuccess, onFailed){
-    var req = new BaiduRequest(BaiduApi.C_F_Frs_Page);
+    var req = new BaiduRequest(BaiduApi.C_F_FRS_PAGE);
     var param = {
         rn_need: 30,
         with_group: 1,
@@ -131,7 +131,7 @@ function getForumPage(option, onSuccess, onFailed){
 }
 
 function getThreadList(option, onSuccess, onFailed){
-    var req = new BaiduRequest(BaiduApi.C_F_Frs_Threadlist);
+    var req = new BaiduRequest(BaiduApi.C_F_FRS_THREADLIST);
     var param = {
         thread_ids: option.thread_ids.join(","),
         forum_id: option.forum_id,
@@ -148,7 +148,7 @@ function getThreadList(option, onSuccess, onFailed){
 }
 
 function getPhotoPage(option, onSuccess, onFailed){
-    var req = new BaiduRequest(BaiduApi.C_F_Frs_Photolist);
+    var req = new BaiduRequest(BaiduApi.C_F_FRS_PHOTOLIST);
     var param = {
         an: 30,
         bs: option.bs,
@@ -173,7 +173,7 @@ function getPhotoPage(option, onSuccess, onFailed){
 }
 
 function getPhotoList(option, onSuccess, onFailed){
-    var req = new BaiduRequest(BaiduApi.C_F_Frs_Photo);
+    var req = new BaiduRequest(BaiduApi.C_F_FRS_PHOTO);
     var param = {
         alb_ids: option.ids.join(","),
         kw: option.kw
@@ -189,7 +189,7 @@ function getPhotoList(option, onSuccess, onFailed){
 }
 
 function getThreadPage(option, onSuccess, onFailed){
-    var req = new BaiduRequest(BaiduApi.C_F_Pb_Page);
+    var req = new BaiduRequest(BaiduApi.C_F_PB_PAGE);
     var param = {
         r: option.r||0,
         pn: option.pn||1,
@@ -207,7 +207,7 @@ function getThreadPage(option, onSuccess, onFailed){
 }
 
 function getComlist(option, onSuccess, onFailed){
-    var req = new BaiduRequest(BaiduApi.C_S_Comlist);
+    var req = new BaiduRequest(BaiduApi.C_S_COMLIST);
     var param = {
         pn: option.pn,
         user_id: tbsettings.currentUid,
@@ -228,7 +228,7 @@ function getComlist(option, onSuccess, onFailed){
 }
 
 function getReplyme(option, onSuccess, onFailed){
-    var req = new BaiduRequest(BaiduApi.C_U_Feed_Replyme);
+    var req = new BaiduRequest(BaiduApi.C_U_FEED_REPLYME);
     var param = {
         uid: tbsettings.currentUid,
         pn: option.pn
@@ -248,7 +248,7 @@ function getReplyme(option, onSuccess, onFailed){
 }
 
 function getAtme(option, onSuccess, onFailed){
-    var req = new BaiduRequest(BaiduApi.C_U_Feed_Atme);
+    var req = new BaiduRequest(BaiduApi.C_U_FEED_ATME);
     var param = {
         uid: tbsettings.currentUid,
         pn: option.pn
@@ -268,7 +268,7 @@ function getAtme(option, onSuccess, onFailed){
 }
 
 function sign(option, onSuccess, onFailed){
-    var req = new BaiduRequest(BaiduApi.C_C_Forum_Sign);
+    var req = new BaiduRequest(BaiduApi.C_C_FORUM_SIGN);
     var param = {
         fid: option.fid,
         tbs: tbs,
@@ -280,7 +280,7 @@ function sign(option, onSuccess, onFailed){
 }
 
 function likeForum(option, onSuccess, onFailed){
-    var req = new BaiduRequest(BaiduApi.C_C_Forum_Like);
+    var req = new BaiduRequest(BaiduApi.C_C_FORUM_LIKE);
     var param = {
         fid: option.fid,
         tbs: tbs,
@@ -291,7 +291,7 @@ function likeForum(option, onSuccess, onFailed){
 }
 
 function getFloorPage(option, onSuccess, onFailed){
-    var req = new BaiduRequest(BaiduApi.C_F_Pb_Floor);
+    var req = new BaiduRequest(BaiduApi.C_F_PB_FLOOR);
     var param = {
         pn: option.pn||1,
         pid: option.pid,
@@ -315,7 +315,7 @@ function getFloorPage(option, onSuccess, onFailed){
 }
 
 function addThread(option, onSuccess, onFailed){
-    var req = new BaiduRequest(BaiduApi.C_C_Thread_Add);
+    var req = new BaiduRequest(BaiduApi.C_C_THREAD_ADD);
     var param = {
         during_time: option.during_time||"",
         fid: option.fid,
@@ -336,7 +336,7 @@ function uploadImage(caller, filename){
     if (uploader.uploadState == 2)
         uploader.abort();
     uploader.caller = caller;
-    uploader.open(BaiduApi.C_C_Img_Upload);
+    uploader.open(BaiduApi.C_C_IMG_UPLOAD);
     uploader.addField("net_type", BaiduConst.net_type);
     uploader.addField("ka", BaiduConst.ka);
     uploader.addField("_phone_imei", BaiduConst._phone_imei);
@@ -387,7 +387,7 @@ function uploadVoice(caller, filename, offset){
     var sign = Qt.md5(tmp).toUpperCase();
     paramArray.push("sign="+sign);
 
-    uploader.open(BaiduApi.C_C_Voice_Upload);
+    uploader.open(BaiduApi.C_C_VOICE_UPLOAD);
     paramArray.forEach(function(value){
                            var eq = value.indexOf("=");
                            uploader.addField(value.substring(0, eq), value.substring(eq+1));
@@ -410,14 +410,14 @@ function uploadStateChanged(){
 }
 
 function voiceFinChunkUpload(option, onSuccess, onFailed){
-    var req = new BaiduRequest(BaiduApi.C_C_Voice_FinUpload);
+    var req = new BaiduRequest(BaiduApi.C_C_VOICE_FINUPLOAD);
     var param = { voice_md5: option.voiceMd5 }
     req.signForm(param);
     req.sendRequest(onSuccess, onFailed);
 }
 
 function addPost(option, onSuccess, onFailed){
-    var req = new BaiduRequest(BaiduApi.C_C_Post_Add);
+    var req = new BaiduRequest(BaiduApi.C_C_POST_ADD);
     var param = {
         tid: option.tid,
         fid: option.fid,

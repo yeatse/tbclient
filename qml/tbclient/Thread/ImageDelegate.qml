@@ -1,5 +1,4 @@
 import QtQuick 1.1
-import "../../js/Utils.js" as Util
 
 Item {
     id: root;
@@ -10,7 +9,7 @@ Item {
         width: bwidth;
         height: parent.height;
         onClicked: {
-            console.log(text);
+            console.log(format);
         }
     }
 
@@ -24,6 +23,7 @@ Item {
             NumberAnimation { duration: 250; }
         }
         sourceSize.width: bwidth;
+        source: text;
         onStatusChanged: {
             if (status == Image.Ready){
                 opacity = 1;
@@ -37,6 +37,4 @@ Item {
         source: img.status === Image.Ready
                 ? "" : "../../gfx/photos.svg";
     }
-
-    Component.onCompleted: img.source = Util.getThumbnail(text);
 }

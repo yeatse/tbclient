@@ -6,6 +6,7 @@ Text {
     width: parent.width;
     wrapMode: Text.WrapAnywhere;
     font.pixelSize: tbsettings.fontSize;
+    font.family: platformStyle.fontFamilyRegular;
     color: constant.colorLight;
     onLinkActivated: console.log(link);
 }

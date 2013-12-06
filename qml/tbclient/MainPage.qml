@@ -3,7 +3,6 @@ import com.nokia.symbian 1.1
 import "Component"
 import "Silica"
 import "../js/main.js" as Script
-import "../js/storage.js" as DB
 import QtWebKit 1.0
 
 MyPage {
@@ -59,7 +58,7 @@ MyPage {
         id: internal;
 
         function initialize(){
-            if (!DB.loadLikeForum(view.model)){
+            if (!Script.loadLikeForum(view.model)){
                 getLikedForum();
             }
         }

@@ -6,6 +6,7 @@
 #include "src/downloader.h"
 #include "src/httpuploader.h"
 #include "src/audiorecorder.h"
+#include "src/scribblearea.h"
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
@@ -33,7 +34,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterType<HttpPostFieldFile>("HttpUp", 1, 0, "HttpPostFieldFile");
     qmlRegisterType<HttpUploader>("HttpUp", 1, 0, "HttpUploader");
     qmlRegisterType<Downloader>("com.yeatse.tbclient", 1, 0, "Downloader");
+
     qmlRegisterType<AudioRecorder>("com.yeatse.tbclient", 1, 0, "AudioRecorder");
+    qmlRegisterType<ScribbleArea>("com.yeatse.tbclient", 1, 0, "ScribbleArea");
 
     QmlApplicationViewer viewer;
     viewer.setAttribute(Qt::WA_NoSystemBackground);

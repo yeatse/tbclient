@@ -15,7 +15,8 @@ HEADERS += \
     src/tbnetworkaccessmanagerfactory.h \
     src/downloader.h \
     src/httpuploader.h \
-    src/audiorecorder.h
+    src/audiorecorder.h \
+    src/scribblearea.h
 
 SOURCES += main.cpp \
     src/utility.cpp \
@@ -23,6 +24,7 @@ SOURCES += main.cpp \
     src/downloader.cpp \
     src/httpuploader.cpp \
     src/audiorecorder.cpp \
+    src/scribblearea.cpp \
 #    qml/tbclient/*.qml \
 #    qml/tbclient/Thread/*.qml \
 #    qml/tbclient/Message/*.qml \

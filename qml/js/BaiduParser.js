@@ -183,7 +183,7 @@ var BaiduParser = {
                 if (tbsettings.showImage){
                     var bsize = c.bsize.split(","), w = Number(bsize[0]), h = Number(bsize[1]);
                     var ww = Math.min(200, w), hh = Math.min(h * ww/w, 200);
-                    push("Image", c.src, c.src, ww, hh);
+                    push("Image", getThumbnail(c.src), c.src, ww, hh);
                 } else {
                     push("Image", "", c.src, 200, 200);
                 }

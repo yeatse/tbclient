@@ -16,30 +16,30 @@ var BaiduConst = {
 }
 
 var BaiduApi = {
-    token: "fb13bad79b3a1fefc0a5819a0b66eaa3e064a3bdf020f7f453a8ef905fd51aef",
-    C_S_Sync: HOST + "/c/s/sync",
-    C_S_Login: HOST + "/c/s/login",
-    C_S_Msg: HOST + "/c/s/msg",
-    C_S_Comlist: HOST + "/c/s/comlist",
+    TOKEN: "fb13bad79b3a1fefc0a5819a0b66eaa3e064a3bdf020f7f453a8ef905fd51aef",
+    C_S_SYNC: HOST + "/c/s/sync",
+    C_S_LOGIN: HOST + "/c/s/login",
+    C_S_MSG: HOST + "/c/s/msg",
+    C_S_COMLIST: HOST + "/c/s/comlist",
 
-    C_F_Forum_Forumrecommend: HOST + "/c/f/forum/forumrecommend",
-    C_F_Frs_Page: HOST + "/c/f/frs/page",
-    C_F_Frs_Threadlist: HOST + "/c/f/frs/threadlist",
-    C_F_Frs_Photolist: HOST + "/c/f/frs/photolist",
-    C_F_Frs_Photo: HOST + "/c/f/frs/photo",
-    C_F_Pb_Page: HOST + "/c/f/pb/page",
-    C_F_Pb_Floor: HOST + "/c/f/pb/floor",
+    C_F_FORUM_FORUMRECOMMEND: HOST + "/c/f/forum/forumrecommend",
+    C_F_FRS_PAGE: HOST + "/c/f/frs/page",
+    C_F_FRS_THREADLIST: HOST + "/c/f/frs/threadlist",
+    C_F_FRS_PHOTOLIST: HOST + "/c/f/frs/photolist",
+    C_F_FRS_PHOTO: HOST + "/c/f/frs/photo",
+    C_F_PB_PAGE: HOST + "/c/f/pb/page",
+    C_F_PB_FLOOR: HOST + "/c/f/pb/floor",
 
-    C_C_Post_Add: HOST + "/c/c/post/add",
-    C_C_Thread_Add: HOST + "/c/c/thread/add",
-    C_C_Forum_Sign: HOST + "/c/c/forum/sign",
-    C_C_Forum_Like: HOST + "/c/c/forum/like",
-    C_C_Img_Upload: HOST + "/c/c/img/upload",
-    C_C_Voice_Upload: HOST + "/c/c/voice/chunkupload",
-    C_C_Voice_FinUpload: HOST + "/c/c/voice/voice_fin_chunk_upload",
+    C_C_POST_ADD: HOST + "/c/c/post/add",
+    C_C_THREAD_ADD: HOST + "/c/c/thread/add",
+    C_C_FORUM_SIGN: HOST + "/c/c/forum/sign",
+    C_C_FORUM_LIKE: HOST + "/c/c/forum/like",
+    C_C_IMG_UPLOAD: HOST + "/c/c/img/upload",
+    C_C_VOICE_UPLOAD: HOST + "/c/c/voice/chunkupload",
+    C_C_VOICE_FINUPLOAD: HOST + "/c/c/voice/voice_fin_chunk_upload",
 
-    C_U_Feed_Replyme: HOST + "/c/u/feed/replyme",
-    C_U_Feed_Atme: HOST + "/c/u/feed/atme"
+    C_U_FEED_REPLYME: HOST + "/c/u/feed/replyme",
+    C_U_FEED_ATME: HOST + "/c/u/feed/atme"
 }
 
 var BaiduRequest = function(action, method){
