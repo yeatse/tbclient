@@ -1,7 +1,7 @@
 import QtQuick 1.1
 import com.nokia.symbian 1.1
 import "../Component"
-import "../../js/Utils.js" as Utils
+import "../../js/main.js" as Script
 
 Item {
     id: root;
@@ -9,6 +9,8 @@ Item {
     property int toolBarHeight: (screen.width < screen.height)
                                 ? privateStyle.toolBarHeightPortrait
                                 : privateStyle.toolBarHeightLandscape
+    property alias text: inputArea.text;
+
     anchors.bottom: parent.bottom;
     width: screen.width;
     height: toolBarHeight;
@@ -51,6 +53,8 @@ Item {
             }
             toolTipText: qsTr("Send");
             iconSource: "../../gfx/message_send"+constant.invertedString+".svg";
+            enabled: inputArea.text.length > 0 && !inputArea.errorHighlight && !loading;
+            onClicked: internal.addPost();
         }
         TextArea {
             id: inputArea;
@@ -58,15 +62,9 @@ Item {
                 left: faceInsertBtn.right; right: sendBtn.left;
                 verticalCenter: parent.verticalCenter;
             }
+            errorHighlight: Script.TextSlicer.textLength(text) > 280;
             platformInverted: tbsettings.whiteTheme;
             platformMaxImplicitHeight: app.inPortrait ? 150 : 100;
-            onTextChanged: {
-                var max = 280;
-                if (Utils.TextSlicer.textLength(text) > max){
-                    text = Utils.TextSlicer.slice(text, max);
-                    cursorPosition = text.length;
-                }
-            }
         }
     }
 

@@ -8,6 +8,7 @@ MyPage {
     id: page;
 
     title: qsTr("Subfloor");
+    loading: internal.loading || toolsArea.loading;
 
     property string threadId;
     property string postId;
@@ -22,6 +23,7 @@ MyPage {
         }
         ToolButtonWithTip {
             toolTipText: qsTr("Reply");
+            enabled: internal.post != null;
             iconSource: "../../gfx/edit"+constant.invertedString+".svg";
             onClicked: toolsArea.state = "Input";
         }
@@ -61,6 +63,28 @@ MyPage {
             Script.getFloorPage(opt, s ,f);
         }
         function openMenu(){
+        }
+        function addPost(){
+            var opt = {
+                tid: thread.id,
+                fid: forum.id,
+                quote_id: post.id,
+                content: toolsArea.text,
+                kw: forum.name
+            }
+            loading = true;
+            var s = function(){
+                loading = false;
+                signalCenter.showMessage(qsTr("Success"));
+                getlist();
+                toolsArea.text = "";
+                toolsArea.state = "";
+            }
+            var f = function(err, obj){
+                loading = false;
+                signalCenter.showMessage(err);
+            }
+            Script.floorReply(opt, s, f);
         }
     }
 
@@ -115,7 +139,7 @@ MyPage {
         switch (event.key){
         case Qt.Key_M: internal.openMenu(); event.accepted = true; break;
         case Qt.Key_R: internal.getlist(); event.accepted = true; break;
-        case Qt.Key_E: toolsArea.state = "Input"; event.accepted = true; break;
+        case Qt.Key_E: if (internal.post)toolsArea.state = "Input"; event.accepted = true; break;
         }
     }
 }

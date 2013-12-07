@@ -27,6 +27,10 @@ QtObject {
     onMaxTabCountChanged: utility.setValue("maxTabCount", maxTabCount);
 
     property int fontSize: utility.getValue("fontSize", platformStyle.fontSizeMedium);
+    onFontSizeChanged: utility.setValue("fontSize", fontSize);
+
+    property string imagePath: utility.getValue("imagePath", utility.defaultPictureLocation);
+    onImagePathChanged: utility.setValue("imagePath", imagePath);
 
     // remind
     property int remindInterval: utility.getValue("remind/interval", 5);

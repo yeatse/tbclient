@@ -25,8 +25,19 @@ MyPage {
             onClicked: scribbleArea.clear();
         }
         ToolButtonWithTip {
+            id: saveButton;
             toolTipText: qsTr("Save");
             iconSource: "../../gfx/ok"+constant.invertedString+".svg";
+            onClicked: {
+                var filename = "scribble_"+Qt.formatDateTime(new Date(), "yyyyMMddhhmmss")+".jpg";
+                var path = tbsettings.imagePath + "/" + filename;
+                if (scribbleArea.save(path)){
+                    signalCenter.imageSelected(caller, path);
+                    pageStack.pop();
+                } else {
+                    signalCenter.showMessage(qsTr("Cannot save image"));
+                }
+            }
         }
     }
 
@@ -74,13 +85,17 @@ MyPage {
             property bool modified: false;
             Image {
                 anchors.fill: parent;
-                source: importer.source;
+                source: importer.source == "" ? "" : "file:///"+importer.source;
                 cache: false;
                 onStatusChanged: {
                     if (status == Image.Ready && !imageLoader.modified){
                         imageLoader.modified = true;
                         fitToScreen();
                     }
+                }
+                onSourceChanged: {
+                    if (source == "")
+                        sourceSize = undefined;
                 }
                 function fitToScreen(){
                     var scale = 1;
@@ -178,10 +193,8 @@ MyPage {
         id: widthSelector
         titleText: qsTr("Select pen width(selected: %1)").arg(slider.value);
         buttonTexts: [ qsTr("OK"), qsTr("Cancel")];
-        onButtonClicked: {
-            if (index==0)
-                scribbleArea.penWidth = slider.value;
-        }
+        onButtonClicked: if (index === 0) accept();
+        onAccepted: scribbleArea.penWidth = slider.value;
         content: Slider {
             id: slider
             anchors {
@@ -194,6 +207,55 @@ MyPage {
             maximumValue: 40
             stepSize: 1
             value: scribbleArea.penWidth
+            Keys.onPressed: {
+                if (event.key == Qt.Key_Select
+                        ||event.key == Qt.Key_Enter
+                        ||event.key == Qt.Key_Return){
+                    widthSelector.accept();
+                    event.accepted = true;
+                } else if (event.key == Qt.Key_Backspace){
+                    widthSelector.reject();
+                    event.accepted = true;
+                }
+            }
+        }
+        onStatusChanged: {
+            if (status === DialogStatus.Open){
+                slider.forceActiveFocus();
+            }
+        }
+    }
+
+    // For keypad
+    Connections {
+        target: platformPopupManager;
+        onPopupStackDepthChanged: {
+            if (platformPopupManager.popupStackDepth === 0
+                    && page.status === PageStatus.Active){
+                page.forceActiveFocus();
+            }
+        }
+    }
+    onStatusChanged: {
+        if (status === PageStatus.Active){
+            page.forceActiveFocus();
+        }
+    }
+
+    Keys.onPressed: {
+        if (importer.state == "" && platformPopupManager.popupStackDepth === 0){
+            switch (event.key){
+            case Qt.Key_M:
+                toolsMenu.open();
+                event.accepted = true;
+                break;
+            case Qt.Key_Enter:
+            case Qt.Key_Return:
+            case Qt.Key_Select:
+                saveButton.clicked();
+                event.accepted = true;
+                break;
+            }
         }
     }
 }

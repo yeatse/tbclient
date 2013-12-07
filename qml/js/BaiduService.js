@@ -21,8 +21,10 @@ var BaiduApi = {
     C_S_LOGIN: HOST + "/c/s/login",
     C_S_MSG: HOST + "/c/s/msg",
     C_S_COMLIST: HOST + "/c/s/comlist",
+    C_S_SEARCHPOST: HOST + "/c/s/searchpost",
 
     C_F_FORUM_FORUMRECOMMEND: HOST + "/c/f/forum/forumrecommend",
+    C_F_FORUM_SUG: HOST + "/c/f/forum/sug",
     C_F_FRS_PAGE: HOST + "/c/f/frs/page",
     C_F_FRS_THREADLIST: HOST + "/c/f/frs/threadlist",
     C_F_FRS_PHOTOLIST: HOST + "/c/f/frs/photolist",

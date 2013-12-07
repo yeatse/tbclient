@@ -11,6 +11,7 @@ class Utility : public QObject
     Q_PROPERTY(QString imei READ imei CONSTANT)
     Q_PROPERTY(QString cachePath READ cachePath CONSTANT)
     Q_PROPERTY(QString tempPath READ tempPath CONSTANT)
+    Q_PROPERTY(QString defaultPictureLocation READ defaultPictureLocation CONSTANT)
 
 public:             // Properties
     static Utility* Instance();
@@ -20,6 +21,7 @@ public:             // Properties
     QString imei() const;
     QString cachePath() const;
     QString tempPath() const;
+    QString defaultPictureLocation() const;
 
 public:             // Cache and network
     // Save and load settings.

@@ -29,12 +29,12 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     if (translator.load(app->applicationName()+"_"+locale, ":/i18n/"))
         app->installTranslator(&translator);
 
-    qmlRegisterUncreatableType<HttpPostField>("HttpUp", 1, 0, "HttpPostField", "Can't touch this");
-    qmlRegisterType<HttpPostFieldValue>("HttpUp", 1, 0, "HttpPostFieldValue");
-    qmlRegisterType<HttpPostFieldFile>("HttpUp", 1, 0, "HttpPostFieldFile");
-    qmlRegisterType<HttpUploader>("HttpUp", 1, 0, "HttpUploader");
-    qmlRegisterType<Downloader>("com.yeatse.tbclient", 1, 0, "Downloader");
+    qmlRegisterUncreatableType<HttpPostField>("com.yeatse.tbclient", 1, 0, "HttpPostField", "Can't touch this");
+    qmlRegisterType<HttpPostFieldValue>("com.yeatse.tbclient", 1, 0, "HttpPostFieldValue");
+    qmlRegisterType<HttpPostFieldFile>("com.yeatse.tbclient", 1, 0, "HttpPostFieldFile");
+    qmlRegisterType<HttpUploader>("com.yeatse.tbclient", 1, 0, "HttpUploader");
 
+    qmlRegisterType<Downloader>("com.yeatse.tbclient", 1, 0, "Downloader");
     qmlRegisterType<AudioRecorder>("com.yeatse.tbclient", 1, 0, "AudioRecorder");
     qmlRegisterType<ScribbleArea>("com.yeatse.tbclient", 1, 0, "ScribbleArea");
 

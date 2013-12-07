@@ -385,5 +385,32 @@ var BaiduParser = {
                          }
                          model.append(prop);
                      });
+    },
+
+    loadForumSuggest:
+    function(option, list){
+        var model = option.model;
+        model.clear();
+        list.forEach(function(fname){
+                         model.append({name: fname});
+                     });
+    },
+
+    loadSearchPost:
+    function(option, list){
+        var model = option.model;
+        if (option.renew) model.clear();
+        list.forEach(function(value){
+                         var prop = {
+                             content: value.content.replace(/<em>/g, "<i>").replace(/<\/em>/g, "</i>"),
+                             fname: value.fname,
+                             is_floor: value.is_floor === "1",
+                             pid: value.pid,
+                             tid: value.tid,
+                             title: value.title.replace(/<em>/g, "<i>").replace(/<\/em>/g, "</i>"),
+                             time: Qt.formatDate(new Date(Number(value.time+"000")), "yyyy-MM-dd")
+                         }
+                         model.append(prop);
+                     });
     }
 };

@@ -2,7 +2,6 @@ import QtQuick 1.1
 import com.nokia.symbian 1.1
 import com.nokia.extras 1.1
 import com.yeatse.tbclient 1.0
-import HttpUp 1.0
 import "Component"
 import "../js/main.js" as Script
 

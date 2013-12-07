@@ -82,6 +82,11 @@ QString Utility::tempPath() const
     return path;
 }
 
+QString Utility::defaultPictureLocation() const
+{
+    return QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
+}
+
 QVariant Utility::getValue(const QString &key, const QVariant defaultValue)
 {
     if (map.contains(key)){

@@ -436,3 +436,50 @@ function addPost(option, onSuccess, onFailed){
     req.signForm(param);
     req.sendRequest(onSuccess, onFailed);
 }
+
+function floorReply(option, onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_C_POST_ADD);
+    var param = {
+        floor_num: 0,
+        tid: option.tid,
+        fid: option.fid,
+        new_vcode: 1,
+        content: option.content,
+        quote_id: option.quote_id,
+        tbs: tbs,
+        kw: option.kw,
+        vcode_tag: 11,
+        anonymous: 0
+    }
+    req.signForm(param);
+    req.sendRequest(onSuccess, onFailed);
+}
+
+function forumSuggest(option, onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_F_FORUM_SUG);
+    var param = { q: option.q }
+    req.signForm(param);
+    function s(obj){
+        BaiduParser.loadForumSuggest(option, obj.fname);
+        onSuccess();
+    }
+    req.sendRequest(s, onFailed);
+}
+
+function searchPost(option, onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_S_SEARCHPOST);
+    var param = {
+        word: option.word,
+        pn: option.pn||1,
+        rn: 20
+    }
+    req.signForm(param);
+    function s(obj){
+        var page = option.page;
+        page.currentPage = obj.page.current_page;
+        page.hasMore = obj.page.has_more === "1";
+        BaiduParser.loadSearchPost(option, obj.post_list);
+        onSuccess();
+    }
+    req.sendRequest(s, onFailed);
+}
