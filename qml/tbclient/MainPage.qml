@@ -44,6 +44,7 @@ MyPage {
         ToolButtonWithTip {
             toolTipText: qsTr("More");
             iconSource: "../gfx/toolbar_extension"+constant.invertedString+".svg"
+            onClicked: pageStack.push(Qt.resolvedUrl("SettingsPage.qml"));
         }
     }
 

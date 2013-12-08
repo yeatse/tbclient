@@ -100,6 +100,12 @@ MyPage {
         TabButton {
             platformInverted: tbsettings.whiteTheme;
             text: qsTr("Search web");
+            onClicked: {
+                var url = "http://m.baidu.com/"
+                if (searchInput.text.length > 0)
+                    url += "s?word="+encodeURIComponent(searchInput.text);
+                signalCenter.openBrowser(url);
+            }
         }
     }
     TabGroup {
@@ -123,6 +129,7 @@ MyPage {
             }
             model: ListModel {}
             delegate: ListItem {
+                subItemIndicator: true;
                 platformInverted: tbsettings.whiteTheme;
                 Text {
                     anchors.fill: parent.paddingItem;
@@ -187,7 +194,7 @@ MyPage {
                             text: content;
                             color: constant.colorLight;
                             font: constant.titleFont;
-                            textFormat: Text.StyledText;
+                            textFormat: Text.PlainText;
                         }
                         Item {
                             width: parent.width;
@@ -210,7 +217,7 @@ MyPage {
                                 wrapMode: Text.WrapAnywhere;
                                 elide: Text.ElideRight;
                                 maximumLineCount: 1;
-                                textFormat: Text.StyledText;
+                                textFormat: Text.PlainText;
                             }
                         }
                         Item {
@@ -231,7 +238,6 @@ MyPage {
                     }
                 }
             }
-            ScrollDecorator { flickableItem: searchView; platformInverted: tbsettings.whiteTheme; }
         }
     }
 

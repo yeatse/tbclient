@@ -178,7 +178,7 @@ MyPage {
                 font: constant.labelFont;
                 color: constant.colorLight;
                 text: "<a href=\"link\">%1</a>".arg(qsTr("Forget password?"));
-                onLinkActivated: utility.openURLDefault("https://passport.baidu.com/?getpass_index");
+                onLinkActivated: signalCenter.openBrowser("https://passport.baidu.com/?getpass_index");
             }
             Button {
                 id: loginBtn;
@@ -205,7 +205,7 @@ MyPage {
                 text: "<a href=\"link\">%1</a>".arg(qsTr("Click to register"));
                 font: constant.labelFont;
                 color: constant.colorLight;
-                onLinkActivated: utility.openURLDefault("http://wappass.baidu.com/passport/reg");
+                onLinkActivated: signalCenter.openBrowser("http://wappass.baidu.com/passport/reg");
             }
         }
     }

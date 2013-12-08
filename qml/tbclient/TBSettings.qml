@@ -13,6 +13,12 @@ QtObject {
     property string clientId: utility.getValue("clientId", "0");
     onClientIdChanged: utility.setValue("clientId", clientId);
 
+    property string imagePath: utility.getValue("imagePath", utility.defaultPictureLocation);
+    onImagePathChanged: utility.setValue("imagePath", imagePath);
+
+    property string browser: utility.getValue("browser", "");
+    onBrowserChanged: utility.setValue("browser", browser);
+
     // design
     property bool whiteTheme: utility.getValue("whiteTheme", false);
     onWhiteThemeChanged: utility.setValue("whiteTheme", whiteTheme);
@@ -28,9 +34,6 @@ QtObject {
 
     property int fontSize: utility.getValue("fontSize", platformStyle.fontSizeMedium);
     onFontSizeChanged: utility.setValue("fontSize", fontSize);
-
-    property string imagePath: utility.getValue("imagePath", utility.defaultPictureLocation);
-    onImagePathChanged: utility.setValue("imagePath", imagePath);
 
     // remind
     property int remindInterval: utility.getValue("remind/interval", 5);

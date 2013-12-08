@@ -87,6 +87,11 @@ QString Utility::defaultPictureLocation() const
     return QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
 }
 
+void Utility::setEngine(QDeclarativeEngine *engine)
+{
+    this->engine = engine;
+}
+
 QVariant Utility::getValue(const QString &key, const QVariant defaultValue)
 {
     if (map.contains(key)){
@@ -183,8 +188,16 @@ void Utility::clearCache()
 void Utility::openURLDefault(const QString &url)
 {
 #ifdef Q_OS_SYMBIAN
-    const int KWmlBrowserUid = 0x10008D39;
-    TRAP_IGNORE(LaunchL(KWmlBrowserUid, "4 "+url));
+    QString browser = this->getValue("browser", "").toString();
+    if (browser == "UC"){
+        TRAP_IGNORE(LaunchL(0x2001F848, url));
+    } else if (browser == "UC International"){
+        TRAP_IGNORE(LaunchL(0x2002C577, url));
+    } else if (browser == "Opera"){
+        TRAP_IGNORE(LaunchL(0x2002AA96, url));
+    } else {
+        TRAP_IGNORE(LaunchL(0x10008D39, "4 "+url));
+    }
 #elif defined(Q_WS_SIMULATOR)
     qDebug() << "Open browser:" << url;
 #else
@@ -255,7 +268,6 @@ QColor Utility::selectColor(const QColor &defaultColor)
 
 void Utility::showNotification(const QString &title, const QString &message) const
 {
-    QApplication::beep();
 #ifdef Q_OS_SYMBIAN
     TPtrC16 sTitle(static_cast<const TUint16 *>(title.utf16()), title.length());
     TPtrC16 sMessage(static_cast<const TUint16 *>(message.utf16()), message.length());
@@ -347,7 +359,9 @@ QString Utility::easyDate(const QDateTime &date)
 
 QString Utility::decodeGBKHex(const QString &encodedString)
 {
+#ifdef QT_DEBUG
     qDebug() << encodedString;
+#endif
     return "";
 }
 
@@ -415,7 +429,9 @@ bool Utility::deleteDir(const QString &dirName)
             QFile::setPermissions(filePath, QFile::WriteOwner);
             if (!QFile::remove(filePath))
             {
+#ifdef QT_DEBUG
                 qDebug() << "Global::deleteDir 1" << filePath << "faild";
+#endif
                 error = true;
             }
         }

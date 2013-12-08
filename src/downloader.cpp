@@ -84,7 +84,9 @@ QString Downloader::saveFileName(const QString &oriName)
 
 void Downloader::appendDownload(const QString &url, const QString &filename)
 {
+#ifdef QT_DEBUG
     qDebug() << url << filename;
+#endif
     if (downloadQueue.isEmpty() && (mState == 0||mState == 4))
         QTimer::singleShot(0, this, SLOT(startNextDownload()));
 

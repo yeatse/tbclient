@@ -13,15 +13,18 @@ class Utility : public QObject
     Q_PROPERTY(QString tempPath READ tempPath CONSTANT)
     Q_PROPERTY(QString defaultPictureLocation READ defaultPictureLocation CONSTANT)
 
-public:             // Properties
+public:             // Not for qml
     static Utility* Instance();
     ~Utility();
+
     QString appVersion() const;
     int qtVersion() const;
     QString imei() const;
     QString cachePath() const;
     QString tempPath() const;
     QString defaultPictureLocation() const;
+
+    void setEngine(QDeclarativeEngine* engine);
 
 public:             // Cache and network
     // Save and load settings.

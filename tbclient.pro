@@ -16,7 +16,8 @@ HEADERS += \
     src/downloader.h \
     src/httpuploader.h \
     src/audiorecorder.h \
-    src/scribblearea.h
+    src/scribblearea.h \
+    src/customwebview.h
 
 SOURCES += main.cpp \
     src/utility.cpp \
@@ -25,6 +26,7 @@ SOURCES += main.cpp \
     src/httpuploader.cpp \
     src/audiorecorder.cpp \
     src/scribblearea.cpp \
+    src/customwebview.cpp \
 #    qml/tbclient/*.qml \
 #    qml/tbclient/Thread/*.qml \
 #    qml/tbclient/Message/*.qml \

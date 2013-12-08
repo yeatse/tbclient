@@ -483,3 +483,46 @@ function searchPost(option, onSuccess, onFailed){
     }
     req.sendRequest(s, onFailed);
 }
+
+function getPicturePage(option, onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_F_PB_PICPAGE);
+    var param = {
+        tid: option.tid,
+        next: 20,
+        prev: 0,
+        kw: option.kw,
+        pic_id: option.pic_id
+    }
+    req.signForm(param);
+    function s(obj){
+        var page = option.page;
+        page.forum = obj.forum;
+        page.picAmount = obj.pic_amount;
+        BaiduParser.loadPicturePage(option, obj.pic_list||[]);
+        onSuccess();
+    }
+    req.sendRequest(s, onFailed);
+}
+
+function getPicComment(option, onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_F_PB_PICCOMMENT);
+    var param = {
+        tid: option.tid,
+        alt: "json",
+        pn: option.pn,
+        oc: 0,
+        kw: option.kw,
+        pic_id: option.pic_id,
+        rn: 10
+    }
+    req.signForm(param);
+    function s(obj){
+        tbs = obj.tbs.common;
+        var page = option.page;
+        page.currentPage = obj.cur_page;
+        page.totalPage = obj.total_page;
+        BaiduParser.loadPicComment(option, obj.comment_list||[]);
+        onSuccess(obj.comment_amount);
+    }
+    req.sendRequest(s, onFailed);
+}

@@ -1,6 +1,9 @@
 #include "tbnetworkaccessmanagerfactory.h"
 #include "utility.h"
 
+#define PORTRAIT_PREFIX "http://tb.himg.baidu.com/sys/portraitn/item/"
+#define IMG_PREFIX "http://imgsrc.baidu.com/forum/pic/item/"
+
 TBNetworkAccessManagerFactory::TBNetworkAccessManagerFactory() :
     QDeclarativeNetworkAccessManagerFactory()
 {
@@ -43,8 +46,13 @@ TBNetworkAccessManager::TBNetworkAccessManager(QObject *parent) :
 QNetworkReply *TBNetworkAccessManager::createRequest(Operation op, const QNetworkRequest &request, QIODevice *outgoingData)
 {
     QNetworkRequest req(request);
-    req.setRawHeader("User-Agent", "IDP");
-    if (op == QNetworkAccessManager::GetOperation){
+    if (op == PostOperation){
+        req.setRawHeader("User-Agent", "IDP");
+    } else {
+        req.setRawHeader("User-Agent", "Mozilla/5.0 (iPod; CPU iPhone OS 6_1_3 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10B329");
+    }
+    QByteArray encodedUrl = req.url().toEncoded();
+    if (encodedUrl.startsWith(PORTRAIT_PREFIX) || encodedUrl.startsWith(IMG_PREFIX)){
         req.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferCache);
     } else {
         req.setAttribute(QNetworkRequest::CacheSaveControlAttribute, false);

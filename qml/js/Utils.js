@@ -36,7 +36,12 @@ function getEmoticon(text, c){
 
 var TextSlicer = {
     textLength: function(text){
-                    return text.replace(/^[\x00-\xff]/g,"**").length;
+                    var result = 0;
+                    for (var i=0; i<text.length; i++){
+                        if (text.charCodeAt(i) > 255) result += 2;
+                        else result ++;
+                    }
+                    return result;
                 },
     slice: function(text, maxLength){
                var result = "";

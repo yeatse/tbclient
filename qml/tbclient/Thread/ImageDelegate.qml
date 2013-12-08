@@ -17,18 +17,9 @@ Item {
         id: img;
         width: bwidth;
         height: parent.height;
-        opacity: 0;
         fillMode: Image.PreserveAspectFit;
-        Behavior on opacity {
-            NumberAnimation { duration: 250; }
-        }
         sourceSize.width: bwidth;
         source: text;
-        onStatusChanged: {
-            if (status == Image.Ready){
-                opacity = 1;
-            }
-        }
     }
 
     Image {

@@ -30,10 +30,14 @@ AbstractItem {
                 anchors.right: parent.right;
                 spacing: 2;
                 Image {
-                    source: is_good ? "../../gfx/icon_elite"+constant.invertedString+".png" : "";
+                    enabled: is_good;
+                    visible: enabled;
+                    source: enabled ? "../../gfx/icon_elite"+constant.invertedString+".png" : "";
                 }
                 Image {
-                    source: is_top ? "../../gfx/icon_top"+constant.invertedString+".png" : "";
+                    enabled: is_top;
+                    visible: enabled;
+                    source: enabled ? "../../gfx/icon_top"+constant.invertedString+".png" : "";
                 }
             }
         }
@@ -58,12 +62,13 @@ AbstractItem {
                 wrapMode: Text.WrapAnywhere;
                 textFormat: Text.PlainText;
                 elide: Text.ElideRight;
-                maximumLineCount: thumbnail.source == "" ? 1 : 2;
+                maximumLineCount: thumbnail.enabled ? 2 : 1;
             }
             Image {
                 id: thumbnail;
-                visible: source != "";
-                width: source == "" ? 0 : constant.thumbnailSize;
+                enabled: source != "";
+                visible: enabled;
+                width: enabled ? constant.thumbnailSize : 0;
                 height: width;
                 source: picUrl;
                 fillMode: Image.PreserveAspectCrop;

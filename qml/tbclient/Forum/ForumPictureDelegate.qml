@@ -7,9 +7,8 @@ Item {
     signal clicked;
 
     onClicked: {
-        var prop = { forum: forum, tid: model.tid, title: model.title, picAmount: model.amount }
-        var p = pageStack.push(Qt.resolvedUrl("../ThreadPicturePage.qml"), prop);
-        p.getlist();
+        var prop = { title: title, forumName: internal.forum.name, threadId: tid };
+        pageStack.push(Qt.resolvedUrl("../Thread/ThreadPicture.qml"), prop);
     }
 
     implicitWidth: screen.width / 2;

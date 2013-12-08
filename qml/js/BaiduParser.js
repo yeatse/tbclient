@@ -100,6 +100,23 @@ var BaiduParser = {
         model2.cursor = cursor2;
     },
 
+    __parseRawText:
+    function(content){
+        var result = "";
+        content.forEach(function(value){
+                            switch (value.type){
+                            case "0": result += value.text||""; break;
+                            case "1": result += value.link; break;
+                            case "2": result += value.c||value.text; break;
+                            case "3": result += value.src; break;
+                            case "4":
+                            case "5":
+                            case "9": result += value.text; break;
+                            }
+                        });
+        return result;
+    },
+
     __parseThreadContent:
     function(content){
         /*
@@ -402,13 +419,54 @@ var BaiduParser = {
         if (option.renew) model.clear();
         list.forEach(function(value){
                          var prop = {
-                             content: value.content.replace(/<em>/g, "<i>").replace(/<\/em>/g, "</i>"),
+                             content: value.content.replace(/<\/?em>/g, ""),
                              fname: value.fname,
                              is_floor: value.is_floor === "1",
                              pid: value.pid,
                              tid: value.tid,
-                             title: value.title.replace(/<em>/g, "<i>").replace(/<\/em>/g, "</i>"),
+                             title: value.title.replace(/<\/?em>/g, ""),
                              time: Qt.formatDate(new Date(Number(value.time+"000")), "yyyy-MM-dd")
+                         }
+                         model.append(prop);
+                     });
+    },
+
+    loadPicturePage:
+    function (option, list){
+        var model = option.model;
+        var self = this;
+        if (option.renew) model.clear();
+        list.forEach(function(value){
+                         var o = value.img.original;
+                         var prop = {
+                             post_id: value.post_id,
+                             pic_id: o.id,
+                             pic_ratio: o.width/o.height,
+                             descr: self.__parseRawText(value.descr),
+                             user_id: value.user_id,
+                             user_name: value.user_name,
+                             comment_amount: value.comment_amount,
+                             idx: value.index,
+                             url: o.url
+                         };
+                         model.append(prop);
+                     });
+    },
+
+    loadPicComment:
+    function (option, list){
+        var model = option.model;
+        var self = this;
+        if (option.renew) model.clear();
+        list.forEach(function(value){
+                         var content = self.__parseFloorContent(value.content);
+                         var prop = {
+                             author: value.author.name_show,
+                             content: content[0],
+                             format: content[1],
+                             time: utility.easyDate(new Date(Number(value.time+"000"))),
+                             voiceMd5: "",
+                             voiceDuration: 0
                          }
                          model.append(prop);
                      });

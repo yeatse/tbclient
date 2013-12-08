@@ -101,7 +101,7 @@ MyPage {
                     Text {
                         width: parent.width;
                         wrapMode: Text.WrapAnywhere;
-                        maximumLineCount: 3;
+                        maximumLineCount: 2;
                         elide: Text.ElideRight;
                         text: model.text;
                         color: constant.colorMid;

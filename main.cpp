@@ -1,5 +1,6 @@
 #include <QtGui/QApplication>
 #include <QtDeclarative>
+#include <QtWebKit/QWebSettings>
 #include "qmlapplicationviewer.h"
 #include "src/utility.h"
 #include "src/tbnetworkaccessmanagerfactory.h"
@@ -7,6 +8,7 @@
 #include "src/httpuploader.h"
 #include "src/audiorecorder.h"
 #include "src/scribblearea.h"
+#include "src/customwebview.h"
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
@@ -37,13 +39,19 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterType<Downloader>("com.yeatse.tbclient", 1, 0, "Downloader");
     qmlRegisterType<AudioRecorder>("com.yeatse.tbclient", 1, 0, "AudioRecorder");
     qmlRegisterType<ScribbleArea>("com.yeatse.tbclient", 1, 0, "ScribbleArea");
+    qmlRegisterType<QDeclarativeWebView>("com.yeatse.tbclient", 1, 0, "CustomWebView");
+
+    QWebSettings::globalSettings()->setUserStyleSheetUrl(QUrl::fromLocalFile("qml/js/default_theme.css"));
 
     QmlApplicationViewer viewer;
     viewer.setAttribute(Qt::WA_NoSystemBackground);
 
     TBNetworkAccessManagerFactory factory;
     viewer.engine()->setNetworkAccessManagerFactory(&factory);
-    viewer.rootContext()->setContextProperty("utility", Utility::Instance());
+
+    Utility* utility = Utility::Instance();
+    utility->setEngine(viewer.engine());
+    viewer.rootContext()->setContextProperty("utility", utility);
 
     viewer.setMainQmlFile(QLatin1String("qml/tbclient/main.qml"));
     viewer.showExpanded();

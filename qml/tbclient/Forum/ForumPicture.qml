@@ -25,6 +25,10 @@ MyPage {
             id: editBtn;
             toolTipText: qsTr("Create a thread");
             iconSource: "../../gfx/edit"+constant.invertedString+".svg";
+            onClicked: {
+                var prop = { caller: internal };
+                pageStack.push(Qt.resolvedUrl("../Post/PostPage.qml"), prop);
+            }
         }
         ToolButtonWithTip {
             id: listBtn;

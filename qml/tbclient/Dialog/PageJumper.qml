@@ -56,6 +56,7 @@ CommonDialog {
     onStatusChanged: {
         if (status === DialogStatus.Open){
             textField.forceActiveFocus();
+            textField.selectAll();
             textField.openSoftwareInputPanel();
         }
     }

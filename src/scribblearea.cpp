@@ -79,7 +79,9 @@ bool ScribbleArea::save(const QString &fileName)
 
 bool ScribbleArea::loadImage(const QString &fileName, int x, int y)
 {
+#ifdef QT_DEBUG
     qDebug() << fileName << x << y;
+#endif
     QImage loadedImage;
     if (!loadedImage.load(fileName))
         return false;

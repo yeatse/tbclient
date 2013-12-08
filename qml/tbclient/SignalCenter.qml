@@ -4,6 +4,7 @@ QtObject {
     id: signalCenter;
 
     property variant vcodeDialogComp: null;
+    property variant queryDialogComp: null;
     property variant threaPage: null;
 
     signal userChanged;
@@ -37,6 +38,14 @@ QtObject {
         vcodeDialogComp.createObject(pageStack.currentPage, prop);
     }
 
+    function createQueryDialog(title, message, acceptText, rejectText, acceptCallback, rejectCallback){
+        if (!queryDialogComp){ queryDialogComp = Qt.createComponent("Dialog/DynamicQueryDialog.qml"); }
+        var prop = { titleText: title, message: message.concat("\n"), acceptButtonText: acceptText, rejectButtonText: rejectText };
+        var diag = queryDialogComp.createObject(pageStack.currentPage, prop);
+        if (acceptCallback) diag.accepted.connect(acceptCallback);
+        if (rejectCallback) diag.rejected.connect(rejectCallback);
+    }
+
     function enterForum(name){
         var p = pageStack.find(function(page){return page.objectName === "ForumPage" && page.name === name});
         if (p) pageStack.pop(p);
@@ -55,6 +64,14 @@ QtObject {
     function enterFloor(tid, pid){
         var prop = { threadId: tid, postId: pid }
         pageStack.push(Qt.resolvedUrl("Floor/FloorPage.qml"), prop);
+    }
+
+    function openBrowser(url){
+        if (tbsettings.browser == ""){
+            pageStack.push(Qt.resolvedUrl("WebPage.qml"), {url: url});
+        } else {
+            utility.openURLDefault(url);
+        }
     }
 
     function readMessage(param){

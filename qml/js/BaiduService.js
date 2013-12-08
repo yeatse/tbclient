@@ -31,6 +31,8 @@ var BaiduApi = {
     C_F_FRS_PHOTO: HOST + "/c/f/frs/photo",
     C_F_PB_PAGE: HOST + "/c/f/pb/page",
     C_F_PB_FLOOR: HOST + "/c/f/pb/floor",
+    C_F_PB_PICPAGE: HOST + "/c/f/pb/picpage",
+    C_F_PB_PICCOMMENT: HOST + "/c/f/pb/piccomment",
 
     C_C_POST_ADD: HOST + "/c/c/post/add",
     C_C_THREAD_ADD: HOST + "/c/c/thread/add",
