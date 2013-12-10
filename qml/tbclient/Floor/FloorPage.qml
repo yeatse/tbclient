@@ -8,7 +8,6 @@ MyPage {
     id: page;
 
     title: qsTr("Subfloor");
-    loading: internal.loading || toolsArea.loading;
 
     property string threadId;
     property string postId;

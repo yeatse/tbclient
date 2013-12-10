@@ -12,7 +12,7 @@ var BaiduConst = {
     _timestamp: 0,
     _phone_imei: "",
     _client_id: "0",
-    _client_version: "5.0.3"
+    _client_version: "5.0.4"
 }
 
 var BaiduApi = {
@@ -43,7 +43,8 @@ var BaiduApi = {
     C_C_VOICE_FINUPLOAD: HOST + "/c/c/voice/voice_fin_chunk_upload",
 
     C_U_FEED_REPLYME: HOST + "/c/u/feed/replyme",
-    C_U_FEED_ATME: HOST + "/c/u/feed/atme"
+    C_U_FEED_ATME: HOST + "/c/u/feed/atme",
+    C_U_FEED_FORUM: HOST + "/c/u/feed/forum"
 }
 
 var BaiduRequest = function(action, method){

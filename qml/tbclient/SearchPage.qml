@@ -103,7 +103,7 @@ MyPage {
             onClicked: {
                 var url = "http://m.baidu.com/"
                 if (searchInput.text.length > 0)
-                    url += "s?word="+encodeURIComponent(searchInput.text);
+                    url += "s?word="+searchInput.text;
                 signalCenter.openBrowser(url);
             }
         }

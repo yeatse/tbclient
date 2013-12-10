@@ -470,5 +470,47 @@ var BaiduParser = {
                          }
                          model.append(prop);
                      });
+    },
+
+    loadForumFeed:
+    function (option, list){
+        var model = option.model;
+        if (option.renew) model.clear();
+        list.forEach(function(value){
+                         if (value.thread_type !== "8")
+                             return;
+                         var picUrl = "";
+                         if (tbsettings.showImage && Array.isArray(value.media)){
+                             value.media.some(function(media){
+                                                  if (media.type === "3"){
+                                                      picUrl = media.small_pic;
+                                                      return true;
+                                                  }
+                                              });
+                         }
+                         var abst = "";
+                         if (Array.isArray(value.abstract)){
+                             value.abstract.some(function(abstr){
+                                                     if (abstr.type === "0"){
+                                                         abst = abstr.text;
+                                                         return true;
+                                                     }
+                                                 })
+                         }
+                         var prop = {
+                             forum_id: value.forum_id,
+                             thread_id: value.thread_id,
+                             forum_name: value.forum_name,
+                             user_name: value.user_name,
+                             post_num: value.post_num,
+                             is_good: value.is_good === "1",
+                             is_top: value.is_top === "1",
+                             title: value.title,
+                             create_time: utility.easyDate(new Date(Number(value.create_time+"000"))),
+                             picUrl: picUrl,
+                             abstract: abst
+                         }
+                         model.append(prop);
+                     });
     }
 };

@@ -32,7 +32,7 @@ QtObject {
 
     function needVCode(caller, vcodeMd5, vcodePicUrl){
         if (!vcodeDialogComp){
-            vcodeDialogComp = Qt.createComponent("Dialog/VCodeDialog2.qml");
+            vcodeDialogComp = Qt.createComponent("Dialog/VCodeDialog.qml");
         }
         var prop = { caller: caller, vcodeMd5: vcodeMd5, vcodePicUrl: vcodePicUrl }
         vcodeDialogComp.createObject(pageStack.currentPage, prop);

@@ -526,3 +526,22 @@ function getPicComment(option, onSuccess, onFailed){
     }
     req.sendRequest(s, onFailed);
 }
+
+function getForumFeed(option, onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_U_FEED_FORUM);
+    var param = {
+        rn: 20,
+        pn: option.pn,
+        user_id: tbsettings.currentUid
+    }
+    req.signForm(param);
+    function s(obj){
+        var page = option.page;
+        page.total = obj.total||0;
+        page.hasMore = obj.has_more === "1";
+        page.currentPage = option.pn;
+        BaiduParser.loadForumFeed(option, obj.feed_thread_list||[]);
+        onSuccess();
+    }
+    req.sendRequest(s, onFailed);
+}

@@ -3,7 +3,6 @@ import com.nokia.symbian 1.1
 import "Component"
 import "Silica"
 import "../js/main.js" as Script
-import QtWebKit 1.0
 
 MyPage {
     id: page;
@@ -31,6 +30,7 @@ MyPage {
         ToolButtonWithTip {
             toolTipText: qsTr("Home page");
             iconSource: "toolbar-home";
+            onClicked: pageStack.push(Qt.resolvedUrl("Explore/FeedPage.qml"));
         }
         ToolButtonWithTip {
             toolTipText: qsTr("Messages");

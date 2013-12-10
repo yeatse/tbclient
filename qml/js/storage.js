@@ -13,8 +13,8 @@ if (typeof(db) === "undefined"){
 
 if (db.version !== QUERY.DBVER){
     db.changeVersion(db.version, QUERY.DBVER, function(tx){
-                         try { tx.executeSql('DROP TABLE AuthData') }catch(e){};
-                         try { tx.executeSql('DROP TABLE LikeForum') }catch(e){};
+                         tx.executeSql('DROP TABLE IF EXISTS AuthData');
+                         tx.executeSql('DROP TABLE IF EXISTS LikeForum');
                          tx.executeSql(QUERY.CREATE_AuthData_TABLE);
                          tx.executeSql(QUERY.CREATE_LikeForum_TABLE);
                      })
