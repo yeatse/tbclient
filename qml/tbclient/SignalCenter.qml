@@ -5,6 +5,7 @@ QtObject {
 
     property variant vcodeDialogComp: null;
     property variant queryDialogComp: null;
+    property variant enterDialogComp: null;
     property variant threaPage: null;
 
     signal userChanged;
@@ -16,13 +17,7 @@ QtObject {
     signal uploadFinished(variant caller, string response);
     signal uploadFailed(variant caller);
 
-    function needAuthorization(forceLogin){
-        if(pageStack.currentPage.objectName !== "LoginPage"){
-            var prop = { forceLogin: forceLogin||false }
-            pageStack.push(Qt.resolvedUrl("LoginPage.qml"), prop);
-        }
-    }
-
+    // Common functions
     function showMessage(msg){
         if (msg||false){
             infoBanner.text = msg;
@@ -30,6 +25,7 @@ QtObject {
         }
     }
 
+    // Dialogs
     function needVCode(caller, vcodeMd5, vcodePicUrl){
         if (!vcodeDialogComp){
             vcodeDialogComp = Qt.createComponent("Dialog/VCodeDialog.qml");
@@ -44,6 +40,24 @@ QtObject {
         var diag = queryDialogComp.createObject(pageStack.currentPage, prop);
         if (acceptCallback) diag.accepted.connect(acceptCallback);
         if (rejectCallback) diag.rejected.connect(rejectCallback);
+    }
+
+    function createEnterThreadDialog(title, isfloor, pid, tid, fname, fromSearch){
+        if (!enterDialogComp){ enterDialogComp = Qt.createComponent("Dialog/EnterThreadDialog.qml"); }
+        var prop = { title: title, isfloor: isfloor, pid: pid, tid: tid, fname: fname };
+        if (fromSearch) prop.fromSearch = true;
+        enterDialogComp.createObject(pageStack.currentPage, prop);
+    }
+
+    // Pages
+    function needAuthorization(forceLogin){
+        if(pageStack.currentPage.objectName !== "LoginPage"){
+            var prop = { forceLogin: forceLogin||false }
+            pageStack.push(Qt.resolvedUrl("LoginPage.qml"), prop);
+        }
+    }
+
+    function readMessage(param){
     }
 
     function enterForum(name){
@@ -61,8 +75,10 @@ QtObject {
             threaPage.addThreadView(option);
     }
 
-    function enterFloor(tid, pid){
-        var prop = { threadId: tid, postId: pid }
+    function enterFloor(tid, pid, spid){
+        var prop;
+        if (pid) prop = { threadId: tid, postId: pid };
+        else if (spid) prop = { threadId: tid, spostId: spid };
         pageStack.push(Qt.resolvedUrl("Floor/FloorPage.qml"), prop);
     }
 
@@ -72,8 +88,5 @@ QtObject {
         } else {
             utility.openURLDefault(url);
         }
-    }
-
-    function readMessage(param){
     }
 }

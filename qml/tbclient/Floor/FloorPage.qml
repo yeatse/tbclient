@@ -11,7 +11,9 @@ MyPage {
 
     property string threadId;
     property string postId;
+    property string spostId;
     onPostIdChanged: internal.getlist();
+    onSpostIdChanged: internal.getlist();
 
     tools: ToolBarLayout {
         BackButton {}
@@ -47,9 +49,12 @@ MyPage {
 
         function getlist(option){
             option = option || "renew";
-            var opt = {
-                page: internal, model: view.model, kz: threadId, pid: postId
-            }
+            var opt = { page: internal, model: view.model, kz: threadId }
+
+            if (post != null) opt.pid = post.id;
+            else if (postId != "") opt.pid = postId;
+            else if (spostId != "") opt.spid = spostId;
+
             if (option === "renew"){
                 opt.renew = true;
                 opt.pn = 1;

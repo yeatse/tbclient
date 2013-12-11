@@ -78,6 +78,7 @@ MyPage {
             AbstractItem {
                 id: root;
                 implicitHeight: contentCol.height + constant.paddingLarge*2;
+                onClicked: signalCenter.createEnterThreadDialog(title, is_floor, post_id, thread_id, fname);
                 Image {
                     id: avatar;
                     anchors.left: root.paddingItem.left;

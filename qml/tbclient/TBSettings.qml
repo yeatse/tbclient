@@ -36,8 +36,7 @@ QtObject {
     onFontSizeChanged: utility.setValue("fontSize", fontSize);
 
     // remind
-    property int remindInterval: utility.getValue("remind/interval", 5);
-    // by minutes
+    property int remindInterval: utility.getValue("remind/interval", 1);
     onRemindIntervalChanged: utility.setValue("remind/interval", remindInterval);
 
     property bool remindBackground: utility.getValue("remind/background", true);

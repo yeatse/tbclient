@@ -6,6 +6,8 @@ import "../js/main.js" as Script
 MyPage {
     id: page;
 
+    property bool firstStart: true;
+
     title: qsTr("Search");
     loading: tabGroup.currentTab.loading;
 
@@ -181,6 +183,7 @@ MyPage {
                 AbstractItem {
                     id: root;
                     implicitHeight: contentCol.height + constant.paddingLarge*2;
+                    onClicked: signalCenter.createEnterThreadDialog(title, is_floor, pid, tid, fname, true);
                     Column {
                         id: contentCol;
                         anchors {
@@ -245,7 +248,10 @@ MyPage {
     onStatusChanged: {
         if (status === PageStatus.Active){
             searchInput.forceActiveFocus();
-            searchInput.openSoftwareInputPanel();
+            if (firstStart){
+                firstStart = false;
+                searchInput.openSoftwareInputPanel();
+            }
         }
     }
 }

@@ -885,7 +885,7 @@ void QDeclarativeWebView::doDownload(const QNetworkRequest &request)
 //by yeatse: unsupported content
 void QDeclarativeWebView::handleUnsupportedContent(QNetworkReply *reply)
 {
-    Q_UNUSED(reply)
+    delete reply;
     qDebug() << "unsupported content";
 }
 

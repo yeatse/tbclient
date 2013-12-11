@@ -262,13 +262,16 @@ var BaiduParser = {
                              content: self.__parseThreadContent(value.content)
                          };
                          if (option.insert){
-                             model.insert(modelAffected, prop);
+                             if (option.arround)
+                                 model.insert(0, prop);
+                             else
+                                 model.insert(modelAffected, prop);
                          } else {
                              model.append(prop);
                          }
                          modelAffected ++;
                      });
-        return modelAffected > 0;
+        return modelAffected;
     },
 
     loadComlist:
@@ -340,7 +343,8 @@ var BaiduParser = {
                              thread_id: value.thread_id,
                              post_id: value.post_id,
                              time: utility.easyDate(new Date(Number(value.time+"000"))),
-                             fname: value.fname
+                             fname: value.fname,
+                             title: value.title
                          }
                          model.append(prop);
                      });
@@ -477,7 +481,7 @@ var BaiduParser = {
         var model = option.model;
         if (option.renew) model.clear();
         list.forEach(function(value){
-                         if (value.thread_type !== "8")
+                         if (value.thread_type !== "8"||value.thread_type !== "11")
                              return;
                          var picUrl = "";
                          if (tbsettings.showImage && Array.isArray(value.media)){

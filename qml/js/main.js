@@ -192,9 +192,15 @@ function getThreadPage(option, onSuccess, onFailed){
     var req = new BaiduRequest(BaiduApi.C_F_PB_PAGE);
     var param = {
         r: option.r||0,
-        pn: option.pn||1,
-        rn: 20,
         kz: option.kz
+    }
+    if (option.arround){
+        param.arround = 20;
+        if (option.renew) param.mark = 1;
+        param.pid = option.pid;
+    } else {
+        param.pn = option.pn||1;
+        param.rn = 20;
     }
     if (option.lz) param.lz = 1;
     req.signForm(param);
@@ -294,9 +300,10 @@ function getFloorPage(option, onSuccess, onFailed){
     var req = new BaiduRequest(BaiduApi.C_F_PB_FLOOR);
     var param = {
         pn: option.pn||1,
-        pid: option.pid,
         kz: option.kz
     };
+    if (option.pid) param.pid = option.pid;
+    else if (option.spid) param.spid = option.spid;
     req.signForm(param);
     function s(obj){
         tbs = obj.anti.tbs;

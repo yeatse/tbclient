@@ -196,7 +196,8 @@ void Utility::openURLDefault(const QString &url)
     } else if (browser == "Opera"){
         TRAP_IGNORE(LaunchL(0x2002AA96, url));
     } else {
-        TRAP_IGNORE(LaunchL(0x10008D39, "4 "+url));
+        QByteArray ba = QUrl(url).toEncoded();
+        TRAP_IGNORE(LaunchL(0x10008D39, "4 "+ba));
     }
 #elif defined(Q_WS_SIMULATOR)
     qDebug() << "Open browser:" << url;
@@ -479,8 +480,8 @@ void Utility::LaunchL(int id, const QString& param)
 {
     //Coversion to Symbian C++ types
     TUid uid = TUid::Uid(id);
-    TPtrC ptr(static_cast<const TUint16*>(param.utf16()), param.length());
-    HBufC* desc_param = HBufC::NewLC( param.length());
+    TPtrC16 ptr(static_cast<const TUint16*>(param.utf16()), param.length());
+    HBufC* desc_param = HBufC::NewLC(ptr.Length());
     desc_param->Des().Copy(ptr);
 
     LaunchAppL(uid, desc_param);
@@ -526,26 +527,28 @@ QString Utility::CaptureImage()
 }
 QString Utility::LaunchLibrary()
 {
-    HBufC* result = NULL;
-    CDesCArrayFlat* fileArray = new(ELeave)CDesCArrayFlat(3);
-    QString res;
-    if (MGFetch::RunL(*fileArray, EImageFile, EFalse)){
-        result = fileArray->MdcaPoint(0).Alloc();
-        res = QString((QChar*)result->Des().Ptr(), result->Length());
+    QString result;
+    CDesCArray* fileNames = new(ELeave)CDesCArrayFlat(1);
+    CleanupStack::PushL(fileNames);
+    if (MGFetch::RunL(*fileNames, EImageFile, EFalse)){
+        TPtrC fileName = fileNames->MdcaPoint(0);
+        result = QString((QChar*) fileName.Ptr(), fileName.Length());
     }
-    return res;
+    CleanupStack::PopAndDestroy(fileNames);
+    return result;
 }
 QString Utility::LaunchLibrary2()
 {
-    HBufC* result = NULL;
-    CDesCArrayFlat* fileArray = new(ELeave)CDesCArrayFlat(10);
-    QStringList res;
-    if (MGFetch::RunL(*fileArray, EImageFile, ETrue)){
-        for (int i=0; i<fileArray->MdcaCount(); i++){
-            result = fileArray->MdcaPoint(i).Alloc();
-            res.append(QString((QChar*)result->Des().Ptr(), result->Length()));
+    QStringList result;
+    CDesCArray* fileNames = new(ELeave)CDesCArrayFlat(10);
+    CleanupStack::PushL(fileNames);
+    if (MGFetch::RunL(*fileNames, EImageFile, ETrue)){
+        for (int i=0; i<fileNames->MdcaCount(); i++){
+            TPtrC fileName = fileNames->MdcaPoint(i);
+            result.append(QString((QChar*) fileName.Ptr(), fileName.Length()));
         }
     }
-    return res.join("\n");
+    CleanupStack::PopAndDestroy(fileNames);
+    return result.join("\n");
 }
 #endif

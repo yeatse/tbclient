@@ -50,7 +50,6 @@ MyPage {
             preferredWidth: view.width;
             preferredHeight: view.height;
             smooth: !view.moving;
-            pressGrabTime: 600;
             settings {
                 javascriptCanOpenWindows: true;
                 javascriptCanAccessClipboard: true;

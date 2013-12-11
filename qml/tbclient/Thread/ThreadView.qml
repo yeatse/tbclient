@@ -20,6 +20,7 @@ MyPage {
 
     property bool isReverse: false;
     property bool isLz: false;
+    property bool isArround: false;
 
     property int privateFullPage: 0;
     onIsLzChanged: {
@@ -43,46 +44,63 @@ MyPage {
         if (isReverse) opt.r = 1;
         if (isLz) opt.lz = 1;
         if (option === "renew"){
+            isArround = false;
             opt.renew = true;
-            if (isReverse)
-                opt.pn = totalPage;
+            if (isReverse) opt.pn = totalPage;
         } else if (option === "next"){
-            if (isReverse && bottomPage == 1){
+            if (isReverse && bottomPage == 1 && !isArround){
                 signalCenter.showMessage(qsTr("First page now"));
                 return;
             }
-            if (hasMore)
-                opt.pn = isReverse ? bottomPage - 1
-                                   : bottomPage + 1;
-            else {
-                opt.pn = bottomPage;
-                opt.dirty = true;
+            if (isArround){
+                opt.arround = true;
+                opt.pid = view.model.get(view.count-1).id;
+            } else {
+                if (hasMore)
+                    opt.pn = isReverse ? bottomPage - 1
+                                       : bottomPage + 1;
+                else {
+                    opt.pn = bottomPage;
+                    opt.dirty = true;
+                }
             }
         } else if (option === "prev"){
-            if (!isReverse && topPage == 1){
+            if (!isReverse && topPage == 1 && !isArround){
                 getlist("renew");
                 return;
             }
             opt.insert = true;
-            if (hasPrev)
-                opt.pn = isReverse ? topPage + 1
-                                   : topPage - 1;
-            else {
-                opt.pn = topPage;
-                opt.dirty = true;
+            if (isArround){
+                opt.arround = true;
+                opt.r = 1;
+                opt.pid = view.model.get(0).id;
+            } else {
+                if (hasPrev)
+                    opt.pn = isReverse ? topPage + 1
+                                       : topPage - 1;
+                else {
+                    opt.pn = topPage;
+                    opt.dirty = true;
+                }
             }
         } else if (option === "jump"){
+            isArround = false;
             opt.renew = true;
             opt.pn = currentPage;
+        } else if (/\b\d+\b/.test(option)){
+            isArround = true;
+            opt.renew = true;
+            opt.arround = true;
+            opt.pid = option;
         }
-        function s(obj, modelAffected){
+        var s = function(obj, modelAffected){
             loading = false;
             thread = obj.thread;
             forum = obj.forum;
             currentPage = obj.page.current_page;
             totalPage = obj.page.total_page;
 
-            if (option === "renew"||option === "jump"){
+            if (option === "renew"||option === "jump"||/\b\d+\b/.test(option)){
                 hasMore = obj.page.has_more === "1";
                 hasPrev = obj.page.has_prev === "1";
                 bottomPage = currentPage;
@@ -93,11 +111,12 @@ MyPage {
             } else if (option === "prev"){
                 hasPrev = obj.page.has_prev === "1";
                 topPage = currentPage;
+                view.positionViewAtIndex(modelAffected, ListView.Visible);
             }
-            if (!modelAffected)
+            if (modelAffected === 0)
                 signalCenter.showMessage(qsTr("No more posts"));
         }
-        function f(err){
+        var f = function(err){
             loading = false;
             signalCenter.showMessage(err);
         }
