@@ -10,6 +10,10 @@
 #include "src/scribblearea.h"
 #include "src/customwebview.h"
 
+#ifdef Q_WS_SIMULATOR
+#include <QtNetwork/QNetworkProxy>
+#endif
+
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     // Symbian specific
@@ -45,6 +49,15 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     QmlApplicationViewer viewer;
     viewer.setAttribute(Qt::WA_NoSystemBackground);
+
+    // For fiddler network debugging
+#ifdef Q_WS_SIMULATOR
+    QNetworkProxy proxy;
+    proxy.setType(QNetworkProxy::HttpProxy);
+    proxy.setHostName("localhost");
+    proxy.setPort(8888);
+    QNetworkProxy::setApplicationProxy(proxy);
+#endif
 
     TBNetworkAccessManagerFactory factory;
     viewer.engine()->setNetworkAccessManagerFactory(&factory);
