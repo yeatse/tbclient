@@ -166,6 +166,7 @@ bool Utility::saveCache(const QString &remoteUrl, const QString &localPath)
         data->deleteLater();
         return true;
     }
+	data->deleteLater();
     return false;
 }
 
