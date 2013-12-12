@@ -552,3 +552,14 @@ function getForumFeed(option, onSuccess, onFailed){
     }
     req.sendRequest(s, onFailed);
 }
+
+function getUserProfile(option, onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_U_USER_PROFILE);
+    var param = { uid: option.uid };
+    req.signForm(param);
+    function s(obj){
+        tbs = obj.anti.tbs;
+        onSuccess(obj.user);
+    }
+    req.sendRequest(s, onFailed);
+}

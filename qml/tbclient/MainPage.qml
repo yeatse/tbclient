@@ -40,6 +40,7 @@ MyPage {
         ToolButtonWithTip {
             toolTipText: qsTr("User center");
             iconSource: "../gfx/contacts"+constant.invertedString+".svg"
+            onClicked: pageStack.push(Qt.resolvedUrl("ProfilePage.qml"), { uid: tbsettings.currentUid })
         }
         ToolButtonWithTip {
             toolTipText: qsTr("More");
@@ -83,8 +84,10 @@ MyPage {
                 color = "green";
             } else if (lv <= 10){
                 color = "blue";
-            } else {
+            } else if (lv <= 15) {
                 color = "red";
+            } else {
+                color = "yellow";
             }
             return "../gfx/icon_grade_"+color + constant.invertedString+".png";
         }

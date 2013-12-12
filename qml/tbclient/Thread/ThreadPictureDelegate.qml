@@ -66,6 +66,8 @@ Item {
                 Image {
                     id: preview;
                     anchors.fill: parent;
+                    cache: false;
+                    asynchronous: true;
                     sourceSize.width: width;
                     fillMode: Image.PreserveAspectFit;
                     source: url;

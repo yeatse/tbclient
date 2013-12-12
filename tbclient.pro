@@ -36,6 +36,7 @@ SOURCES += main.cpp \
 #    qml/tbclient/Floor/*.qml \
 #    qml/tbclient/Post/*.* \
 #    qml/tbclient/Explore/*.qml \
+#    qml/tbclient/Profile/*.qml \
 #    qml/js/main.js
 
 TRANSLATIONS += i18n/tbclient_zh.ts

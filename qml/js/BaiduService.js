@@ -44,7 +44,8 @@ var BaiduApi = {
 
     C_U_FEED_REPLYME: HOST + "/c/u/feed/replyme",
     C_U_FEED_ATME: HOST + "/c/u/feed/atme",
-    C_U_FEED_FORUM: HOST + "/c/u/feed/forum"
+    C_U_FEED_FORUM: HOST + "/c/u/feed/forum",
+    C_U_USER_PROFILE: HOST + "/c/u/user/profile"
 }
 
 var BaiduRequest = function(action, method){
