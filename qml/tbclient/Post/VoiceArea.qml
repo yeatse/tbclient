@@ -35,7 +35,10 @@ Item {
         anchors { left: icon.right; bottom: icon.bottom; bottomMargin: -constant.paddingMedium; }
         iconSource: "toolbar-delete";
         platformInverted: tbsettings.whiteTheme;
-        onClicked: audioUrl = "";
+        onClicked: {
+            audioWrapper.stop();
+            audioUrl = "";
+        }
     }
 
     MouseArea {

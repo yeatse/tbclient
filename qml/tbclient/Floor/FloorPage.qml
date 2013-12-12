@@ -140,6 +140,7 @@ MyPage {
         if (status === PageStatus.Active){
             view.forceActiveFocus();
         } else if (status === PageStatus.Deactivating){
+            audioWrapper.stop();
             toolsArea.state = "";
         }
     }
