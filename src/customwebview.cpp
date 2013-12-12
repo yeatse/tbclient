@@ -41,6 +41,7 @@
 //by yeatse: to launch default browser
 #include <QtGui/QDesktopServices>
 #include <QtNetwork/QNetworkRequest>
+#include <QtNetwork/QNetworkReply>
 
 QT_BEGIN_NAMESPACE
 
@@ -885,7 +886,7 @@ void QDeclarativeWebView::doDownload(const QNetworkRequest &request)
 //by yeatse: unsupported content
 void QDeclarativeWebView::handleUnsupportedContent(QNetworkReply *reply)
 {
-    delete reply;
+    reply->deleteLater();
     qDebug() << "unsupported content";
 }
 

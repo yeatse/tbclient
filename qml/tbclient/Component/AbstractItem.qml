@@ -40,7 +40,8 @@ Item {
         anchors.fill: parent;
         enabled: root.enabled;
         onClicked: {
-            root.ListView.view.currentIndex = index;
+            if (root.ListView.view)
+                root.ListView.view.currentIndex = index;
             root.clicked();
         }
         onPressed: {

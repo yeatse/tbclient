@@ -481,7 +481,7 @@ var BaiduParser = {
         var model = option.model;
         if (option.renew) model.clear();
         list.forEach(function(value){
-                         if (value.thread_type !== "8"||value.thread_type !== "11")
+                         if (value.thread_type !== "8"&&value.thread_type !== "11")
                              return;
                          var picUrl = "";
                          if (tbsettings.showImage && Array.isArray(value.media)){

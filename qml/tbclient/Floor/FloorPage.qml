@@ -116,6 +116,10 @@ MyPage {
             }
         }
         delegate: FloorDelegate {
+            onClicked: {
+                toolsArea.text = qsTr("Reply to %1 :").arg(author);
+                toolsArea.state = "Input";
+            }
         }
         footer: FooterItem {
             visible: view.count > 0;
