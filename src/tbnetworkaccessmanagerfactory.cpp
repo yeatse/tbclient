@@ -3,6 +3,7 @@
 
 #define PORTRAIT_PREFIX "http://tb.himg.baidu.com/sys/portraitn/item/"
 #define IMG_PREFIX "http://imgsrc.baidu.com/forum/pic/item/"
+#define HOST_PREFIX "http://c.tieba.baidu.com/"
 
 TBNetworkAccessManagerFactory::TBNetworkAccessManagerFactory() :
     QDeclarativeNetworkAccessManagerFactory()
@@ -64,6 +65,7 @@ QNetworkReply *TBNetworkAccessManager::createRequest(Operation op, const QNetwor
 TBNetworkCookieJar::TBNetworkCookieJar(QObject *parent) :
     QNetworkCookieJar(parent)
 {
+    keepAliveCookie = QNetworkCookie("ka", "open");
     load();
 }
 
@@ -88,7 +90,10 @@ QList<QNetworkCookie> TBNetworkCookieJar::cookiesForUrl(const QUrl &url) const
 {
     QMutexLocker lock(&mutex);
     Q_UNUSED(lock);
-    return QNetworkCookieJar::cookiesForUrl(url);
+    QList<QNetworkCookie> cookies = QNetworkCookieJar::cookiesForUrl(url);
+    if (url.toEncoded().startsWith(HOST_PREFIX) && !cookies.contains(keepAliveCookie))
+        cookies.prepend(keepAliveCookie);
+    return cookies;
 }
 
 bool TBNetworkCookieJar::setCookiesFromUrl(const QList<QNetworkCookie> &cookieList, const QUrl &url)

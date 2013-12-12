@@ -40,6 +40,7 @@ private:
     void save();
     void load();
     mutable QMutex mutex;
+    QNetworkCookie keepAliveCookie;
 };
 
 #endif // TBNETWORKACCESSMANAGERFACTORY_H
