@@ -10,6 +10,7 @@ Item {
                                 ? privateStyle.toolBarHeightPortrait
                                 : privateStyle.toolBarHeightLandscape
     property alias text: inputArea.text;
+    property alias cursorPosition: inputArea.cursorPosition;
 
     anchors.bottom: parent.bottom;
     width: screen.width;

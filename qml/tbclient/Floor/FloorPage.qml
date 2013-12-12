@@ -118,6 +118,7 @@ MyPage {
         delegate: FloorDelegate {
             onClicked: {
                 toolsArea.text = qsTr("Reply to %1 :").arg(author);
+                toolsArea.cursorPosition = toolsArea.text.length;
                 toolsArea.state = "Input";
             }
         }
