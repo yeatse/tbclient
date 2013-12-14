@@ -42,21 +42,22 @@
 #include <QtGui/QDesktopServices>
 #include <QtNetwork/QNetworkRequest>
 #include <QtNetwork/QNetworkReply>
+#include <QTimer>
 
 QT_BEGIN_NAMESPACE
 
 class QDeclarativeWebViewPrivate {
 public:
     QDeclarativeWebViewPrivate(QDeclarativeWebView* qq)
-      : q(qq)
-      , preferredwidth(0)
-      , preferredheight(0)
-      , progress(1.0)
-      , status(QDeclarativeWebView::Null)
-      , pending(PendingNone)
-      , newWindowComponent(0)
-      , newWindowParent(0)
-      , rendering(true)
+        : q(qq)
+        , preferredwidth(0)
+        , preferredheight(0)
+        , progress(1.0)
+        , status(QDeclarativeWebView::Null)
+        , pending(PendingNone)
+        , newWindowComponent(0)
+        , newWindowParent(0)
+        , rendering(true)
     {
     }
 
@@ -299,7 +300,7 @@ void QDeclarativeWebView::pageUrlChanged()
     updateContentsSize();
 
     if ((d->url.isEmpty() && page()->mainFrame()->url() != QUrl(QLatin1String("about:blank")))
-        || (d->url != page()->mainFrame()->url() && !page()->mainFrame()->url().isEmpty()))
+            || (d->url != page()->mainFrame()->url() && !page()->mainFrame()->url().isEmpty()))
     {
         d->url = page()->mainFrame()->url();
         if (d->url == QUrl(QLatin1String("about:blank")))
@@ -425,8 +426,8 @@ void QDeclarativeWebView::updateContentsSize()
 {
     if (page()) {
         page()->setPreferredContentsSize(QSize(
-            d->preferredwidth>0 ? d->preferredwidth : width(),
-            d->preferredheight>0 ? d->preferredheight : height()));
+                                             d->preferredwidth>0 ? d->preferredwidth : width(),
+                                             d->preferredheight>0 ? d->preferredheight : height()));
     }
 }
 
@@ -724,8 +725,8 @@ void QDeclarativeWebView::setPage(QWebPage* page)
     page->mainFrame()->setScrollBarPolicy(Qt::Horizontal, Qt::ScrollBarAlwaysOff);
     page->mainFrame()->setScrollBarPolicy(Qt::Vertical, Qt::ScrollBarAlwaysOff);
 
-//    by yeatse: to capture the link
-//    page->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);
+    // by yeatse: to capture the link
+    page->setLinkDelegationPolicy(QWebPage::DontDelegateLinks);
     connect(page, SIGNAL(linkClicked(QUrl)), this, SIGNAL(linkClicked(QUrl)));
 
     connect(page->mainFrame(), SIGNAL(urlChanged(QUrl)), this, SLOT(pageUrlChanged()));
@@ -739,9 +740,9 @@ void QDeclarativeWebView::setPage(QWebPage* page)
     connect(page, SIGNAL(loadProgress(int)), this, SLOT(doLoadProgress(int)));
     connect(page, SIGNAL(loadFinished(bool)), this, SLOT(doLoadFinished(bool)));
     connect(page, SIGNAL(statusBarMessage(QString)), this, SLOT(setStatusText(QString)));
-//    by yeatse: to download a link
+    // by yeatse: to download a link
     connect(page, SIGNAL(downloadRequested(QNetworkRequest)), this, SLOT(doDownload(QNetworkRequest)));
-//    by yeatse: unsupported content
+    // by yeatse: unsupported content
     page->setForwardUnsupportedContent(true);
     connect(page, SIGNAL(unsupportedContent(QNetworkReply*)), this, SLOT(handleUnsupportedContent(QNetworkReply*)));
 
@@ -869,7 +870,7 @@ QDeclarativeWebView* QDeclarativeWebView::createWindow(QWebPage::WebWindowType t
             return webview;
         }
     }
-    break;
+        break;
     case QWebPage::WebModalDialog: {
         // Not supported
     }
@@ -877,13 +878,13 @@ QDeclarativeWebView* QDeclarativeWebView::createWindow(QWebPage::WebWindowType t
     return 0;
 }
 
-//by yeatse: to download a link
+// by yeatse: to download a link
 void QDeclarativeWebView::doDownload(const QNetworkRequest &request)
 {
     QDesktopServices::openUrl(request.url());
 }
 
-//by yeatse: unsupported content
+// by yeatse: unsupported content
 void QDeclarativeWebView::handleUnsupportedContent(QNetworkReply *reply)
 {
     reply->deleteLater();
@@ -999,13 +1000,13 @@ QDeclarativeWebPage::~QDeclarativeWebPage()
 
 QString QDeclarativeWebPage::chooseFile(QWebFrame* originatingFrame, const QString& oldFile)
 {
-/*
+    /*
     // Not supported (it's modal)
     Q_UNUSED(originatingFrame)
     Q_UNUSED(oldFile)
     return oldFile;
 */
-//  by yeatse: to choose file
+    //  by yeatse: to choose file
     Q_UNUSED(originatingFrame)
     QString newFilename = QFileDialog::getOpenFileName();
     return newFilename.isNull() ? oldFile : newFilename;
@@ -1027,7 +1028,7 @@ void QDeclarativeWebPage::javaScriptAlert(QWebFrame* originatingFrame, const QSt
 
 bool QDeclarativeWebPage::javaScriptConfirm(QWebFrame* originatingFrame, const QString& msg)
 {
-/*
+    /*
     // Not supported (it's modal)
     Q_UNUSED(originatingFrame)
     Q_UNUSED(msg)
@@ -1038,7 +1039,7 @@ bool QDeclarativeWebPage::javaScriptConfirm(QWebFrame* originatingFrame, const Q
 
 bool QDeclarativeWebPage::javaScriptPrompt(QWebFrame* originatingFrame, const QString& msg, const QString& defaultValue, QString* result)
 {
-/*
+    /*
     // Not supported (it's modal)
     Q_UNUSED(originatingFrame)
     Q_UNUSED(msg)

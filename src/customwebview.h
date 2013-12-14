@@ -218,7 +218,7 @@ Q_SIGNALS:
 
     void alert(const QString& message);
 
-    //by yeatse: to capture the link
+    // by yeatse: to capture the link
     void linkClicked(const QUrl& link);
 
 public Q_SLOTS:
@@ -239,9 +239,9 @@ private Q_SLOTS:
                                  const QRectF &oldGeometry);
     QDeclarativeWebView* createWindow(QWebPage::WebWindowType type);
 
-    //by yeatse: to download a link
+    // by yeatse: to download a link
     void doDownload(const QNetworkRequest &request);
-    //by yeatse: unsupported content
+    // by yeatse: unsupported content
     void handleUnsupportedContent(QNetworkReply *reply);
 
 private:

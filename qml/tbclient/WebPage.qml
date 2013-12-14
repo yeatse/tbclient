@@ -21,10 +21,10 @@ MyPage {
             onPressedChanged: if (pressed) isHold = false;
         }
         ToolButtonWithTip {
-            toolTipText: webView.reload.toolTip;
-            iconSource: "toolbar-refresh";
-            enabled: webView.reload.enabled;
-            onClicked: webView.reload.trigger();
+            toolTipText: loading ? webView.stop.toolTip : webView.reload.toolTip;
+            iconSource: loading ? "../gfx/tb_close_stop"+constant.invertedString+".svg" : "toolbar-refresh";
+            enabled: loading ? webView.stop.enabled : webView.reload.enabled;
+            onClicked: loading ? webView.stop.trigger() : webView.reload.trigger();
         }
         ToolButtonWithTip {
             toolTipText: qsTr("Open browser");
@@ -49,7 +49,14 @@ MyPage {
             id: webView;
             preferredWidth: view.width;
             preferredHeight: view.height;
-            smooth: !view.moving;
+            smooth: !loading && !view.moving;
+            javaScriptWindowObjects: QtObject {
+                CustomWebView.windowObjectName: "scroller";
+                function scrollTo(xPos, yPos){
+                    view.contentX = xPos;
+                    view.contentY = yPos;
+                }
+            }
             settings {
                 javascriptCanOpenWindows: true;
                 javascriptCanAccessClipboard: true;
@@ -63,8 +70,11 @@ MyPage {
                 view.returnToBounds();
             }
             onLoadStarted: loading = true;
-            onLoadFailed: loading = true;
-            onLoadFinished: loading = false;
+            onLoadFailed: loading = false;
+            onLoadFinished: {
+                loading = false;
+                evaluateJavaScript("window.scrollTo = window.scroller.scrollTo;");
+            }
             onAlert: signalCenter.createQueryDialog(qsTr("Alert"),message,qsTr("OK"),"");
         }
     }

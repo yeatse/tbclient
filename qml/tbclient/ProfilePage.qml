@@ -18,7 +18,7 @@ MyPage {
     }
 
     function getProfile(){
-        var prop = { uid: uid };
+        var prop = { uid: getUid() };
         loading = true;
         var s = function(obj){ loading = false; userData = obj; }
         var f = function(err){ loading = false; signalCenter.showMessage(err); }
@@ -37,7 +37,7 @@ MyPage {
     Image {
         id: imageBg;
         anchors { left: parent.left; right: parent.right; top: viewHeader.bottom; }
-        height: bottomBanner.mapToItem(page, 0, 0).y - viewHeader.height;
+        height: view.contentY + constant.thumbnailSize * 8 / 5;
         clip: true;
         source: "../gfx/profile_bg.jpg"
         fillMode: Image.PreserveAspectCrop;
@@ -48,8 +48,6 @@ MyPage {
         anchors { fill: parent; topMargin: viewHeader.height; }
         contentWidth: parent.width;
         contentHeight: contentCol.height;
-        onContentYChanged: imageBg.height = bottomBanner.mapToItem(page, 0, 0).y - viewHeader.height;
-
         Column {
             id: contentCol;
             width: parent.width;
