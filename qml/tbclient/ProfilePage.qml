@@ -12,6 +12,7 @@ MyPage {
 
     property variant userData: null;
     property bool isMe: getUid() === tbsettings.currentUid;
+    property bool isLike: userData ? userData.has_concerned === "1" : false;
 
     function getUid(){
         return userData ? userData.id : uid;
@@ -37,7 +38,7 @@ MyPage {
     Image {
         id: imageBg;
         anchors { left: parent.left; right: parent.right; top: viewHeader.bottom; }
-        height: view.contentY + constant.thumbnailSize * 8 / 5;
+        height: constant.graphicSizeLarge*2.7 - view.contentY;
         clip: true;
         source: "../gfx/profile_bg.jpg"
         fillMode: Image.PreserveAspectCrop;
@@ -54,7 +55,7 @@ MyPage {
             Item { width: 1; height: constant.thumbnailSize; }
             Item {
                 width: parent.width;
-                height: constant.thumbnailSize;
+                height: constant.graphicSizeLarge*2;
 
                 BorderImage {
                     id: bottomBanner;
@@ -69,10 +70,10 @@ MyPage {
                         left: parent.left; leftMargin: constant.paddingMedium;
                         verticalCenter: parent.verticalCenter;
                     }
-                    width: 80; height: 80;
+                    width: 100; height: 100;
                     source: "../gfx/person_photo_bg.png"
                     Image {
-                        anchors { fill: parent; margins: constant.paddingSmall; }
+                        anchors { fill: parent; margins: constant.paddingMedium; }
                         source: userData ? "http://tb.himg.baidu.com/sys/portraith/item/"+userData.portraith
                                          : "../gfx/photo.png";
                     }
@@ -117,12 +118,70 @@ MyPage {
                         text: userData ? userData.intro : "";
                     }
                 }
+
+                Loader {
+                    anchors {
+                        left: avatar.right; leftMargin: constant.paddingMedium;
+                        verticalCenter: bottomBanner.verticalCenter;
+                    }
+                    sourceComponent: isMe ? editBtnComp : followBtnComp;
+                    Component {
+                        id: editBtnComp;
+                        MouseArea {
+                            property string pressString: pressed ? "s" : "n";
+                            width: editRow.width + 20;
+                            height: constant.graphicSizeMedium;
+                            BorderImage {
+                                anchors.fill: parent;
+                                border { left: 25; right: 25; top: 0; bottom: 0; }
+                                source: "../gfx/btn_bg_"+parent.pressString+constant.invertedString+".png";
+                                smooth: true;
+                            }
+                            Row {
+                                id: editRow;
+                                anchors.centerIn: parent;
+                                spacing: constant.paddingSmall;
+                                Image {
+                                    anchors.verticalCenter: parent.verticalCenter;
+                                    source: "../gfx/btn_icon_edit"+constant.invertedString+".png";
+                                }
+                                Text {
+                                    anchors.verticalCenter: parent.verticalCenter;
+                                    font: constant.subTitleFont;
+                                    color: constant.colorLight;
+                                    text: qsTr("Edit profile");
+                                }
+                            }
+                        }
+                    }
+                    Component {
+                        id: followBtnComp;
+                        MouseArea {
+                            property string pressString: pressed ? "s" : "n";
+                            property string name: isLike ? "bg" : "like";
+                            width: 114;
+                            height: 46;
+                            Image {
+                                id: icon;
+                                source: "../gfx/btn_%1_%2%3.png".arg(parent.name).arg(parent.pressString).arg(constant.invertedString);
+                            }
+                            Text {
+                                visible: isLike;
+                                anchors.centerIn: parent;
+                                font: constant.subTitleFont;
+                                color: constant.colorLight;
+                                text: qsTr("Unfollow");
+                            }
+                        }
+                    }
+                }
             }
             Grid {
                 id: grid;
                 width: parent.width;
                 columns: 3;
                 ProfileCell {
+                    visible: isMe;
                     iconName: "sc";
                     title: qsTr("Collections");
                 }
@@ -130,6 +189,10 @@ MyPage {
                     iconName: "myba";
                     title: qsTr("Tieba");
                     subTitle: userData ? userData.like_forum_num : "";
+                    onClicked: {
+                        var prop = { title: title, uid: getUid() }
+                        pageStack.push(Qt.resolvedUrl("Profile/ProfileForumList.qml"), prop);
+                    }
                 }
                 ProfileCell {
                     iconName: "gz";
@@ -147,6 +210,13 @@ MyPage {
                     subTitle: userData ? userData.post_num : "";
                 }
             }
+        }
+    }
+
+    // For keypad
+    onStatusChanged: {
+        if (status === PageStatus.Active){
+            view.forceActiveFocus();
         }
     }
 }

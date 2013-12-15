@@ -516,5 +516,20 @@ var BaiduParser = {
                          }
                          model.append(prop);
                      });
+    },
+
+    loadUserLikedForum:
+    function(model, list){
+        model.clear();
+        list.forEach(function(value){
+                         var prop = {
+                             avatar: value.avatar,
+                             id: value.id,
+                             level_id: value.level_id,
+                             name: value.name,
+                             slogan: value.slogan
+                         }
+                         model.append(prop);
+                     });
     }
 };

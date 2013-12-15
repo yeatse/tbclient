@@ -21,9 +21,7 @@ AbstractItem {
                 source: authorPortrait;
                 MouseArea {
                     anchors.fill: parent;
-                    onClicked: {
-                        console.log(authorId);
-                    }
+                    onClicked: signalCenter.linkClicked("at:"+authorId);
                 }
             }
             Text {

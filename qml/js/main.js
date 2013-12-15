@@ -563,3 +563,14 @@ function getUserProfile(option, onSuccess, onFailed){
     }
     req.sendRequest(s, onFailed);
 }
+
+function getUserLikedForum(option, onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_F_FORUM_LIKE);
+    var param = { uid: option.uid, pn: 1 };
+    req.signForm(param);
+    function s(obj){
+        BaiduParser.loadUserLikedForum(option.model, obj.forum_list);
+        onSuccess();
+    }
+    req.sendRequest(s, onFailed);
+}

@@ -1,4 +1,5 @@
 import QtQuick 1.1
+import "../js/LinkDecoder.js" as LinkDecoder
 
 QtObject {
     id: signalCenter;
@@ -23,6 +24,10 @@ QtObject {
             infoBanner.text = msg;
             infoBanner.open();
         }
+    }
+
+    function linkClicked(link){
+        LinkDecoder.linkActivated(link);
     }
 
     // Dialogs
@@ -80,6 +85,10 @@ QtObject {
         if (pid) prop = { threadId: tid, postId: pid };
         else if (spid) prop = { threadId: tid, spostId: spid };
         pageStack.push(Qt.resolvedUrl("Floor/FloorPage.qml"), prop);
+    }
+
+    function viewProfile(uid){
+        pageStack.push(Qt.resolvedUrl("ProfilePage.qml"), { uid: uid });
     }
 
     function openBrowser(url){

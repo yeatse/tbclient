@@ -1,7 +1,8 @@
 function linkActivated(link){
-    var link = "";
     var l = link.split(":");
     switch(l[0]){
-    case "at": break;
+    case "at":
+        viewProfile(l[1]);
+        break;
     }
 }

@@ -24,6 +24,7 @@ var BaiduApi = {
     C_S_SEARCHPOST: HOST + "/c/s/searchpost",
 
     C_F_FORUM_FORUMRECOMMEND: HOST + "/c/f/forum/forumrecommend",
+    C_F_FORUM_LIKE: HOST + "/c/f/forum/like",
     C_F_FORUM_SUG: HOST + "/c/f/forum/sug",
     C_F_FRS_PAGE: HOST + "/c/f/frs/page",
     C_F_FRS_THREADLIST: HOST + "/c/f/frs/threadlist",

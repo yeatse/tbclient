@@ -44,11 +44,11 @@ MyPage {
         boundsBehavior: Flickable.StopAtBounds;
         contentWidth: webView.width;
         contentHeight: webView.height;
+        onMovementEnded: webView.preferredHeight = view.height + contentY;
 
         CustomWebView {
             id: webView;
             preferredWidth: view.width;
-            preferredHeight: view.height;
             smooth: !loading && !view.moving;
             javaScriptWindowObjects: QtObject {
                 CustomWebView.windowObjectName: "scroller";
