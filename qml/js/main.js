@@ -574,3 +574,29 @@ function getUserLikedForum(option, onSuccess, onFailed){
     }
     req.sendRequest(s, onFailed);
 }
+
+function unfavforum(option, onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_C_FORUM_UNFAVOLIKE);
+    var param = { fid: option.fid, favo_type: option.favo_type, tbs: tbs, kw: option.kw };
+    req.signForm(param);
+    req.sendRequest(onSuccess, onFailed);
+}
+
+function getMyPost(option, onSuccess, onFailed){
+    var isMe = option.user_id === tbsettings.currentUid;
+    var req = new BaiduRequest(isMe ? BaiduApi.C_U_FEED_MYPOST
+                                    : BaiduApi.C_U_FEED_OTHERPOST);
+    var param = { pn: option.pn };
+    if (isMe) param.type = 0;
+    else param.user_id = option.user_id;
+
+    req.signForm(param);
+    var s = function(obj){
+        var page = option.page;
+        page.currentPage = obj.page.current_page;
+        page.hasMore = obj.page.has_more === "1";
+        BaiduParser.loadMyPost(option, obj.post_list);
+        onSuccess();
+    }
+    req.sendRequest(s, onFailed);
+}

@@ -44,10 +44,10 @@ MyPage {
         boundsBehavior: Flickable.StopAtBounds;
         contentWidth: webView.width;
         contentHeight: webView.height;
-        onMovementEnded: webView.preferredHeight = view.height + contentY;
 
         CustomWebView {
             id: webView;
+            property bool __initial: true;
             preferredWidth: view.width;
             smooth: !loading && !view.moving;
             javaScriptWindowObjects: QtObject {
@@ -69,7 +69,16 @@ MyPage {
                 view.contentY = 0;
                 view.returnToBounds();
             }
-            onLoadStarted: loading = true;
+            onLoadStarted: {
+                __initial = true;
+                loading = true;
+            }
+            onProgressChanged: {
+                if (progress > 0 && __initial){
+                    __initial = false;
+                    evaluateJavaScript("window.scrollTo = window.scroller.scrollTo;");
+                }
+            }
             onLoadFailed: loading = false;
             onLoadFinished: {
                 loading = false;

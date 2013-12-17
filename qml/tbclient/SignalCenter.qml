@@ -13,7 +13,7 @@ QtObject {
     signal userLogout;
     signal vcodeSent(variant caller, string vcode, string vcodeMd5);
     signal imageSelected(variant caller, string urls);
-    onImageSelected: console.log(caller, urls);
+    signal forumSigned(string fid);
 
     signal uploadFinished(variant caller, string response);
     signal uploadFailed(variant caller);

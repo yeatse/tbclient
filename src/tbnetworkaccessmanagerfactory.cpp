@@ -17,7 +17,7 @@ QNetworkAccessManager* TBNetworkAccessManagerFactory::create(QObject *parent)
     QNetworkAccessManager* manager = new TBNetworkAccessManager(parent);
 
 #ifdef Q_OS_SYMBIAN
-    bool useDiskCache = Utility::Instance()->qtVersion() > 0x040800;
+    bool useDiskCache = Utility::Instance()->qtVersion() >= 0x040800;
 #else
     bool useDiskCache = true;
 #endif

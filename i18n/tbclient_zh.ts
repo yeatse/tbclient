@@ -236,7 +236,7 @@
 <context>
     <name>InfoCenter</name>
     <message>
-        <location filename="../qml/tbclient/InfoCenter.qml" line="61"/>
+        <location filename="../qml/tbclient/InfoCenter.qml" line="60"/>
         <source>%1 new fan(s)</source>
         <translation>%1个新粉丝</translation>
     </message>
@@ -246,27 +246,27 @@
         <translation>%1个新私信</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/InfoCenter.qml" line="69"/>
+        <location filename="../qml/tbclient/InfoCenter.qml" line="70"/>
         <source>%1 new bookmark update(s)</source>
         <translation>%1个收藏更新</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/InfoCenter.qml" line="73"/>
+        <location filename="../qml/tbclient/InfoCenter.qml" line="75"/>
         <source>%1 new reply(ies)</source>
         <translation>%1个新回复</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/InfoCenter.qml" line="77"/>
+        <location filename="../qml/tbclient/InfoCenter.qml" line="80"/>
         <source>%1 new remind(s)</source>
         <translation>%1个@我</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/InfoCenter.qml" line="84"/>
+        <location filename="../qml/tbclient/InfoCenter.qml" line="88"/>
         <source>Baidu Tieba</source>
         <translation>百度贴吧</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/InfoCenter.qml" line="85"/>
+        <location filename="../qml/tbclient/InfoCenter.qml" line="89"/>
         <source>%1 new message(s)</source>
         <translation>%1个新消息</translation>
     </message>
@@ -454,31 +454,87 @@
     </message>
 </context>
 <context>
+    <name>ProfileForumList</name>
+    <message>
+        <location filename="../qml/tbclient/Profile/ProfileForumList.qml" line="41"/>
+        <source>Refresh</source>
+        <translation>刷新</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Profile/ProfileForumList.qml" line="46"/>
+        <source>OK</source>
+        <translation>完成</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Profile/ProfileForumList.qml" line="46"/>
+        <source>Edit</source>
+        <translation>编辑</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Profile/ProfileForumList.qml" line="114"/>
+        <source>Lv.%1</source>
+        <translation>%1级</translation>
+    </message>
+</context>
+<context>
     <name>ProfilePage</name>
     <message>
-        <location filename="../qml/tbclient/ProfilePage.qml" line="123"/>
+        <location filename="../qml/tbclient/ProfilePage.qml" line="29"/>
+        <source>Profile</source>
+        <translation>个人资料</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/ProfilePage.qml" line="154"/>
+        <source>Edit profile</source>
+        <translation>编辑资料</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/ProfilePage.qml" line="175"/>
+        <source>Unfollow</source>
+        <translation>取消关注</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/ProfilePage.qml" line="188"/>
         <source>Collections</source>
         <translation>我的收藏</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/ProfilePage.qml" line="127"/>
+        <location filename="../qml/tbclient/ProfilePage.qml" line="192"/>
         <source>Tieba</source>
         <translation>关注的吧</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/ProfilePage.qml" line="132"/>
+        <location filename="../qml/tbclient/ProfilePage.qml" line="201"/>
         <source>Concerns</source>
         <translation>关注的人</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/ProfilePage.qml" line="137"/>
+        <location filename="../qml/tbclient/ProfilePage.qml" line="206"/>
         <source>Fans</source>
         <translation>粉丝</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/ProfilePage.qml" line="142"/>
+        <location filename="../qml/tbclient/ProfilePage.qml" line="211"/>
         <source>Posts</source>
         <translation>发过的贴子</translation>
+    </message>
+</context>
+<context>
+    <name>ProfilePost</name>
+    <message>
+        <location filename="../qml/tbclient/Profile/ProfilePost.qml" line="16"/>
+        <source>Refresh</source>
+        <translation>刷新</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Profile/ProfilePost.qml" line="133"/>
+        <source>Reply at %1</source>
+        <translation>在%1吧回复</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Profile/ProfilePost.qml" line="133"/>
+        <source>Post at %1</source>
+        <translation>在%1吧发贴</translation>
     </message>
 </context>
 <context>
@@ -1030,27 +1086,27 @@
 <context>
     <name>VoiceArea</name>
     <message>
-        <location filename="../qml/tbclient/Post/VoiceArea.qml" line="79"/>
+        <location filename="../qml/tbclient/Post/VoiceArea.qml" line="82"/>
         <source>Long press to start recording</source>
         <translation>长按开始录音</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Post/VoiceArea.qml" line="78"/>
+        <location filename="../qml/tbclient/Post/VoiceArea.qml" line="81"/>
         <source>Release to finish recording</source>
         <translation>松开停止录音</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Post/VoiceArea.qml" line="53"/>
+        <location filename="../qml/tbclient/Post/VoiceArea.qml" line="56"/>
         <source>Audio is too short to send out</source>
         <translation>语音时间太短</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Post/VoiceArea.qml" line="106"/>
+        <location filename="../qml/tbclient/Post/VoiceArea.qml" line="109"/>
         <source>Click to stop playback</source>
         <translation>点击停止</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Post/VoiceArea.qml" line="106"/>
+        <location filename="../qml/tbclient/Post/VoiceArea.qml" line="109"/>
         <source>Click to start playback</source>
         <translation>点击重放</translation>
     </message>
@@ -1068,12 +1124,12 @@
         <translation>首页</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/WebPage.qml" line="68"/>
+        <location filename="../qml/tbclient/WebPage.qml" line="87"/>
         <source>Alert</source>
         <translation>脚本警告</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/WebPage.qml" line="68"/>
+        <location filename="../qml/tbclient/WebPage.qml" line="87"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>

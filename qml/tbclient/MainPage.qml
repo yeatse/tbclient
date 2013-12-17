@@ -54,10 +54,22 @@ MyPage {
         onUserChanged: {
             internal.initialize();
         }
+        onForumSigned: {
+            if (internal.fromNetwork){
+                for (var i=0; i<view.model.count; i++){
+                    if (fid === view.model.get(i).forum_id){
+                        view.model.setProperty(i, "is_sign", true);
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     QtObject {
         id: internal;
+
+        property bool fromNetwork: false;
 
         function initialize(){
             if (!Script.loadLikeForum(view.model)){
@@ -70,6 +82,7 @@ MyPage {
             var opt = { model: view.model };
             function s(){
                 loading = false;
+                fromNetwork = true;
             }
             function f(err){
                 loading = false;

@@ -6,12 +6,13 @@
 class Utility : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString appVersion READ appVersion CONSTANT)
-    Q_PROPERTY(int qtVersion READ qtVersion CONSTANT)
-    Q_PROPERTY(QString imei READ imei CONSTANT)
-    Q_PROPERTY(QString cachePath READ cachePath CONSTANT)
-    Q_PROPERTY(QString tempPath READ tempPath CONSTANT)
-    Q_PROPERTY(QString defaultPictureLocation READ defaultPictureLocation CONSTANT)
+    Q_PROPERTY(QString appVersion READ appVersion CONSTANT FINAL)
+    Q_PROPERTY(int qtVersion READ qtVersion CONSTANT FINAL)
+    Q_PROPERTY(QString imei READ imei CONSTANT FINAL)
+    Q_PROPERTY(QString cachePath READ cachePath CONSTANT FINAL)
+    Q_PROPERTY(QString tempPath READ tempPath CONSTANT FINAL)
+    Q_PROPERTY(QString defaultPictureLocation READ defaultPictureLocation CONSTANT FINAL)
+    Q_PROPERTY(QString currentBearerName READ currentBearerName)
 
 public:             // Not for qml
     static Utility* Instance();
@@ -23,6 +24,7 @@ public:             // Not for qml
     QString cachePath() const;
     QString tempPath() const;
     QString defaultPictureLocation() const;
+    QString currentBearerName() const;
 
     void setEngine(QDeclarativeEngine* engine);
 
@@ -82,13 +84,7 @@ public:             // Other functions.
     Q_INVOKABLE QString decodeGBKHex(const QString &encodedString);
 
 private:
-    explicit Utility(QObject *parent = 0);
-    QPointer<QSettings> settings;
-    QPointer<QDeclarativeEngine> engine;
-    QVariantMap map;
-    QHash<QString, QString> lang;
-    QList<QVariantList> formats;
-
+    explicit Utility(QObject *parent = 0);    
     void initializeLangFormats();
     int normalize(int val, int single);
     bool deleteDir(const QString &dirName);
@@ -104,6 +100,13 @@ private:
     QString LaunchLibrary();
     QString LaunchLibrary2();
 #endif
+
+private:
+    QPointer<QSettings> settings;
+    QPointer<QDeclarativeEngine> engine;
+    QVariantMap map;
+    QHash<QString, QString> lang;
+    QList<QVariantList> formats;
 };
 
 #endif // UTILITY_H

@@ -39,6 +39,7 @@ var BaiduApi = {
     C_C_THREAD_ADD: HOST + "/c/c/thread/add",
     C_C_FORUM_SIGN: HOST + "/c/c/forum/sign",
     C_C_FORUM_LIKE: HOST + "/c/c/forum/like",
+    C_C_FORUM_UNFAVOLIKE: HOST + "/c/c/forum/unfavolike",
     C_C_IMG_UPLOAD: HOST + "/c/c/img/upload",
     C_C_VOICE_UPLOAD: HOST + "/c/c/voice/chunkupload",
     C_C_VOICE_FINUPLOAD: HOST + "/c/c/voice/voice_fin_chunk_upload",
@@ -46,6 +47,8 @@ var BaiduApi = {
     C_U_FEED_REPLYME: HOST + "/c/u/feed/replyme",
     C_U_FEED_ATME: HOST + "/c/u/feed/atme",
     C_U_FEED_FORUM: HOST + "/c/u/feed/forum",
+    C_U_FEED_MYPOST: HOST + "/c/u/feed/mypost",
+    C_U_FEED_OTHERPOST: HOST + "/c/u/feed/otherpost",
     C_U_USER_PROFILE: HOST + "/c/u/user/profile"
 }
 
@@ -89,7 +92,9 @@ BaiduRequest.prototype.sendRequest = function(onSuccess, onFailed){
             // onFailed(message, [obj]);
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function(){
-                        if (xhr.readyState === xhr.DONE){
+                        if (xhr.readyState === xhr.HEADERS_RECEIVED){
+                            tbsettings.currentBearerName = utility.currentBearerName;
+                        } else if (xhr.readyState === xhr.DONE){
                             if (xhr.status === 200){
                                 try {
                                     var obj = JSON.parse(xhr.responseText);

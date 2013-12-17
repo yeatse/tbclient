@@ -31,6 +31,7 @@ Utility::Utility(QObject *parent) :
 
 Utility::~Utility()
 {
+    settings->deleteLater();
 }
 
 Utility* Utility::Instance()
@@ -85,6 +86,11 @@ QString Utility::tempPath() const
 QString Utility::defaultPictureLocation() const
 {
     return QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
+}
+
+QString Utility::currentBearerName() const
+{
+    return engine->networkAccessManager()->activeConfiguration().bearerTypeName();
 }
 
 void Utility::setEngine(QDeclarativeEngine *engine)

@@ -159,6 +159,7 @@ MyPage {
                 signalCenter.showMessage(qsTr("Success! Rank: %1").arg(rank));
                 hasSigned = true;
                 signDays = obj.user_info.cont_sign_num;
+                signalCenter.forumSigned(forum.id);
             }
             function f(err){
                 signing = false;

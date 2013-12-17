@@ -26,6 +26,8 @@ MyPage {
         Script.getUserProfile(prop, s, f);
     }
 
+    title: qsTr("Profile");
+
     tools: ToolBarLayout {
         BackButton {}
     }
@@ -208,6 +210,10 @@ MyPage {
                     iconName: "tiezi";
                     title: qsTr("Posts");
                     subTitle: userData ? userData.post_num : "";
+                    onClicked: {
+                        var prop = { title: title, uid: getUid() };
+                        pageStack.push(Qt.resolvedUrl("Profile/ProfilePost.qml"), prop);
+                    }
                 }
             }
         }

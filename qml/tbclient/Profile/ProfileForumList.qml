@@ -20,6 +20,21 @@ MyPage {
         Script.getUserLikedForum(prop, s, f);
     }
 
+    function removeForum(index){
+        var model = view.model.get(index);
+        var opt = { fid: model.id, favo_type: model.favo_type, kw: model.name };
+        loading = true;
+        var s = function(){
+            loading = false;
+            view.model.remove(index);
+        }
+        var f = function(err){
+            loading = false;
+            signalCenter.showMessage(err);
+        }
+        Script.unfavforum(opt, s, f);
+    }
+
     tools: ToolBarLayout {
         BackButton {}
         ToolButtonWithTip {
@@ -51,6 +66,7 @@ MyPage {
             id: forumDelegate;
             AbstractItem {
                 id: root;
+                onClicked: signalCenter.enterForum(name);
                 Image {
                     id: logo;
                     anchors {
@@ -95,7 +111,7 @@ MyPage {
                         Text {
                             font: constant.titleFont;
                             color: constant.colorMid;
-                            text: qsTr("Lv. %1").arg(level_id);
+                            text: qsTr("Lv.%1").arg(level_id);
                         }
                     }
                     Component {
@@ -104,6 +120,7 @@ MyPage {
                             platformInverted: tbsettings.whiteTheme;
                             width: height;
                             iconSource: privateStyle.toolBarIconPath("toolbar-delete", platformInverted);
+                            onClicked: removeForum(index);
                         }
                     }
                 }

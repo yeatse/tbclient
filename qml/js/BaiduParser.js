@@ -521,14 +521,25 @@ var BaiduParser = {
     loadUserLikedForum:
     function(model, list){
         model.clear();
+        list.forEach(function(value){model.append(value)});
+    },
+
+    loadMyPost:
+    function(option, list){
+        var model = option.model;
+        if (option.renew) model.clear();
         list.forEach(function(value){
                          var prop = {
-                             avatar: value.avatar,
-                             id: value.id,
-                             level_id: value.level_id,
-                             name: value.name,
-                             slogan: value.slogan
-                         }
+                             fname: value.fname,
+                             is_floor: value.is_floor === "1",
+                             pid: value.pid,
+                             reply_num: value.reply_num,
+                             reply_time: value.reply_time,
+                             tid: value.tid,
+                             time_shaft: value.time_shaft,
+                             title: value.title,
+                             isReply: value.type === "1"
+                         };
                          model.append(prop);
                      });
     }
