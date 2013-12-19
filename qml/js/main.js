@@ -203,6 +203,7 @@ function getThreadPage(option, onSuccess, onFailed){
         param.rn = 20;
     }
     if (option.lz) param.lz = 1;
+    if (option.st_type) param.st_type = option.st_type;
     req.signForm(param);
     function s(obj){
         tbs = obj.anti.tbs;
@@ -569,7 +570,7 @@ function getUserLikedForum(option, onSuccess, onFailed){
     var param = { uid: option.uid, pn: 1 };
     req.signForm(param);
     function s(obj){
-        BaiduParser.loadUserLikedForum(option.model, obj.forum_list);
+        BaiduParser.loadUserLikedForum(option.model, obj.forum_list||[]);
         onSuccess();
     }
     req.sendRequest(s, onFailed);
@@ -592,11 +593,104 @@ function getMyPost(option, onSuccess, onFailed){
 
     req.signForm(param);
     var s = function(obj){
+        if (obj.hide_post === "1"){
+            onFailed("hide");
+        } else {
+            var page = option.page;
+            page.currentPage = obj.page.current_page;
+            page.hasMore = obj.page.has_more === "1";
+            BaiduParser.loadMyPost(option, obj.post_list||[]);
+            onSuccess();
+        }
+    }
+    req.sendRequest(s, onFailed);
+}
+
+function getUserPage(option, onSuccess, onFailed){
+    var url = option.type === "follow" ? BaiduApi.C_U_FOLLOW_PAGE
+                                       : BaiduApi.C_U_FANS_PAGE;
+    var req = new BaiduRequest(url);
+    var param = { uid: option.uid, pn: option.pn };
+    req.signForm(param);
+    var s = function(obj){
         var page = option.page;
         page.currentPage = obj.page.current_page;
         page.hasMore = obj.page.has_more === "1";
-        BaiduParser.loadMyPost(option, obj.post_list);
+        page.totalCount = obj.page.total_count;
+        BaiduParser.loadUserList(option, obj.user_list||[]);
         onSuccess();
     }
     req.sendRequest(s, onFailed);
+}
+
+function getBookmark(option, onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_F_POST_THREADSTORE);
+    var param = {
+        user_id: tbsettings.currentUid,
+        rn: 20,
+        offset: option.offset
+    }
+    req.signForm(param);
+    var s = function(obj){
+        BaiduParser.loadBookmark(option, obj.store_thread||[]);
+        onSuccess();
+    }
+    req.sendRequest(s, onFailed);
+}
+
+function setBookmark(option, onSuccess, onFailed){
+    var url = option.add ? BaiduApi.C_C_POST_ADDSTORE
+                         : BaiduApi.C_C_POST_RMSTORE
+    var req = new BaiduRequest(url);
+    var param = {};
+    if (option.add){
+        var t1 = [{ tid: option.tid, pid: option.pid, status: option.status }];
+        param.data = JSON.stringify(t1);
+    } else {
+        param.tid = option.tid;
+    }
+    req.signForm(param);
+    req.sendRequest(onSuccess, onFailed);
+}
+
+function deleteChatMsg(option, onSuccess, onFailed){
+    var url = option.clear ? BaiduApi.C_S_CLEARMSG : BaiduApi.C_S_DELCOM;
+    var req = new BaiduRequest(url);
+    var param = { com_id: option.com_id, user_id: tbsettings.currentUid }
+    req.signForm(param);
+    req.sendRequest(onSuccess, onFailed)
+}
+
+function getChatMsg(option, onSuccess, onFailed){
+    var url = option.history ? BaiduApi.C_S_HISTORYMSG : BaiduApi.C_S_RECENTMSG;
+    var req = new BaiduRequest(url);
+    var param = {
+        user_id: tbsettings.currentUid,
+        com_id: option.com_id,
+        msg_id: option.msg_id
+    }
+    req.signForm(param);
+    var s = function(obj){
+        option.page.hasMore = obj.has_more === "1";
+        BaiduParser.loadChatList(option, obj.message);
+    }
+    req.sendRequest(s, onFailed);
+}
+
+function addChatMsg(option, onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_S_ADDMSG);
+    var param = {
+        user_id: tbsettings.currentUid,
+        com_id: option.com_id,
+        content: option.content
+    }
+    req.signForm(param);
+    req.sendRequest(onSuccess, onFailed);
+}
+
+function followUser(option, onSuccess, onFailed){
+    var url = option.isFollow ? BaiduApi.C_C_USER_FOLLOW : BaiduApi.C_C_USER_UNFOLLOW
+    var req = new BaiduRequest(url);
+    var param = { portrait: option.portrait, tbs: tbs };
+    req.sendRequest(onSuccess, onFailed);
 }

@@ -59,6 +59,23 @@ MyPage {
     property bool hasMore: false;
     property bool firstStart: true;
 
+    function delcom(index){
+        var execute = function(){
+            loading = true;
+            var s = function(){ loading = false; view.model.remove(index);
+                signalCenter.showMessage(qsTr("Success"))};
+            var f = function(err){ loading = false;
+                signalCenter.showMessage(err)};
+            var opt = { com_id: view.model.get(index).user_id }
+            Script.deleteChatMsg(opt, s, f);
+        }
+        signalCenter.createQueryDialog(qsTr("Warning"),
+                                       qsTr("Delete this chat?"),
+                                       qsTr("OK"),
+                                       qsTr("Cancel"),
+                                       execute);
+    }
+
     SilicaListView {
         id: view;
         anchors.fill: parent;
@@ -78,6 +95,11 @@ MyPage {
             AbstractItem {
                 id: root;
                 height: constant.graphicSizeLarge+constant.paddingLarge*2;
+                onPressAndHold: delcom(index);
+                onClicked: {
+                    var prop = { chatName: name_show, chatId: user_id };
+                    pageStack.push(Qt.resolvedUrl("ChatPage.qml"), prop);
+                }
                 Image {
                     id: avatar;
                     anchors {

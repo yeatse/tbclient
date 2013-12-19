@@ -61,7 +61,10 @@ MyPage {
         anchors { fill: parent; topMargin: viewHeader.height; }
         model: ListModel {}
         delegate: forumDelegate;
-
+        header: PullToActivate {
+            myView: view;
+            onRefresh: getlist();
+        }
         Component {
             id: forumDelegate;
             AbstractItem {
@@ -129,4 +132,17 @@ MyPage {
     }
 
     ScrollDecorator { flickableItem: view; platformInverted: tbsettings.whiteTheme; }
+
+    // For keypad
+    onStatusChanged: {
+        if (status === PageStatus.Active){
+            view.forceActiveFocus();
+        }
+    }
+    Keys.onPressed: {
+        switch (event.key){
+        case Qt.Key_R: getlist(); event.accepted = true; break;
+        case Qt.Key_E: editMode = !editMode; event.accepted = true; break;
+        }
+    }
 }

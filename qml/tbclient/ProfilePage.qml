@@ -26,10 +26,32 @@ MyPage {
         Script.getUserProfile(prop, s, f);
     }
 
+    function follow(){
+        var prop = { portrait: userData.portrait, isFollow: !isLike };
+        var s = function(){ loading = false; isLike = prop.isFollow }
+        var f = function(err){ loading = false; signalCenter.showMessage(qsTr("Success")); }
+        loading = true;
+        Script.followUser(prop, s, f);
+    }
+
     title: qsTr("Profile");
 
     tools: ToolBarLayout {
         BackButton {}
+        ToolButtonWithTip {
+            toolTipText: qsTr("Refresh");
+            iconSource: "toolbar-refresh";
+            onClicked: getProfile();
+        }
+        ToolButtonWithTip {
+            toolTipText: qsTr("Chat");
+            iconSource: "../gfx/instant_messenger_chat"+constant.invertedString+".svg";
+            enabled: !isMe && userData != null;
+            onClicked: {
+                var prop = { chatName: userData.name_show, chatId: getUid() };
+                pageStack.push(Qt.resolvedUrl("Message/ChatPage.qml"), prop);
+            }
+        }
     }
 
     ViewHeader {
@@ -163,8 +185,12 @@ MyPage {
                             property string name: isLike ? "bg" : "like";
                             width: 114;
                             height: 46;
-                            Image {
+                            enabled: userData != null && !loading;
+                            onClicked: follow();
+                            BorderImage {
                                 id: icon;
+                                anchors.fill: parent;
+                                border { left: 25; right: 25; top: 0; bottom: 0; }
                                 source: "../gfx/btn_%1_%2%3.png".arg(parent.name).arg(parent.pressString).arg(constant.invertedString);
                             }
                             Text {
@@ -186,6 +212,11 @@ MyPage {
                     visible: isMe;
                     iconName: "sc";
                     title: qsTr("Collections");
+                    markVisible: getUid() === tbsettings.currentUid && infoCenter.bookmark > 0;
+                    onClicked: {
+                        var prop = { title: title }
+                        pageStack.push(Qt.resolvedUrl("Profile/BookmarkPage.qml"), prop);
+                    }
                 }
                 ProfileCell {
                     iconName: "myba";
@@ -200,11 +231,23 @@ MyPage {
                     iconName: "gz";
                     title: qsTr("Concerns");
                     subTitle: userData ? userData.concern_num : "";
+                    onClicked: {
+                        var prop = { title: title, type: "follow", uid: getUid() }
+                        pageStack.push(Qt.resolvedUrl("Profile/FriendsPage.qml"), prop);
+                    }
                 }
                 ProfileCell {
                     iconName: "fs";
                     title: qsTr("Fans")
                     subTitle: userData ? userData.fans_num : "";
+                    onClicked: {
+                        if (getUid() === tbsettings.currentUid){
+                            infoCenter.clear("fans");
+                        }
+                        var prop = { title: title, type: "fans", uid: getUid() }
+                        pageStack.push(Qt.resolvedUrl("Profile/FriendsPage.qml"), prop);
+                    }
+                    markVisible: getUid() === tbsettings.currentUid && infoCenter.fans > 0;
                 }
                 ProfileCell {
                     iconName: "tiezi";

@@ -11,6 +11,7 @@ Item {
                                 : privateStyle.toolBarHeightLandscape
     property alias text: inputArea.text;
     property alias cursorPosition: inputArea.cursorPosition;
+    property alias emoticonEnabled: faceInsertBtn.enabled;
 
     anchors.bottom: parent.bottom;
     width: screen.width;
@@ -43,6 +44,7 @@ Item {
                 left: inputBarCancelBtn.right;
                 verticalCenter: parent.verticalCenter;
             }
+            opacity: enabled ? 1 : 0.25;
             platformInverted: tbsettings.whiteTheme;
             iconSource: "../../gfx/btn_insert_face"+constant.invertedString+".png";
         }

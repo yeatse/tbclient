@@ -47,8 +47,8 @@ MyPage {
 
         CustomWebView {
             id: webView;
-            property bool __initial: true;
             preferredWidth: view.width;
+            preferredHeight: view.height;
             smooth: !loading && !view.moving;
             javaScriptWindowObjects: QtObject {
                 CustomWebView.windowObjectName: "scroller";
@@ -69,16 +69,7 @@ MyPage {
                 view.contentY = 0;
                 view.returnToBounds();
             }
-            onLoadStarted: {
-                __initial = true;
-                loading = true;
-            }
-            onProgressChanged: {
-                if (progress > 0 && __initial){
-                    __initial = false;
-                    evaluateJavaScript("window.scrollTo = window.scroller.scrollTo;");
-                }
-            }
+            onLoadStarted: loading = true;
             onLoadFailed: loading = false;
             onLoadFinished: {
                 loading = false;

@@ -21,7 +21,12 @@ var BaiduApi = {
     C_S_LOGIN: HOST + "/c/s/login",
     C_S_MSG: HOST + "/c/s/msg",
     C_S_COMLIST: HOST + "/c/s/comlist",
+    C_S_DELCOM: HOST + "/c/s/delcom",
     C_S_SEARCHPOST: HOST + "/c/s/searchpost",
+    C_S_RECENTMSG: HOST + "/c/s/recentmsg",
+    C_S_HISTORYMSG: HOST + "/c/s/historymsg",
+    C_S_ADDMSG: HOST + "/c/s/addmsg",
+    C_S_CLEARMSG: HOST + "/c/s/clearmsg",
 
     C_F_FORUM_FORUMRECOMMEND: HOST + "/c/f/forum/forumrecommend",
     C_F_FORUM_LIKE: HOST + "/c/f/forum/like",
@@ -34,8 +39,11 @@ var BaiduApi = {
     C_F_PB_FLOOR: HOST + "/c/f/pb/floor",
     C_F_PB_PICPAGE: HOST + "/c/f/pb/picpage",
     C_F_PB_PICCOMMENT: HOST + "/c/f/pb/piccomment",
+    C_F_POST_THREADSTORE: HOST + "/c/f/post/threadstore",
 
     C_C_POST_ADD: HOST + "/c/c/post/add",
+    C_C_POST_RMSTORE: HOST + "/c/c/post/rmstore",
+    C_C_POST_ADDSTORE: HOST + "/c/c/post/addstore",
     C_C_THREAD_ADD: HOST + "/c/c/thread/add",
     C_C_FORUM_SIGN: HOST + "/c/c/forum/sign",
     C_C_FORUM_LIKE: HOST + "/c/c/forum/like",
@@ -43,13 +51,17 @@ var BaiduApi = {
     C_C_IMG_UPLOAD: HOST + "/c/c/img/upload",
     C_C_VOICE_UPLOAD: HOST + "/c/c/voice/chunkupload",
     C_C_VOICE_FINUPLOAD: HOST + "/c/c/voice/voice_fin_chunk_upload",
+    C_C_USER_UNFOLLOW: HOST + "/c/c/user/unfollow",
+    C_C_USER_FOLLOW: HOST + "/c/c/user/follow",
 
     C_U_FEED_REPLYME: HOST + "/c/u/feed/replyme",
     C_U_FEED_ATME: HOST + "/c/u/feed/atme",
     C_U_FEED_FORUM: HOST + "/c/u/feed/forum",
     C_U_FEED_MYPOST: HOST + "/c/u/feed/mypost",
     C_U_FEED_OTHERPOST: HOST + "/c/u/feed/otherpost",
-    C_U_USER_PROFILE: HOST + "/c/u/user/profile"
+    C_U_USER_PROFILE: HOST + "/c/u/user/profile",
+    C_U_FOLLOW_PAGE: HOST + "/c/u/follow/page",
+    C_U_FANS_PAGE: HOST + "/c/u/fans/page"
 }
 
 var BaiduRequest = function(action, method){

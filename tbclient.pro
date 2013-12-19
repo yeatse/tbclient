@@ -28,15 +28,15 @@ SOURCES += main.cpp \
     src/scribblearea.cpp \
     src/customwebview.cpp \
 #    qml/tbclient/*.qml \
-#    qml/tbclient/Thread/*.qml \
-#    qml/tbclient/Message/*.qml \
-#    qml/tbclient/Forum/*.qml \
-#    qml/tbclient/Dialog/*.qml \
 #    qml/tbclient/Component/*.qml \
-#    qml/tbclient/Floor/*.qml \
-#    qml/tbclient/Post/*.* \
+#    qml/tbclient/Dialog/*.qml \
 #    qml/tbclient/Explore/*.qml \
+#    qml/tbclient/Floor/*.qml \
+#    qml/tbclient/Forum/*.qml \
+#    qml/tbclient/Message/*.qml \
+#    qml/tbclient/Post/*.* \
 #    qml/tbclient/Profile/*.qml \
+#    qml/tbclient/Thread/*.qml \
 #    qml/js/main.js
 
 TRANSLATIONS += i18n/tbclient_zh.ts

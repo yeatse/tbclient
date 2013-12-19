@@ -542,5 +542,58 @@ var BaiduParser = {
                          };
                          model.append(prop);
                      });
+    },
+
+    loadUserList:
+    function(option, list){
+        var model = option.model;
+        if (option.renew) model.clear();
+        list.forEach(function(value){
+                         value.portrait = tbsettings.showImage
+                                 ? getPortrait(value.portrait)
+                                 : Qt.resolvedUrl("../gfx/photo.png");
+                         model.append(value);
+                     });
+    },
+
+    loadBookmark:
+    function(option, list){
+        var model = option.model;
+        if (option.renew) model.clear();
+        list.forEach(function(value){
+                         var prop = {
+                             author: value.author.name_show,
+                             isNew: value.count !== "0",
+                             mark_pid: value.mark_pid,
+                             isReverse: value.mark_status === "2",
+                             isLz: value.mark_status === "1",
+                             reply_num: value.reply_num,
+                             isVisible: value.status === "0",
+                             thread_id: value.thread_id,
+                             title: value.title,
+                             isReply: value.type === "2"
+                         }
+                         model.append(prop);
+                     });
+    },
+
+    loadChatList:
+    function(option, list){
+        var self = this;
+        var model = option.model;
+        if (option.renew) model.clear();
+        list.forEach(function(value, index){
+                         var prop = {
+                             content: self.__parseRawText(value.content),
+                             isMe: value.from === "1",
+                             msg_id: value.msg_id,
+                             time: Qt.formatDate(new Date(Number(value.time+"000")), "yyyy-MM-dd")
+                         }
+                         if (option.history){
+                             model.insert(index, prop);
+                         } else {
+                             model.append(prop);
+                         }
+                     });
     }
 };

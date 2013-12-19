@@ -39,6 +39,8 @@ MyPage {
             }
             var f = function(err){
                 loading = false;
+                if (err === "hide")
+                    err = qsTr("His posts are not allowed to view");
                 signalCenter.showMessage(err);
             }
             loading = true;
@@ -58,6 +60,10 @@ MyPage {
         cacheBuffer: view.height * 5;
         model: ListModel {}
         delegate: postDelegate;
+        header: PullToActivate {
+            myView: view;
+            onRefresh: internal.getlist();
+        }
         footer: FooterItem {
             visible: view.count > 0;
             enabled: internal.hasMore && !loading;

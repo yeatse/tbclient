@@ -62,6 +62,7 @@ Item {
                         sourceSize.width: parent.width;
                         source: "file:///"+modelData;
                         clip: true;
+                        asynchronous: true;
                     }
                     ToolButton {
                         anchors {

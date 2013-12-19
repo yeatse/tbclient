@@ -6,6 +6,7 @@ Item {
     property string iconName;
     property string title;
     property string subTitle;
+    property bool markVisible: false;
 
     signal clicked;
 
@@ -25,6 +26,10 @@ Item {
         Image {
             anchors.horizontalCenter: parent.horizontalCenter;
             source: "../../gfx/cent_icon_"+root.iconName+constant.invertedString+".png"
+            Image {
+                anchors { top: parent.top; right: parent.right; }
+                source: root.markVisible ? "../../gfx/ico_mbar_news_point.png" : "";
+            }
         }
         Text {
             anchors.horizontalCenter: parent.horizontalCenter;

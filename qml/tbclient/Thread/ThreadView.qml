@@ -22,6 +22,10 @@ MyPage {
     property bool isLz: false;
     property bool isArround: false;
 
+    property bool fromBookmark: false;
+    property bool isCollected: false;
+    property string collectMarkPid;
+
     property int privateFullPage: 0;
     onIsLzChanged: {
         if (isLz) privateFullPage = totalPage;
@@ -93,12 +97,18 @@ MyPage {
             opt.arround = true;
             opt.pid = option;
         }
+
+        if (fromBookmark && isArround)
+            opt.st_type = "store_thread";
+
         var s = function(obj, modelAffected){
             loading = false;
             thread = obj.thread;
             forum = obj.forum;
             currentPage = obj.page.current_page;
             totalPage = obj.page.total_page;
+            isCollected = obj.thread.collect_status !== "0";
+            collectMarkPid = obj.thread.collect_mark_pid;
 
             if (option === "renew"||option === "jump"||/\b\d+\b/.test(option)){
                 hasMore = obj.page.has_more === "1";
@@ -124,6 +134,25 @@ MyPage {
         Script.getThreadPage(opt, s, f);
     }
 
+    function addStore(pid){
+        var opt = { add: true, tid: threadId }
+        opt.status = isLz ? "1" : isReverse ? "2" : "0";
+        opt.pid = pid || view.model.get(0).id;
+        var s = function(){ loading = false; isCollected = true;
+            collectMarkPid = opt.pid; signalCenter.showMessage(qsTr("Success")) }
+        var f = function(err){ loading = false; signalCenter.showMessage(err); }
+        loading = true;
+        Script.setBookmark(opt, s, f);
+    }
+    function rmStore(){
+        var opt = { add: false, tid: threadId }
+        var s = function(){ loading = false; isCollected = false;
+            collectMarkPid = ""; signalCenter.showMessage(qsTr("Success")) }
+        var f = function(err){ loading = false; signalCenter.showMessage(err); }
+        loading = true;
+        Script.setBookmark(opt, s, f);
+    }
+
     title: thread ? thread.title : qsTr("New tab");
 
     SilicaListView {
@@ -139,10 +168,13 @@ MyPage {
             enabled: !loading;
             onClicked: getlist("next");
         }
-        header: PullToActivate {
-            myView: view;
-            enabled: !loading;
-            onRefresh: getlist("prev");
+        header: ThreadHeader {
+            PullToActivate {
+                myView: view;
+                enabled: !loading;
+                onRefresh: getlist("prev");
+            }
+            visible: thread != null;
         }
     }
 

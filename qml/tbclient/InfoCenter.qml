@@ -37,6 +37,8 @@ Item {
         onActiveChanged: {
             if (Qt.application.active){
                 internal.displayMessage();
+            } else {
+                audioWrapper.stop();
             }
         }
     }

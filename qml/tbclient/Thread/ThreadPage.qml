@@ -105,7 +105,8 @@ MyPage {
                 pageStack: page.pageStack
             };
             if (option.title) prop.title = option.title;
-            if (option.isLz) prop.isLz = option.isLz;
+            if (option.isLz) prop.isLz = true;
+            if (option.fromBookmark) prop.fromBookmark = true;
 
             if (!viewComp) viewComp = Qt.createComponent("ThreadView.qml");
             var view = viewComp.createObject(tabGroup, prop);
