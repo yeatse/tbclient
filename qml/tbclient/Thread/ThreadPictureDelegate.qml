@@ -80,6 +80,10 @@ Item {
                     width: constant.graphicSizeLarge;
                     height: constant.graphicSizeLarge;
                 }
+                MouseArea {
+                    anchors.fill: parent;
+                    onClicked: signalCenter.viewImage(url)
+                }
             }
             Rectangle {
                 width: parent.width;

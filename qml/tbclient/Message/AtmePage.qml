@@ -81,6 +81,7 @@ MyPage {
                 onClicked: signalCenter.createEnterThreadDialog(title, is_floor, post_id, thread_id, fname);
                 Image {
                     id: avatar;
+                    asynchronous: true;
                     anchors.left: root.paddingItem.left;
                     anchors.top: root.paddingItem.top;
                     width: constant.graphicSizeMedium;

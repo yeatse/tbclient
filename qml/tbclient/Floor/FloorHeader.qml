@@ -10,6 +10,7 @@ Item {
     height: contentCol.height + constant.paddingLarge*2;
 
     BorderImage {
+        asynchronous: true;
         anchors.fill: parent;
         source: privateStyle.imagePath("qtg_fr_list_heading_normal", tbsettings.whiteTheme);
         border { left: 28; top: 5; right: 28; bottom: 0 }
@@ -21,6 +22,7 @@ Item {
             left: root.left; top: root.top;
             margins: constant.paddingLarge;
         }
+        asynchronous: true;
         width: constant.graphicSizeMedium;
         height: constant.graphicSizeMedium;
         sourceSize: constant.sizeMedium;
@@ -86,6 +88,7 @@ Item {
             Row {
                 anchors.right: parent.right;
                 Image {
+                    asynchronous: true;
                     source: "../../gfx/btn_icon_comment_n"+constant.invertedString+".png";
                 }
                 Text {

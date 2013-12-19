@@ -204,6 +204,7 @@ MyPage {
                             implicitHeight: label.height+constant.paddingMedium*2+5;
                             BorderImage {
                                 anchors.fill: parent;
+                                asynchronous: true;
                                 source: "../gfx/retweet_bg"+constant.invertedString+".png";
                                 border { left: 32; right: 10; top: 15; bottom: 10; }
                             }

@@ -18,6 +18,7 @@ Item {
         id: image;
         anchors.fill: rect;
         opacity: 0;
+        asynchronous: true;
         onStatusChanged: {
             if (status == Image.Ready){
                 opacity = 1;
@@ -28,6 +29,7 @@ Item {
 
     Image {
         anchors.centerIn: parent;
+        asynchronous: true;
         source: "../../gfx/photos.svg";
         visible: image.status != Image.Ready;
     }

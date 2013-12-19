@@ -25,6 +25,7 @@ MyPage {
         id: internal;
 
         property bool editMode: false;
+        property bool dataDirty: true;
 
         function getlist(option){
             option = option||"renew";
@@ -47,6 +48,14 @@ MyPage {
             var f = function(err){ loading = false; signalCenter.showMessage(err); }
             loading = true;
             Script.setBookmark(opt, s, f);
+        }
+    }
+
+    Connections {
+        target: signalCenter;
+        onBookmarkChanged: {
+            if (page.status !== PageStatus.Active)
+                internal.dataDirty = true;
         }
     }
 
@@ -150,7 +159,10 @@ MyPage {
     // For keypad
     onStatusChanged: {
         if (status === PageStatus.Active){
-            internal.getlist();
+            if (internal.dataDirty){
+                internal.dataDirty = false;
+                internal.getlist();
+            }
             view.forceActiveFocus();
         }
     }

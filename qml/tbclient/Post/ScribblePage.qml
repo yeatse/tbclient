@@ -87,6 +87,7 @@ MyPage {
                 anchors.fill: parent;
                 source: importer.source == "" ? "" : "file:///"+importer.source;
                 cache: false;
+                asynchronous: true;
                 onStatusChanged: {
                     if (status == Image.Ready && !imageLoader.modified){
                         imageLoader.modified = true;

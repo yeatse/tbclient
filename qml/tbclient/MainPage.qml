@@ -178,6 +178,7 @@ MyPage {
                     anchors { right: root.paddingItem.right; verticalCenter: parent.verticalCenter; }
                     spacing: constant.paddingMedium;
                     Image {
+                        asynchronous: true;
                         anchors.verticalCenter: parent.verticalCenter;
                         width: signText.width + 16;
                         source: "../gfx/ico_sign"+constant.invertedString+".png"
@@ -191,6 +192,7 @@ MyPage {
                         }
                     }
                     Image {
+                        asynchronous: true;
                         anchors.verticalCenter: parent.verticalCenter;
                         source: internal.getGradeIcon(level_id);
                         Text {

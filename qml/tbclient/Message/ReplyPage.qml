@@ -85,6 +85,7 @@ MyPage {
                         left: root.paddingItem.left;
                         top: root.paddingItem.top;
                     }
+                    asynchronous: true;
                     width: constant.graphicSizeMedium;
                     height: constant.graphicSizeMedium;
                     source: portrait;
@@ -114,6 +115,7 @@ MyPage {
                         width: parent.width;
                         implicitHeight: label.height+constant.paddingMedium*2+5;
                         BorderImage {
+                            asynchronous: true;
                             anchors.fill: parent;
                             source: "../../gfx/retweet_bg"+constant.invertedString+".png";
                             border { left: 32; right: 10; top: 15; bottom: 10; }

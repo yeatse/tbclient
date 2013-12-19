@@ -610,7 +610,9 @@ function getUserPage(option, onSuccess, onFailed){
     var url = option.type === "follow" ? BaiduApi.C_U_FOLLOW_PAGE
                                        : BaiduApi.C_U_FANS_PAGE;
     var req = new BaiduRequest(url);
-    var param = { uid: option.uid, pn: option.pn };
+    var param = { uid: option.uid };
+    if (option.rn) param.rn = option.rn;
+    if (option.pn) param.pn = option.pn;
     req.signForm(param);
     var s = function(obj){
         var page = option.page;
@@ -639,8 +641,8 @@ function getBookmark(option, onSuccess, onFailed){
 }
 
 function setBookmark(option, onSuccess, onFailed){
-    var url = option.add ? BaiduApi.C_C_POST_ADDSTORE
-                         : BaiduApi.C_C_POST_RMSTORE
+    signalCenter.bookmarkChanged();
+    var url = option.add ? BaiduApi.C_C_POST_ADDSTORE : BaiduApi.C_C_POST_RMSTORE;
     var req = new BaiduRequest(url);
     var param = {};
     if (option.add){
@@ -673,6 +675,7 @@ function getChatMsg(option, onSuccess, onFailed){
     var s = function(obj){
         option.page.hasMore = obj.has_more === "1";
         BaiduParser.loadChatList(option, obj.message);
+        onSuccess();
     }
     req.sendRequest(s, onFailed);
 }
@@ -692,5 +695,14 @@ function followUser(option, onSuccess, onFailed){
     var url = option.isFollow ? BaiduApi.C_C_USER_FOLLOW : BaiduApi.C_C_USER_UNFOLLOW
     var req = new BaiduRequest(url);
     var param = { portrait: option.portrait, tbs: tbs };
+    req.signForm(param);
     req.sendRequest(onSuccess, onFailed);
+}
+
+function getFollowSug(option, onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_U_FOLLOW_SUG);
+    var param = { uid: tbsettings.currentUid, q: option.q }
+    req.signForm(param);
+    var s = function(obj){onSuccess(obj.uname)};
+    req.sendRequest(s, onFailed);
 }

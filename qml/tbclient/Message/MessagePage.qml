@@ -18,6 +18,10 @@ MyPage {
         ToolButtonWithTip {
             toolTipText: qsTr("Chat");
             iconSource: "toolbar-add";
+            onClicked: {
+                var prop = { title: toolTipText, type: "chat" }
+                pageStack.push(Qt.resolvedUrl("../Profile/SelectFriendPage.qml"), prop);
+            }
         }
     }
 

@@ -49,6 +49,7 @@ MyPage {
             } else if (option === "prev"){
                 opt.msg_id = view.model.get(0).msg_id;
             }
+            loading = true;
             var s = function(){ loading = false; }
             var f = function(err){ loading = false; signalCenter.showMessage(err); }
             Script.getChatMsg(opt, s, f);
@@ -63,6 +64,7 @@ MyPage {
             var s = function(){
                 loading = false;
                 toolsArea.text = "";
+                toolsArea.state = "";
                 heartBeater.restart();
             }
             var f = function(err){
@@ -129,6 +131,7 @@ MyPage {
                 implicitHeight: contentCol.height + contentCol.anchors.topMargin*2;
 
                 BorderImage {
+                    asynchronous: true;
                     source: isMe ? "../../gfx/msg_out.png" : "../../gfx/msg_in.png";
                     anchors { fill: parent; margins: constant.paddingMedium; }
                     border { left: 10; top: 10; right: 10; bottom: 15; }

@@ -370,7 +370,9 @@ QString Utility::decodeGBKHex(const QString &encodedString)
 #ifdef QT_DEBUG
     qDebug() << encodedString;
 #endif
-    return "";
+    QTextCodec* codec = QTextCodec::codecForName("GBK");
+    QByteArray text = QByteArray::fromHex(encodedString.toAscii());
+    return codec->toUnicode(text);
 }
 
 // private

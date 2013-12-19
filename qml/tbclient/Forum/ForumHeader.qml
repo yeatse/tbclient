@@ -12,6 +12,7 @@ Item {
 
     BorderImage {
         id: bgImg;
+        asynchronous: true;
         anchors.fill: parent;
         source: privateStyle.imagePath("qtg_fr_list_heading_normal",
                                        tbsettings.whiteTheme);
@@ -25,6 +26,7 @@ Item {
             left: parent.left; top: parent.top;
             bottom: parent.bottom; margins: constant.paddingLarge;
         }
+        asynchronous: true;
         width: height;
         source: internal.forum.avatar||"";
     }

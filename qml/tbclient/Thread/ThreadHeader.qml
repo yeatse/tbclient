@@ -5,7 +5,7 @@ Item {
     id: root;
 
     width: screen.width;
-    height: contentCol.height + constant.paddingLarge*2;
+    height: contentCol.height + constant.paddingSmall*2;
 
     BorderImage {
         id: bgImg;
@@ -18,45 +18,35 @@ Item {
     Column {
         id: contentCol;
         anchors {
-            left: parent.left; top: parent.top; right: parent.right;
-            margins: constant.paddingLarge;
+            left: parent.left; leftMargin: constant.paddingLarge;
+            right: parent.right; rightMargin: constant.paddingLarge;
+            top: parent.top; topMargin: constant.paddingSmall;
         }
-        spacing: constant.paddingLarge;
+        spacing: constant.paddingSmall;
         Text {
             width: parent.width;
             elide: Text.ElideRight;
             wrapMode: Text.WrapAnywhere;
             maximumLineCount: 2;
             textFormat: Text.PlainText;
-            font: constant.titleFont;
+            font: constant.labelFont;
             color: constant.colorLight;
             text: thread ? thread.title : "";
         }
         Item {
-            width: parent.width;
-            height: childrenRect.height;
-            Rectangle {
-                id: forumBtn;
-                width: forumLabel.width + constant.paddingLarge;
-                height: forumLabel.height + constant.paddingMedium;
-                radius: 4;
-                border { width: 1; color: Qt.darker(forumBtn.color) }
-                color: Qt.darker("#1080dd", forumMouseArea.pressed?3:2);
-                Text {
-                    id: forumLabel;
-                    anchors.centerIn: parent;
-                    font: constant.subTitleFont;
-                    color: constant.colorLight;
-                    text: forum ? forum.name+qsTr("Bar") : "";
-                }
-                MouseArea {
-                    id: forumMouseArea;
-                    anchors.fill: parent;
+            width: parent.width; height: privateStyle.tabBarHeightLandscape;
+            ButtonRow {
+                width: forumBtn.implicitWidth;
+                height: parent.height;
+                TabButton {
+                    id: forumBtn;
+                    height: parent.height;
+                    text: forum ? forum.name + qsTr("Bar") : "";
                     onClicked: signalCenter.enterForum(forum.name);
                 }
             }
             Image {
-                anchors.right: parent.right;
+                anchors { right: parent.right; verticalCenter: parent.verticalCenter; }
                 source: "../../gfx/icon_grade_middle_star_%1.png".arg(collectMouseArea.pressed||isCollected?"s":"n");
                 MouseArea {
                     id: collectMouseArea;

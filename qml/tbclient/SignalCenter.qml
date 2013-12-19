@@ -14,6 +14,7 @@ QtObject {
     signal vcodeSent(variant caller, string vcode, string vcodeMd5);
     signal imageSelected(variant caller, string urls);
     signal forumSigned(string fid);
+    signal bookmarkChanged;
 
     signal uploadFinished(variant caller, string response);
     signal uploadFailed(variant caller);
@@ -89,6 +90,10 @@ QtObject {
 
     function viewProfile(uid){
         pageStack.push(Qt.resolvedUrl("ProfilePage.qml"), { uid: uid });
+    }
+
+    function viewImage(url){
+        pageStack.push(Qt.resolvedUrl("ImageViewer.qml"), { imageUrl: url })
     }
 
     function openBrowser(url){

@@ -47,8 +47,8 @@ MyPage {
 
         CustomWebView {
             id: webView;
-            preferredWidth: view.width;
-            preferredHeight: view.height;
+            preferredWidth: page.width;
+            preferredHeight: page.height;
             smooth: !loading && !view.moving;
             javaScriptWindowObjects: QtObject {
                 CustomWebView.windowObjectName: "scroller";

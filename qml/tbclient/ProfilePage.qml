@@ -28,8 +28,9 @@ MyPage {
 
     function follow(){
         var prop = { portrait: userData.portrait, isFollow: !isLike };
-        var s = function(){ loading = false; isLike = prop.isFollow }
-        var f = function(err){ loading = false; signalCenter.showMessage(qsTr("Success")); }
+        var s = function(){ loading = false; isLike = prop.isFollow;
+            signalCenter.showMessage(qsTr("Success")); }
+        var f = function(err){ loading = false; signalCenter.showMessage(err); }
         loading = true;
         Script.followUser(prop, s, f);
     }

@@ -77,6 +77,7 @@ MyPage {
                         top: root.paddingItem.top;
                         bottom: root.paddingItem.bottom;
                     }
+                    asynchronous: true;
                     width: height;
                     source: avatar;
                 }

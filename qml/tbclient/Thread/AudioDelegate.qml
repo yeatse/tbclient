@@ -15,6 +15,7 @@ Item {
         height: parent.height;
         width: root.width / 2;
         border { left: 20; top: 20; right: 20; bottom: 20; }
+        asynchronous: true;
         source: "../../gfx/btn_frs_video_"+stateString+constant.invertedString+".9.png"
     }
 
@@ -23,6 +24,7 @@ Item {
             left: icon.left; leftMargin: constant.paddingLarge;
             verticalCenter: parent.verticalCenter;
         }
+        asynchronous: true;
         source: "../../gfx/icon_thread_voice"+constant.invertedString+".png"
     }
 

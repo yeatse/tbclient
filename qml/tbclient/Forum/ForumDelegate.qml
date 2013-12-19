@@ -30,11 +30,13 @@ AbstractItem {
                 anchors.right: parent.right;
                 spacing: 2;
                 Image {
+                    asynchronous: true;
                     enabled: is_good;
                     visible: enabled;
                     source: enabled ? "../../gfx/icon_elite"+constant.invertedString+".png" : "";
                 }
                 Image {
+                    asynchronous: true;
                     enabled: is_top;
                     visible: enabled;
                     source: enabled ? "../../gfx/icon_top"+constant.invertedString+".png" : "";
@@ -66,6 +68,7 @@ AbstractItem {
             }
             Image {
                 id: thumbnail;
+                asynchronous: true;
                 enabled: source != "";
                 visible: enabled;
                 width: enabled ? constant.thumbnailSize : 0;

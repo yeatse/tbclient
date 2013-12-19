@@ -100,6 +100,9 @@ MyPage {
                     Text {
                         width: parent.width;
                         elide: Text.ElideRight;
+                        maximumLineCount: 1;
+                        wrapMode: Text.WrapAnywhere;
+                        textFormat: Text.PlainText;
                         font: constant.subTitleFont;
                         color: constant.colorMid;
                         text: intro;
@@ -113,6 +116,10 @@ MyPage {
                     }
                     platformInverted: tbsettings.whiteTheme;
                     iconSource: "../../gfx/instant_messenger_chat"+constant.invertedString+".svg";
+                    onClicked: {
+                        var prop = { chatName: name_show, chatId: model.id }
+                        pageStack.push(Qt.resolvedUrl("../Message/ChatPage.qml"), prop);
+                    }
                 }
             }
         }

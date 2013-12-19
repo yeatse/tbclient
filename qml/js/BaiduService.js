@@ -61,7 +61,8 @@ var BaiduApi = {
     C_U_FEED_OTHERPOST: HOST + "/c/u/feed/otherpost",
     C_U_USER_PROFILE: HOST + "/c/u/user/profile",
     C_U_FOLLOW_PAGE: HOST + "/c/u/follow/page",
-    C_U_FANS_PAGE: HOST + "/c/u/fans/page"
+    C_U_FANS_PAGE: HOST + "/c/u/fans/page",
+    C_U_FOLLOW_SUG: HOST + "/c/u/follow/sug"
 }
 
 var BaiduRequest = function(action, method){

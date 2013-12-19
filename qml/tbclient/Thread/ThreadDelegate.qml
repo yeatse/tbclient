@@ -19,6 +19,7 @@ AbstractItem {
                 height: constant.graphicSizeMedium;
                 sourceSize: constant.sizeMedium;
                 source: authorPortrait;
+                asynchronous: true;
                 MouseArea {
                     anchors.fill: parent;
                     onClicked: signalCenter.linkClicked("at:"+authorId);
@@ -66,6 +67,7 @@ AbstractItem {
         }
         visible: floor !== "1";
         Image {
+            asynchronous: true;
             source: "../../gfx/btn_icon_comment_n"+constant.invertedString+".png";
         }
         Text {

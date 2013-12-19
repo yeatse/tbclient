@@ -152,7 +152,7 @@ MyPage {
 
             Item {
                 height: childrenRect.height
-                width: imagePage.width
+                width: page.width
 
                 BusyIndicator {
                     id: imageLoadingIndicator

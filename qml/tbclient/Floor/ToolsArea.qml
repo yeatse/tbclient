@@ -44,7 +44,7 @@ Item {
                 left: inputBarCancelBtn.right;
                 verticalCenter: parent.verticalCenter;
             }
-            opacity: enabled ? 1 : 0.25;
+            visible: enabled;
             platformInverted: tbsettings.whiteTheme;
             iconSource: "../../gfx/btn_insert_face"+constant.invertedString+".png";
         }
@@ -62,7 +62,8 @@ Item {
         TextArea {
             id: inputArea;
             anchors {
-                left: faceInsertBtn.right; right: sendBtn.left;
+                left: faceInsertBtn.enabled ? faceInsertBtn.right : inputBarCancelBtn.right;
+                right: sendBtn.left;
                 verticalCenter: parent.verticalCenter;
             }
             errorHighlight: Script.TextSlicer.textLength(text) > 280;
