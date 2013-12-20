@@ -78,45 +78,46 @@ MyPage {
 
     ListModel { id: listModel; }
 
-    SilicaListView {
-        id: view;
-        anchors { fill: parent; topMargin: viewHeader.height; }
-        model: ListModel {}
-        header: headerComp;
-        delegate: deleComp;
-        Component {
-            id: headerComp;
-            Item {
-                id: root;
-                width: view.width;
-                height: constant.graphicSizeLarge;
-                PullToActivate {
-                    myView: view;
-                    onRefresh: internal.getlist();
-                }
-                SearchInput {
-                    anchors {
-                        left: parent.left; right: parent.right;
-                        margins: constant.paddingLarge; verticalCenter: parent.verticalCenter;
-                    }
-                    placeholderText: qsTr("Tap to search");
-                    onTypeStopped: {
-                        if (text !== ""){
-                            internal.getSug(text);
-                        } else {
-                            internal.filterList = [];
-                            internal.filter();
-                        }
-                    }
-                }
-                Rectangle {
-                    anchors.bottom: parent.bottom;
-                    width: parent.width;
-                    height: 1;
-                    color: constant.colorMarginLine;
+    Item {
+        id: searchInput;
+        anchors { left: parent.left; right: parent.right; top: viewHeader.bottom; }
+        height: constant.graphicSizeLarge;
+        SearchInput {
+            anchors {
+                left: parent.left; right: parent.right;
+                margins: constant.paddingLarge; verticalCenter: parent.verticalCenter;
+            }
+            placeholderText: qsTr("Tap to search");
+            onTypeStopped: {
+                if (text !== ""){
+                    internal.getSug(text);
+                } else {
+                    internal.filterList = [];
+                    internal.filter();
                 }
             }
         }
+        Rectangle {
+            anchors.bottom: parent.bottom;
+            width: parent.width;
+            height: 1;
+            color: constant.colorMarginLine;
+        }
+    }
+
+    SilicaListView {
+        id: view;
+        anchors {
+            left: parent.left; right: parent.right;
+            top: searchInput.bottom; bottom: parent.bottom;
+        }
+        clip: true;
+        model: ListModel {}
+        header: PullToActivate {
+            myView: view;
+            onRefresh: internal.getlist();
+        }
+        delegate: deleComp;
         Component {
             id: deleComp;
             AbstractItem {

@@ -35,6 +35,11 @@ MyPage {
         }
     }
 
+    Connections {
+        target: signalCenter;
+        onVcodeSent: if (caller === page) internal.addPost(vcode, vcodeMd5);
+    }
+
     QtObject {
         id: internal;
 
@@ -68,13 +73,17 @@ MyPage {
         }
         function openMenu(){
         }
-        function addPost(){
+        function addPost(vcode, vcodeMd5){
             var opt = {
                 tid: thread.id,
                 fid: forum.id,
                 quote_id: post.id,
                 content: toolsArea.text,
                 kw: forum.name
+            }
+            if (vcode){
+                opt.vcode = vcode;
+                opt.vcode_md5 = vcodeMd5;
             }
             loading = true;
             var s = function(){
@@ -87,6 +96,9 @@ MyPage {
             var f = function(err, obj){
                 loading = false;
                 signalCenter.showMessage(err);
+                if (obj && obj.info && obj.info.need_vcode === "1"){
+                    signalCenter.needVCodeNew(page, obj.info.vcode_md5, obj.info.vcode_pic_url);
+                }
             }
             Script.floorReply(opt, s, f);
         }

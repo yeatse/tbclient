@@ -5,7 +5,7 @@ var voiceUploaded = false;
 var voiceOffset = 0;
 var voiceMd5 = "";
 
-function post(){
+function post(vcode, vcodeMd5){
     if (isReply){
         if (contentArea.text == ""&&attachedArea.imageList.length == 0 && attachedArea.audioFile == ""){
             signalCenter.showMessage(qsTr("Content required"));
@@ -30,7 +30,13 @@ function post(){
     imageInfoList.forEach(function(info){
                               content += "#(pic,"+info.id+","+info.width+","+info.height+")";
                           });
-    var opt, s, f;
+    var opt, s, f = function(err, obj){
+        loading = false;
+        signalCenter.showMessage(err);
+        if (obj && obj.info && obj.info.need_vcode === "1"){
+            signalCenter.needVCodeNew(page, obj.info.vcode_md5, obj.info.vcode_pic_url);
+        }
+    };
     if (isReply){
         opt = {
             tid: caller.thread.id,
@@ -41,6 +47,10 @@ function post(){
         if (voiceMd5){
             opt.during_time = Math.floor(attachedArea.audioDuration/1000);
             opt.voice_md5 = voiceMd5;
+        }
+        if (vcode){
+            opt.vcode = vcode;
+            opt.vcode_md5 = vcodeMd5;
         }
         loading = true;
         s = function(){
@@ -57,10 +67,6 @@ function post(){
             }
             pageStack.pop();
         }
-        f = function(err, obj){
-            loading = false;
-            signalCenter.showMessage(err);
-        }
         Script.addPost(opt, s, f);
     } else {
         opt = {
@@ -73,16 +79,16 @@ function post(){
             opt.during_time = Math.floor(attachedArea.audioDuration/1000);
             opt.voice_md5 = voiceMd5;
         }
+        if (vcode){
+            opt.vcode = vcode;
+            opt.vcode_md5 = vcodeMd5;
+        }
         loading = true;
         s = function(){
             loading = false;
             signalCenter.showMessage(qsTr("Success"));
             caller.getlist();
             pageStack.pop();
-        }
-        f = function(err, obj){
-            loading = false;
-            signalCenter.showMessage(err);
         }
         Script.addThread(opt, s, f);
     }

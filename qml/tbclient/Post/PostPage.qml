@@ -28,6 +28,7 @@ MyPage {
         target: signalCenter;
         onUploadFailed: if (caller === page) Post.uploadFailed();
         onUploadFinished: if (caller === page) Post.uploadFinished(response);
+        onVcodeSent: if (caller === page) Post.post(vcode, vcodeMd5);
     }
 
     Timer {

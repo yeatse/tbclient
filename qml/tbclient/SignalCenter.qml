@@ -5,6 +5,7 @@ QtObject {
     id: signalCenter;
 
     property variant vcodeDialogComp: null;
+    property variant newVCodeDialogComp: null;
     property variant queryDialogComp: null;
     property variant enterDialogComp: null;
     property variant threaPage: null;
@@ -38,6 +39,14 @@ QtObject {
         }
         var prop = { caller: caller, vcodeMd5: vcodeMd5, vcodePicUrl: vcodePicUrl }
         vcodeDialogComp.createObject(pageStack.currentPage, prop);
+    }
+
+    function needVCodeNew(caller, vcodeMd5, vcodePicUrl){
+        if (!newVCodeDialogComp){
+            newVCodeDialogComp = Qt.createComponent("Dialog/NewVCodeDialog.qml");
+        }
+        var prop = { caller: caller, vcodeMd5: vcodeMd5, vcodePicUrl: vcodePicUrl }
+        newVCodeDialogComp.createObject(pageStack.currentPage, prop);
     }
 
     function createQueryDialog(title, message, acceptText, rejectText, acceptCallback, rejectCallback){
@@ -93,7 +102,11 @@ QtObject {
     }
 
     function viewImage(url){
-        pageStack.push(Qt.resolvedUrl("ImageViewer.qml"), { imageUrl: url })
+        if (tbsettings.browser == ""){
+            pageStack.push(Qt.resolvedUrl("ImageViewer.qml"), { imageUrl: url })
+        } else {
+            utility.openURLDefault(url);
+        }
     }
 
     function openBrowser(url){

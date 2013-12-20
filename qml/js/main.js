@@ -52,12 +52,13 @@ function sync(){
 
 function login(option, onSuccess, onFailed){
     var req = new BaiduRequest(BaiduApi.C_S_LOGIN);
+    var isp = option.isphone?1:0;
     var param = {
         token: BaiduApi.TOKEN,
-        isphone: option.isphone?1:0,
-                                 m_api: "/c/s/sync",
-                                 passwd: Qt.btoa(option.passwd),
-                                 un: option.un
+        isphone: isp,
+        m_api: "/c/s/sync",
+        passwd: Qt.btoa(option.passwd),
+        un: option.un
     }
     if (option.vcode){
         param.vcode = option.vcode;
@@ -336,6 +337,10 @@ function addThread(option, onSuccess, onFailed){
         title: option.title,
         anonymous: 0
     }
+    if (option.vcode){
+        param.vcode = option.vcode;
+        param.vcode_md5 = option.vcode_md5;
+    }
     req.signForm(param);
     req.sendRequest(onSuccess, onFailed);
 }
@@ -441,6 +446,10 @@ function addPost(option, onSuccess, onFailed){
         param.during_time = option.during_time;
         param.voice_md5 = option.voice_md5;
     }
+    if (option.vcode){
+        param.vcode = option.vcode;
+        param.vcode_md5 = option.vcode_md5;
+    }
     req.signForm(param);
     req.sendRequest(onSuccess, onFailed);
 }
@@ -458,6 +467,10 @@ function floorReply(option, onSuccess, onFailed){
         kw: option.kw,
         vcode_tag: 11,
         anonymous: 0
+    }
+    if (option.vcode){
+        param.vcode = option.vcode;
+        param.vcode_md5 = option.vcode_md5;
     }
     req.signForm(param);
     req.sendRequest(onSuccess, onFailed);

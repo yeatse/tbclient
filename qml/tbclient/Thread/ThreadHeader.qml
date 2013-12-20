@@ -5,7 +5,7 @@ Item {
     id: root;
 
     width: screen.width;
-    height: contentCol.height + constant.paddingSmall*2;
+    height: contentCol.height + constant.paddingMedium*2;
 
     BorderImage {
         id: bgImg;
@@ -20,7 +20,7 @@ Item {
         anchors {
             left: parent.left; leftMargin: constant.paddingLarge;
             right: parent.right; rightMargin: constant.paddingLarge;
-            top: parent.top; topMargin: constant.paddingSmall;
+            top: parent.top; topMargin: constant.paddingMedium;
         }
         spacing: constant.paddingSmall;
         Text {
