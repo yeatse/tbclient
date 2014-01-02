@@ -7,6 +7,10 @@ import "../js/main.js" as Script
 MyPage {
     id: page;
 
+    property bool forceRefresh: false;
+
+    loadingVisible: loading && view.count === 0;
+
     title: qsTr("My tieba");
 
     tools: ToolBarLayout {
@@ -62,6 +66,8 @@ MyPage {
                         break;
                     }
                 }
+            } else {
+                page.forceRefresh = true;
             }
         }
     }
@@ -110,6 +116,14 @@ MyPage {
         id: viewHeader;
         title: page.title;
         onClicked: view.scrollToTop();
+        ToolButton {
+            anchors {
+                right: parent.right; rightMargin: constant.paddingMedium;
+                verticalCenter: parent.verticalCenter;
+            }
+            iconSource: "../gfx/calendar_week.svg";
+            onClicked: pageStack.push(Qt.resolvedUrl("BatchSignPage.qml"));
+        }
     }
 
     SilicaListView {
@@ -180,13 +194,14 @@ MyPage {
                     Image {
                         asynchronous: true;
                         anchors.verticalCenter: parent.verticalCenter;
-                        width: signText.width + 16;
+                        width: signText.width + 20;
+                        height: Math.floor(width/111*46);
                         source: "../gfx/ico_sign"+constant.invertedString+".png"
                         visible: is_sign;
                         Text {
                             id: signText;
                             anchors.centerIn: parent;
-                            font.pixelSize: constant.fontXSmall;
+                            font: constant.subTitleFont;
                             color: "darkred";
                             text: is_sign ? qsTr("signed") : "";
                         }
@@ -217,6 +232,10 @@ MyPage {
     onStatusChanged: {
         if (status === PageStatus.Active){
             view.forceActiveFocus();
+            if (page.forceRefresh){
+                page.forceRefresh = false;
+                internal.getLikedForum();
+            }
         }
     }
     Keys.onPressed: {

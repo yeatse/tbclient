@@ -156,6 +156,8 @@ MyPage {
                             property string pressString: pressed ? "s" : "n";
                             width: editRow.width + 20;
                             height: constant.graphicSizeMedium;
+                            onClicked: pageStack.push(Qt.resolvedUrl("Profile/ProfileEditPage.qml"),
+                                                      {userData: userData});
                             BorderImage {
                                 anchors.fill: parent;
                                 border { left: 25; right: 25; top: 0; bottom: 0; }

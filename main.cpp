@@ -20,6 +20,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 #ifdef Q_OS_SYMBIAN
     QApplication::setAttribute(Qt::AA_CaptureMultimediaKeys);
 #endif
+    QApplication::setStartDragDistance(2);
     QScopedPointer<QApplication> app(createApplication(argc, argv));
 
     app->setApplicationName("tbclient");

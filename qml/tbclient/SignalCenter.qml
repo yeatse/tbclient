@@ -32,6 +32,12 @@ QtObject {
         LinkDecoder.linkActivated(link);
     }
 
+    function clearLocalCache(){
+        mainPage.forceRefresh = true;
+        utility.clearUserData();
+        utility.clearCookies();
+    }
+
     // Dialogs
     function needVCode(caller, vcodeMd5, vcodePicUrl){
         if (!vcodeDialogComp){

@@ -12,7 +12,7 @@ var BaiduConst = {
     _timestamp: 0,
     _phone_imei: "",
     _client_id: "0",
-    _client_version: "5.0.4"
+    _client_version: "5.1.1"
 }
 
 var BaiduApi = {
@@ -29,8 +29,11 @@ var BaiduApi = {
     C_S_CLEARMSG: HOST + "/c/s/clearmsg",
 
     C_F_FORUM_FORUMRECOMMEND: HOST + "/c/f/forum/forumrecommend",
+    C_F_FORUM_FORUMSQUARE: HOST + "/c/f/forum/forumsquare",
+    C_F_FORUM_FORUMSQUARELIST: HOST + "/c/f/forum/forumsquarelist",
     C_F_FORUM_LIKE: HOST + "/c/f/forum/like",
     C_F_FORUM_SUG: HOST + "/c/f/forum/sug",
+    C_F_FORUM_GETFORUMLIST: HOST + "/c/f/forum/getforumlist",
     C_F_FRS_PAGE: HOST + "/c/f/frs/page",
     C_F_FRS_THREADLIST: HOST + "/c/f/frs/threadlist",
     C_F_FRS_PHOTOLIST: HOST + "/c/f/frs/photolist",
@@ -46,6 +49,7 @@ var BaiduApi = {
     C_C_POST_ADDSTORE: HOST + "/c/c/post/addstore",
     C_C_THREAD_ADD: HOST + "/c/c/thread/add",
     C_C_FORUM_SIGN: HOST + "/c/c/forum/sign",
+    C_C_FORUM_MSIGN: HOST + "/c/c/forum/msign",
     C_C_FORUM_LIKE: HOST + "/c/c/forum/like",
     C_C_FORUM_UNFAVOLIKE: HOST + "/c/c/forum/unfavolike",
     C_C_IMG_UPLOAD: HOST + "/c/c/img/upload",
@@ -110,7 +114,7 @@ BaiduRequest.prototype.sendRequest = function(onSuccess, onFailed){
                         } else if (xhr.readyState === xhr.DONE){
                             if (xhr.status === 200){
                                 try {
-                                    var obj = JSON.parse(xhr.responseText);
+                                    var obj = JSON.parse(decodeURIComponent(xhr.responseText));
                                     if (obj.error_code === "0"){
                                         onSuccess(obj);
                                     } else {
@@ -132,4 +136,22 @@ BaiduRequest.prototype.sendRequest = function(onSuccess, onFailed){
                 xhr.setRequestHeader("Content-Length", toPost.length);
                 xhr.send(toPost);
             }
+        }
+
+BaiduRequest.getTBS = function(onSuccess, onFailed){
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function(){
+                        if (xhr.readyState === xhr.DONE){
+                            if (xhr.status === 200){
+                                try {
+                                    tbs = JSON.parse(xhr.responseText).tbs;
+                                    onSuccess();
+                                } catch(e){
+                                    onFailed(JSON.stringify(e));
+                                }
+                            }
+                        }
+                    }
+            xhr.open("GET", "http://tieba.baidu.com/dc/common/tbs");
+            xhr.send();
         }

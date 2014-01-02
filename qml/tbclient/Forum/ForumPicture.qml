@@ -12,6 +12,8 @@ MyPage {
 
     orientationLock: PageOrientation.LockPortrait;
 
+    loadingVisible: loading && listModel1.count == 0 && listModel1.count == 0;
+
     title: internal.getName();
 
     tools: ToolBarLayout {

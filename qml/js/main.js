@@ -74,6 +74,7 @@ function login(option, onSuccess, onFailed){
         __bduss = user.BDUSS;
         __portrait = user.portrait;
         BaiduConst.BDUSS = user.BDUSS;
+        signalCenter.clearLocalCache();
         signalCenter.userChanged();
         onSuccess();
     }
@@ -717,5 +718,55 @@ function getFollowSug(option, onSuccess, onFailed){
     var param = { uid: tbsettings.currentUid, q: option.q }
     req.signForm(param);
     var s = function(obj){onSuccess(obj.uname)};
+    req.sendRequest(s, onFailed);
+}
+
+function getForumListForSign(option, onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_F_FORUM_GETFORUMLIST);
+    req.signForm();
+    var s = function(obj){
+        var page = option.page;
+        page.signedCount = BaiduParser.loadForumForSign(option, obj.forum_info||[]);
+        page.info = obj;
+        onSuccess();
+    }
+    req.sendRequest(s, onFailed);
+}
+
+function batchSign(option, onSuccess, onFailed){
+    var s = function(){
+        var req = new BaiduRequest(BaiduApi.C_C_FORUM_MSIGN);
+        var param = {
+            forum_ids: option.forum_ids.join(","),
+            tbs: tbs
+        }
+        req.signForm(param);
+        req.sendRequest(onSuccess, onFailed);
+    }
+    BaiduRequest.getTBS(s, onFailed);
+}
+
+function getForumSquare(onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_F_FORUM_FORUMSQUARE);
+    req.signForm();
+    req.sendRequest(onSuccess, onFailed);
+}
+
+function getForumSquareList(option, onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_F_FORUM_FORUMSQUARELIST);
+    var param = {
+        list_id: option.list_id,
+        st_type: "squareItem|"+option.index,
+        rn: 10,
+        offset: option.offset
+    }
+    req.signForm(param);
+    var s = function(obj){
+        var page = option.page;
+        page.hasMore = obj.has_more === "1";
+        page.offset += obj.forumsquare_list.length;
+        BaiduParser.loadForumSquareList(option, obj.forumsquare_list);
+        onSuccess(obj.title);
+    }
     req.sendRequest(s, onFailed);
 }

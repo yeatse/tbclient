@@ -334,6 +334,24 @@ void Utility::copyToClipbord(const QString &text)
     qApp->clipboard()->setText(text);
 }
 
+QString Utility::cutImage(const QString &filename, double scale, int x, int y, int width, int height)
+{
+    QImage image(filename);
+    if (image.isNull())
+        return QString();
+    // sourceSize.height: 1000;
+    if (image.height() > 1000)
+        image = image.scaledToHeight(1000);
+    image = image.scaled(image.width()*scale, image.height()*scale);
+    image = image.copy(x, y, width, height);
+    QString result = tempPath() + QDir::separator() + "avatar_temp.jpg";
+    if (image.save(result)){
+        return result;
+    } else {
+        return QString();
+    }
+}
+
 QString Utility::easyDate(const QDateTime &date)
 {
     if (formats.length() == 0) initializeLangFormats();

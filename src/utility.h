@@ -76,6 +76,7 @@ public:             // Other functions.
     Q_INVOKABLE QString fileHash(const QString &filename);
     Q_INVOKABLE QString chunkFile(const QString &filename, int pos, int length = 30720);
     Q_INVOKABLE void copyToClipbord(const QString &text);
+    Q_INVOKABLE QString cutImage(const QString &filename, double scale, int x, int y, int width, int height);
 
     // Make date readable
     Q_INVOKABLE QString easyDate(const QDateTime &date);

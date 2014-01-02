@@ -12,7 +12,9 @@ QtObject {
     property color colorMarginLine: tbsettings.whiteTheme ? platformStyle.colorDisabledLightInverted
                                                           : platformStyle.colorDisabledMid;
     property color colorTextSelection: tbsettings.whiteTheme ? platformStyle.colorTextSelection
-                                                             : platformStyle.colorTextSelectionInverted
+                                                             : platformStyle.colorTextSelectionInverted;
+    property color colorDisabled: tbsettings.whiteTheme ? platformStyle.colorDisabledMid
+                                                        : platformStyle.colorDisabledMidInverted;
 
     // padding size
     property int paddingSmall: platformStyle.paddingSmall

@@ -10,11 +10,72 @@
     </message>
 </context>
 <context>
+    <name>AvatarEditPage</name>
+    <message>
+        <location filename="../qml/tbclient/Profile/AvatarEditPage.qml" line="14"/>
+        <source>OK</source>
+        <translation>完成</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Profile/AvatarEditPage.qml" line="28"/>
+        <source>Cannot save avatar</source>
+        <translation>无法保存头像</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Profile/AvatarEditPage.qml" line="41"/>
+        <source>Edit avatar</source>
+        <translation>编辑头像</translation>
+    </message>
+</context>
+<context>
     <name>BackButton</name>
     <message>
         <location filename="../qml/tbclient/Component/BackButton.qml" line="4"/>
         <source>Back</source>
         <translation>返回</translation>
+    </message>
+</context>
+<context>
+    <name>BatchSignPage</name>
+    <message>
+        <location filename="../qml/tbclient/BatchSignPage.qml" line="10"/>
+        <source>One-click sign</source>
+        <translation>一键签到</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/BatchSignPage.qml" line="112"/>
+        <source>Start</source>
+        <translation>开始签到</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/BatchSignPage.qml" line="112"/>
+        <source>Completed</source>
+        <translation>签到完成</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/BatchSignPage.qml" line="149"/>
+        <source>Signed: %1/%2</source>
+        <translation>签到进度：%1/%2</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/BatchSignPage.qml" line="181"/>
+        <source>Lv.%1</source>
+        <translation>%1级</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/BatchSignPage.qml" line="189"/>
+        <source>Exp</source>
+        <translation>经验</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/BatchSignPage.qml" line="215"/>
+        <source>Signed %1 days</source>
+        <translation>已签到%1天</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/BatchSignPage.qml" line="267"/>
+        <source>Signing</source>
+        <translation>正在签到</translation>
     </message>
 </context>
 <context>
@@ -259,23 +320,36 @@
 <context>
     <name>ForumPicture</name>
     <message>
-        <location filename="../qml/tbclient/Forum/ForumPicture.qml" line="20"/>
+        <location filename="../qml/tbclient/Forum/ForumPicture.qml" line="22"/>
         <source>Refresh</source>
         <translation>刷新</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Forum/ForumPicture.qml" line="26"/>
+        <location filename="../qml/tbclient/Forum/ForumPicture.qml" line="28"/>
         <source>Create a thread</source>
         <translation>发表主题</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Forum/ForumPicture.qml" line="35"/>
+        <location filename="../qml/tbclient/Forum/ForumPicture.qml" line="37"/>
         <source>Activities</source>
         <translation>吧动态</translation>
     </message>
     <message>
         <source>Menu</source>
         <translation type="obsolete">菜单</translation>
+    </message>
+</context>
+<context>
+    <name>ForumRankDelegate</name>
+    <message>
+        <location filename="../qml/tbclient/Explore/ForumRankDelegate.qml" line="49"/>
+        <source>%1 members</source>
+        <translation>关注 %1</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Explore/ForumRankDelegate.qml" line="56"/>
+        <source>%1 posts</source>
+        <translation>贴子 %1</translation>
     </message>
 </context>
 <context>
@@ -424,47 +498,47 @@
 <context>
     <name>MainPage</name>
     <message>
-        <location filename="../qml/tbclient/MainPage.qml" line="10"/>
+        <location filename="../qml/tbclient/MainPage.qml" line="14"/>
         <source>My tieba</source>
         <translation>我的贴吧</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/MainPage.qml" line="15"/>
+        <location filename="../qml/tbclient/MainPage.qml" line="19"/>
         <source>Quit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/MainPage.qml" line="22"/>
+        <location filename="../qml/tbclient/MainPage.qml" line="26"/>
         <source>Press again to quit</source>
         <translation>再按一次退出</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/MainPage.qml" line="31"/>
+        <location filename="../qml/tbclient/MainPage.qml" line="35"/>
         <source>Home page</source>
         <translation>首页</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/MainPage.qml" line="36"/>
+        <location filename="../qml/tbclient/MainPage.qml" line="40"/>
         <source>Messages</source>
         <translation>消息</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/MainPage.qml" line="41"/>
+        <location filename="../qml/tbclient/MainPage.qml" line="45"/>
         <source>User center</source>
         <translation>个人中心</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/MainPage.qml" line="46"/>
+        <location filename="../qml/tbclient/MainPage.qml" line="50"/>
         <source>More</source>
         <translation>更多</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/MainPage.qml" line="137"/>
+        <location filename="../qml/tbclient/MainPage.qml" line="151"/>
         <source>Tap to search</source>
         <translation>搜吧、搜贴</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/MainPage.qml" line="191"/>
+        <location filename="../qml/tbclient/MainPage.qml" line="206"/>
         <source>signed</source>
         <translation>已签</translation>
     </message>
@@ -480,6 +554,14 @@
         <location filename="../qml/tbclient/Message/MessagePage.qml" line="19"/>
         <source>Chat</source>
         <translation>添加新的聊天</translation>
+    </message>
+</context>
+<context>
+    <name>MyPage</name>
+    <message>
+        <location filename="../qml/tbclient/Component/MyPage.qml" line="10"/>
+        <source>Loading</source>
+        <translation>正在加载数据</translation>
     </message>
 </context>
 <context>
@@ -586,6 +668,44 @@
     </message>
 </context>
 <context>
+    <name>ProfileEditPage</name>
+    <message>
+        <location filename="../qml/tbclient/Profile/ProfileEditPage.qml" line="9"/>
+        <source>Edit profile</source>
+        <translation>编辑资料</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Profile/ProfileEditPage.qml" line="42"/>
+        <source>Avatar</source>
+        <translation>头像</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Profile/ProfileEditPage.qml" line="70"/>
+        <source>Edit avatar</source>
+        <translation>编辑头像</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Profile/ProfileEditPage.qml" line="79"/>
+        <source>Gender</source>
+        <translation>性别</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Profile/ProfileEditPage.qml" line="94"/>
+        <source>Male</source>
+        <translation>男</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Profile/ProfileEditPage.qml" line="99"/>
+        <source>Female</source>
+        <translation>女</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Profile/ProfileEditPage.qml" line="109"/>
+        <source>Intro</source>
+        <translation>个人简介</translation>
+    </message>
+</context>
+<context>
     <name>ProfileForumList</name>
     <message>
         <location filename="../qml/tbclient/Profile/ProfileForumList.qml" line="41"/>
@@ -631,37 +751,37 @@
         <translation>发送消息</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/ProfilePage.qml" line="177"/>
+        <location filename="../qml/tbclient/ProfilePage.qml" line="179"/>
         <source>Edit profile</source>
         <translation>编辑资料</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/ProfilePage.qml" line="202"/>
+        <location filename="../qml/tbclient/ProfilePage.qml" line="204"/>
         <source>Unfollow</source>
         <translation>取消关注</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/ProfilePage.qml" line="215"/>
+        <location filename="../qml/tbclient/ProfilePage.qml" line="217"/>
         <source>Collections</source>
         <translation>我的收藏</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/ProfilePage.qml" line="224"/>
+        <location filename="../qml/tbclient/ProfilePage.qml" line="226"/>
         <source>Tieba</source>
         <translation>关注的吧</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/ProfilePage.qml" line="233"/>
+        <location filename="../qml/tbclient/ProfilePage.qml" line="235"/>
         <source>Concerns</source>
         <translation>关注的人</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/ProfilePage.qml" line="242"/>
+        <location filename="../qml/tbclient/ProfilePage.qml" line="244"/>
         <source>Fans</source>
         <translation>粉丝</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/ProfilePage.qml" line="255"/>
+        <location filename="../qml/tbclient/ProfilePage.qml" line="257"/>
         <source>Posts</source>
         <translation>发过的贴子</translation>
     </message>
@@ -975,28 +1095,33 @@
 <context>
     <name>SquarePage</name>
     <message>
-        <location filename="../qml/tbclient/Explore/SquarePage.qml" line="8"/>
+        <location filename="../qml/tbclient/Explore/SquarePage.qml" line="19"/>
         <source>Square</source>
         <translation>广场</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Explore/SquarePage.qml" line="175"/>
+        <source>Thread recommend</source>
+        <translation>精选推荐贴</translation>
     </message>
 </context>
 <context>
     <name>TBSettings</name>
     <message>
-        <location filename="../qml/tbclient/TBSettings.qml" line="32"/>
+        <location filename="../qml/tbclient/TBSettings.qml" line="31"/>
         <source>Mobile network used</source>
-        <translation>已切换到省流量模式</translation>
+        <translation>正在使用2G网络</translation>
     </message>
     <message>
         <location filename="../qml/tbclient/TBSettings.qml" line="41"/>
         <source>High speed network used</source>
-        <translation>已关闭省流量模式</translation>
+        <translation>正在使用3G/Wifi网络</translation>
     </message>
 </context>
 <context>
     <name>ThreadHeader</name>
     <message>
-        <location filename="../qml/tbclient/Thread/ThreadHeader.qml" line="44"/>
+        <location filename="../qml/tbclient/Thread/ThreadHeader.qml" line="45"/>
         <source>Bar</source>
         <translation>吧</translation>
     </message>
@@ -1166,83 +1291,83 @@
 <context>
     <name>Utility</name>
     <message>
-        <location filename="../src/utility.cpp" line="359"/>
+        <location filename="../src/utility.cpp" line="377"/>
         <source>%1 %2 %3</source>
         <comment>e.g. %1 is number value such as 2, %2 is mins, %3 is ago</comment>
         <translation>%1%2%3</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="381"/>
+        <location filename="../src/utility.cpp" line="399"/>
         <source>ago</source>
         <translation>前</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="382"/>
+        <location filename="../src/utility.cpp" line="400"/>
         <source>From Now</source>
         <translation>后</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="383"/>
+        <location filename="../src/utility.cpp" line="401"/>
         <source>just now</source>
         <translation>1分钟前</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="384"/>
+        <location filename="../src/utility.cpp" line="402"/>
         <source>min</source>
         <translation>分钟</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="385"/>
+        <location filename="../src/utility.cpp" line="403"/>
         <source>mins</source>
         <translation>分钟</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="386"/>
+        <location filename="../src/utility.cpp" line="404"/>
         <source>hr</source>
         <translation>小时</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="387"/>
+        <location filename="../src/utility.cpp" line="405"/>
         <source>hrs</source>
         <translation>小时</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="388"/>
+        <location filename="../src/utility.cpp" line="406"/>
         <source>day</source>
         <translation>天</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="389"/>
+        <location filename="../src/utility.cpp" line="407"/>
         <source>days</source>
         <translation>天</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="390"/>
+        <location filename="../src/utility.cpp" line="408"/>
         <source>wk</source>
         <translation>周</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="391"/>
+        <location filename="../src/utility.cpp" line="409"/>
         <source>wks</source>
         <translation>周</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="392"/>
+        <location filename="../src/utility.cpp" line="410"/>
         <source>mth</source>
         <translation>个月</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="393"/>
+        <location filename="../src/utility.cpp" line="411"/>
         <source>mths</source>
         <translation>个月</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="394"/>
+        <location filename="../src/utility.cpp" line="412"/>
         <source>yr</source>
         <translation>年</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="395"/>
+        <location filename="../src/utility.cpp" line="413"/>
         <source>yrs</source>
         <translation>年</translation>
     </message>
@@ -1329,7 +1454,7 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../qml/js/main.js" line="414"/>
+        <location filename="../qml/js/main.js" line="415"/>
         <source>Operation canceled</source>
         <translation>操作已取消</translation>
     </message>

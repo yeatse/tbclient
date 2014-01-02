@@ -31,7 +31,7 @@ MyPage {
             enabled: view.currentItem != null;
             onClicked: {
                 var url = view.model.get(view.currentIndex).url;
-                var path = tbsettings.imagePath + "/" + imageUrl.toString().split("/").pop();
+                var path = tbsettings.imagePath + "/" + url.toString().split("/").pop();
                 if (utility.saveCache(url, path)){
                     signalCenter.showMessage(qsTr("Image saved to %1").arg(path));
                 } else {
@@ -106,14 +106,19 @@ MyPage {
         onVcodeSent: if (caller === page) internal.addPost(vcode, vcodeMd5);
     }
 
-    ViewHeader {
+    ListHeading {
         id: viewHeader;
-        title: (view.currentIndex+1)+"/"+internal.picAmount;
-        onClicked: if (view.currentItem) view.currentItem.scrollToTop();
+        platformInverted: tbsettings.whiteTheme;
+        z: 10;
+        ListItemText {
+            anchors.fill: parent.paddingItem;
+            platformInverted: parent.platformInverted;
+            role: "Heading";
+            text: (view.currentIndex+1)+"/"+internal.picAmount;
+        }
         BusyIndicator {
-            anchors.right: parent.right;
-            anchors.rightMargin: constant.paddingMedium;
-            anchors.verticalCenter: parent.verticalCenter;
+            anchors { left: parent.paddingItem.left; verticalCenter: parent.verticalCenter; }
+            platformInverted: parent.platformInverted;
             running: true;
             visible: view.currentItem != null && view.currentItem.loading;
         }

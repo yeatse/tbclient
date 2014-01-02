@@ -3,6 +3,8 @@
 
 #define PORTRAIT_PREFIX "http://tb.himg.baidu.com/sys/portraitn/item/"
 #define IMG_PREFIX "http://imgsrc.baidu.com/forum/pic/item/"
+#define IMG_CDN_HOST "hiphotos.baidu.com"
+#define IMG_UNSUPPORTED_HOST "http://c.tieba.baidu.com/c/p/img"
 #define HOST_PREFIX "http://c.tieba.baidu.com/"
 
 TBNetworkAccessManagerFactory::TBNetworkAccessManagerFactory() :
@@ -47,13 +49,20 @@ TBNetworkAccessManager::TBNetworkAccessManager(QObject *parent) :
 QNetworkReply *TBNetworkAccessManager::createRequest(Operation op, const QNetworkRequest &request, QIODevice *outgoingData)
 {
     QNetworkRequest req(request);
+    // set user-agent
     if (op == PostOperation){
         req.setRawHeader("User-Agent", "IDP");
     } else {
         req.setRawHeader("User-Agent", "Mozilla/5.0 (iPod; CPU iPhone OS 6_1_3 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10B329");
     }
-    QByteArray encodedUrl = req.url().toEncoded();
-    if (encodedUrl.startsWith(PORTRAIT_PREFIX) || encodedUrl.startsWith(IMG_PREFIX)){
+    QByteArray urldata = req.url().toString().toAscii();
+    // convert unsupported image url
+    if (urldata.startsWith(IMG_UNSUPPORTED_HOST) && req.url().hasEncodedQueryItem("src")){
+        urldata = req.url().encodedQueryItemValue("src");
+        req.setUrl(QUrl::fromEncoded(urldata));
+    }
+    // set cache control
+    if (req.url().host().endsWith(IMG_CDN_HOST) || urldata.startsWith(PORTRAIT_PREFIX) || urldata.startsWith(IMG_PREFIX)){
         req.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferCache);
     } else {
         req.setAttribute(QNetworkRequest::CacheSaveControlAttribute, false);
@@ -110,9 +119,12 @@ void TBNetworkCookieJar::save()
     QList<QNetworkCookie> list = allCookies();
     QByteArray data;
     foreach (QNetworkCookie cookie, list) {
-        if (!cookie.isSessionCookie() && cookie.domain().endsWith(".baidu.com")){
-            data.append(cookie.toRawForm());
-            data.append("\n");
+        if (!cookie.isSessionCookie()){
+            QString domain = cookie.domain();
+            if (domain.endsWith("tieba.baidu.com")||domain.endsWith("wappass.baidu.com")||domain == ".baidu.com"){
+                data.append(cookie.toRawForm());
+                data.append("\n");
+            }
         }
     }
     Utility::Instance()->setValue("cookies", data);

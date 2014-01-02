@@ -149,14 +149,14 @@ MyPage {
                         width: parent.width;
                         wrapMode: Text.Wrap;
                         font: constant.labelFont;
-                        color: constant.colorLight;
+                        color: "white";
                         text: content;
                     }
                     Text {
                         width: parent.width;
                         horizontalAlignment: isMe ? Text.AlignRight : Text.AlignLeft;
                         font: constant.subTitleFont;
-                        color: constant.colorLight;
+                        color: "white";
                         text: time;
                     }
                 }

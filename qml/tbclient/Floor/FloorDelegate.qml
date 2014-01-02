@@ -34,6 +34,7 @@ AbstractItem {
             text: content;
             font.pixelSize: tbsettings.fontSize;
             color: constant.colorLight;
+            onLinkActivated: signalCenter.linkClicked(link);
         }
         Loader {
             width: parent.width;

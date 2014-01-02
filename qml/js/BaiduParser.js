@@ -200,9 +200,9 @@ var BaiduParser = {
                 if (tbsettings.showImage){
                     var bsize = c.bsize.split(","), w = Number(bsize[0]), h = Number(bsize[1]);
                     var ww = Math.min(200, w), hh = Math.min(h * ww/w, 200);
-                    push("Image", getThumbnail(c.src), c.src, ww, hh);
+                    push("Image", getThumbnail(c.cdn_src), c.big_cdn_src, ww, hh);
                 } else {
-                    push("Image", "", c.src, 200, 200);
+                    push("Image", "", c.big_cdn_src, 200, 200);
                 }
                 return;
             case "4":
@@ -487,7 +487,7 @@ var BaiduParser = {
                          if (tbsettings.showImage && Array.isArray(value.media)){
                              value.media.some(function(media){
                                                   if (media.type === "3"){
-                                                      picUrl = media.small_pic;
+                                                      picUrl = getThumbnail(media.big_pic);
                                                       return true;
                                                   }
                                               });
@@ -595,5 +595,51 @@ var BaiduParser = {
                              model.append(prop);
                          }
                      });
+    },
+
+    loadForumForSign:
+    function(option, list){
+        var model = option.model;
+        model.clear();
+        var signedCount = 0;
+        list.forEach(function(value){
+                         var prop = {
+                             avatar: value.avatar,
+                             cont_sign_num: value.cont_sign_num,
+                             forum_id: value.forum_id,
+                             forum_name: value.forum_name,
+                             hasSigned: value.is_sign_in === "1",
+                             need_exp: value.need_exp,
+                             user_exp: value.user_exp,
+                             user_level: value.user_level
+                         }
+                         if (prop.hasSigned) signedCount ++;
+                         model.append(prop);
+                     });
+        return signedCount;
+    },
+
+    loadForumSquareList:
+    function(option, list){
+        var model = option.model;
+        if (option.renew) model.clear();
+        var shorten = function(num){
+            if (num.length >= 5){
+                return num.substring(0, num.length-4)+"w";
+            } else {
+                return num;
+            }
+        }
+        list.forEach(function(value){
+                         var prop = {
+                             avatar: value.avatar,
+                             forum_id: value.forum_id,
+                             forum_name: value.forum_name,
+                             member_count: shorten(value.member_count),
+                             thread_count: shorten(value.thread_count),
+                             slogan: value.slogan
+                         }
+                         model.append(prop);
+                     })
     }
 };

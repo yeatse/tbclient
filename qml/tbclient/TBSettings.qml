@@ -27,14 +27,14 @@ QtObject {
         console.log("currnet bearer:", currentBearerName);
         if (!monitorNetworkMode) return;
         switch (currentBearerName){
-        case "2G":
-        case "CDMA2000": {
+        case "2G": {
             signalCenter.showMessage(qsTr("Mobile network used"));
             remindInterval = remindInterval == 0 ? 0 : Math.max(remindInterval, 5);
             remindBackground = false;
             showImage = false;
             break;
         }
+        case "CDMA2000":
         case "WCDMA":
         case "HSPA":
         case "WLAN": {

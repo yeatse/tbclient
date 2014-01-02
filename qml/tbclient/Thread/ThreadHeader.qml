@@ -36,10 +36,11 @@ Item {
         Item {
             width: parent.width; height: privateStyle.tabBarHeightLandscape;
             ButtonRow {
-                width: forumBtn.implicitWidth;
+                width: Math.min(forumBtn.implicitWidth, parent.width - constant.graphicSizeLarge);
                 height: parent.height;
                 TabButton {
                     id: forumBtn;
+                    platformInverted: tbsettings.whiteTheme;
                     height: parent.height;
                     text: forum ? forum.name + qsTr("Bar") : "";
                     onClicked: signalCenter.enterForum(forum.name);
