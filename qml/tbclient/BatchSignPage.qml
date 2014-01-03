@@ -40,23 +40,25 @@ MyPage {
             if (list.length > 0){
                 var opt = { forum_ids: list };
                 var s = function(obj){
-                    obj.info.forEach(function(value){
-                                         if (value.error.err_no === "0"){
-                                             for (var i=0; i<view.count; i++){
-                                                 if (view.model.get(i).forum_id === value.forum_id){
-                                                     var prop = {
-                                                         cont_sign_num: value.sign_day_count,
-                                                         hasSigned: value.signed === "1"
+                    if (Array.isArray(obj.info)){
+                        obj.info.forEach(function(value){
+                                             if (value.error.err_no === "0"){
+                                                 for (var i=0; i<view.count; i++){
+                                                     if (view.model.get(i).forum_id === value.forum_id){
+                                                         var prop = {
+                                                             cont_sign_num: value.sign_day_count,
+                                                             hasSigned: value.signed === "1"
+                                                         }
+                                                         view.model.set(i, prop);
+                                                         signalCenter.forumSigned(value.forum_id);
+                                                         return;
                                                      }
-                                                     view.model.set(i, prop);
-                                                     signalCenter.forumSigned(value.forum_id);
-                                                     return;
                                                  }
                                              }
-                                         }
-                                     });
+                                         });
+                        signedCount = view.count;
+                    }
                     signing = false;
-                    signedCount = view.count;
                 };
                 var f = function(err){
                     signing = false; signalCenter.showMessage(err);
@@ -159,6 +161,7 @@ MyPage {
                 id: root;
                 Image {
                     id: avatarImg;
+                    asynchronous: true;
                     anchors {
                         left: root.paddingItem.left;
                         top: root.paddingItem.top;
@@ -205,6 +208,7 @@ MyPage {
                         id: signedInfo;
                         BorderImage {
                             width: infoText.width + 20;
+                            asynchronous: true;
                             border { left: 25; right: 25; top: 0; bottom: 0; }
                             source: "../gfx/btn_bg_n"+constant.invertedString+".png";
                             Text {

@@ -8,7 +8,7 @@ MyPage {
     id: page;
 
     property string listId;
-    property int indexId;
+    property string stType;
     onListIdChanged: internal.getlist();
 
     tools: ToolBarLayout {
@@ -25,7 +25,7 @@ MyPage {
             option = option||"renew";
             var opt = {
                 list_id: listId,
-                index: indexId,
+                st_type: stType,
                 model: view.model,
                 page: internal
             }
@@ -36,7 +36,7 @@ MyPage {
                 opt.offset = offset;
             }
             var s = function(title){
-                loading = false; page.title = title;
+                loading = false; viewHeader.title = title;
             }
             var f = function(err){
                 loading = false; signalCenter.showMessage(err);
@@ -49,6 +49,7 @@ MyPage {
     ViewHeader {
         id: viewHeader;
         title: page.title;
+        onClicked: view.scrollToTop();
     }
 
     SilicaListView {
@@ -67,6 +68,8 @@ MyPage {
             onClicked: internal.getlist("next");
         }
     }
+
+    ScrollDecorator { flickableItem: view; platformInverted: tbsettings.whiteTheme; }
 
     // For keypad
     onStatusChanged: {

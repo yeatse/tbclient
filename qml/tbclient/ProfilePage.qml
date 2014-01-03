@@ -55,6 +55,14 @@ MyPage {
         }
     }
 
+    Connections {
+        target: signalCenter;
+        onProfileChanged: {
+            userData = null;
+            getProfile();
+        }
+    }
+
     ViewHeader {
         id: viewHeader;
         title: page.title;

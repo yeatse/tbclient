@@ -34,6 +34,9 @@ var BaiduApi = {
     C_F_FORUM_LIKE: HOST + "/c/f/forum/like",
     C_F_FORUM_SUG: HOST + "/c/f/forum/sug",
     C_F_FORUM_GETFORUMLIST: HOST + "/c/f/forum/getforumlist",
+    C_F_FORUM_FORUMDIR: HOST + "/c/f/forum/forumdir",
+    C_F_FORUM_SECONDDIR: HOST + "/c/f/forum/seconddir",
+    C_F_FORUM_FORUMRANK: HOST + "/c/f/forum/forumrank",
     C_F_FRS_PAGE: HOST + "/c/f/frs/page",
     C_F_FRS_THREADLIST: HOST + "/c/f/frs/threadlist",
     C_F_FRS_PHOTOLIST: HOST + "/c/f/frs/photolist",
@@ -57,6 +60,8 @@ var BaiduApi = {
     C_C_VOICE_FINUPLOAD: HOST + "/c/c/voice/voice_fin_chunk_upload",
     C_C_USER_UNFOLLOW: HOST + "/c/c/user/unfollow",
     C_C_USER_FOLLOW: HOST + "/c/c/user/follow",
+    C_C_PROFILE_MODIFY: HOST + "/c/c/profile/modify",
+    C_C_IMG_PORTRAIT: HOST + "/c/c/img/portrait",
 
     C_U_FEED_REPLYME: HOST + "/c/u/feed/replyme",
     C_U_FEED_ATME: HOST + "/c/u/feed/atme",
@@ -114,12 +119,13 @@ BaiduRequest.prototype.sendRequest = function(onSuccess, onFailed){
                         } else if (xhr.readyState === xhr.DONE){
                             if (xhr.status === 200){
                                 try {
-                                    var obj = JSON.parse(decodeURIComponent(xhr.responseText));
-                                    if (obj.error_code === "0"){
-                                        onSuccess(obj);
+                                    var obj = JSON.parse(xhr.responseText);
+                                    if (obj.error_code !== "0"){
+                                        onFailed(obj.error_msg);
+                                    } else if (obj.error && obj.error.errno !== "0"){
+                                        onFailed(obj.error.usermsg);
                                     } else {
-                                        var errMsg = obj.error ? obj.error.usermsg : obj.error_msg;
-                                        onFailed(errMsg, obj);
+                                        onSuccess(obj);
                                     }
                                 } catch(e){
                                     onFailed(JSON.stringify(e));

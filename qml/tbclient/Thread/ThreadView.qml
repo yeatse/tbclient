@@ -158,7 +158,7 @@ MyPage {
     SilicaListView {
         id: view;
         anchors.fill: parent;
-        cacheBuffer: view.height*5;
+        cacheBuffer: view.height;
         model: ListModel {}
         delegate: ThreadDelegate {
             onClicked: signalCenter.enterFloor(thread.id, model.id);

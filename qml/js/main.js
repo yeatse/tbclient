@@ -45,8 +45,8 @@ function sync(){
         _os_version: "6.1.3"
     }
     req.signForm(param);
-    function s(obj){ tbsettings.clientId = obj.client.client_id; }
-    function f(err){ console.log(err) }
+    var s = function(obj){ tbsettings.clientId = obj.client.client_id; }
+    var f = function(err){ console.log(err) }
     req.sendRequest(s, f);
 }
 
@@ -65,7 +65,7 @@ function login(option, onSuccess, onFailed){
         param.vcode_md5 = option.vcode_md5;
     }
     req.signForm(param);
-    function s(obj){
+    var s = function(obj){
         tbs = obj.anti.tbs;
         var user = obj.user;
         tbsettings.currentUid = user.id;
@@ -91,7 +91,7 @@ function getMessage(onSuccess, onFailed){
 function getRecommentForum(option, onSuccess, onFailed){
     var req = new BaiduRequest(BaiduApi.C_F_FORUM_FORUMRECOMMEND);
     req.signForm();
-    function s(obj){
+    var s = function(obj){
         BaiduParser.loadLikeForum(option.model, obj.like_forum);
         var msg = { func: "storeLikeForum", param: obj.like_forum };
         workerScript.sendMessage(msg);
@@ -114,7 +114,7 @@ function getForumPage(option, onSuccess, onFailed){
         param.cid = option.cid;
     }
     req.signForm(param);
-    function s(obj){
+    var s = function(obj){
         tbs = obj.anti.tbs;
         var page = option.page;
         page.user = obj.user;
@@ -140,7 +140,7 @@ function getThreadList(option, onSuccess, onFailed){
         need_abstract: 1
     }
     req.signForm(param);
-    function s(obj){
+    var s = function(obj){
         var page = option.page;
         page.cursor = option.cursor + obj.thread_list.length;
         BaiduParser.loadForumPage(option, obj.thread_list);
@@ -158,7 +158,7 @@ function getPhotoPage(option, onSuccess, onFailed){
         kw: option.kw
     }
     req.signForm(param);
-    function s(obj){
+    var s = function(obj){
         tbs = obj.anti.tbs;
         var page = option.page;
         page.forum = obj.forum;
@@ -181,7 +181,7 @@ function getPhotoList(option, onSuccess, onFailed){
         kw: option.kw
     }
     req.signForm(param);
-    function s(obj){
+    var s = function(obj){
         var list = obj.photo_data.thread_list;
         option.page.cursor += list.length;
         BaiduParser.loadForumPicture(option, list);
@@ -207,7 +207,7 @@ function getThreadPage(option, onSuccess, onFailed){
     if (option.lz) param.lz = 1;
     if (option.st_type) param.st_type = option.st_type;
     req.signForm(param);
-    function s(obj){
+    var s = function(obj){
         tbs = obj.anti.tbs;
         var modelAffected = BaiduParser.loadThreadPage(option, obj.post_list);
         onSuccess(obj, modelAffected);
@@ -223,7 +223,7 @@ function getComlist(option, onSuccess, onFailed){
         rn: 50
     }
     req.signForm(param);
-    function s(obj){
+    var s = function(obj){
         var page = option.page;
         page.hasMore = obj.has_more === "1";
         page.currentPage = option.pn;
@@ -243,7 +243,7 @@ function getReplyme(option, onSuccess, onFailed){
         pn: option.pn
     }
     req.signForm(param);
-    function s(obj){
+    var s = function(obj){
         var page = option.page;
         page.hasMore = obj.page.has_more === "1";
         page.currentPage = obj.page.current_page;
@@ -263,7 +263,7 @@ function getAtme(option, onSuccess, onFailed){
         pn: option.pn
     }
     req.signForm(param);
-    function s(obj){
+    var s = function(obj){
         var page = option.page;
         page.hasMore = obj.page.has_more === "1";
         page.currentPage = obj.page.current_page;
@@ -308,7 +308,7 @@ function getFloorPage(option, onSuccess, onFailed){
     if (option.pid) param.pid = option.pid;
     else if (option.spid) param.spid = option.spid;
     req.signForm(param);
-    function s(obj){
+    var s = function(obj){
         tbs = obj.anti.tbs;
         var page = option.page;
         page.forum = obj.forum;
@@ -363,6 +363,27 @@ function uploadImage(caller, filename){
     uploader.addField("_client_id", BaiduConst._client_id);
     uploader.addField("cuid", BaiduConst.cuid);
     uploader.addField("pic_type", 0);
+    uploader.addFile("pic", filename);
+    uploader.send();
+}
+
+function uploadAvatar(caller, filename){
+    if (uploader.uploadState == 2)
+        uploader.abort();
+    uploader.caller = caller;
+    uploader.open(BaiduApi.C_C_IMG_PORTRAIT);
+    uploader.addField("net_type", BaiduConst.net_type);
+    uploader.addField("ka", BaiduConst.ka);
+    uploader.addField("_phone_imei", BaiduConst._phone_imei);
+    uploader.addField("BDUSS", __bduss);
+    uploader.addField("_timestamp", Date.now());
+    uploader.addField("_client_version", BaiduConst._client_version);
+    uploader.addField("_phone_newimei", BaiduConst._phone_newimei);
+    uploader.addField("from", BaiduConst.from);
+    uploader.addField("_client_type", BaiduConst._client_type);
+    uploader.addField("_client_id", BaiduConst._client_id);
+    uploader.addField("cuid", BaiduConst.cuid);
+    uploader.addField("pic_type", 1);
     uploader.addFile("pic", filename);
     uploader.send();
 }
@@ -481,7 +502,7 @@ function forumSuggest(option, onSuccess, onFailed){
     var req = new BaiduRequest(BaiduApi.C_F_FORUM_SUG);
     var param = { q: option.q }
     req.signForm(param);
-    function s(obj){
+    var s = function(obj){
         BaiduParser.loadForumSuggest(option, obj.fname);
         onSuccess();
     }
@@ -496,7 +517,7 @@ function searchPost(option, onSuccess, onFailed){
         rn: 20
     }
     req.signForm(param);
-    function s(obj){
+    var s = function(obj){
         var page = option.page;
         page.currentPage = obj.page.current_page;
         page.hasMore = obj.page.has_more === "1";
@@ -516,7 +537,7 @@ function getPicturePage(option, onSuccess, onFailed){
         pic_id: option.pic_id
     }
     req.signForm(param);
-    function s(obj){
+    var s = function(obj){
         var page = option.page;
         page.forum = obj.forum;
         page.picAmount = obj.pic_amount;
@@ -538,7 +559,7 @@ function getPicComment(option, onSuccess, onFailed){
         rn: 10
     }
     req.signForm(param);
-    function s(obj){
+    var s = function(obj){
         tbs = obj.tbs.common;
         var page = option.page;
         page.currentPage = obj.cur_page;
@@ -557,7 +578,7 @@ function getForumFeed(option, onSuccess, onFailed){
         user_id: tbsettings.currentUid
     }
     req.signForm(param);
-    function s(obj){
+    var s = function(obj){
         var page = option.page;
         page.total = obj.total||0;
         page.hasMore = obj.has_more === "1";
@@ -572,7 +593,7 @@ function getUserProfile(option, onSuccess, onFailed){
     var req = new BaiduRequest(BaiduApi.C_U_USER_PROFILE);
     var param = { uid: option.uid };
     req.signForm(param);
-    function s(obj){
+    var s = function(obj){
         tbs = obj.anti.tbs;
         onSuccess(obj.user);
     }
@@ -583,7 +604,7 @@ function getUserLikedForum(option, onSuccess, onFailed){
     var req = new BaiduRequest(BaiduApi.C_F_FORUM_LIKE);
     var param = { uid: option.uid, pn: 1 };
     req.signForm(param);
-    function s(obj){
+    var s = function(obj){
         BaiduParser.loadUserLikedForum(option.model, obj.forum_list||[]);
         onSuccess();
     }
@@ -756,7 +777,7 @@ function getForumSquareList(option, onSuccess, onFailed){
     var req = new BaiduRequest(BaiduApi.C_F_FORUM_FORUMSQUARELIST);
     var param = {
         list_id: option.list_id,
-        st_type: "squareItem|"+option.index,
+        st_type: option.st_type,
         rn: 10,
         offset: option.offset
     }
@@ -764,9 +785,71 @@ function getForumSquareList(option, onSuccess, onFailed){
     var s = function(obj){
         var page = option.page;
         page.hasMore = obj.has_more === "1";
-        page.offset += obj.forumsquare_list.length;
-        BaiduParser.loadForumSquareList(option, obj.forumsquare_list);
+        page.offset = option.offset + obj.forumsquare_list.length;
+        BaiduParser.loadForumSquareList(option, obj.forumsquare_list||[]);
         onSuccess(obj.title);
     }
     req.sendRequest(s, onFailed);
+}
+
+function getForumDir(model, onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_F_FORUM_FORUMDIR);
+    req.signForm();
+    var s = function(obj){
+        BaiduParser.loadForumDir(model, obj.forum_dir||[]);
+        onSuccess();
+    }
+    req.sendRequest(s, onFailed);
+}
+
+function getForumDir2(option, onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_F_FORUM_SECONDDIR);
+    var param = {
+        menu_type: option.menu_type,
+        menu_name: option.menu_name,
+        menu_id: option.menu_id
+    }
+    req.signForm(param);
+    var s = function(obj){
+        BaiduParser.loadForumDir2(option.model, obj.forum_dir);
+        onSuccess();
+    }
+    req.sendRequest(s, onFailed);
+}
+
+function getForumRank(option, onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_F_FORUM_FORUMRANK);
+    var param = {
+        menu_type: option.menu_type,
+        menu_name: option.menu_name
+    }
+    if (option.offset){
+        param.offset = option.offset;
+        param.rn = 40;
+    }
+    req.signForm(param);
+    var s = function(obj){
+        var page = option.page;
+        var cls = obj.forum_class;
+        if (Array.isArray(cls) && cls.length === 2){
+            page.leftName = cls[0];
+            page.rightName = cls[1];
+        }
+        var result = BaiduParser.loadForumRank(option, obj);
+        page.hasMore = result[0];
+        page.offset = option.offset + result[1];
+        onSuccess();
+    }
+    req.sendRequest(s, onFailed);
+}
+
+function modifyProfile(option, onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_C_PROFILE_MODIFY);
+    var param = {
+        intro: option.intro,
+        sex: option.sex,
+        tbs: tbs
+    }
+    req.signForm(param);
+    req.sendRequest(onSuccess, onFailed);
 }

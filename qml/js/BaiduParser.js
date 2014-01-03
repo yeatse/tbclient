@@ -45,20 +45,21 @@ var BaiduParser = {
                                                      }
                                                  })
                          }
-                         var numShow = value.reply_num;
-                         if (value.view_num) numShow += "/"+value.view_num;
+
+                         var reply_show = "";
                          if (value.last_replyer && value.last_replyer.name_show)
-                             numShow += "  "+value.last_replyer.name_show;
+                             reply_show = value.last_replyer.name_show + "  ";
+                         reply_show += utility.easyDate(new Date(Number(value.last_time_int+"000")));
                          var prop = {
                              id: value.id,
                              title: value.title,
-                             last_time: utility.easyDate(new Date(Number(value.last_time_int+"000"))),
                              is_top: value.is_top === "1",
                              is_good: value.is_good === "1",
                              author: value.author.name_show,
                              picUrl: picUrl,
                              abstract: abst,
-                             num_show: numShow
+                             reply_show: reply_show,
+                             reply_num: value.reply_num
                          };
                          model.append(prop);
                      });
@@ -200,9 +201,9 @@ var BaiduParser = {
                 if (tbsettings.showImage){
                     var bsize = c.bsize.split(","), w = Number(bsize[0]), h = Number(bsize[1]);
                     var ww = Math.min(200, w), hh = Math.min(h * ww/w, 200);
-                    push("Image", getThumbnail(c.cdn_src), c.big_cdn_src, ww, hh);
+                    push("Image", getThumbnail(c.cdn_src), decodeURIComponent(c.big_cdn_src), ww, hh);
                 } else {
-                    push("Image", "", c.big_cdn_src, 200, 200);
+                    push("Image", "", decodeURIComponent(c.big_cdn_src), 200, 200);
                 }
                 return;
             case "4":
@@ -451,7 +452,7 @@ var BaiduParser = {
                              user_name: value.user_name,
                              comment_amount: value.comment_amount,
                              idx: value.index,
-                             url: o.url
+                             url: decodeURIComponent(o.url)
                          };
                          model.append(prop);
                      });
@@ -521,7 +522,10 @@ var BaiduParser = {
     loadUserLikedForum:
     function(model, list){
         model.clear();
-        list.forEach(function(value){model.append(value)});
+        list.forEach(function(value){
+                         value.avatar = decodeURIComponent(value.avatar);
+                         model.append(value)
+                     });
     },
 
     loadMyPost:
@@ -632,7 +636,7 @@ var BaiduParser = {
         }
         list.forEach(function(value){
                          var prop = {
-                             avatar: value.avatar,
+                             avatar: decodeURIComponent(value.avatar),
                              forum_id: value.forum_id,
                              forum_name: value.forum_name,
                              member_count: shorten(value.member_count),
@@ -641,5 +645,86 @@ var BaiduParser = {
                          }
                          model.append(prop);
                      })
+    },
+
+    loadForumDir:
+    function(model, list){
+        model.clear();
+        list.forEach(function(value){
+                         var subtitle = [];
+                         var cl = value.child_menu_list;
+                         if (Array.isArray(cl)){
+                             cl.forEach(function(c){
+                                            subtitle.push(c.menu_name);
+                                        });
+                         }
+                         var prop = {
+                             default_logo_url: value.default_logo_url,
+                             menu_id: value.menu_id,
+                             menu_name: value.menu_name,
+                             menu_type: value.menu_type,
+                             subtitle: subtitle.join(" ")
+                         }
+                         model.append(prop);
+                     });
+    },
+
+    loadForumDir2:
+    function(model, dir){
+        model.clear();
+        if (!dir || !Array.isArray(dir.child_menu_list))
+            return;
+        dir.child_menu_list.forEach(function(value){
+                                        var prop = {
+                                            menu_id: value.menu_id,
+                                            menu_name: value.menu_name,
+                                            menu_type: value.menu_type,
+                                            modelData: value.menu_name
+                                        }
+                                        model.append(prop);
+                                    });
+        var prop = {
+            menu_id: dir.menu_id,
+            menu_name: dir.menu_name,
+            menu_type: dir.menu_type,
+            modelData: "全部"
+        }
+        model.insert(0, prop);
+    },
+
+    loadForumRank:
+    function(option, obj){
+        var model1 = option.leftModel, model2 = option.rightModel;
+        if (option.renew){ model1.clear(); model2.clear(); }
+        if (!obj.recommend_list_left)
+            return [false, 0];
+
+        var list1 = obj.recommend_list_left.forum_list;
+        var list2 = obj.recommend_list_right.forum_list;
+        var hasMore = obj.recommend_list_left.has_more === "1"
+                && obj.recommend_list_right.has_more === "1";
+        var shorten = function(num){
+            if (num.length >= 5){
+                return num.substring(0, num.length-4)+"w";
+            } else {
+                return num;
+            }
+        }
+        var parse = function(list, model){
+            list.forEach(function(value){
+                             var prop = {
+                                 avatar: decodeURIComponent(value.avatar),
+                                 forum_id: value.forum_id,
+                                 forum_name: value.forum_name,
+                                 member_count: shorten(value.member_count),
+                                 thread_count: shorten(value.thread_count),
+                                 slogan: value.slogan
+                             }
+                             model.append(prop);
+                         });
+        }
+        parse(list1, model1);
+        parse(list2, model2);
+        return [hasMore, Math.min(list1.length, list2.length)];
     }
 };

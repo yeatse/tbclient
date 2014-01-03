@@ -1,12 +1,12 @@
 .pragma library
 
 function getThumbnail(bigPic){
-    if (bigPic.indexOf("http://imgsrc.baidu.com/forum/pic/item/") === 0){
-        return "http://imgsrc.baidu.com/forum/abpic/item/"+bigPic.substring(39);
-    } else if (bigPic.indexOf(".hiphotos.baidu.com") > 0){
+    if (bigPic.indexOf(".hiphotos.baidu.com") > 0){
         return "http://imgsrc.baidu.com/forum/abpic/item/"+bigPic.split("/").pop();
+    } else if (bigPic.indexOf("http://imgsrc.baidu.com/forum/pic/item/") === 0){
+        return "http://imgsrc.baidu.com/forum/abpic/item/"+bigPic.substring(39);
     } else {
-        return bigPic;
+        return decodeURIComponent(bigPic);
     }
 }
 

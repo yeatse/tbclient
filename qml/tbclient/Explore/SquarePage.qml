@@ -17,10 +17,20 @@ MyPage {
     }
 
     title: qsTr("Square");
-    loadingVisible: loading;
+    loadingVisible: loading && squareData == null;
 
     tools: ToolBarLayout {
         BackButton {}
+        ToolButtonWithTip {
+            toolTipText: qsTr("Refresh");
+            iconSource: "toolbar-refresh";
+            onClicked: getlist();
+        }
+        ToolButtonWithTip {
+            toolTipText: qsTr("Catalogue");
+            iconSource: "toolbar-list";
+            onClicked: pageStack.push(Qt.resolvedUrl("ForumDirPage.qml"));
+        }
     }
 
     ViewHeader {
@@ -38,7 +48,10 @@ MyPage {
         Column {
             id: contentCol;
             width: view.width;
-
+            PullToActivate {
+                myView: view;
+                onRefresh: getlist();
+            }
             PathView {
                 id: banner;
                 width: parent.width;
@@ -78,12 +91,20 @@ MyPage {
                         MouseArea {
                             id: mouseArea;
                             anchors.fill: parent;
-                            onClicked: ;
+                            onClicked: {
+                                var link = modelData.link;
+                                if (link.indexOf("pb:") === 0){
+                                    var prop = { threadId: link.substring(3) };
+                                    signalCenter.enterThread(prop);
+                                } else {
+                                    console.log(JSON.stringify(modelData));
+                                }
+                            }
                         }
                     }
                 }
                 Timer {
-                    running: Qt.application.active && banner.count > 0 && !banner.moving && !view.moving;
+                    running: Qt.application.active && banner.count > 1 && !banner.moving && !view.moving;
                     interval: 3000;
                     repeat: true;
                     onTriggered: banner.incrementCurrentIndex();
@@ -100,6 +121,13 @@ MyPage {
                         platformInverted: tbsettings.whiteTheme;
                         width: flr.width / 2;
                         text: modelData.title;
+                        onClicked: {
+                            var link = modelData.link;
+                            if (link.indexOf("list:")===0){
+                                var prop = { stType: "topBarList|"+index, listId: link.substring(5), title: modelData.title };
+                                pageStack.push(Qt.resolvedUrl("SquareListPage.qml"), prop);
+                            }
+                        }
                         Rectangle {
                             anchors.fill: parent;
                             border { width: 1; color: constant.colorMarginLine; }
@@ -127,10 +155,13 @@ MyPage {
                     subItemIndicator: true;
                     onClicked: {
                         if (modelData.is_all === "1"){
+                            pageStack.push(Qt.resolvedUrl("ForumDirPage.qml"));
                         } else {
-                            var lid = modelData.link.split(":").pop();
-                            var prop = { indexId: index, listId: lid };
-                            pageStack.push(Qt.resolvedUrl("SquareListPage.qml"), prop);
+                            var link = modelData.link;
+                            if (link.indexOf("list:")===0){
+                                var prop = { stType: "squareItem|"+index, listId: link.substring(5), title: modelData.title };
+                                pageStack.push(Qt.resolvedUrl("SquareListPage.qml"), prop);
+                            }
                         }
                     }
                     Image {
@@ -193,6 +224,10 @@ MyPage {
                     Column {
                         width: tlv.width;
                         AbstractItem {
+                            onClicked: {
+                                var prop = { title: modelData.title, threadId: modelData.id }
+                                signalCenter.enterThread(prop);
+                            }
                             Text {
                                 id: title;
                                 anchors {

@@ -10,10 +10,58 @@ MyPage {
 
     tools: ToolBarLayout {
         BackButton {}
+        ToolButtonWithTip {
+            toolTipText: qsTr("OK");
+            iconSource: "../../gfx/ok"+constant.invertedString+".svg";
+            onClicked: save();
+        }
     }
 
     property variant userData;
     property string avatarUrl;
+    property bool saving: false;
+
+    function save(){
+        var opt = {
+            intro: introArea.text,
+            sex: btn1.checked ? "1" : "2"
+        }
+        var s = function(){
+            saving = false;
+            if (avatarUrl !== ""){
+                saving = true;
+                Script.uploadAvatar(page, avatarUrl);
+            } else {
+                signalCenter.profileChanged();
+                signalCenter.showMessage(qsTr("Success"));
+                pageStack.pop();
+            }
+        }
+        var f = function(err){
+            saving = false;
+            signalCenter.showMessage(err);
+        }
+        saving = true;
+        Script.modifyProfile(opt, s, f);
+    }
+
+    Connections {
+        target: signalCenter;
+        onUploadFinished: {
+            if (caller === page){
+                saving = false;
+                signalCenter.profileChanged();
+                signalCenter.showMessage(qsTr("Success"));
+                pageStack.pop();
+            }
+        }
+        onUploadFailed: {
+            if (caller === page){
+                saving = false;
+                signalCenter.showMessage(qsTr("Avatar uploading failed"));
+            }
+        }
+    }
 
     Flickable {
         id: view;
@@ -121,8 +169,36 @@ MyPage {
                     platformMaxImplicitHeight: 150;
                     platformInverted: tbsettings.whiteTheme;
                     onActiveFocusChanged: view.positionToBottom();
+                    text: userData ? userData.intro : "";
                 }
             }
+        }
+    }
+
+    Rectangle {
+        id: bgRect;
+        z: 100;
+        anchors.fill: parent;
+        color: "#A0000000";
+        visible: saving;
+        Column {
+            anchors.centerIn: parent;
+            spacing: constant.paddingSmall;
+            BusyIndicator {
+                anchors.horizontalCenter: parent.horizontalCenter;
+                width: constant.thumbnailSize;
+                height: constant.thumbnailSize;
+                running: true;
+            }
+            Text {
+                anchors.horizontalCenter: parent.horizontalCenter;
+                font: constant.titleFont;
+                color: "white";
+                text: page.loadingText;
+            }
+        }
+        MouseArea {
+            anchors.fill: parent;
         }
     }
 }

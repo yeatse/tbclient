@@ -16,6 +16,7 @@ QtObject {
     signal imageSelected(variant caller, string urls);
     signal forumSigned(string fid);
     signal bookmarkChanged;
+    signal profileChanged;
 
     signal uploadFinished(variant caller, string response);
     signal uploadFailed(variant caller);
@@ -79,6 +80,7 @@ QtObject {
     }
 
     function readMessage(param){
+        console.log(param);
     }
 
     function enterForum(name){
@@ -87,6 +89,17 @@ QtObject {
         else pageStack.push(Qt.resolvedUrl("Forum/ForumPage.qml"), { name: name });
     }
 
+    /**
+      enterThread:
+      option: jsobject, optional, if specified, a new thread will be created.
+
+      option should include:
+      threadId: string[number], required, id of the thread
+      title: string, optional, title of the thread
+      isLz: boolean, optional, replies should be filtered by author or not
+      fromBookmark: boolean, optional, thread is from bookmark or not
+      pid: string[number], optional, if specified, the thread will start by this pid
+    */
     function enterThread(option){
         if (!threaPage)
             threaPage = Qt.createComponent("Thread/ThreadPage.qml").createObject(app);

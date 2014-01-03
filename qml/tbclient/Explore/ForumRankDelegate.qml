@@ -8,6 +8,7 @@ AbstractItem {
 
     Image {
         id: logo;
+        asynchronous: true;
         anchors {
             left: root.paddingItem.left; top: root.paddingItem.top;
             bottom: root.paddingItem.bottom;
@@ -17,6 +18,7 @@ AbstractItem {
     }
     Image {
         id: subItemIcon;
+        asynchronous: true;
         anchors {
             right: parent.right;
             rightMargin: privateStyle.scrollBarThickness;

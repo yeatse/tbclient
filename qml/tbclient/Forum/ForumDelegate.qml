@@ -79,18 +79,22 @@ AbstractItem {
             }
         }
         Text {
-            text: num_show;
+            text: reply_show;
             font: constant.subTitleFont;
-            color: constant.colorMid;
+            color: constant.colorMid
         }
     }
-    Text {
-        anchors {
-            right: root.paddingItem.right;
-            bottom: root.paddingItem.bottom;
+    Row {
+        anchors { right: parent.right; bottom: parent.bottom; margins: constant.paddingMedium; }
+        Image {
+            asynchronous: true;
+            source: "../../gfx/btn_icon_comment_n"+constant.invertedString+".png";
         }
-        text: last_time;
-        font: constant.subTitleFont;
-        color: constant.colorMid;
+        Text {
+            anchors.verticalCenter: parent.verticalCenter;
+            text: reply_num;
+            font: constant.subTitleFont;
+            color: constant.colorMid
+        }
     }
 }

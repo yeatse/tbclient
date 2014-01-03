@@ -22,14 +22,9 @@ MyPage {
             onClicked: internal.getlist();
         }
         ToolButtonWithTip {
-            id: editBtn;
-            toolTipText: qsTr("Create a thread");
-            enabled: internal.forum.hasOwnProperty("id");
-            iconSource: "../../gfx/edit"+constant.invertedString+".svg"
-            onClicked: {
-                var prop = { caller: internal };
-                pageStack.push(Qt.resolvedUrl("../Post/PostPage.qml"), prop);
-            }
+            toolTipText: qsTr("Opened tabs");
+            iconSource: "../../gfx/switch_windows"+constant.invertedString+".svg"
+            onClicked: signalCenter.enterThread();
         }
         ToolButtonWithTip {
             toolTipText: qsTr("Menu");
@@ -216,8 +211,12 @@ MyPage {
                     onClicked: internal.jumpToPage();
                 }
                 MenuItem {
-                    text: qsTr("Opened tabs");
-                    onClicked: signalCenter.enterThread();
+                    text: qsTr("Create a thread");
+                    enabled: menu.menuEnabled;
+                    onClicked: {
+                        var prop = { caller: internal };
+                        pageStack.push(Qt.resolvedUrl("../Post/PostPage.qml"), prop);
+                    }
                 }
             }
         }
@@ -314,7 +313,7 @@ MyPage {
         switch (event.key){
         case Qt.Key_M: internal.openMenu(); event.accepted = true; break;
         case Qt.Key_R: internal.getlist(); event.accepted = true; break;
-        case Qt.Key_E: editBtn.clicked(); event.accepted = true; break;
+        case Qt.Key_Right: signalCenter.enterThread(); event.accepted = true; break;
         }
     }
 }
