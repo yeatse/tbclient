@@ -17,7 +17,8 @@ HEADERS += \
     src/httpuploader.h \
     src/audiorecorder.h \
     src/scribblearea.h \
-    src/customwebview.h
+    src/flickcharm.h \
+    src/qwebviewitem.h
 
 SOURCES += main.cpp \
     src/utility.cpp \
@@ -26,7 +27,8 @@ SOURCES += main.cpp \
     src/httpuploader.cpp \
     src/audiorecorder.cpp \
     src/scribblearea.cpp \
-    src/customwebview.cpp \
+    src/flickcharm.cpp \
+    src/qwebviewitem.cpp \
 #    qml/tbclient/*.qml \
 #    qml/tbclient/Component/*.qml \
 #    qml/tbclient/Dialog/*.qml \
@@ -37,6 +39,7 @@ SOURCES += main.cpp \
 #    qml/tbclient/Post/*.* \
 #    qml/tbclient/Profile/*.qml \
 #    qml/tbclient/Thread/*.qml \
+#    qml/tbclient/WebPageMenu/*.qml \
 #    qml/js/main.js
 
 TRANSLATIONS += i18n/tbclient_zh.ts

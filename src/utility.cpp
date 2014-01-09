@@ -88,11 +88,6 @@ QString Utility::defaultPictureLocation() const
     return QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
 }
 
-QString Utility::currentBearerName() const
-{
-    return engine->networkAccessManager()->activeConfiguration().bearerTypeName();
-}
-
 void Utility::setEngine(QDeclarativeEngine *engine)
 {
     this->engine = engine;
@@ -190,6 +185,11 @@ void Utility::clearCache()
     QAbstractNetworkCache* diskCache = engine->networkAccessManager()->cache();
     if (diskCache == 0) return;
     diskCache->clear();
+}
+
+QString Utility::currentBearerName()
+{
+    return engine->networkAccessManager()->activeConfiguration().bearerTypeName();
 }
 
 void Utility::openURLDefault(const QString &url)
@@ -391,6 +391,11 @@ QString Utility::decodeGBKHex(const QString &encodedString)
     QTextCodec* codec = QTextCodec::codecForName("GBK");
     QByteArray text = QByteArray::fromHex(encodedString.toAscii());
     return codec->toUnicode(text);
+}
+
+QString Utility::percentDecode(const QByteArray &encodedString) const
+{
+    return QUrl::fromPercentEncoding(encodedString);
 }
 
 // private

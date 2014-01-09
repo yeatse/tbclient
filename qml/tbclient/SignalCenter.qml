@@ -80,7 +80,17 @@ QtObject {
     }
 
     function readMessage(param){
-        console.log(param);
+        switch (param){
+        case "fans":
+        case "bookmark":
+            pageStack.push(Qt.resolvedUrl("ProfilePage.qml"), { uid: tbsettings.currentUid });
+            break;
+        case "pletter":
+        case "replyme":
+        case "atme":
+            pageStack.push(Qt.resolvedUrl("Message/MessagePage.qml"), { defaultTab: param });
+            break;
+        }
     }
 
     function enterForum(name){

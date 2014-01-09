@@ -36,6 +36,7 @@ Item {
         Item {
             width: parent.width; height: privateStyle.tabBarHeightLandscape;
             ButtonRow {
+                id: forumBtnRow;
                 width: Math.min(forumBtn.implicitWidth, parent.width - constant.graphicSizeLarge);
                 height: parent.height;
                 TabButton {
@@ -46,7 +47,27 @@ Item {
                     onClicked: signalCenter.enterForum(forum.name);
                 }
             }
+            Loader {
+                anchors {
+                    right: collectBtn.left; rightMargin: constant.paddingSmall;
+                    verticalCenter: parent.verticalCenter;
+                }
+                sourceComponent: thread && thread.topic && thread.topic.link ? livePostBtn : undefined;
+                Component {
+                    id: livePostBtn;
+                    Image {
+                        source: "../../gfx/icon_live"+constant.invertedString+".png";
+                        opacity: livePostMouseArea.pressed ? 0.6 : 1;
+                        MouseArea {
+                            id: livePostMouseArea;
+                            anchors.fill: parent;
+                            onClicked: signalCenter.openBrowser(thread.topic.link);
+                        }
+                    }
+                }
+            }
             Image {
+                id: collectBtn;
                 anchors { right: parent.right; verticalCenter: parent.verticalCenter; }
                 source: "../../gfx/icon_grade_middle_star_%1.png".arg(collectMouseArea.pressed||isCollected?"s":"n");
                 MouseArea {

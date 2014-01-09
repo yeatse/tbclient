@@ -8,7 +8,7 @@
 #include "src/httpuploader.h"
 #include "src/audiorecorder.h"
 #include "src/scribblearea.h"
-#include "src/customwebview.h"
+#include "src/qwebviewitem.h"
 
 #ifdef Q_WS_SIMULATOR
 #include <QtNetwork/QNetworkProxy>
@@ -44,7 +44,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterType<Downloader>("com.yeatse.tbclient", 1, 0, "Downloader");
     qmlRegisterType<AudioRecorder>("com.yeatse.tbclient", 1, 0, "AudioRecorder");
     qmlRegisterType<ScribbleArea>("com.yeatse.tbclient", 1, 0, "ScribbleArea");
-    qmlRegisterType<QDeclarativeWebView>("com.yeatse.tbclient", 1, 0, "CustomWebView");
+    qmlRegisterType<QWebViewItem>("com.yeatse.tbclient", 1, 0, "WebView");
 
     QWebSettings::globalSettings()->setUserStyleSheetUrl(QUrl::fromLocalFile("qml/js/default_theme.css"));
 

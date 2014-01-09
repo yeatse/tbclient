@@ -115,15 +115,15 @@ BaiduRequest.prototype.sendRequest = function(onSuccess, onFailed){
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function(){
                         if (xhr.readyState === xhr.HEADERS_RECEIVED){
-                            tbsettings.currentBearerName = utility.currentBearerName;
+                            tbsettings.currentBearerName = utility.currentBearerName();
                         } else if (xhr.readyState === xhr.DONE){
                             if (xhr.status === 200){
                                 try {
                                     var obj = JSON.parse(xhr.responseText);
                                     if (obj.error_code !== "0"){
-                                        onFailed(obj.error_msg);
+                                        onFailed(obj.error_msg, obj);
                                     } else if (obj.error && obj.error.errno !== "0"){
-                                        onFailed(obj.error.usermsg);
+                                        onFailed(obj.error.usermsg, obj);
                                     } else {
                                         onSuccess(obj);
                                     }

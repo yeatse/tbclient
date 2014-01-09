@@ -174,9 +174,9 @@ void DownloadHelper::start(QUrl source, QString target)
         QNetworkRequest req(source);
         currentDownload = manager->get(req);
         emit stateChanged(2);
-        connect(currentDownload, SIGNAL(downloadProgress(qint64,qint64)), SLOT(downloadProgress(qint64,qint64)));
-        connect(currentDownload, SIGNAL(finished()), SLOT(downloadFinished()));
-        connect(currentDownload, SIGNAL(readyRead()), SLOT(downloadReadyRead()));
+        connect(currentDownload.data(), SIGNAL(downloadProgress(qint64,qint64)), SLOT(downloadProgress(qint64,qint64)));
+        connect(currentDownload.data(), SIGNAL(finished()), SLOT(downloadFinished()));
+        connect(currentDownload.data(), SIGNAL(readyRead()), SLOT(downloadReadyRead()));
     }
 }
 

@@ -201,9 +201,11 @@ var BaiduParser = {
                 if (tbsettings.showImage){
                     var bsize = c.bsize.split(","), w = Number(bsize[0]), h = Number(bsize[1]);
                     var ww = Math.min(200, w), hh = Math.min(h * ww/w, 200);
-                    push("Image", getThumbnail(c.cdn_src), decodeURIComponent(c.big_cdn_src), ww, hh);
+                    push("Image", getThumbnail(c.cdn_src||c.src),
+                         utility.percentDecode(c.big_cdn_src||c.src), ww, hh);
                 } else {
-                    push("Image", "", decodeURIComponent(c.big_cdn_src), 200, 200);
+                    push("Image", "", utility.percentDecode(c.big_cdn_src||c.src),
+                         200, 200);
                 }
                 return;
             case "4":
@@ -452,7 +454,7 @@ var BaiduParser = {
                              user_name: value.user_name,
                              comment_amount: value.comment_amount,
                              idx: value.index,
-                             url: decodeURIComponent(o.url)
+                             url: utility.percentDecode(o.url)
                          };
                          model.append(prop);
                      });
@@ -523,7 +525,7 @@ var BaiduParser = {
     function(model, list){
         model.clear();
         list.forEach(function(value){
-                         value.avatar = decodeURIComponent(value.avatar);
+                         value.avatar = utility.percentDecode(value.avatar);
                          model.append(value)
                      });
     },
@@ -636,7 +638,7 @@ var BaiduParser = {
         }
         list.forEach(function(value){
                          var prop = {
-                             avatar: decodeURIComponent(value.avatar),
+                             avatar: utility.percentDecode(value.avatar),
                              forum_id: value.forum_id,
                              forum_name: value.forum_name,
                              member_count: shorten(value.member_count),
@@ -713,7 +715,7 @@ var BaiduParser = {
         var parse = function(list, model){
             list.forEach(function(value){
                              var prop = {
-                                 avatar: decodeURIComponent(value.avatar),
+                                 avatar: utility.percentDecode(value.avatar),
                                  forum_id: value.forum_id,
                                  forum_name: value.forum_name,
                                  member_count: shorten(value.member_count),

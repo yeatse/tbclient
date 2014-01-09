@@ -85,7 +85,7 @@ AbstractItem {
         }
     }
     Row {
-        anchors { right: parent.right; bottom: parent.bottom; margins: constant.paddingMedium; }
+        anchors { right: parent.right; bottom: parent.bottom; margins: constant.paddingSmall; }
         Image {
             asynchronous: true;
             source: "../../gfx/btn_icon_comment_n"+constant.invertedString+".png";

@@ -107,7 +107,7 @@ MyPage {
                 SelectionDialog {
                     id: clientTypeSelector;
                     titleText: qsTr("User agent");
-                    model: ["iPhone","Android","Windows Phone","Windows 8",qsTr("Others")];
+                    model: ["iPhone","Android"]//,"Windows Phone","Windows 8",qsTr("Others")];
                     selectedIndex: tbsettings.clientType-1;
                     onAccepted: tbsettings.clientType = selectedIndex + 1;
                 }

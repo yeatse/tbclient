@@ -165,12 +165,9 @@ void ScribbleArea::resizeImage(QImage *image, const QSize &newSize)
     setModified(true);
 }
 
-void ScribbleArea::classBegin()
-{
-}
-
 void ScribbleArea::componentComplete()
 {
+    QDeclarativeItem::componentComplete();
     mImage = QImage(boundingRect().size().toSize(), QImage::Format_RGB32);
     setModified(false);
 }

@@ -77,7 +77,7 @@ MyPage {
                             id: previewImg;
                             anchors.fill: parent;
                             smooth: true;
-                            source: decodeURIComponent(modelData.pic_url);
+                            source: utility.percentDecode(modelData.pic_url);
                         }
                         Image {
                             anchors.centerIn: parent;
@@ -96,8 +96,10 @@ MyPage {
                                 if (link.indexOf("pb:") === 0){
                                     var prop = { threadId: link.substring(3) };
                                     signalCenter.enterThread(prop);
+                                } else if (link.indexOf("opfeature:") === 0){
+                                    signalCenter.openBrowser(link.substring(10));
                                 } else {
-                                    console.log(JSON.stringify(modelData));
+                                    console.log(JSON.stringify(modelData))
                                 }
                             }
                         }
@@ -143,7 +145,7 @@ MyPage {
                 ListItemText {
                     anchors.fill: parent.paddingItem;
                     platformInverted: parent.platformInverted;
-                    text: squareData ? squareData.forum_browse_title : "";
+                    text: squareData ? squareData.forum_browse_title||"" : "";
                     role: "Heading";
                 }
             }

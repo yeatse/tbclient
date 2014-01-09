@@ -41,15 +41,10 @@ CommonDialog {
             anchors.fill: parent;
             preferredWidth: parent.width;
             preferredHeight: parent.height;
-            onLoadFinished: coldDown2.start();
+            onLoadFinished: coldDown.start();
             Timer {
                 id: coldDown;
-                interval: 200;
-                onTriggered: webView.url = "http://c.tieba.baidu.com/c/f/anti/gridcaptchaios";
-            }
-            Timer {
-                id: coldDown2;
-                interval: 200;
+                interval: 50;
                 onTriggered: {
                     if (/objc:/.test(webView.html)){
                         webView.html = webView.html.replace(/objc:/g, "javascript:window.objc.");
@@ -61,7 +56,7 @@ CommonDialog {
 
     onStatusChanged: {
         if (status === DialogStatus.Open){
-            coldDown.start();
+            webView.url = "http://c.tieba.baidu.com/c/f/anti/gridcaptchaios"
         } else if (status == DialogStatus.Closing){
             __isClosing = true;
         } else if (status == DialogStatus.Closed && __isClosing){

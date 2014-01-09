@@ -6,6 +6,8 @@ import "../Thread" as Thread
 MyPage {
     id: page;
 
+    property string defaultTab: "pletter";
+
     title: tabGroup.currentTab.title;
 
     tools: ToolBarLayout {
@@ -61,7 +63,7 @@ MyPage {
     TabGroup {
         id: tabGroup;
         anchors { fill: parent; topMargin: viewHeader.height; }
-        currentTab: pletterPage;
+        currentTab: defaultTab == "pletter" ? pletterPage : defaultTab == "replyme" ? replyPage : atmePage;
         PletterPage {
             id: pletterPage;
             pageStack: page.pageStack;

@@ -108,17 +108,22 @@ MyPage {
                         text: intro;
                     }
                 }
-                ToolButton {
+
+                Image {
                     id: chatBtn;
                     anchors {
                         right: root.paddingItem.right;
                         verticalCenter: parent.verticalCenter;
                     }
-                    platformInverted: tbsettings.whiteTheme;
-                    iconSource: "../../gfx/instant_messenger_chat"+constant.invertedString+".svg";
-                    onClicked: {
-                        var prop = { chatName: name_show, chatId: model.id }
-                        pageStack.push(Qt.resolvedUrl("../Message/ChatPage.qml"), prop);
+                    source: "../../gfx/instant_messenger_chat"+constant.invertedString+".svg";
+                    opacity: chatBtnMa.pressed ? 0.7 : 1;
+                    MouseArea {
+                        id: chatBtnMa;
+                        anchors.fill: parent;
+                        onClicked: {
+                            var prop = { chatName: name_show, chatId: model.id }
+                            pageStack.push(Qt.resolvedUrl("../Message/ChatPage.qml"), prop);
+                        }
                     }
                 }
             }

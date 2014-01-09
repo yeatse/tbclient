@@ -1,8 +1,8 @@
 import QtQuick 1.1
 import com.nokia.symbian 1.1
-import QtWebKit 1.0
 import com.yeatse.tbclient 1.0
 import "Component"
+import "WebPageMenu"
 
 MyPage {
     id: page;
@@ -12,14 +12,7 @@ MyPage {
     title: webView.title;
 
     tools: ToolBarLayout {
-        ToolButtonWithTip {
-            property bool isHold: false;
-            toolTipText: webView.back.toolTip;
-            iconSource: "toolbar-back";
-            onClicked: webView.back.enabled && !isHold ? webView.back.trigger() : pageStack.pop();
-            onPlatformPressAndHold: isHold = true;
-            onPressedChanged: if (pressed) isHold = false;
-        }
+        BackButton {}
         ToolButtonWithTip {
             toolTipText: loading ? webView.stop.toolTip : webView.reload.toolTip;
             iconSource: loading ? "../gfx/tb_close_stop"+constant.invertedString+".svg" : "toolbar-refresh";
@@ -27,77 +20,63 @@ MyPage {
             onClicked: loading ? webView.stop.trigger() : webView.reload.trigger();
         }
         ToolButtonWithTip {
+            toolTipText: qsTr("Home page");
+            iconSource: "../gfx/home_sousuo.png";
+            onClicked: homeMenu.open();
+        }
+        ToolButtonWithTip {
             toolTipText: qsTr("Open browser");
             iconSource: "../gfx/internet"+constant.invertedString+".svg";
             onClicked: utility.openURLDefault(webView.url);
         }
         ToolButtonWithTip {
-            toolTipText: qsTr("Home page");
-            iconSource: "toolbar-home";
-            onClicked: url = "http://m.baidu.com/";
-        }
-    }
-
-    Flickable {
-        id: view;
-        anchors.fill: parent;
-        boundsBehavior: Flickable.StopAtBounds;
-        contentWidth: webView.width;
-        contentHeight: webView.height;
-
-        CustomWebView {
-            id: webView;
-            preferredWidth: page.width;
-            preferredHeight: page.height;
-            smooth: !loading && !view.moving;
-            javaScriptWindowObjects: QtObject {
-                CustomWebView.windowObjectName: "scroller";
-                function scrollTo(xPos, yPos){
-                    view.contentX = xPos;
-                    view.contentY = yPos;
+            toolTipText: webView.locking ? qsTr("Locked") : qsTr("Unlocked");
+            iconSource: webView.locking ? "../gfx/lock.svg" : "../gfx/unlock.svg";
+            onClicked: {
+                if (!webView.locking){
+                    webView.locking = true;
+                    webView.lockMoving();
+                } else {
+                    webView.locking = false;
+                    webView.unlockMoving();
                 }
             }
-            settings {
-                javascriptCanOpenWindows: true;
-                javascriptCanAccessClipboard: true;
-                offlineStorageDatabaseEnabled: true;
-                offlineWebApplicationCacheEnabled: true;
-                localStorageDatabaseEnabled: true;
-            }
-            onUrlChanged: {
-                view.contentX = 0;
-                view.contentY = 0;
-                view.returnToBounds();
-            }
-            onLoadStarted: loading = true;
-            onLoadFailed: loading = false;
-            onLoadFinished: {
-                loading = false;
-                evaluateJavaScript("window.scrollTo = window.scroller.scrollTo;");
-            }
-            onAlert: signalCenter.createQueryDialog(qsTr("Alert"),message,qsTr("OK"),"");
         }
     }
 
-    ScrollDecorator { flickableItem: view; platformInverted: tbsettings.whiteTheme; }
+    WebView {
+        id: webView;
+        property bool locking: false;
+        anchors.fill: parent;
+        onLoadStarted: page.loading = true;
+        onLoadFinished: page.loading = false;
+        onDownloadStarted: downloadInfo.open();
+        onDownloadFinished: downloadInfo.close();
+        onDownloadProgress: downloadInfo.info = progress;
+    }
 
     ProgressBar {
         anchors.top: parent.top;
         width: parent.width;
         platformInverted: tbsettings.whiteTheme;
-        value: webView.progress;
+        value: webView.loadProgress;
         visible: loading;
     }
+
+    WebHomeMenu { id: homeMenu; }
+    WebDownloadInfo { id: downloadInfo; }
 
     // For keypad
     onStatusChanged: {
         if (status === PageStatus.Active){
-            view.forceActiveFocus();
+            webView.forceActiveFocus();
         }
     }
     Keys.onPressed: {
         switch (event.key){
         case Qt.Key_R: webView.reload.trigger(); event.accepted = true; break;
+        case Qt.Key_Left: webView.back.trigger(); event.accepted = true; break;
+        case Qt.Key_Right: webView.forward.trigger(); event.accepted = true; break;
         }
     }
 }

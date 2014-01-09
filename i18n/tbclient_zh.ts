@@ -567,14 +567,52 @@
 <context>
     <name>MessagePage</name>
     <message>
-        <location filename="../qml/tbclient/Message/MessagePage.qml" line="14"/>
+        <location filename="../qml/tbclient/Message/MessagePage.qml" line="16"/>
         <source>Refresh</source>
         <translation>刷新</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Message/MessagePage.qml" line="19"/>
+        <location filename="../qml/tbclient/Message/MessagePage.qml" line="21"/>
         <source>Chat</source>
         <translation>添加新的聊天</translation>
+    </message>
+</context>
+<context>
+    <name>MorePage</name>
+    <message>
+        <location filename="../qml/tbclient/MorePage.qml" line="9"/>
+        <source>More</source>
+        <translation>更多</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/MorePage.qml" line="16"/>
+        <source>Tabs</source>
+        <translation>标签页</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/MorePage.qml" line="17"/>
+        <source>Browser</source>
+        <translation>百度一下</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/MorePage.qml" line="18"/>
+        <source>Square</source>
+        <translation>广场</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/MorePage.qml" line="19"/>
+        <source>Accounts</source>
+        <translation>账号管理</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/MorePage.qml" line="20"/>
+        <source>Settings</source>
+        <translation>设置中心</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/MorePage.qml" line="21"/>
+        <source>About</source>
+        <translation>关于</translation>
     </message>
 </context>
 <context>
@@ -875,6 +913,24 @@
     </message>
 </context>
 <context>
+    <name>QWebViewDownloader</name>
+    <message>
+        <location filename="../src/qwebviewitem.cpp" line="172"/>
+        <source>Download started</source>
+        <translation>正在下载文件</translation>
+    </message>
+    <message>
+        <location filename="../src/qwebviewitem.cpp" line="208"/>
+        <source>Download finished</source>
+        <translation>文件下载完成</translation>
+    </message>
+    <message>
+        <location filename="../src/qwebviewitem.cpp" line="213"/>
+        <source>Download failed</source>
+        <translation>文件下载失败</translation>
+    </message>
+</context>
+<context>
     <name>QtApplicationCaptions</name>
     <message>
         <location filename="../../../QtSDK/Desktop/Qt/4.7.4/mingw/mkspecs/common/symbian/appCaptionForTranslation.cpp" line="43"/>
@@ -1094,9 +1150,8 @@
         <translation>客户端识别码</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/SettingsPage.qml" line="110"/>
         <source>Others</source>
-        <translation>其他</translation>
+        <translation type="obsolete">其他</translation>
     </message>
     <message>
         <location filename="../qml/tbclient/SettingsPage.qml" line="122"/>
@@ -1147,7 +1202,7 @@
         <translation>目录</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Explore/SquarePage.qml" line="206"/>
+        <location filename="../qml/tbclient/Explore/SquarePage.qml" line="208"/>
         <source>Thread recommend</source>
         <translation>精选推荐贴</translation>
     </message>
@@ -1168,7 +1223,7 @@
 <context>
     <name>ThreadHeader</name>
     <message>
-        <location filename="../qml/tbclient/Thread/ThreadHeader.qml" line="45"/>
+        <location filename="../qml/tbclient/Thread/ThreadHeader.qml" line="46"/>
         <source>Bar</source>
         <translation>吧</translation>
     </message>
@@ -1344,77 +1399,77 @@
         <translation>%1%2%3</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="399"/>
+        <location filename="../src/utility.cpp" line="404"/>
         <source>ago</source>
         <translation>前</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="400"/>
+        <location filename="../src/utility.cpp" line="405"/>
         <source>From Now</source>
         <translation>后</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="401"/>
+        <location filename="../src/utility.cpp" line="406"/>
         <source>just now</source>
         <translation>1分钟前</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="402"/>
+        <location filename="../src/utility.cpp" line="407"/>
         <source>min</source>
         <translation>分钟</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="403"/>
+        <location filename="../src/utility.cpp" line="408"/>
         <source>mins</source>
         <translation>分钟</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="404"/>
+        <location filename="../src/utility.cpp" line="409"/>
         <source>hr</source>
         <translation>小时</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="405"/>
+        <location filename="../src/utility.cpp" line="410"/>
         <source>hrs</source>
         <translation>小时</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="406"/>
+        <location filename="../src/utility.cpp" line="411"/>
         <source>day</source>
         <translation>天</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="407"/>
+        <location filename="../src/utility.cpp" line="412"/>
         <source>days</source>
         <translation>天</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="408"/>
+        <location filename="../src/utility.cpp" line="413"/>
         <source>wk</source>
         <translation>周</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="409"/>
+        <location filename="../src/utility.cpp" line="414"/>
         <source>wks</source>
         <translation>周</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="410"/>
+        <location filename="../src/utility.cpp" line="415"/>
         <source>mth</source>
         <translation>个月</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="411"/>
+        <location filename="../src/utility.cpp" line="416"/>
         <source>mths</source>
         <translation>个月</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="412"/>
+        <location filename="../src/utility.cpp" line="417"/>
         <source>yr</source>
         <translation>年</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="413"/>
+        <location filename="../src/utility.cpp" line="418"/>
         <source>yrs</source>
         <translation>年</translation>
     </message>
@@ -1476,26 +1531,76 @@
     </message>
 </context>
 <context>
+    <name>WebDownloadInfo</name>
+    <message>
+        <location filename="../qml/tbclient/WebPageMenu/WebDownloadInfo.qml" line="9"/>
+        <source>Downloading...</source>
+        <translation>正在下载...</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/WebPageMenu/WebDownloadInfo.qml" line="32"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+</context>
+<context>
     <name>WebPage</name>
     <message>
-        <location filename="../qml/tbclient/WebPage.qml" line="30"/>
+        <location filename="../qml/tbclient/WebPage.qml" line="28"/>
         <source>Open browser</source>
         <translation>用浏览器打开</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/WebPage.qml" line="35"/>
+        <location filename="../qml/tbclient/WebPage.qml" line="33"/>
+        <source>Locked</source>
+        <translation>网页已锁定</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/WebPage.qml" line="33"/>
+        <source>Unlocked</source>
+        <translation>网页已解锁</translation>
+    </message>
+    <message>
+        <source>Lock moving</source>
+        <translation type="obsolete">锁定网页</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/WebPage.qml" line="23"/>
         <source>Home page</source>
         <translation>首页</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/WebPage.qml" line="78"/>
         <source>Alert</source>
-        <translation>脚本警告</translation>
+        <translation type="obsolete">脚本警告</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/WebPage.qml" line="78"/>
         <source>OK</source>
-        <translation>确定</translation>
+        <translation type="obsolete">确定</translation>
+    </message>
+    <message>
+        <location filename="../src/qwebviewitem.cpp" line="38"/>
+        <source>Javascript Alert - %1</source>
+        <translation>脚本提示 - %1</translation>
+    </message>
+    <message>
+        <location filename="../src/qwebviewitem.cpp" line="44"/>
+        <source>Javascript Confirm - %1</source>
+        <translation>脚本提示 - %1</translation>
+    </message>
+    <message>
+        <location filename="../src/qwebviewitem.cpp" line="52"/>
+        <source>Javascript Prompt - %1</source>
+        <translation>脚本提示 - %1</translation>
+    </message>
+    <message>
+        <location filename="../src/qwebviewitem.cpp" line="61"/>
+        <source>Javascript Problem - %1</source>
+        <translation>脚本提示 - %1</translation>
+    </message>
+    <message>
+        <location filename="../src/qwebviewitem.cpp" line="62"/>
+        <source>The script on this page appears to have a problem. Do you want to stop the script?</source>
+        <translation>当前页面的脚本似乎出现了问题，需要停止运行吗？</translation>
     </message>
 </context>
 <context>

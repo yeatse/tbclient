@@ -12,7 +12,6 @@ class Utility : public QObject
     Q_PROPERTY(QString cachePath READ cachePath CONSTANT FINAL)
     Q_PROPERTY(QString tempPath READ tempPath CONSTANT FINAL)
     Q_PROPERTY(QString defaultPictureLocation READ defaultPictureLocation CONSTANT FINAL)
-    Q_PROPERTY(QString currentBearerName READ currentBearerName)
 
 public:             // Not for qml
     static Utility* Instance();
@@ -24,7 +23,6 @@ public:             // Not for qml
     QString cachePath() const;
     QString tempPath() const;
     QString defaultPictureLocation() const;
-    QString currentBearerName() const;
 
     void setEngine(QDeclarativeEngine* engine);
 
@@ -47,6 +45,8 @@ public:             // Cache and network
     Q_INVOKABLE int cacheSize();
     // Clear network cache.
     Q_INVOKABLE void clearCache();
+    // Get current network bearer
+    Q_INVOKABLE QString currentBearerName();
 
 public:             // Symbian avkon helper.
     // Launch web browser
@@ -70,6 +70,10 @@ public:             // Symbian avkon helper.
     // Show notification
     Q_INVOKABLE void showNotification(const QString &title, const QString &message) const;
 
+#ifdef Q_OS_SYMBIAN
+    void LaunchL(int id, const QString& param);
+#endif
+
 public:             // Other functions.
     Q_INVOKABLE bool existsFile(const QString &filename);
     Q_INVOKABLE int fileSize(const QString &filename);
@@ -84,6 +88,9 @@ public:             // Other functions.
     // Restore GBK encoded data
     Q_INVOKABLE QString decodeGBKHex(const QString &encodedString);
 
+    // Percent decoding
+    Q_INVOKABLE QString percentDecode(const QByteArray &encodedString) const;
+
 private:
     explicit Utility(QObject *parent = 0);    
     void initializeLangFormats();
@@ -92,7 +99,6 @@ private:
 
 #ifdef Q_OS_SYMBIAN
     void LaunchAppL(const TUid aUid, HBufC* aParam);
-    void LaunchL(int id, const QString& param);
     // Reture empty string if canceled;
     // Otherwise return captured image url;
     QString CaptureImage();

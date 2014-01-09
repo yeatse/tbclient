@@ -47,7 +47,6 @@ private:
     void resizeImage(QImage *image, const QSize &newSize);
 
 private:
-    virtual void classBegin();
     virtual void componentComplete();
 
 private:
