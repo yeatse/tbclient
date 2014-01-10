@@ -2,6 +2,29 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="zh_CN">
 <context>
+    <name>AccountPage</name>
+    <message>
+        <location filename="../qml/tbclient/AccountPage.qml" line="13"/>
+        <source>OK</source>
+        <translation>完成</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/AccountPage.qml" line="13"/>
+        <source>Edit</source>
+        <translation>编辑</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/AccountPage.qml" line="19"/>
+        <source>Account manager</source>
+        <translation>标签管理</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/AccountPage.qml" line="83"/>
+        <source>Add new account</source>
+        <translation>添加新账号</translation>
+    </message>
+</context>
+<context>
     <name>AtmePage</name>
     <message>
         <location filename="../qml/tbclient/Message/AtmePage.qml" line="10"/>
@@ -33,6 +56,14 @@
         <location filename="../qml/tbclient/Component/BackButton.qml" line="4"/>
         <source>Back</source>
         <translation>返回</translation>
+    </message>
+</context>
+<context>
+    <name>BaiduParser</name>
+    <message>
+        <location filename="../qml/js/BaiduParser.js" line="215"/>
+        <source>Click to watch video</source>
+        <translation>点击查看视频</translation>
     </message>
 </context>
 <context>
@@ -453,6 +484,14 @@
         <location filename="../qml/tbclient/InfoCenter.qml" line="92"/>
         <source>%1 new message(s)</source>
         <translation>%1个新消息</translation>
+    </message>
+</context>
+<context>
+    <name>LinkDecoder</name>
+    <message>
+        <location filename="../qml/js/LinkDecoder.js" line="61"/>
+        <source>Loading video...</source>
+        <translation>正在获取视频源地址...</translation>
     </message>
 </context>
 <context>

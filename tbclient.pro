@@ -40,7 +40,9 @@ SOURCES += main.cpp \
 #    qml/tbclient/Profile/*.qml \
 #    qml/tbclient/Thread/*.qml \
 #    qml/tbclient/WebPageMenu/*.qml \
-#    qml/js/main.js
+#    qml/js/main.js \
+#    qml/js/BaiduParser.js \
+#    qml/js/LinkDecoder.js
 
 TRANSLATIONS += i18n/tbclient_zh.ts
 RESOURCES += tbclient-res.qrc

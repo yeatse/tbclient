@@ -13,42 +13,73 @@ MyPage {
     }
 
     function init(){
-        var dict = [[qsTr("Tabs"),"signalCenter.enterThread()"],
-                    [qsTr("Browser"),"signalCenter.openBrowser(\"http://m.baidu.com\")"],
-                    [qsTr("Square"),"pageStack.push(Qt.resolvedUrl(\"Explore/SquarePage.qml\"))"],
-                    [qsTr("Accounts"),""],
-                    [qsTr("Settings"),"pageStack.push(Qt.resolvedUrl(\"SettingsPage.qml\"))"],
-                    [qsTr("About"),""]];
+        var dict = [[qsTr("Tabs"),"tabs","signalCenter.enterThread()"],
+                    [qsTr("Browser"),"internet","signalCenter.openBrowser(\"http://m.baidu.com\")"],
+                    [qsTr("Square"),"square","pageStack.push(Qt.resolvedUrl(\"Explore/SquarePage.qml\"))"],
+                    [qsTr("Accounts"),"sign","pageStack.push(Qt.resolvedUrl(\"AccountPage.qml\"))"],
+                    [qsTr("Settings"),"settings","pageStack.push(Qt.resolvedUrl(\"SettingsPage.qml\"))"],
+                    [qsTr("About"),"info",""]];
         dict.forEach(function(value){
-                         gridModel.append({name:value[0],script:value[1]});
+                         view.model.append({name:value[0],file:value[1],script:value[2]});
                      });
     }
 
-    ViewHeader {
-        id: viewHeader;
-        title: page.title;
-    }
-
-    Flickable {
+    ListView {
         id: view;
-        anchors { fill: parent; topMargin: viewHeader.height; }
-        contentWidth: parent.width;
-        contentHeight: grid.height;
-        Grid {
-            id: grid;
-            width: parent.width;
-            columns: screen.width > screen.height ? 5 : 3;
-            Repeater {
-                model: ListModel { id: gridModel; }
-                WebHomeDelegate {
-                    width: grid.width / grid.columns;
-                    iconSource: "../gfx/more_"+(index+1)+".jpg";
-                    title: name;
-                    onClicked: eval(script);
+        anchors.fill: parent;
+        model: ListModel {}
+        header: ViewHeader {
+            title: page.title;
+            Rectangle {
+                width: parent.width;
+                height: 400;
+                anchors.bottom: parent.top;
+                color: "black";
+            }
+        }
+        delegate: AbstractItem {
+            id: root;
+            onClicked: eval(script);
+            Image {
+                id: iconImg;
+                anchors {
+                    left: root.paddingItem.left;
+                    verticalCenter: parent.verticalCenter;
                 }
+                source: "../gfx/more_"+file+".svg"
+            }
+            Text {
+                anchors {
+                    left: iconImg.right;
+                    leftMargin: constant.paddingMedium;
+                    verticalCenter: parent.verticalCenter;
+                }
+                font: constant.titleFont;
+                color: constant.colorLight;
+                text: name;
+            }
+            Image {
+                id: subItemIcon;
+                anchors {
+                    right: parent.right;
+                    rightMargin: privateStyle.scrollBarThickness;
+                    verticalCenter: parent.verticalCenter;
+                }
+                source: privateStyle.imagePath("qtg_graf_drill_down_indicator", tbsettings.whiteTheme);
+                sourceSize.width: platformStyle.graphicSizeSmall;
+                sourceSize.height: platformStyle.graphicSizeSmall;
             }
         }
     }
 
+    ScrollDecorator { flickableItem: view; platformInverted: tbsettings.whiteTheme; }
+
     Component.onCompleted: init();
+
+    // For keypad
+    onStatusChanged: {
+        if (status === PageStatus.Active){
+            view.forceActiveFocus();
+        }
+    }
 }
