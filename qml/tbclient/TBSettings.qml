@@ -19,6 +19,9 @@ QtObject {
     property string browser: utility.getValue("browser", "");
     onBrowserChanged: utility.setValue("browser", browser);
 
+    property string signature: utility.getValue("signature", "");
+    onSignatureChanged: utility.setValue("signature", signature);
+
     property bool monitorNetworkMode: utility.getValue("monitorNetworkMode", true);
     onMonitorNetworkModeChanged: utility.setValue("monitorNetworkMode", monitorNetworkMode);
 
@@ -62,6 +65,9 @@ QtObject {
 
     property int fontSize: utility.getValue("fontSize", constant.fontMedium);
     onFontSizeChanged: utility.setValue("fontSize", fontSize);
+
+    property string bgImageUrl: utility.getValue("bgImageUrl", "");
+    onBgImageUrlChanged: utility.setValue("bgImageUrl", bgImageUrl);
 
     // remind
     property int remindInterval: utility.getValue("remind/interval", 5);

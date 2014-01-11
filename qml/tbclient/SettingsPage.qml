@@ -48,6 +48,12 @@ MyPage {
                     checked: tbsettings.showAbstract;
                     onClicked: tbsettings.showAbstract = checked;
                 }
+                CheckBox {
+                    text: qsTr("Monitor network changes");
+                    platformInverted: tbsettings.whiteTheme;
+                    checked: tbsettings.monitorNetworkMode;
+                    onClicked: tbsettings.monitorNetworkMode = checked;
+                }
             }
             Text {
                 x: constant.paddingLarge;
@@ -94,6 +100,24 @@ MyPage {
                 }
             }
             SelectionListItem {
+                property variant remindDialog: null;
+                platformInverted: tbsettings.whiteTheme;
+                title: qsTr("Remind settings");
+                subTitle: qsTr("Click to set");
+                onClicked: {
+                    if (!remindDialog)
+                        remindDialog = Qt.createComponent("Dialog/RemindSettingDialog.qml").createObject(parent);
+                    remindDialog.open();
+                }
+            }
+            SelectionListItem {
+                platformInverted: tbsettings.whiteTheme;
+                title: qsTr("Background image(long press to clear)");
+                subTitle: tbsettings.bgImageUrl || qsTr("Click to set")
+                onPressAndHold: tbsettings.bgImageUrl = "";
+                onClicked: tbsettings.bgImageUrl = utility.selectImage()||tbsettings.bgImageUrl;
+            }
+            SelectionListItem {
                 platformInverted: tbsettings.whiteTheme;
                 title: qsTr("Image save path");
                 subTitle: tbsettings.imagePath;
@@ -110,6 +134,17 @@ MyPage {
                     model: ["iPhone","Android"]//,"Windows Phone","Windows 8",qsTr("Others")];
                     selectedIndex: tbsettings.clientType-1;
                     onAccepted: tbsettings.clientType = selectedIndex + 1;
+                }
+            }
+            SelectionListItem {
+                property variant signatureDiag: null;
+                platformInverted: tbsettings.whiteTheme;
+                title: qsTr("Signature")
+                subTitle: tbsettings.signature.replace(/(^\s*)|(\s*$)/g,"").replace(/\s/g," ")||qsTr("Click to set");
+                onClicked: {
+                    if (!signatureDiag)
+                        signatureDiag = Qt.createComponent("Dialog/SignatureDialog.qml").createObject(parent);
+                    signatureDiag.open();
                 }
             }
             SelectionListItem {
@@ -147,6 +182,42 @@ MyPage {
                     }
                 }
             }
+            Item {
+                anchors {
+                    left: parent.left; right: parent.right; margins: constant.graphicSizeMedium;
+                }
+                height: constant.graphicSizeLarge;
+                Button {
+                    platformInverted: tbsettings.whiteTheme;
+                    anchors.verticalCenter: parent.verticalCenter;
+                    width: parent.width;
+                    text: qsTr("Clear cache and cookies");
+                    onClicked: {
+                        utility.clearCache();
+                        signalCenter.clearLocalCache();
+                        signalCenter.showMessage(qsTr("Operation completed"));
+                    }
+                }
+            }
+        }
+    }
+
+    ScrollDecorator { flickableItem: view; platformInverted: tbsettings.whiteTheme; }
+
+    // For keypad
+    Connections {
+        target: platformPopupManager;
+        onPopupStackDepthChanged: {
+            if (platformPopupManager.popupStackDepth === 0
+                    && page.status === PageStatus.Active){
+                view.forceActiveFocus();
+            }
+        }
+    }
+
+    onStatusChanged: {
+        if (status === PageStatus.Active){
+            view.forceActiveFocus();
         }
     }
 }

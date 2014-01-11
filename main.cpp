@@ -14,15 +14,44 @@
 #include <QtNetwork/QNetworkProxy>
 #endif
 
+#ifdef QVIBRA
+#include "QVibra/qvibra.h"
+#endif
+
+#ifdef Q_OS_SYMBIAN
+#include <QSymbianEvent>
+#include <w32std.h>
+#include <avkon.hrh>
+
+class SymbianApplication : public QApplication
+{
+public:
+    SymbianApplication(int &argc, char** argv) : QApplication(argc, argv){}
+
+protected:
+    bool symbianEventFilter(const QSymbianEvent *event)
+    {
+        if (event->type() == QSymbianEvent::WindowServerEvent
+                && event->windowServerEvent()->Type() == KAknUidValueEndKeyCloseEvent){
+            return true;
+        }
+        return QApplication::symbianEventFilter(event);
+    }
+};
+
+#endif  // Q_OS_SYMBIAN
+
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     // Symbian specific
 #ifdef Q_OS_SYMBIAN
     QApplication::setAttribute(Qt::AA_CaptureMultimediaKeys);
-#endif
-    QApplication::setStartDragDistance(2);
+    QScopedPointer<QApplication> app(new SymbianApplication(argc, argv));
+#else
     QScopedPointer<QApplication> app(createApplication(argc, argv));
+#endif
 
+    QApplication::setStartDragDistance(2);
     app->setApplicationName("tbclient");
     app->setOrganizationName("Yeatse");
     app->setApplicationVersion(VER);
@@ -45,6 +74,12 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterType<AudioRecorder>("com.yeatse.tbclient", 1, 0, "AudioRecorder");
     qmlRegisterType<ScribbleArea>("com.yeatse.tbclient", 1, 0, "ScribbleArea");
     qmlRegisterType<QWebViewItem>("com.yeatse.tbclient", 1, 0, "WebView");
+
+#ifdef QVIBRA
+    qmlRegisterType<QVibra>("com.yeatse.tbclient", 1, 0, "Vibra");
+#elif defined(Q_WS_SIMULATOR)
+    qmlRegisterType<QObject>("com.yeatse.tbclient", 1, 0, "Vibra");
+#endif
 
     QWebSettings::globalSettings()->setUserStyleSheetUrl(QUrl::fromLocalFile("qml/js/default_theme.css"));
 

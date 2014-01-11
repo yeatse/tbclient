@@ -26,6 +26,8 @@ MyPage {
     property bool isCollected: false;
     property string collectMarkPid;
 
+    property variant threadMenu: null;
+
     property int privateFullPage: 0;
     onIsLzChanged: {
         if (isLz) privateFullPage = totalPage;
@@ -152,6 +154,13 @@ MyPage {
         loading = true;
         Script.setBookmark(opt, s, f);
     }
+    function createMenu(index){
+        if (!threadMenu)
+            threadMenu = Qt.createComponent("ThreadMenu.qml").createObject(page);
+        threadMenu.index = index;
+        threadMenu.model = view.model.get(index);
+        threadMenu.open();
+    }
 
     title: thread ? thread.title : qsTr("New tab");
 
@@ -161,7 +170,9 @@ MyPage {
         cacheBuffer: view.height;
         model: ListModel {}
         delegate: ThreadDelegate {
-            onClicked: signalCenter.enterFloor(thread.id, model.id);
+            onClicked: floor === "1" ? pressAndHold()
+                                     : signalCenter.enterFloor(thread.id, model.id);
+            onPressAndHold: createMenu(index);
         }
         footer: FooterItem {
             visible: view.count > 0;
@@ -181,5 +192,43 @@ MyPage {
     ScrollDecorator {
         flickableItem: view;
         platformInverted: tbsettings.whiteTheme;
+    }
+
+    Column {
+        id: btnCol;
+        anchors {
+            right: parent.right; rightMargin: constant.paddingSmall;
+            verticalCenter: view.verticalCenter;
+        }
+        spacing: constant.paddingMedium;
+        Image {
+            source: "../../gfx/icon_arrow.png";
+            opacity: upMA.pressed ? 0.7 : 0.3;
+            Behavior on opacity { NumberAnimation { duration: 200; } }
+            MouseArea {
+                id: upMA;
+                anchors.fill: parent;
+                onClicked: {
+                    view.contentY -= view.height;
+                    if (view.atYBeginning) view.positionViewAtBeginning();
+                }
+                onPressAndHold: view.positionViewAtBeginning();
+            }
+        }
+        Image {
+            source: "../../gfx/icon_arrow.png";
+            rotation: 180;
+            opacity: downMA.pressed ? 0.7 : 0.3;
+            Behavior on opacity { NumberAnimation { duration: 200; } }
+            MouseArea {
+                id: downMA;
+                anchors.fill: parent;
+                onClicked: {
+                    view.contentY += view.height;
+                    if (view.atYEnd) view.positionViewAtEnd();
+                }
+                onPressAndHold: view.positionViewAtEnd();
+            }
+        }
     }
 }

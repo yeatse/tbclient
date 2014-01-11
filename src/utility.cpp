@@ -181,6 +181,9 @@ int Utility::cacheSize()
 
 void Utility::clearCache()
 {
+    QString cachePath = this->cachePath() + QDir::separator() + "audio";
+    this->deleteDir(cachePath);
+
     if (engine.isNull()) return;
     QAbstractNetworkCache* diskCache = engine->networkAccessManager()->cache();
     if (diskCache == 0) return;

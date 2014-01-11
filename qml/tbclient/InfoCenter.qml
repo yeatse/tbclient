@@ -1,6 +1,7 @@
 import QtQuick 1.1
 import com.nokia.extras 1.1
 import QtMobility.systeminfo 1.2
+import com.yeatse.tbclient 1.0
 import "../js/main.js" as Script
 
 Item {
@@ -60,37 +61,38 @@ Item {
             var list = [], count = 0;
             if (fans > 0 && tbsettings.remindFans){
                 infoBanner.type = "fans";
-                list.push(qsTr("%1 new fan(s)").arg(fans));
+                list.push(qsTr("%n new fan(s)", "", fans));
                 count += fans;
             }
             if (pletter > 0 && tbsettings.remindPletter){
                 infoBanner.type = "pletter";
-                list.push(qsTr("%1 new pletter(s)").arg(pletter));
+                list.push(qsTr("%n new pletter(s)", "", pletter));
                 count += pletter;
             }
             if (bookmark > 0 && tbsettings.remindBookmark){
                 infoBanner.type = "bookmark";
-                list.push(qsTr("%1 new bookmark update(s)").arg(bookmark));
+                list.push(qsTr("%n new bookmark update(s)", "", bookmark));
                 count += bookmark;
             }
             if (replyme > 0 && tbsettings.remindReplyme){
                 infoBanner.type = "replyme";
-                list.push(qsTr("%1 new reply(ies)").arg(replyme));
+                list.push(qsTr("%n new reply(ies)", "", replyme));
                 count += replyme;
             }
             if (atme > 0 && tbsettings.remindAtme){
                 infoBanner.type = "atme";
-                list.push(qsTr("%1 new remind(s)").arg(atme));
+                list.push(qsTr("%n new remind(s)", "", atme));
                 count += atme;
             }
             if (list.length > 0){
                 if (Qt.application.active){
                     infoBanner.text = list.join("\n");
                     infoBanner.open();
-                } else {
+                } else if (tbsettings.remindBackground){
                     var title = qsTr("Baidu Tieba");
-                    var message = qsTr("%1 new message(s)").arg(count);
+                    var message = qsTr("%n new message(s)", "", count);
                     utility.showNotification(title, message);
+                    vibra.start(800);
                 }
             }
         }
@@ -131,4 +133,6 @@ Item {
             }
         }
     }
+
+    Vibra { id: vibra; }
 }

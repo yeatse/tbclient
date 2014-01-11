@@ -451,29 +451,49 @@
 <context>
     <name>InfoCenter</name>
     <message>
-        <location filename="../qml/tbclient/InfoCenter.qml" line="63"/>
         <source>%1 new fan(s)</source>
-        <translation>%1个新粉丝</translation>
+        <translation type="obsolete">%1个新粉丝</translation>
+    </message>
+    <message>
+        <source>%1 new pletter(s)</source>
+        <translation type="obsolete">%1个新私信</translation>
+    </message>
+    <message>
+        <source>%1 new bookmark update(s)</source>
+        <translation type="obsolete">%1个收藏更新</translation>
+    </message>
+    <message>
+        <source>%1 new reply(ies)</source>
+        <translation type="obsolete">%1个新回复</translation>
+    </message>
+    <message>
+        <source>%1 new remind(s)</source>
+        <translation type="obsolete">%1个@我</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/InfoCenter.qml" line="63"/>
+        <source>%n new fan(s)</source>
+        <translation>%n个新粉丝</translation>
     </message>
     <message>
         <location filename="../qml/tbclient/InfoCenter.qml" line="68"/>
-        <source>%1 new pletter(s)</source>
-        <translation>%1个新私信</translation>
+        <source>%n new pletter(s)</source>
+        <translation>%n个新私信</translation>
     </message>
     <message>
         <location filename="../qml/tbclient/InfoCenter.qml" line="73"/>
-        <source>%1 new bookmark update(s)</source>
-        <translation>%1个收藏更新</translation>
+        <source>%n new bookmark update(s)</source>
+        <translation>%n个收藏更新</translation>
     </message>
     <message>
         <location filename="../qml/tbclient/InfoCenter.qml" line="78"/>
-        <source>%1 new reply(ies)</source>
-        <translation>%1个新回复</translation>
+        <source>%n new reply(ies)</source>
+        <translation>%n个新回复</translation>
     </message>
     <message>
         <location filename="../qml/tbclient/InfoCenter.qml" line="83"/>
-        <source>%1 new remind(s)</source>
-        <translation>%1个@我</translation>
+        <source>%n new remind(s)</source>
+        <translation>%n个@我</translation>
     </message>
     <message>
         <location filename="../qml/tbclient/InfoCenter.qml" line="91"/>
@@ -482,8 +502,12 @@
     </message>
     <message>
         <location filename="../qml/tbclient/InfoCenter.qml" line="92"/>
+        <source>%n new message(s)</source>
+        <translation>%n个新消息</translation>
+    </message>
+    <message>
         <source>%1 new message(s)</source>
-        <translation>%1个新消息</translation>
+        <translation type="obsolete">%1个新消息</translation>
     </message>
 </context>
 <context>
@@ -619,37 +643,37 @@
 <context>
     <name>MorePage</name>
     <message>
-        <location filename="../qml/tbclient/MorePage.qml" line="9"/>
+        <location filename="../qml/tbclient/MorePage.qml" line="8"/>
         <source>More</source>
         <translation>更多</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/MorePage.qml" line="16"/>
+        <location filename="../qml/tbclient/MorePage.qml" line="15"/>
         <source>Tabs</source>
         <translation>标签页</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/MorePage.qml" line="17"/>
+        <location filename="../qml/tbclient/MorePage.qml" line="16"/>
         <source>Browser</source>
         <translation>百度一下</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/MorePage.qml" line="18"/>
+        <location filename="../qml/tbclient/MorePage.qml" line="17"/>
         <source>Square</source>
         <translation>广场</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/MorePage.qml" line="19"/>
+        <location filename="../qml/tbclient/MorePage.qml" line="18"/>
         <source>Accounts</source>
         <translation>账号管理</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/MorePage.qml" line="20"/>
+        <location filename="../qml/tbclient/MorePage.qml" line="19"/>
         <source>Settings</source>
         <translation>设置中心</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/MorePage.qml" line="21"/>
+        <location filename="../qml/tbclient/MorePage.qml" line="20"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
@@ -759,8 +783,8 @@
         <translation>标题字数不符合要求</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Post/PostPage.js" line="58"/>
-        <location filename="../qml/tbclient/Post/PostPage.js" line="89"/>
+        <location filename="../qml/tbclient/Post/PostPage.js" line="60"/>
+        <location filename="../qml/tbclient/Post/PostPage.js" line="93"/>
         <source>Success</source>
         <translation>发送成功</translation>
     </message>
@@ -1000,6 +1024,88 @@
     </message>
 </context>
 <context>
+    <name>RemindSettingDialog</name>
+    <message>
+        <location filename="../qml/tbclient/Dialog/RemindSettingDialog.qml" line="7"/>
+        <source>Remind settings</source>
+        <translation>提醒设置</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Dialog/RemindSettingDialog.qml" line="8"/>
+        <source>OK</source>
+        <translation>确定</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Dialog/RemindSettingDialog.qml" line="23"/>
+        <source>Disabled</source>
+        <translation>不启动</translation>
+    </message>
+    <message>
+        <source>1 minute</source>
+        <translation type="obsolete">1分钟</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Dialog/RemindSettingDialog.qml" line="24"/>
+        <location filename="../qml/tbclient/Dialog/RemindSettingDialog.qml" line="25"/>
+        <location filename="../qml/tbclient/Dialog/RemindSettingDialog.qml" line="26"/>
+        <location filename="../qml/tbclient/Dialog/RemindSettingDialog.qml" line="27"/>
+        <source>%n min(s)</source>
+        <translation>%n分钟</translation>
+    </message>
+    <message>
+        <source>2 minutes</source>
+        <translation type="obsolete">2分钟</translation>
+    </message>
+    <message>
+        <source>5 minutes</source>
+        <translation type="obsolete">5分钟</translation>
+    </message>
+    <message>
+        <source>30 minutes</source>
+        <translation type="obsolete">30分钟</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Dialog/RemindSettingDialog.qml" line="57"/>
+        <source>Remind interval</source>
+        <translation>提醒间隔</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Dialog/RemindSettingDialog.qml" line="75"/>
+        <source>Remind contents</source>
+        <translation>提醒内容</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Dialog/RemindSettingDialog.qml" line="79"/>
+        <source>Remind at background</source>
+        <translation>后台提醒</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Dialog/RemindSettingDialog.qml" line="80"/>
+        <source>New fans</source>
+        <translation>新粉丝</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Dialog/RemindSettingDialog.qml" line="81"/>
+        <source>Private letters</source>
+        <translation>私信</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Dialog/RemindSettingDialog.qml" line="82"/>
+        <source>Bookmark updates</source>
+        <translation>收藏更新</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Dialog/RemindSettingDialog.qml" line="83"/>
+        <source>Reply me</source>
+        <translation>回复</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Dialog/RemindSettingDialog.qml" line="84"/>
+        <source>Mentions</source>
+        <translation>提到我</translation>
+    </message>
+</context>
+<context>
     <name>ReplyPage</name>
     <message>
         <location filename="../qml/tbclient/Message/ReplyPage.qml" line="10"/>
@@ -1169,58 +1275,118 @@
         <translation>显示摘要</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/SettingsPage.qml" line="57"/>
+        <location filename="../qml/tbclient/SettingsPage.qml" line="52"/>
+        <source>Monitor network changes</source>
+        <translation>监测接入点改变</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/SettingsPage.qml" line="63"/>
         <source>Font size</source>
         <translation>正文字号</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/SettingsPage.qml" line="79"/>
+        <location filename="../qml/tbclient/SettingsPage.qml" line="85"/>
         <source>Max tabs count</source>
         <translation>最大标签数量</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/SettingsPage.qml" line="98"/>
+        <location filename="../qml/tbclient/SettingsPage.qml" line="105"/>
+        <source>Remind settings</source>
+        <translation>提醒设置</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/SettingsPage.qml" line="106"/>
+        <location filename="../qml/tbclient/SettingsPage.qml" line="116"/>
+        <location filename="../qml/tbclient/SettingsPage.qml" line="143"/>
+        <source>Click to set</source>
+        <translation>点击设置</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/SettingsPage.qml" line="115"/>
+        <source>Background image(long press to clear)</source>
+        <translation>背景图片（长按恢复默认）</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/SettingsPage.qml" line="122"/>
         <source>Image save path</source>
         <translation>图片保存位置</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/SettingsPage.qml" line="109"/>
+        <location filename="../qml/tbclient/SettingsPage.qml" line="133"/>
         <source>User agent</source>
         <translation>客户端识别码</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/SettingsPage.qml" line="142"/>
+        <source>Signature</source>
+        <translation>签名</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/SettingsPage.qml" line="194"/>
+        <source>Clear cache and cookies</source>
+        <translation>清空缓存和Cookies</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/SettingsPage.qml" line="198"/>
+        <source>Operation completed</source>
+        <translation>操作完成</translation>
     </message>
     <message>
         <source>Others</source>
         <translation type="obsolete">其他</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/SettingsPage.qml" line="122"/>
+        <location filename="../qml/tbclient/SettingsPage.qml" line="157"/>
         <source>Default browser</source>
         <translation>默认浏览器</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/SettingsPage.qml" line="124"/>
+        <location filename="../qml/tbclient/SettingsPage.qml" line="159"/>
         <source>Built-in</source>
         <translation>软件内置</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/SettingsPage.qml" line="125"/>
+        <location filename="../qml/tbclient/SettingsPage.qml" line="160"/>
         <source>System browser</source>
         <translation>系统浏览器</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/SettingsPage.qml" line="126"/>
+        <location filename="../qml/tbclient/SettingsPage.qml" line="161"/>
         <source>UC</source>
         <translation>UC</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/SettingsPage.qml" line="127"/>
+        <location filename="../qml/tbclient/SettingsPage.qml" line="162"/>
         <source>UC International</source>
         <translation>UC国际版</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/SettingsPage.qml" line="128"/>
+        <location filename="../qml/tbclient/SettingsPage.qml" line="163"/>
         <source>Opera Mobile</source>
         <translation>Opera Mobile</translation>
+    </message>
+</context>
+<context>
+    <name>SignatureDialog</name>
+    <message>
+        <location filename="../qml/tbclient/Dialog/SignatureDialog.qml" line="7"/>
+        <source>Signature</source>
+        <translation>签名</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Dialog/SignatureDialog.qml" line="8"/>
+        <source>Save</source>
+        <translation>保存</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Dialog/SignatureDialog.qml" line="8"/>
+        <source>Clear</source>
+        <translation>清除</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Dialog/SignatureDialog.qml" line="8"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
     </message>
 </context>
 <context>
@@ -1249,12 +1415,12 @@
 <context>
     <name>TBSettings</name>
     <message>
-        <location filename="../qml/tbclient/TBSettings.qml" line="31"/>
+        <location filename="../qml/tbclient/TBSettings.qml" line="34"/>
         <source>Mobile network used</source>
         <translation>正在使用2G网络</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/TBSettings.qml" line="41"/>
+        <location filename="../qml/tbclient/TBSettings.qml" line="44"/>
         <source>High speed network used</source>
         <translation>正在使用3G/Wifi网络</translation>
     </message>
@@ -1572,12 +1738,12 @@
 <context>
     <name>WebDownloadInfo</name>
     <message>
-        <location filename="../qml/tbclient/WebPageMenu/WebDownloadInfo.qml" line="9"/>
+        <location filename="../qml/tbclient/Dialog/WebDownloadInfo.qml" line="9"/>
         <source>Downloading...</source>
         <translation>正在下载...</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/WebPageMenu/WebDownloadInfo.qml" line="32"/>
+        <location filename="../qml/tbclient/Dialog/WebDownloadInfo.qml" line="32"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>

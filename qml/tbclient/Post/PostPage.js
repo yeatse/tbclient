@@ -52,6 +52,8 @@ function post(vcode, vcodeMd5){
             opt.vcode = vcode;
             opt.vcode_md5 = vcodeMd5;
         }
+        if (tbsettings.signature !== "")
+            opt.content += "\n"+tbsettings.signature;
         loading = true;
         s = function(){
             loading = false;
@@ -83,6 +85,8 @@ function post(vcode, vcodeMd5){
             opt.vcode = vcode;
             opt.vcode_md5 = vcodeMd5;
         }
+        if (tbsettings.signature !== "")
+            opt.content += "\n"+tbsettings.signature;
         loading = true;
         s = function(){
             loading = false;

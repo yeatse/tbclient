@@ -2,7 +2,7 @@ import QtQuick 1.1
 import com.nokia.symbian 1.1
 import com.yeatse.tbclient 1.0
 import "Component"
-import "WebPageMenu"
+import "Dialog"
 
 MyPage {
     id: page;

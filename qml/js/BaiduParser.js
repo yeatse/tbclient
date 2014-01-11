@@ -109,7 +109,7 @@ var BaiduParser = {
                             case "0": result += value.text||""; break;
                             case "1": result += value.link; break;
                             case "2": result += value.c||value.text; break;
-                            case "3": result += value.src; break;
+                            case "3": result += value.big_cdn_src||value.src; break;
                             case "4":
                             case "5":
                             case "9": result += value.text; break;
@@ -262,7 +262,8 @@ var BaiduParser = {
                              authorId: value.author.id,
                              authorLevel: value.author.level_id,
                              sub_post_number: value.sub_post_number,
-                             content: self.__parseThreadContent(value.content)
+                             content: self.__parseThreadContent(value.content),
+                             content_raw: self.__parseRawText(value.content)
                          };
                          if (option.insert){
                              if (option.arround)

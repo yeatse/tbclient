@@ -8,6 +8,7 @@ QtObject {
     property variant newVCodeDialogComp: null;
     property variant queryDialogComp: null;
     property variant enterDialogComp: null;
+    property variant copyDialogComp: null;
     property variant threaPage: null;
 
     signal userChanged;
@@ -16,7 +17,6 @@ QtObject {
     signal imageSelected(variant caller, string urls);
     signal forumSigned(string fid);
     signal bookmarkChanged;
-    signal profileChanged;
 
     signal uploadFinished(variant caller, string response);
     signal uploadFailed(variant caller);
@@ -69,6 +69,12 @@ QtObject {
         var prop = { title: title, isfloor: isfloor, pid: pid, tid: tid, fname: fname };
         if (fromSearch) prop.fromSearch = true;
         enterDialogComp.createObject(pageStack.currentPage, prop);
+    }
+
+    function copyToClipboard(text){
+        if (!copyDialogComp){ copyDialogComp = Qt.createComponent("Dialog/CopyDialog.qml"); }
+        var prop = { text: text };
+        copyDialogComp.createObject(pageStack.currentPage, prop);
     }
 
     // Pages

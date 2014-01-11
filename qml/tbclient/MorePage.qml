@@ -1,7 +1,6 @@
 import QtQuick 1.1
 import com.nokia.symbian 1.1
 import "Component"
-import "WebPageMenu"
 
 MyPage {
     id: page;
