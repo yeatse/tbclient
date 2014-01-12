@@ -16,7 +16,7 @@
     <message>
         <location filename="../qml/tbclient/AccountPage.qml" line="19"/>
         <source>Account manager</source>
-        <translation>标签管理</translation>
+        <translation>账号管理</translation>
     </message>
     <message>
         <location filename="../qml/tbclient/AccountPage.qml" line="83"/>
@@ -1277,7 +1277,7 @@
     <message>
         <location filename="../qml/tbclient/SettingsPage.qml" line="52"/>
         <source>Monitor network changes</source>
-        <translation>监测接入点改变</translation>
+        <translation>网络环境优化</translation>
     </message>
     <message>
         <location filename="../qml/tbclient/SettingsPage.qml" line="63"/>

@@ -9,14 +9,12 @@ MyPage {
 
     title: qsTr("At me");
 
-    function focus(){
-        view.forceActiveFocus();
-    }
     function positionAtTop(){
         view.scrollToTop();
     }
 
     function takeToForeground(){
+        view.forceActiveFocus();
         if (infoCenter.atme > 0){
             getlist();
         } else if (firstStart){

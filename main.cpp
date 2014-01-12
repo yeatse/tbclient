@@ -51,7 +51,6 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QScopedPointer<QApplication> app(createApplication(argc, argv));
 #endif
 
-    QApplication::setStartDragDistance(2);
     app->setApplicationName("tbclient");
     app->setOrganizationName("Yeatse");
     app->setApplicationVersion(VER);
@@ -101,6 +100,10 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     Utility* utility = Utility::Instance();
     utility->setEngine(viewer.engine());
     viewer.rootContext()->setContextProperty("utility", utility);
+
+    // For smoother flicking (only supported by Belle FP2)
+    if (utility->qtVersion() > 0x040800)
+        QApplication::setStartDragDistance(2);
 
     viewer.setMainQmlFile(QLatin1String("qml/tbclient/main.qml"));
     viewer.showExpanded();

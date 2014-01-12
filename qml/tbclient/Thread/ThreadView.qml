@@ -200,11 +200,11 @@ MyPage {
             right: parent.right; rightMargin: constant.paddingSmall;
             verticalCenter: view.verticalCenter;
         }
-        spacing: constant.paddingMedium;
+        spacing: constant.paddingLarge;
         Image {
             source: "../../gfx/icon_arrow.png";
             opacity: upMA.pressed ? 0.7 : 0.3;
-            Behavior on opacity { NumberAnimation { duration: 200; } }
+            Behavior on opacity { NumberAnimation { duration: 50; } }
             MouseArea {
                 id: upMA;
                 anchors.fill: parent;
@@ -219,7 +219,7 @@ MyPage {
             source: "../../gfx/icon_arrow.png";
             rotation: 180;
             opacity: downMA.pressed ? 0.7 : 0.3;
-            Behavior on opacity { NumberAnimation { duration: 200; } }
+            Behavior on opacity { NumberAnimation { duration: 50; } }
             MouseArea {
                 id: downMA;
                 anchors.fill: parent;

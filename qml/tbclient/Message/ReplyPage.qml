@@ -9,14 +9,12 @@ MyPage {
 
     title: qsTr("Reply me");
 
-    function focus(){
-        view.forceActiveFocus();
-    }
     function positionAtTop(){
         view.scrollToTop();
     }
 
     function takeToForeground(){
+        view.forceActiveFocus();
         if (infoCenter.replyme > 0){
             getlist();
         } else if (firstStart){

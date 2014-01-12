@@ -9,14 +9,12 @@ MyPage {
 
     title: qsTr("Private letters");
 
-    function focus(){
-        view.forceActiveFocus();
-    }
     function positionAtTop(){
         view.scrollToTop();
     }
 
     function takeToForeground(){
+        view.forceActiveFocus();
         if (infoCenter.pletter > 0){
             getlist();
         } else if (firstStart){
@@ -139,6 +137,17 @@ MyPage {
                     font: constant.subTitleFont;
                     color: constant.colorMid;
                     text: time;
+                }
+                Loader {
+                    anchors { right: parent.right; top: root.paddingItem.top; }
+                    sourceComponent: unread_count > 0 ? unreadInfo : undefined;
+                    Component {
+                        id: unreadInfo;
+                        Image {
+                            asynchronous: true;
+                            source: "../../gfx/ico_mbar_news_point.png";
+                        }
+                    }
                 }
             }
         }

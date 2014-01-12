@@ -50,7 +50,9 @@ MyPage {
                 opt.msg_id = view.model.get(0).msg_id;
             }
             loading = true;
-            var s = function(){ loading = false; }
+            var s = function(){ loading = false;
+                // A hackish line to force the ChatList to refresh
+                infoCenter.pletter = 1; }
             var f = function(err){ loading = false; signalCenter.showMessage(err); }
             Script.getChatMsg(opt, s, f);
         }

@@ -40,11 +40,34 @@ MyPage {
             toolTipText: qsTr("Messages");
             iconSource: "../gfx/messaging"+constant.invertedString+".svg"
             onClicked: pageStack.push(Qt.resolvedUrl("Message/MessagePage.qml"))
+            Bubble {
+                anchors.verticalCenter: parent.top;
+                anchors.horizontalCenter: parent.horizontalCenter;
+                text: {
+                    var n = 0;
+                    if (tbsettings.remindAtme) n += infoCenter.atme;
+                    if (tbsettings.remindPletter) n += infoCenter.pletter;
+                    if (tbsettings.remindReplyme) n += infoCenter.replyme;
+                    return n>0 ? n : "";
+                }
+                visible: text != "";
+            }
         }
         ToolButtonWithTip {
             toolTipText: qsTr("User center");
             iconSource: "../gfx/contacts"+constant.invertedString+".svg"
             onClicked: pageStack.push(Qt.resolvedUrl("ProfilePage.qml"), { uid: tbsettings.currentUid })
+            Bubble {
+                anchors.verticalCenter: parent.top;
+                anchors.horizontalCenter: parent.horizontalCenter;
+                text: {
+                    var n = 0;
+                    if (tbsettings.remindBookmark) n += infoCenter.bookmark;
+                    if (tbsettings.remindFans) n += infoCenter.fans;
+                    return n>0 ? n : "";
+                }
+                visible: text != "";
+            }
         }
         ToolButtonWithTip {
             toolTipText: qsTr("More");

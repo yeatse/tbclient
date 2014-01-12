@@ -17,6 +17,7 @@ QtObject {
     signal imageSelected(variant caller, string urls);
     signal forumSigned(string fid);
     signal bookmarkChanged;
+    signal profileChanged;
 
     signal uploadFinished(variant caller, string response);
     signal uploadFailed(variant caller);
@@ -94,7 +95,9 @@ QtObject {
         case "pletter":
         case "replyme":
         case "atme":
-            pageStack.push(Qt.resolvedUrl("Message/MessagePage.qml"), { defaultTab: param });
+            var p = pageStack.find(function(page){ return page.objectName === "MessagePage" });
+            if (!p) pageStack.push(Qt.resolvedUrl("Message/MessagePage.qml"), { defaultTab: param });
+            else if (pageStack.currentPage !== p) pageStack.pop(p);
             break;
         }
     }

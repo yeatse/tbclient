@@ -7,6 +7,7 @@ MyPage {
     id: page;
 
     property string defaultTab: "pletter";
+    objectName: "MessagePage"
 
     title: tabGroup.currentTab.title;
 
@@ -51,12 +52,24 @@ MyPage {
         id: viewHeader;
         Thread.ThreadButton {
             tab: pletterPage;
+            Image {
+                anchors { top: parent.top; right: parent.right; margins: constant.paddingLarge; }
+                source: infoCenter.pletter > 0 ? "../../gfx/ico_mbar_news_point.png" : "";
+            }
         }
         Thread.ThreadButton {
             tab: replyPage;
+            Image {
+                anchors { top: parent.top; right: parent.right; margins: constant.paddingLarge; }
+                source: infoCenter.replyme > 0 ? "../../gfx/ico_mbar_news_point.png" : "";
+            }
         }
         Thread.ThreadButton {
             tab: atmePage;
+            Image {
+                anchors { top: parent.top; right: parent.right; margins: constant.paddingLarge; }
+                source: infoCenter.atme > 0 ? "../../gfx/ico_mbar_news_point.png" : "";
+            }
         }
     }
 
@@ -76,10 +89,7 @@ MyPage {
             id: atmePage;
             pageStack: page.pageStack;
         }
-        onCurrentTabChanged: {
-            currentTab.focus();
-            currentTab.takeToForeground();
-        }
+        onCurrentTabChanged: currentTab.takeToForeground();
     }
 
     // For keypad
@@ -88,13 +98,13 @@ MyPage {
         onPopupStackDepthChanged: {
             if (platformPopupManager.popupStackDepth === 0
                     && page.status === PageStatus.Active){
-                tabGroup.currentTab.focus();
+                tabGroup.currentTab.takeToForeground();
             }
         }
     }
     onStatusChanged: {
         if (status === PageStatus.Active){
-            tabGroup.currentTab.focus();
+            tabGroup.currentTab.takeToForeground();
         }
     }
     Keys.onPressed: {
