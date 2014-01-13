@@ -101,7 +101,7 @@ MyPage {
         property bool fromNetwork: false;
 
         function initialize(){
-            if (!Script.loadLikeForum(view.model)){
+            if (!Script.DBHelper.loadLikeForum(view.model)){
                 getLikedForum();
             }
         }

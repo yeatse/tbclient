@@ -24,7 +24,7 @@ function initialize(sc, ts, ut, ws, ul){
 function checkAuthData(aUid){
     if (tbsettings.clientId.length < 5)
         sync();
-    var u = loadAuthData(aUid);
+    var u = DBHelper.loadAuthData(aUid);
     if (u.length > 0){
         __name = u[0].name;
         __bduss = u[0].BDUSS;
@@ -41,7 +41,7 @@ function sync(){
         msg_status: 1,
         manager_model: 0,
         _active: 0,
-        _phone_screen: "640,960",
+        _phone_screen: "360,640",
         _os_version: "6.1.3"
     }
     req.signForm(param);
@@ -69,7 +69,7 @@ function login(option, onSuccess, onFailed){
         tbs = obj.anti.tbs;
         var user = obj.user;
         tbsettings.currentUid = user.id;
-        storeAuthData(user.id, user.name, user.BDUSS, user.passwd, user.portrait);
+        DBHelper.storeAuthData(user.id, user.name, user.BDUSS, user.passwd, user.portrait);
         __name = user.name;
         __bduss = user.BDUSS;
         __portrait = user.portrait;
@@ -93,8 +93,10 @@ function getRecommentForum(option, onSuccess, onFailed){
     req.signForm();
     var s = function(obj){
         BaiduParser.loadLikeForum(option.model, obj.like_forum||[]);
-        var msg = { func: "storeLikeForum", param: obj.like_forum };
-        workerScript.sendMessage(msg);
+        if (!workerScript.running){
+            var msg = { func: "storeLikeForum", param: obj.like_forum||[] };
+            workerScript.sendMessage(msg);
+        }
         onSuccess();
     }
     req.sendRequest(s, onFailed);

@@ -28,9 +28,11 @@ var DBHelper = {
 }
 
 WorkerScript.onMessage = function(message){
+            WorkerScript.sendMessage({running: true});
             var func = message.func;
             var param = message.param;
             if (DBHelper.hasOwnProperty(func)){
                 DBHelper[func](param);
             }
+            WorkerScript.sendMessage({running: false});
         }

@@ -1,11 +1,12 @@
 import QtQuick 1.1
 import com.nokia.symbian 1.1
 import "Component"
-import "../js/storage.js" as DB
 import "../js/main.js" as Script
 
 MyPage {
     id: page;
+
+    loading: worker.running;
 
     tools: ToolBarLayout {
         BackButton {}
@@ -25,7 +26,7 @@ MyPage {
 
         function refreshModel(){
             view.model.clear();
-            var acc = DB.loadAuthData();
+            var acc = Script.DBHelper.loadAuthData();
             acc.forEach(function(item){
                             //id, name, BDUSS, passwd, portrait
                             view.model.append(item);
@@ -47,7 +48,7 @@ MyPage {
 
         function removeAccount(index){
             var uid = view.model.get(index).id;
-            DB.deleteAuthData(uid);
+            Script.DBHelper.deleteAuthData(uid);
             refreshModel();
             if (tbsettings.currentUid === uid){
                 if (view.count > index){
@@ -69,6 +70,15 @@ MyPage {
         }
     }
 
+    Connections {
+        id: workerRunningListener;
+        target: null;
+        onRunningChanged: {
+            workerRunningListener.target = null;
+            internal.refreshModel();
+        }
+    }
+
     ViewHeader {
         id: viewHeader;
         title: page.title;
@@ -80,6 +90,7 @@ MyPage {
         model: ListModel {}
         delegate: accountDel;
         footer: FooterItem {
+            visible: view.count > 0;
             text: qsTr("Add new account");
             onClicked: signalCenter.needAuthorization(false);
         }
@@ -150,7 +161,8 @@ MyPage {
 
     onStatusChanged: {
         if (status === PageStatus.Active){
-            internal.refreshModel();
+            if (worker.running) workerRunningListener.target = worker;
+            else internal.refreshModel();
             view.forceActiveFocus();
         }
     }

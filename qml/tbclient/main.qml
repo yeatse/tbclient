@@ -20,13 +20,18 @@ PageStackWindow {
 
     SignalCenter { id: signalCenter; }
 
-    WorkerScript { id: worker; source: "../js/WorkerScript.js"; }
-
     StatusPaneText { id: statusPaneText; }
 
     InfoCenter { id: infoCenter; }
 
     AudioWrapper { id: audioWrapper; }
+
+    WorkerScript {
+        id: worker;
+        property bool running: false;
+        source: "../js/WorkerScript.js";
+        onMessage: running = messageObject.running;
+    }
 
     HttpUploader {
         id: uploader;
@@ -34,7 +39,10 @@ PageStackWindow {
         onUploadStateChanged: Script.uploadStateChanged();
     }
 
-    AudioRecorder { id: recorder; outputLocation: utility.tempPath+"/audio.amr"; }
+    AudioRecorder {
+        id: recorder;
+        outputLocation: utility.tempPath+"/audio.amr";
+    }
 
     ToolTip {
         id: toolTip;

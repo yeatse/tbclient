@@ -232,7 +232,7 @@ MyPage {
                 ProfileCell {
                     iconName: "myba";
                     title: qsTr("Tieba");
-                    subTitle: userData ? userData.like_forum_num : "";
+                    subTitle: userData ? userData.my_like_num : "";
                     onClicked: {
                         var prop = { title: title, uid: getUid() }
                         pageStack.push(Qt.resolvedUrl("Profile/ProfileForumList.qml"), prop);
