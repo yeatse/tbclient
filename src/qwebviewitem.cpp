@@ -398,7 +398,6 @@ void QWebViewItem::inputMethodEvent(QInputMethodEvent *event)
 
 void QWebViewItem::keyPressEvent(QKeyEvent *event)
 {
-
     QKeyEvent* ev = new QKeyEvent(event->type(),
                                   event->key(),
                                   event->modifiers(),

@@ -142,7 +142,7 @@ var BaiduParser = {
         10 for audio;
         */
         var result = [];
-        var maxRichLength = 500;
+        var maxRichLength = 1000;
         var push = function(type, text, format, bwidth, bheight){
             var prop = {
                 type: type,

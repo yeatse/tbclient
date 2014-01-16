@@ -30,7 +30,7 @@ function decodeLink(url){
     m = url.match(/tieba.baidu.com\/f\?.*kw=(.+)/);
     if (m) return enterForum(hexToString(m[1]));
 
-    openBrowser(url);
+    openBrowser(utility.percentDecode(url));
 }
 
 function hexToString(raw){

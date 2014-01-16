@@ -203,7 +203,7 @@ void FlickCharm::activateOn(QWidget *widget)
 
     QWebView *webView = qobject_cast<QWebView*>(widget);
     if (webView) {
-        QWebFrame *frame = webView->page()->currentFrame();
+        QWebFrame *frame = webView->page()->mainFrame();
         frame->setScrollBarPolicy(Qt::Vertical, Qt::ScrollBarAlwaysOn);
         frame->setScrollBarPolicy(Qt::Horizontal, Qt::ScrollBarAlwaysOn);
 

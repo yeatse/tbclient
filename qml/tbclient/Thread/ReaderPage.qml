@@ -2,20 +2,48 @@ import QtQuick 1.1
 import com.nokia.symbian 1.1
 import QtWebKit 1.0
 import "../Component"
+import "../../js/Utils.js" as Utils
 
 MyPage {
     id: page;
 
-    property int currentIndex: 0;
-    property alias listModel: ;
+    property int currentIndex: -1;
+    property alias listModel: view.model;
+    property variant parentView: null;
+
+    tools: ToolBarLayout {
+        BackButton {}
+        ToolButtonWithTip {
+            toolTipText: qsTr("Prev");
+            text: qsTr("Prev");
+            enabled: !view.atYBeginning;
+            onClicked: view.decrementCurrentIndex();
+        }
+        ToolButtonWithTip {
+            toolTipText: qsTr("Next");
+            text: qsTr("Next");
+            enabled: !view.atYEnd;
+            onClicked: view.incrementCurrentIndex();
+        }
+    }
+
+    loading: view.currentItem != null && view.currentItem.loading;
 
     ListHeading {
         id: viewHeader;
         platformInverted: tbsettings.whiteTheme;
+        z: 10;
+        ListItemText {
+            anchors.fill: parent.paddingItem;
+            role: "SubTitle";
+            platformInverted: parent.platformInverted;
+            text: view.currentItem ? listModel.get(view.currentIndex).floor+"#" : "";
+        }
         ListItemText {
             anchors.fill: parent.paddingItem;
             role: "Heading";
             platformInverted: parent.platformInverted;
+            text: view.currentItem ? listModel.get(view.currentIndex).authorName : "";
         }
     }
 
@@ -33,15 +61,64 @@ MyPage {
                 id: root;
 
                 property bool loading: false;
-                implicitWidth: ListView.view.width;
-                implicitHeight: ListView.view.height;
+                implicitWidth: view.width;
+                implicitHeight: view.height;
+
+                Keys.onPressed: {
+                    if (!event.isAutoRepeat) {
+                        switch (event.key) {
+                        case Qt.Key_Up: {
+                            if (symbian.listInteractionMode != Symbian.KeyNavigation) {
+                                symbian.listInteractionMode = Symbian.KeyNavigation
+                                ListView.view.positionViewAtIndex(index, ListView.Beginning)
+                            } else
+                                up();
+                            event.accepted = true
+                            break
+                        }
+                        case Qt.Key_Down: {
+                            if (symbian.listInteractionMode != Symbian.KeyNavigation) {
+                                symbian.listInteractionMode = Symbian.KeyNavigation
+                                ListView.view.positionViewAtIndex(index, ListView.Beginning)
+                            } else
+                                down();
+                            event.accepted = true
+                            break
+                        }
+                        default: {
+                            event.accepted = false
+                            break
+                        }
+                        }
+                    }
+                    if (event.key == Qt.Key_Up || event.key == Qt.Key_Down)
+                        symbian.privateListItemKeyNavigation(ListView.view)
+                }
+
+                function up(){
+                    if (flickable.contentY <= 0){
+                        if (!ListView.view.atYBeginning)
+                            ListView.view.decrementCurrentIndex();
+                    } else {
+                        flickable.contentY = Math.max(0, flickable.contentY-flickable.height);
+                    }
+                }
+                function down(){
+                    if (flickable.contentY >= flickable.contentHeight-flickable.height){
+                        if (!ListView.view.atYEnd)
+                            ListView.view.incrementCurrentIndex();
+                    } else {
+                        flickable.contentY = Math.min(flickable.contentHeight-flickable.height,
+                                                      flickable.contentY+flickable.height);
+                    }
+                }
 
                 Flickable {
                     id: flickable;
                     anchors.fill: parent;
-                    clip: true;
                     contentWidth: webView.width;
                     contentHeight: webView.height;
+                    boundsBehavior: Flickable.StopAtBounds;
 
                     WebView {
                         id: webView;
@@ -55,6 +132,27 @@ MyPage {
                         onLoadStarted: loading = true;
                         onLoadFinished: loading = false;
                         onLoadFailed: loading = false;
+                        Component.onCompleted: {
+                            var res = "";
+                            for (var i=0; i<content.count; i++){
+                                var m = content.get(i);
+                                switch (m.type){
+                                case "Text":
+                                    if (m.format === 0) res += m.text.replace(/\n/g, "<br/>");
+                                    else res += m.text;
+                                    break;
+                                case "Image":
+                                    res += "<img src=\"%1\"/>".arg(m.format);
+                                    break;
+                                case "Audio":
+                                    //res += "<audio src=\"%1\"></audio>".arg(Utils.getAudioUrl(m.text));
+                                    break;
+                                }
+                                res += "<br/>";
+                            }
+                            html = res;
+                            evaluateJavaScript("document.body.style.background=\"#F3ECDC\"");
+                        }
                     }
                 }
                 ScrollDecorator { flickableItem: flickable; platformInverted: tbsettings.whiteTheme; }
@@ -62,6 +160,13 @@ MyPage {
         }
     }
 
-    function setSource(){
+    onStatusChanged: {
+        if (status === PageStatus.Active){
+            view.positionViewAtIndex(currentIndex, ListView.Beginning);
+            view.forceActiveFocus();
+        } else if (status === PageStatus.Deactivating){
+            if (parentView)
+                parentView.positionViewAtIndex(view.currentIndex, ListView.Visible);
+        }
     }
 }

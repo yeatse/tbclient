@@ -51,6 +51,12 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QScopedPointer<QApplication> app(createApplication(argc, argv));
 #endif
 
+#if defined(Q_OS_SYMBIAN)||defined(Q_WS_SIMULATOR)
+    QSplashScreen *splash = new QSplashScreen(QPixmap("qml/gfx/splash.jpg"));
+    splash->show();
+    splash->raise();
+#endif
+
     app->setApplicationName("tbclient");
     app->setOrganizationName("Yeatse");
     app->setApplicationVersion(VER);
@@ -107,6 +113,11 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     viewer.setMainQmlFile(QLatin1String("qml/tbclient/main.qml"));
     viewer.showExpanded();
+
+#if defined(Q_OS_SYMBIAN)||defined(Q_WS_SIMULATOR)
+    splash->finish(&viewer);
+    splash->deleteLater();
+#endif
 
     return app->exec();
 }

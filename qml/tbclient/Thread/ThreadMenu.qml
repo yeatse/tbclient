@@ -15,6 +15,10 @@ ContextMenu {
         }
         MenuItem {
             text: qsTr("Reader mode");
+            onClicked: {
+                var prop = { listModel: view.model, currentIndex: index, parentView: view, title: title }
+                pageStack.push(Qt.resolvedUrl("ReaderPage.qml"), prop);
+            }
         }
         MenuItem {
             text: qsTr("Copy content");
