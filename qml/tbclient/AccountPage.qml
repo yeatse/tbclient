@@ -38,6 +38,7 @@ MyPage {
             if (model.id === tbsettings.currentUid)
                 return;
             if (Script.checkAuthData(model.id)){
+                Script.BaiduRequest.intercomm();
                 tbsettings.currentUid = model.id;
                 signalCenter.clearLocalCache();
                 signalCenter.userChanged();

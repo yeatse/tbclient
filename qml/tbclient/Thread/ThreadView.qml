@@ -10,6 +10,7 @@ MyPage {
     property string threadId;
     property variant thread: null;
     property variant forum: null;
+    property variant user: null;
 
     property int currentPage: 0;
     property int totalPage: 0;
@@ -107,6 +108,7 @@ MyPage {
             loading = false;
             thread = obj.thread;
             forum = obj.forum;
+            user = obj.user;
             currentPage = obj.page.current_page;
             totalPage = obj.page.total_page;
             isCollected = obj.thread.collect_status !== "0";
@@ -162,6 +164,66 @@ MyPage {
         threadMenu.open();
     }
 
+    function delPost(index){
+        var model = view.model.get(index);
+        var execute;
+        if (model.floor === "1"){
+            // delthread
+            execute = function(){
+                        var opt = {
+                            word: forum.name,
+                            fid: forum.id,
+                            tid: thread.id
+                        }
+                        loading = true;
+                        var s = function(){
+                            loading = false;
+                            signalCenter.showMessage(qsTr("Success"));
+                            // in ThreadPage
+                            internal.removeThreadPage(page);
+                        }
+                        var f = function(err){
+                            loading = false;
+                            signalCenter.showMessage(err);
+                        }
+                        Script.delthread(opt, s, f);
+                    }
+            signalCenter.createQueryDialog(qsTr("Warning"),
+                                           qsTr("Delete this thread?"),
+                                           qsTr("OK"),
+                                           qsTr("Cancel"),
+                                           execute);
+        } else {
+            // delpost
+            execute = function(){
+                        var opt = {
+                            floor: false,
+                            vip: user.is_manager === "0",
+                            word: forum.name,
+                            fid: forum.id,
+                            tid: thread.id,
+                            pid: model.id
+                        }
+                        loading = true;
+                        var s = function(){
+                            loading = false;
+                            signalCenter.showMessage(qsTr("Success"));
+                            view.model.remove(index);
+                        }
+                        var f = function(err){
+                            loading = false;
+                            signalCenter.showMessage(err);
+                        }
+                        Script.delpost(opt, s, f);
+                    }
+            signalCenter.createQueryDialog(qsTr("Warning"),
+                                           qsTr("Delete this post?"),
+                                           qsTr("OK"),
+                                           qsTr("Cancel"),
+                                           execute);
+        }
+    }
+
     title: thread ? thread.title : qsTr("New tab");
 
     SilicaListView {
@@ -170,8 +232,9 @@ MyPage {
         cacheBuffer: view.height;
         model: ListModel {}
         delegate: ThreadDelegate {
-            onClicked: floor === "1" ? pressAndHold()
-                                     : signalCenter.enterFloor(thread.id, model.id);
+            onClicked: floor === "1"
+                       ? pressAndHold()
+                       : signalCenter.enterFloor(thread.id, model.id, undefined, user.is_manager);
             onPressAndHold: createMenu(index);
         }
         footer: FooterItem {

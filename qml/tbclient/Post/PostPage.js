@@ -56,19 +56,20 @@ function post(vcode, vcodeMd5){
             opt.content += "\n"+tbsettings.signature;
         loading = true;
         s = function(){
-            loading = false;
-            signalCenter.showMessage(qsTr("Success"));
-            if (caller.isReverse){
-                if (!caller.hasPrev){
-                    caller.getlist("prev");
+                    tbsettings.draftBox = "";
+                    loading = false;
+                    signalCenter.showMessage(qsTr("Success"));
+                    if (caller.isReverse){
+                        if (!caller.hasPrev){
+                            caller.getlist("prev");
+                        }
+                    } else {
+                        if (!caller.hasMore){
+                            caller.getlist("next");
+                        }
+                    }
+                    pageStack.pop();
                 }
-            } else {
-                if (!caller.hasMore){
-                    caller.getlist("next");
-                }
-            }
-            pageStack.pop();
-        }
         Script.addPost(opt, s, f);
     } else {
         opt = {
@@ -89,11 +90,12 @@ function post(vcode, vcodeMd5){
             opt.content += "\n"+tbsettings.signature;
         loading = true;
         s = function(){
-            loading = false;
-            signalCenter.showMessage(qsTr("Success"));
-            caller.getlist();
-            pageStack.pop();
-        }
+                    tbsettings.draftBox = "";
+                    loading = false;
+                    signalCenter.showMessage(qsTr("Success"));
+                    caller.getlist();
+                    pageStack.pop();
+                }
         Script.addThread(opt, s, f);
     }
 }

@@ -84,18 +84,19 @@ public:             // Other functions.
 
     // Make date readable
     Q_INVOKABLE QString easyDate(const QDateTime &date);
-
     // Restore GBK encoded data
     Q_INVOKABLE QString decodeGBKHex(const QString &encodedString);
-
     // Percent decoding
     Q_INVOKABLE QString percentDecode(const QByteArray &encodedString) const;
+    // Return forum name if it is a tieba link
+    Q_INVOKABLE QString hasForumName(const QByteArray &link);
 
 private:
     explicit Utility(QObject *parent = 0);    
     void initializeLangFormats();
     int normalize(int val, int single);
     bool deleteDir(const QString &dirName);
+    inline void q_fromPercentEncoding(QByteArray *ba, char percent);
 
 #ifdef Q_OS_SYMBIAN
     void LaunchAppL(const TUid aUid, HBufC* aParam);

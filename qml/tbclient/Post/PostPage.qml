@@ -17,6 +17,7 @@ MyPage {
     tools: ToolBarLayout {
         BackButton {
             onClicked: {
+                tbsettings.draftBox = contentArea.text;
                 if (uploader.uploadState == HttpUploader.Loading){
                     uploader.abort();
                 }
@@ -29,6 +30,13 @@ MyPage {
         onUploadFailed: if (caller === page) Post.uploadFailed();
         onUploadFinished: if (caller === page) Post.uploadFinished(response);
         onVcodeSent: if (caller === page) Post.post(vcode, vcodeMd5);
+        onFriendSelected: {
+            if (caller === page){
+                var c = contentArea.cursorPosition;
+                contentArea.text = contentArea.text.substring(0, c)+"@"+name+" "+contentArea.text.substring(c);
+                contentArea.cursorPosition = c + name.length + 2;
+            }
+        }
     }
 
     Timer {
@@ -80,6 +88,7 @@ MyPage {
                 - attachedArea.height
                 - constant.paddingMedium*4;
         platformInverted: tbsettings.whiteTheme;
+        text: tbsettings.draftBox;
     }
 
     Item {
@@ -99,6 +108,10 @@ MyPage {
             ToolButton {
                 platformInverted: tbsettings.whiteTheme;
                 iconSource: "../../gfx/btn_insert_at"+constant.invertedString+".png";
+                onClicked: {
+                    var prop = { type: "at", caller: page }
+                    pageStack.push(Qt.resolvedUrl("../Profile/SelectFriendPage.qml"), prop);
+                }
             }
             ToolButton {
                 id: picBtn;
@@ -184,7 +197,7 @@ MyPage {
 
     onStatusChanged: {
         if (status === PageStatus.Active){
-            if (titlefield.visible){
+            if (titlefield.visible && contentArea.text.length == 0){
                 titlefield.forceActiveFocus();
                 titlefield.openSoftwareInputPanel();
             } else {

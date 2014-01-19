@@ -7,7 +7,10 @@ import "../../js/main.js" as Script
 MyPage {
     id: page;
 
+    property variant caller;
     property string type;
+
+    title: qsTr("Select friend");
 
     tools: ToolBarLayout {
         BackButton {}
@@ -63,9 +66,13 @@ MyPage {
             }
         }
         function itemClicked(model){
+            var prop;
             if (type === "chat"){
-                var prop = { chatName: model.name_show, chatId: model.id };
+                prop = { chatName: model.name_show, chatId: model.id };
                 pageStack.push(Qt.resolvedUrl("../Message/ChatPage.qml"), prop);
+            } else if (type === "at"){
+                signalCenter.friendSelected(caller, model.name_show);
+                pageStack.pop();
             }
         }
     }

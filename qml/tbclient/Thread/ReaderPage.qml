@@ -10,6 +10,7 @@ MyPage {
     property int currentIndex: -1;
     property alias listModel: view.model;
     property variant parentView: null;
+    property bool firstStart: true;
 
     tools: ToolBarLayout {
         BackButton {}
@@ -132,26 +133,31 @@ MyPage {
                         onLoadStarted: loading = true;
                         onLoadFinished: loading = false;
                         onLoadFailed: loading = false;
-                        Component.onCompleted: {
-                            var res = "";
-                            for (var i=0; i<content.count; i++){
-                                var m = content.get(i);
-                                switch (m.type){
-                                case "Text":
-                                    if (m.format === 0) res += m.text.replace(/\n/g, "<br/>");
-                                    else res += m.text;
-                                    break;
-                                case "Image":
-                                    res += "<img src=\"%1\"/>".arg(m.format);
-                                    break;
-                                case "Audio":
-                                    //res += "<audio src=\"%1\"></audio>".arg(Utils.getAudioUrl(m.text));
-                                    break;
+                        Component.onCompleted: coldDown.start();
+                        Timer {
+                            id: coldDown;
+                            interval: 200;
+                            onTriggered: {
+                                var res = "";
+                                for (var i=0; i<content.count; i++){
+                                    var m = content.get(i);
+                                    switch (m.type){
+                                    case "Text":
+                                        if (m.format === 0) res += m.text.replace(/\n/g, "<br/>");
+                                        else res += m.text;
+                                        break;
+                                    case "Image":
+                                        res += "<img src=\"%1\"/>".arg(m.format);
+                                        break;
+                                    case "Audio":
+                                        //res += "<audio src=\"%1\"></audio>".arg(Utils.getAudioUrl(m.text));
+                                        break;
+                                    }
+                                    res += "<br/>";
                                 }
-                                res += "<br/>";
+                                webView.html = res;
+                                webView.evaluateJavaScript("document.body.style.background=\"#F3ECDC\"");
                             }
-                            html = res;
-                            evaluateJavaScript("document.body.style.background=\"#F3ECDC\"");
                         }
                     }
                 }
@@ -162,7 +168,10 @@ MyPage {
 
     onStatusChanged: {
         if (status === PageStatus.Active){
-            view.positionViewAtIndex(currentIndex, ListView.Beginning);
+            if (firstStart){
+                firstStart = false;
+                view.positionViewAtIndex(currentIndex, ListView.Beginning);
+            }
             view.forceActiveFocus();
         } else if (status === PageStatus.Deactivating){
             if (parentView)

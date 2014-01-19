@@ -50,6 +50,19 @@ function sync(){
     req.sendRequest(s, f);
 }
 
+// Required after userChanged signal emitted
+function register(){
+    var req = new BaiduRequest(BaiduApi.C_M_REGISTER);
+    var param = {
+        token: BaiduApi.TOKEN,
+        os: "ios",
+        uid: tbsettings.currentUid
+    }
+    req.signForm(param);
+    var cb = new Function();
+    req.sendRequest(cb, cb);
+}
+
 function login(option, onSuccess, onFailed){
     var req = new BaiduRequest(BaiduApi.C_S_LOGIN);
     var isp = option.isphone?1:0;
@@ -75,6 +88,8 @@ function login(option, onSuccess, onFailed){
         __portrait = user.portrait;
         BaiduConst.BDUSS = user.BDUSS;
         signalCenter.clearLocalCache();
+        // Required after changing/adding an account
+        BaiduRequest.intercomm();
         signalCenter.userChanged();
         onSuccess();
     }
@@ -854,4 +869,57 @@ function modifyProfile(option, onSuccess, onFailed){
     }
     req.signForm(param);
     req.sendRequest(onSuccess, onFailed);
+}
+
+function delpost(option, onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_C_BAWU_DELPOST);
+    var isfloor = option.floor ? 1 : 0;
+    var is_vipdel = option.vip ? 1 : 0;
+
+    var param = {
+        word: option.word,
+        src: 1,
+        fid: option.fid,
+        isfloor: isfloor,
+        tbs: tbs,
+        is_vipdel: is_vipdel,
+        z: option.tid,
+        pid: option.pid
+    }
+
+    req.signForm(param);
+    req.sendRequest(onSuccess, onFailed);
+}
+
+function delthread(option, onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_C_BAWU_DELTHREAD);
+
+    var param = {
+        word: option.word,
+        fid: option.fid,
+        tbs: tbs,
+        z: option.tid
+    }
+
+    req.signForm(param);
+    req.sendRequest(onSuccess, onFailed);
+}
+
+function commitPrison(option){
+    var req = new BaiduRequest(BaiduApi.C_C_BAWU_COMMITPRISON);
+
+    var param = {
+        word: option.word,
+        fid: option.fid,
+        day: option.day,
+        ntn: "banid",
+        tbs: tbs,
+        z: option.tid,
+        un: option.un
+    }
+
+    req.signForm(param);
+    var s = function(){ signalCenter.showMessage(qsTr("Success")); }
+    var f = function(err){ signalCenter.showMessage(err); }
+    req.sendRequest(s, f);
 }

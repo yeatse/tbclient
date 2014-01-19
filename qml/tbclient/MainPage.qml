@@ -79,6 +79,7 @@ MyPage {
     Connections {
         target: signalCenter;
         onUserChanged: {
+            Script.register();
             internal.initialize();
         }
         onForumSigned: {

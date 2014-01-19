@@ -12,11 +12,14 @@ var BaiduConst = {
     _timestamp: 0,
     _phone_imei: "",
     _client_id: "0",
-    _client_version: "5.1.1"
+    _client_version: "5.1.3"
 }
 
 var BaiduApi = {
     TOKEN: "fb13bad79b3a1fefc0a5819a0b66eaa3e064a3bdf020f7f453a8ef905fd51aef",
+    INTERCOMM: "http://passport.baidu.com/v2/intercomm/statistic",
+
+    C_M_REGISTER: HOST + "/c/m/register",
     C_S_SYNC: HOST + "/c/s/sync",
     C_S_LOGIN: HOST + "/c/s/login",
     C_S_MSG: HOST + "/c/s/msg",
@@ -62,6 +65,9 @@ var BaiduApi = {
     C_C_USER_FOLLOW: HOST + "/c/c/user/follow",
     C_C_PROFILE_MODIFY: HOST + "/c/c/profile/modify",
     C_C_IMG_PORTRAIT: HOST + "/c/c/img/portrait",
+    C_C_BAWU_DELPOST: HOST + "/c/c/bawu/delpost",
+    C_C_BAWU_DELTHREAD: HOST + "/c/c/bawu/delthread",
+    C_C_BAWU_COMMITPRISON: HOST + "/c/c/bawu/commitprison",
 
     C_U_FEED_REPLYME: HOST + "/c/u/feed/replyme",
     C_U_FEED_ATME: HOST + "/c/u/feed/atme",
@@ -160,4 +166,13 @@ BaiduRequest.getTBS = function(onSuccess, onFailed){
                     }
             xhr.open("GET", "http://tieba.baidu.com/dc/common/tbs");
             xhr.send();
+        }
+
+BaiduRequest.intercomm = function(){
+            var xhr = new XMLHttpRequest();
+            var postData = "sName=1&appid=1&tpl=tb&devicetype=ios&bduss="+__bduss;
+            xhr.open("POST", BaiduApi.INTERCOMM);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.setRequestHeader("Content-Length", postData.length);
+            xhr.send(postData);
         }

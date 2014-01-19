@@ -99,7 +99,6 @@ MyPage {
                 return;
             }
             restrictTabCount();
-
             var prop = {
                 threadId: option.threadId,
                 pageStack: page.pageStack

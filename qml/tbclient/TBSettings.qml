@@ -25,6 +25,9 @@ QtObject {
     property bool monitorNetworkMode: utility.getValue("monitorNetworkMode", true);
     onMonitorNetworkModeChanged: utility.setValue("monitorNetworkMode", monitorNetworkMode);
 
+    property string draftBox: utility.getValue("draftBox", "");
+    onDraftBoxChanged: utility.setValue("draftBox", draftBox);
+
     property string currentBearerName;
     onCurrentBearerNameChanged: {
         console.log("currnet bearer:", currentBearerName);

@@ -24,7 +24,7 @@ CommonDialog {
 
     content: Item {
         width: platformContentMaximumWidth;
-        height: platformContentMaximumHeight;
+        height: width * 3/4;
         WebView {
             id: webView;
 
@@ -41,7 +41,9 @@ CommonDialog {
             anchors.fill: parent;
             preferredWidth: parent.width;
             preferredHeight: parent.height;
-            onLoadFinished: coldDown.start();
+            onLoadStarted: busyInd.visible = true;
+            onLoadFailed: busyInd.visible = false;
+            onLoadFinished: { busyInd.visible = false; coldDown.start(); }
             Timer {
                 id: coldDown;
                 interval: 50;
@@ -52,6 +54,15 @@ CommonDialog {
                 }
             }
         }
+        BusyIndicator {
+            id: busyInd;
+            anchors.centerIn: parent;
+            width: constant.graphicSizeMedium;
+            height: constant.graphicSizeMedium;
+            platformInverted: true;
+            running: true;
+            visible: false;
+        }
     }
 
     onStatusChanged: {
@@ -60,7 +71,7 @@ CommonDialog {
         } else if (status == DialogStatus.Closing){
             __isClosing = true;
         } else if (status == DialogStatus.Closed && __isClosing){
-            root.destroy();
+            root.destroy(1000);
         }
     }
     Component.onCompleted: open();

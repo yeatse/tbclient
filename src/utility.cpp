@@ -401,6 +401,24 @@ QString Utility::percentDecode(const QByteArray &encodedString) const
     return QUrl::fromPercentEncoding(encodedString);
 }
 
+QString Utility::hasForumName(const QByteArray &link)
+{
+    QUrl url = QUrl::fromEncoded(link);
+    QString kw;
+    if (url.host().endsWith("tieba.baidu.com") && url.hasQueryItem("kw")){
+        QList<QByteArray> path = url.encodedPath().split('/');
+        if (path.contains("m")){
+            kw = url.queryItemValue("kw");
+        } else {
+            QByteArray ba = url.encodedQueryItemValue("kw");
+            q_fromPercentEncoding(&ba, '%');
+            QTextCodec* codec = QTextCodec::codecForName("GBK");
+            kw = codec->toUnicode(ba);
+        }
+    }
+    return kw;
+}
+
 // private
 void Utility::initializeLangFormats()
 {
@@ -480,6 +498,46 @@ bool Utility::deleteDir(const QString &dirName)
         }
     }
     return !error;
+}
+
+inline void Utility::q_fromPercentEncoding(QByteArray *ba, char percent)
+{
+    if (ba->isEmpty())
+      return;
+
+    char *data = ba->data();
+    const char *inputPtr = data;
+
+    int i = 0;
+    int len = ba->count();
+    int outlen = 0;
+    int a, b;
+    char c;
+    while (i < len) {
+      c = inputPtr[i];
+      if (c == percent && i + 2 < len) {
+        a = inputPtr[++i];
+        b = inputPtr[++i];
+
+        if (a >= '0' && a <= '9') a -= '0';
+        else if (a >= 'a' && a <= 'f') a = a - 'a' + 10;
+        else if (a >= 'A' && a <= 'F') a = a - 'A' + 10;
+
+        if (b >= '0' && b <= '9') b -= '0';
+        else if (b >= 'a' && b <= 'f') b  = b - 'a' + 10;
+        else if (b >= 'A' && b <= 'F') b  = b - 'A' + 10;
+
+        *data++ = (char)((a << 4) | b);
+      } else {
+        *data++ = c;
+      }
+
+      ++i;
+      ++outlen;
+    }
+
+    if (outlen != len)
+      ba->truncate(outlen);
 }
 
 #ifdef Q_OS_SYMBIAN

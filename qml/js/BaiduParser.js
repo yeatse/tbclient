@@ -142,7 +142,7 @@ var BaiduParser = {
         10 for audio;
         */
         var result = [];
-        var maxRichLength = 1000;
+        var maxRichLength = 500;
         var push = function(type, text, format, bwidth, bheight){
             var prop = {
                 type: type,
@@ -192,10 +192,10 @@ var BaiduParser = {
                 push("Text", c.text, 0, 0, 0);
                 return;
             case "1":
-                pushRich(l, "<a href='link:%1'>%2</a>".arg(c.link).arg(c.text), 300);
+                pushRich(l, "<a href='link:"+c.link+"'>"+c.text+"</a>");
                 return;
             case "2":
-                pushRich(l, getEmoticon(c.text, c.c), 300);
+                pushRich(l, getEmoticon(c.text, c.c));
                 return;
             case "3":
                 if (tbsettings.showImage){
@@ -209,10 +209,10 @@ var BaiduParser = {
                 }
                 return;
             case "4":
-                pushRich(l, "<a href='at:%1'>%2</a>".arg(c.uid).arg(c.text), 300);
+                pushRich(l, "<a href='at:"+c.uid+"'>"+c.text+"</a>");
                 return;
             case "5":
-                pushRich(l, "<br/><a href='video:%1'>%2</a><br/>".arg(c.text).arg(qsTr("Click to watch video")), 300);
+                pushRich(l, "<br/><a href='video:"+c.text+"'>%1</a><br/>".arg(qsTr("Click to watch video")));
                 return;
             case "9":
                 if (l && l.type === "Text")
@@ -363,7 +363,7 @@ var BaiduParser = {
                 result += c.text||"";
                 break;
             case "1":
-                result += "<a href='link:%1'>%2</a>".arg(c.link).arg(c.text);
+                result += "<a href='link:"+c.link+"'>"+c.text+"</a>";
                 textFormat = 1;
                 break;
             case "2":
@@ -371,7 +371,7 @@ var BaiduParser = {
                 textFormat = 1;
                 break;
             case "4":
-                result += "<a href='at:%1'>%2</a>".arg(c.uid).arg(c.text);
+                result += "<a href='at:"+c.uid+"'>"+c.text+"</a>";
                 textFormat = 1;
                 break;
             case "9":
@@ -402,6 +402,7 @@ var BaiduParser = {
                          var prop = {
                              id: value.id,
                              author: value.author.name_show,
+                             authorId: value.author.id,
                              content: content[0],
                              format: content[1],
                              time: time,

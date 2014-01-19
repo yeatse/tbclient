@@ -161,7 +161,10 @@ void QWebViewDownloader::downloadStarted(QNetworkReply *reply)
         QFileInfo info(reply->url().toString(QUrl::RemoveQuery));
         basename = info.baseName();
     }
-    QString location = ut->getValue("imagePath", ut->defaultPictureLocation()).toString()+QDir::separator()+basename;
+    QString location = ut->getValue("imagePath", ut->defaultPictureLocation()).toString();
+    if (!(location.endsWith("\\")||location.endsWith("/")))
+        location.append(QDir::separator());
+    location.append(basename);
     if (QFile::exists(location)) QFile::remove(location);
     output->setFileName(location + ".tmp");
 

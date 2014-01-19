@@ -17,34 +17,13 @@ function linkActivated(link){
 }
 
 function decodeLink(url){
-    var m;
-    m = url.match(/(?:tieba|wapp).baidu.com\/(?:p\/|f\?.*z=|.*m\?kz=)(\d+)/);
+    var m = url.match(/(?:tieba|wapp).baidu.com\/(?:p\/|f\?.*z=|.*m\?kz=)(\d+)/);
     if (m) return enterThread({"threadId": m[1]});
 
-    m = url.match(/c.tieba.baidu.com\/f\?.*kw=(.+)/);
-    if (m) return enterForum(m[1]);
+    m = utility.hasForumName(url);
+    if (m) return enterForum(m);
 
-    m = url.match(/tieba.baidu.com\/f\?.*kw=(.+?)[&#]/);
-    if (m) return enterForum(hexToString(m[1]));
-
-    m = url.match(/tieba.baidu.com\/f\?.*kw=(.+)/);
-    if (m) return enterForum(hexToString(m[1]));
-
-    openBrowser(utility.percentDecode(url));
-}
-
-function hexToString(raw){
-    var i=0, res = "";
-    while (i<raw.length){
-        if (raw.charAt(i) != "%" || i+2>raw.length){
-            res += raw.charCodeAt(i).toString(16);
-            i ++;
-        } else {
-            res += raw.charAt(i+1) + raw.charAt(i+2);
-            i += 3;
-        }
-    }
-    return utility.decodeGBKHex(res);
+    openBrowser(url);
 }
 
 function loadVideo(url){

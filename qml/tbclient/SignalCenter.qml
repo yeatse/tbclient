@@ -9,12 +9,14 @@ QtObject {
     property variant queryDialogComp: null;
     property variant enterDialogComp: null;
     property variant copyDialogComp: null;
-    property variant threaPage: null;
+    property variant commDialogComp: null;
+    property variant threadPage: null;
 
     signal userChanged;
     signal userLogout;
     signal vcodeSent(variant caller, string vcode, string vcodeMd5);
     signal imageSelected(variant caller, string urls);
+    signal friendSelected(variant caller, string name);
     signal forumSigned(string fid);
     signal bookmarkChanged;
     signal profileChanged;
@@ -78,6 +80,11 @@ QtObject {
         copyDialogComp.createObject(pageStack.currentPage, prop);
     }
 
+    function commitPrison(prop){
+        if (!commDialogComp) commDialogComp = Qt.createComponent("Dialog/CommitDialog.qml");
+        commDialogComp.createObject(pageStack.currentPage, prop);
+    }
+
     // Pages
     function needAuthorization(forceLogin){
         if(pageStack.currentPage.objectName !== "LoginPage"){
@@ -120,18 +127,24 @@ QtObject {
       pid: string[number], optional, if specified, the thread will start by this pid
     */
     function enterThread(option){
-        if (!threaPage)
-            threaPage = Qt.createComponent("Thread/ThreadPage.qml").createObject(app);
-        if (pageStack.currentPage !== threaPage)
-            pageStack.push(threaPage);
-        if (option)
-            threaPage.addThreadView(option);
+        if (!threadPage)
+            threadPage = Qt.createComponent("Thread/ThreadPage.qml").createObject(app);
+        if (pageStack.currentPage !== threadPage){
+            var p = pageStack.find(function(page){ return page === threadPage });
+            if (p) pageStack.pop(p);
+            else pageStack.push(threadPage);
+        }
+        // must be placed after pageStack has set
+        if (option){
+            threadPage.addThreadView(option);
+        }
     }
 
-    function enterFloor(tid, pid, spid){
+    function enterFloor(tid, pid, spid, managerGroup){
         var prop;
         if (pid) prop = { threadId: tid, postId: pid };
         else if (spid) prop = { threadId: tid, spostId: spid };
+        if (managerGroup) prop.managerGroup = managerGroup;
         pageStack.push(Qt.resolvedUrl("Floor/FloorPage.qml"), prop);
     }
 
@@ -149,7 +162,7 @@ QtObject {
 
     function openBrowser(url){
         if (tbsettings.browser == ""){
-            pageStack.push(Qt.resolvedUrl("WebPage.qml"), {url: url});
+            pageStack.push(Qt.resolvedUrl("WebPage.qml"), {url: utility.percentDecode(url)});
         } else {
             utility.openURLDefault(url);
         }

@@ -26,9 +26,25 @@ ContextMenu {
         }
         MenuItem {
             text: qsTr("Delete this post");
+            // is manager || is author || is lz
+            visible: model != null && (user.is_manager !== "0"
+                                       ||model.authorId === tbsettings.currentUid
+                                       ||thread.author.id === tbsettings.currentUid);
+            onClicked: delPost(root.index);
         }
         MenuItem {
             text: qsTr("Commit to prison");
+            visible: user.is_manager !== "0";
+            onClicked: {
+                var prop = {
+                    fname: forum.name,
+                    fid: forum.id,
+                    tid: thread.id,
+                    username: model.authorName,
+                    majorManager: user.is_manager === "1"
+                }
+                signalCenter.commitPrison(prop);
+            }
         }
     }
 }
