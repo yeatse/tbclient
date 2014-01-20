@@ -1,7 +1,7 @@
 TEMPLATE = app
 TARGET = tbclient
 
-VERSION = 2.0.0
+VERSION = 2.1.0
 DEFINES += VER=\\\"$$VERSION\\\"
 
 QT += network webkit
@@ -18,7 +18,8 @@ HEADERS += \
     src/audiorecorder.h \
     src/scribblearea.h \
     src/flickcharm.h \
-    src/qwebviewitem.h
+    src/qwebviewitem.h \
+    src/customwebview.h
 
 SOURCES += main.cpp \
     src/utility.cpp \
@@ -29,6 +30,7 @@ SOURCES += main.cpp \
     src/scribblearea.cpp \
     src/flickcharm.cpp \
     src/qwebviewitem.cpp \
+    src/customwebview.cpp \
 #    qml/tbclient/*.qml \
 #    qml/tbclient/Component/*.qml \
 #    qml/tbclient/Dialog/*.qml \
@@ -39,6 +41,7 @@ SOURCES += main.cpp \
 #    qml/tbclient/Post/*.* \
 #    qml/tbclient/Profile/*.qml \
 #    qml/tbclient/Thread/*.qml \
+#    qml/tbclient/Browser/*.qml \
 #    qml/js/main.js \
 #    qml/js/BaiduParser.js \
 #    qml/js/LinkDecoder.js
@@ -64,10 +67,8 @@ folder_gfx.target = qml
 folder_emo.source = qml/emo
 folder_emo.target = qml
 
-DEPLOYMENTFOLDERS = folder_js folder_gfx #folder_emo
-
 simulator {
-    DEPLOYMENTFOLDERS += folder_symbian3 #folder_harmattan
+    DEPLOYMENTFOLDERS += folder_js folder_symbian3 folder_gfx
 }
 
 contains(MEEGO_EDITION,harmattan){
@@ -86,7 +87,7 @@ symbian {
         INCLUDEPATH += $$[QT_INSTALL_PREFIX]/include/Qt
     } else {
         CONFIG += qt-components
-        DEPLOYMENTFOLDERS += folder_symbian3
+        RESOURCES += symbian-res.qrc
         MMP_RULES += "OPTION gcce -march=armv6 -mfpu=vfp -mfloat-abi=softfp -marm"
     }
 

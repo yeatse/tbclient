@@ -28,6 +28,9 @@ QtObject {
     property string draftBox: utility.getValue("draftBox", "");
     onDraftBoxChanged: utility.setValue("draftBox", draftBox);
 
+    property bool compatibilityMode: utility.getValue("compatibilityMode", false);
+    onCompatibilityModeChanged: utility.setValue("compatibilityMode", compatibilityMode);
+
     property string currentBearerName;
     onCurrentBearerNameChanged: {
         console.log("currnet bearer:", currentBearerName);

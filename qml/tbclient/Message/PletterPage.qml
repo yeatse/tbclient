@@ -16,6 +16,7 @@ MyPage {
     function takeToForeground(){
         view.forceActiveFocus();
         if (infoCenter.pletter > 0){
+            firstStart = false;
             getlist();
         } else if (firstStart){
             firstStart = false;

@@ -321,6 +321,16 @@ void QDeclarativeWebView::doLoadFinished(bool ok)
     emit statusChanged(d->status);
 }
 
+// By yeatse
+void QDeclarativeWebView::setQmlCaptureLink(const bool on)
+{
+    if (on){
+        d->view->page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);
+    } else {
+        d->view->page()->setLinkDelegationPolicy(QWebPage::DontDelegateLinks);
+    }
+}
+
 /*!
     \qmlproperty url WebView::url
     This property holds the URL to the page displayed in this item. It can be set,

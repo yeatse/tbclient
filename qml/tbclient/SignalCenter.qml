@@ -162,7 +162,8 @@ QtObject {
 
     function openBrowser(url){
         if (tbsettings.browser == ""){
-            pageStack.push(Qt.resolvedUrl("WebPage.qml"), {url: utility.percentDecode(url)});
+            var file = tbsettings.compatibilityMode ? "Browser/WebPage.qml" : "Browser/WebViewPage.qml";
+            pageStack.push(Qt.resolvedUrl(file), {url: utility.percentDecode(url)});
         } else {
             utility.openURLDefault(url);
         }

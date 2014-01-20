@@ -18,6 +18,7 @@ CommonDialog {
                 fill: parent; margins: constant.paddingMedium;
             }
             readOnly: true;
+            textFormat: TextEdit.PlainText;
         }
     }
 

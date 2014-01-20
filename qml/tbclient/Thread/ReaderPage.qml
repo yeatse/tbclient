@@ -1,6 +1,7 @@
 import QtQuick 1.1
 import com.nokia.symbian 1.1
 import QtWebKit 1.0
+import com.yeatse.tbclient 1.0
 import "../Component"
 import "../../js/Utils.js" as Utils
 
@@ -121,7 +122,7 @@ MyPage {
                     contentHeight: webView.height;
                     boundsBehavior: Flickable.StopAtBounds;
 
-                    WebView {
+                    CustomWebView {
                         id: webView;
                         preferredWidth: root.width;
                         preferredHeight: root.height;
@@ -133,7 +134,11 @@ MyPage {
                         onLoadStarted: loading = true;
                         onLoadFinished: loading = false;
                         onLoadFailed: loading = false;
-                        Component.onCompleted: coldDown.start();
+                        onLinkClicked: signalCenter.linkClicked(link.toString())
+                        Component.onCompleted: {
+                            webView.setQmlCaptureLink(true);
+                            coldDown.start();
+                        }
                         Timer {
                             id: coldDown;
                             interval: 200;

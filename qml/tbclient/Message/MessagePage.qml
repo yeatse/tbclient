@@ -6,7 +6,7 @@ import "../Thread" as Thread
 MyPage {
     id: page;
 
-    property string defaultTab: "pletter";
+    property string defaultTab: "replyme";
     objectName: "MessagePage"
 
     title: tabGroup.currentTab.title;
@@ -51,17 +51,17 @@ MyPage {
     Thread.TabHeader {
         id: viewHeader;
         Thread.ThreadButton {
-            tab: pletterPage;
-            Image {
-                anchors { top: parent.top; right: parent.right; margins: constant.paddingLarge; }
-                source: infoCenter.pletter > 0 ? "../../gfx/ico_mbar_news_point.png" : "";
-            }
-        }
-        Thread.ThreadButton {
             tab: replyPage;
             Image {
                 anchors { top: parent.top; right: parent.right; margins: constant.paddingLarge; }
                 source: infoCenter.replyme > 0 ? "../../gfx/ico_mbar_news_point.png" : "";
+            }
+        }
+        Thread.ThreadButton {
+            tab: pletterPage;
+            Image {
+                anchors { top: parent.top; right: parent.right; margins: constant.paddingLarge; }
+                source: infoCenter.pletter > 0 ? "../../gfx/ico_mbar_news_point.png" : "";
             }
         }
         Thread.ThreadButton {
@@ -76,20 +76,24 @@ MyPage {
     TabGroup {
         id: tabGroup;
         anchors { fill: parent; topMargin: viewHeader.height; }
-        currentTab: defaultTab == "pletter" ? pletterPage : defaultTab == "replyme" ? replyPage : atmePage;
-        PletterPage {
-            id: pletterPage;
-            pageStack: page.pageStack;
-        }
+        currentTab: defaultTab == "replyme" ? replyPage : defaultTab == "pletter" ? pletterPage : atmePage;
         ReplyPage {
             id: replyPage;
+            pageStack: page.pageStack;
+        }
+        PletterPage {
+            id: pletterPage;
             pageStack: page.pageStack;
         }
         AtmePage {
             id: atmePage;
             pageStack: page.pageStack;
         }
-        onCurrentTabChanged: currentTab.takeToForeground();
+        onCurrentTabChanged: {
+            if (page.status === PageStatus.Active){
+                currentTab.takeToForeground();
+            }
+        }
     }
 
     // For keypad

@@ -18,8 +18,8 @@
 */
 
 
-#ifndef qdeclarativewebview_p_h
-#define qdeclarativewebview_p_h
+#ifndef CUSTOMWEBVIEW_H
+#define CUSTOMWEBVIEW_H
 
 #include <QtCore/QBasicTimer>
 #include <QtCore/QUrl>
@@ -125,6 +125,9 @@ class QDeclarativeWebView : public QDeclarativeItem {
 public:
     QDeclarativeWebView(QDeclarativeItem *parent = 0);
     ~QDeclarativeWebView();
+
+    // By yeatse
+    Q_INVOKABLE void setQmlCaptureLink(const bool on);
 
     QUrl url() const;
     void setUrl(const QUrl &);

@@ -16,6 +16,7 @@ MyPage {
     function takeToForeground(){
         view.forceActiveFocus();
         if (infoCenter.atme > 0){
+            firstStart = false;
             getlist();
         } else if (firstStart){
             firstStart = false;

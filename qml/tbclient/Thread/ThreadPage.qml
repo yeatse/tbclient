@@ -264,6 +264,21 @@ MyPage {
                 MenuItem {
                     text: qsTr("Open browser");
                     enabled: menu.currentEnabled;
+                    onClicked: signalCenter.openBrowser("http://tieba.baidu.com/p/"+currentTab.threadId);
+                    ToolButton {
+                        width: 0.4 * parent.width;
+                        anchors {
+                            right: parent.right; rightMargin: constant.paddingLarge;
+                            verticalCenter: parent.verticalCenter;
+                        }
+                        text: qsTr("Copy url");
+                        flat: false;
+                        onClicked: {
+                            utility.copyToClipbord("http://tieba.baidu.com/p/"+currentTab.threadId);
+                            signalCenter.showMessage(qsTr("Success"));
+                            menu.close();
+                        }
+                    }
                 }
             }
         }
