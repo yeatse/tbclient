@@ -105,8 +105,6 @@
         <file>qml/gfx/icon_woman_inverted.png</file>
         <file>qml/gfx/instant_messenger_chat.svg</file>
         <file>qml/gfx/instant_messenger_chat_inverted.svg</file>
-        <file>qml/gfx/internet.svg</file>
-        <file>qml/gfx/internet_inverted.svg</file>
         <file>qml/gfx/lock.svg</file>
         <file>qml/gfx/logo_teiba_top.png</file>
         <file>qml/gfx/meegoTLCorner.png</file>
@@ -151,7 +149,6 @@
         <file>qml/gfx/unlock.svg</file>
         <file>qml/js/BaiduParser.js</file>
         <file>qml/js/BaiduService.js</file>
-        <file>qml/js/default_theme.css</file>
         <file>qml/js/LinkDecoder.js</file>
         <file>qml/js/main.js</file>
         <file>qml/js/storage.js</file>
@@ -162,7 +159,6 @@
         <file>qml/tbclient/Browser/WebHomeMenu.qml</file>
         <file>qml/tbclient/Browser/WebMainMenu.qml</file>
         <file>qml/tbclient/Browser/WebPage.qml</file>
-        <file>qml/tbclient/Browser/WebViewPage.qml</file>
         <file>qml/tbclient/Component/AbstractItem.qml</file>
         <file>qml/tbclient/Component/AudioWrapper.qml</file>
         <file>qml/tbclient/Component/BackButton.qml</file>
@@ -253,5 +249,8 @@
         <file>qml/tbclient/SettingsPage.qml</file>
         <file>qml/tbclient/SignalCenter.qml</file>
         <file>qml/tbclient/TBSettings.qml</file>
+        <file>qml/tbclient/AboutPage.qml</file>
+        <file>qml/tbclient/Dialog/GoodListDialog.qml</file>
+        <file>qml/tbclient/Thread/ThreadManageMenu.qml</file>
     </qresource>
 </RCC>

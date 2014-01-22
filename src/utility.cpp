@@ -396,9 +396,9 @@ QString Utility::decodeGBKHex(const QString &encodedString)
     return codec->toUnicode(text);
 }
 
-QString Utility::percentDecode(const QByteArray &encodedString) const
+QString Utility::percentDecode(const QString &encodedString) const
 {
-    return QUrl::fromPercentEncoding(encodedString);
+    return QUrl::fromPercentEncoding(encodedString.toUtf8());
 }
 
 QString Utility::hasForumName(const QByteArray &link)

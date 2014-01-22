@@ -87,7 +87,7 @@ public:             // Other functions.
     // Restore GBK encoded data
     Q_INVOKABLE QString decodeGBKHex(const QString &encodedString);
     // Percent decoding
-    Q_INVOKABLE QString percentDecode(const QByteArray &encodedString) const;
+    Q_INVOKABLE QString percentDecode(const QString &encodedString) const;
     // Return forum name if it is a tieba link
     Q_INVOKABLE QString hasForumName(const QByteArray &link);
 

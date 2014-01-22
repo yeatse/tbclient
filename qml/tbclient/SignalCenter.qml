@@ -10,6 +10,7 @@ QtObject {
     property variant enterDialogComp: null;
     property variant copyDialogComp: null;
     property variant commDialogComp: null;
+    property variant goodDialogComp: null;
     property variant threadPage: null;
 
     signal userChanged;
@@ -85,6 +86,14 @@ QtObject {
         commDialogComp.createObject(pageStack.currentPage, prop);
     }
 
+    function commitGoodList(list, callback){
+        if (!goodDialogComp) goodDialogComp = Qt.createComponent("Dialog/GoodListDialog.qml");
+        var diag = goodDialogComp.createObject(pageStack.currentPage);
+        list.forEach(function(value){ diag.model.append(value); });
+        diag.goodSelected.connect(callback);
+        diag.open();
+    }
+
     // Pages
     function needAuthorization(forceLogin){
         if(pageStack.currentPage.objectName !== "LoginPage"){
@@ -130,9 +139,13 @@ QtObject {
         if (!threadPage)
             threadPage = Qt.createComponent("Thread/ThreadPage.qml").createObject(app);
         if (pageStack.currentPage !== threadPage){
-            var p = pageStack.find(function(page){ return page === threadPage });
-            if (p) pageStack.pop(p);
-            else pageStack.push(threadPage);
+            if (pageStack.currentPage.objectName !== "ForumPage"
+                    && pageStack.find(function(page){ return page === threadPage }))
+            {
+                pageStack.pop(threadPage);
+            } else {
+                pageStack.push(threadPage);
+            }
         }
         // must be placed after pageStack has set
         if (option){
@@ -162,8 +175,7 @@ QtObject {
 
     function openBrowser(url){
         if (tbsettings.browser == ""){
-            var file = tbsettings.compatibilityMode ? "Browser/WebPage.qml" : "Browser/WebViewPage.qml";
-            pageStack.push(Qt.resolvedUrl(file), {url: utility.percentDecode(url)});
+            pageStack.push(Qt.resolvedUrl("Browser/WebPage.qml"), {url: utility.percentDecode(url)});
         } else {
             utility.openURLDefault(url);
         }

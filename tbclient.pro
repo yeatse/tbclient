@@ -18,8 +18,7 @@ HEADERS += \
     src/audiorecorder.h \
     src/scribblearea.h \
     src/flickcharm.h \
-    src/qwebviewitem.h \
-    src/customwebview.h
+    src/qwebviewitem.h
 
 SOURCES += main.cpp \
     src/utility.cpp \
@@ -30,7 +29,6 @@ SOURCES += main.cpp \
     src/scribblearea.cpp \
     src/flickcharm.cpp \
     src/qwebviewitem.cpp \
-    src/customwebview.cpp \
 #    qml/tbclient/*.qml \
 #    qml/tbclient/Component/*.qml \
 #    qml/tbclient/Dialog/*.qml \
@@ -49,6 +47,7 @@ SOURCES += main.cpp \
 TRANSLATIONS += i18n/tbclient_zh.ts
 RESOURCES += tbclient-res.qrc
 
+#qml folders
 folder_symbian3.source = qml/tbclient
 folder_symbian3.target = qml
 
@@ -66,6 +65,8 @@ folder_gfx.target = qml
 
 folder_emo.source = qml/emo
 folder_emo.target = qml
+
+DEPLOYMENTFOLDERS = folder_emo
 
 simulator {
     DEPLOYMENTFOLDERS += folder_js folder_symbian3 folder_gfx

@@ -923,3 +923,49 @@ function commitPrison(option){
     var f = function(err){ signalCenter.showMessage(err); }
     req.sendRequest(s, f);
 }
+
+function commitTop(option, onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_C_BAWU_COMMITTOP);
+    var ntn = option.set ? "set" : "";
+
+    var param = {
+        word: option.word,
+        fid: option.fid,
+        tbs: tbs,
+        ntn: ntn,
+        z: option.tid
+    }
+
+    req.signForm(param);
+    req.sendRequest(onSuccess, onFailed);
+}
+
+function commitGood(option, onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_C_BAWU_COMMITGOOD);
+    var ntn = option.set ? "set" : "";
+
+    var param = {
+        word: option.word,
+        fid: option.fid,
+        tbs: tbs,
+        ntn: ntn,
+        z: option.tid
+    }
+    if (option.cid)
+        param.cid = option.cid;
+
+    req.signForm(param);
+    req.sendRequest(onSuccess, onFailed);
+}
+
+function getGoodList(option, onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_C_BAWU_GOODLIST);
+    var param = { word: option.word }
+    req.signForm(param);
+    var s = function(obj){
+        var list = BaiduParser.loadGoodList(obj.cates||[]);
+        onSuccess(list);
+    }
+    req.signForm(param);
+    req.sendRequest(s, onFailed);
+}

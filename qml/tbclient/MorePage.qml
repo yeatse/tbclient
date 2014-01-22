@@ -17,7 +17,7 @@ MyPage {
                     [qsTr("Square"),"square","pageStack.push(Qt.resolvedUrl(\"Explore/SquarePage.qml\"))"],
                     [qsTr("Accounts"),"sign","pageStack.push(Qt.resolvedUrl(\"AccountPage.qml\"))"],
                     [qsTr("Settings"),"settings","pageStack.push(Qt.resolvedUrl(\"SettingsPage.qml\"))"],
-                    [qsTr("About"),"info",""]];
+                    [qsTr("About"),"info","pageStack.push(Qt.resolvedUrl(\"AboutPage.qml\"))"]];
         dict.forEach(function(value){
                          view.model.append({name:value[0],file:value[1],script:value[2]});
                      });

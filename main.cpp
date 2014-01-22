@@ -9,7 +9,6 @@
 #include "src/audiorecorder.h"
 #include "src/scribblearea.h"
 #include "src/qwebviewitem.h"
-#include "src/customwebview.h"
 
 #ifdef Q_WS_SIMULATOR
 #include <QtNetwork/QNetworkProxy>
@@ -84,7 +83,6 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterType<AudioRecorder>("com.yeatse.tbclient", 1, 0, "AudioRecorder");
     qmlRegisterType<ScribbleArea>("com.yeatse.tbclient", 1, 0, "ScribbleArea");
     qmlRegisterType<QWebViewItem>("com.yeatse.tbclient", 1, 0, "WebView");
-    qmlRegisterType<QDeclarativeWebView>("com.yeatse.tbclient", 1, 0, "CustomWebView");
 
 #ifdef QVIBRA
     qmlRegisterType<QVibra>("com.yeatse.tbclient", 1, 0, "Vibra");
@@ -92,14 +90,13 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterType<QObject>("com.yeatse.tbclient", 1, 0, "Vibra");
 #endif
 
-#ifdef Q_OS_SYMBIAN
-    QWebSettings::globalSettings()->setUserStyleSheetUrl(QUrl(":/qml/js/default_theme.css"));
-#else
-    QWebSettings::globalSettings()->setUserStyleSheetUrl(QUrl::fromLocalFile("qml/js/default_theme.css"));
-#endif
+    QWebSettings::globalSettings()->setUserStyleSheetUrl(QUrl::fromLocalFile("qml/emo/default_theme.css"));
 
     QmlApplicationViewer viewer;
+    viewer.setAttribute(Qt::WA_OpaquePaintEvent);
     viewer.setAttribute(Qt::WA_NoSystemBackground);
+    viewer.viewport()->setAttribute(Qt::WA_OpaquePaintEvent);
+    viewer.viewport()->setAttribute(Qt::WA_NoSystemBackground);
 
     // For fiddler network debugging
 #ifdef Q_WS_SIMULATOR

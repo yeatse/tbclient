@@ -106,9 +106,9 @@ MyPage {
 
         var s = function(obj, modelAffected){
             loading = false;
+            user = obj.user;
             thread = obj.thread;
             forum = obj.forum;
-            user = obj.user;
             currentPage = obj.page.current_page;
             totalPage = obj.page.total_page;
             isCollected = obj.thread.collect_status !== "0";

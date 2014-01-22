@@ -18,8 +18,10 @@ CommonDialog {
 
     onButtonClicked: if (index === 0) accept();
     onAccepted: {
-        var input = webView.evaluateJavaScript("_captcha.getInput()");
-        signalCenter.vcodeSent(caller, input, root.vcodeMd5);
+        if (!busyInd.visible){
+            var input = webView.evaluateJavaScript("_captcha.getInput()");
+            signalCenter.vcodeSent(caller, input, root.vcodeMd5);
+        }
     }
 
     content: Item {
@@ -41,17 +43,21 @@ CommonDialog {
             anchors.fill: parent;
             preferredWidth: parent.width;
             preferredHeight: parent.height;
-            onLoadStarted: busyInd.visible = true;
-            onLoadFailed: busyInd.visible = false;
-            onLoadFinished: { busyInd.visible = false; coldDown.start(); }
-            Timer {
-                id: coldDown;
-                interval: 50;
-                onTriggered: {
-                    if (/objc:/.test(webView.html)){
-                        webView.html = webView.html.replace(/objc:/g, "javascript:window.objc.");
-                    }
-                }
+            function loadSource(){
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function(){
+                            if (xhr.readyState === xhr.DONE){
+                                busyInd.visible = false;
+                                if (xhr.status === 200){
+                                    var html = xhr.responseText;
+                                    html = html.replace(/objc:/g, "javascript:window.objc.");
+                                    webView.html = html;
+                                }
+                            }
+                        }
+                busyInd.visible = true;
+                xhr.open("GET", "http://c.tieba.baidu.com/c/f/anti/gridcaptchaios?cuid="+Qt.md5(utility.imei).toUpperCase());
+                xhr.send();
             }
         }
         BusyIndicator {
@@ -67,11 +73,11 @@ CommonDialog {
 
     onStatusChanged: {
         if (status === DialogStatus.Open){
-            webView.url = "http://c.tieba.baidu.com/c/f/anti/gridcaptchaios"
+            webView.loadSource();
         } else if (status == DialogStatus.Closing){
             __isClosing = true;
         } else if (status == DialogStatus.Closed && __isClosing){
-            root.destroy(1000);
+            root.destroy();
         }
     }
     Component.onCompleted: open();

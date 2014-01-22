@@ -730,5 +730,19 @@ var BaiduParser = {
         parse(list1, model1);
         parse(list2, model2);
         return [hasMore, Math.min(list1.length, list2.length)];
+    },
+
+    loadGoodList:
+    function(list){
+        var result = [];
+        result.push({modelData: "全部", id: ""});
+        list.forEach(function(value){
+                         var prop = {
+                             modelData: value.name,
+                             id: value.id
+                         };
+                         result.push(prop);
+                     });
+        return result;
     }
 };

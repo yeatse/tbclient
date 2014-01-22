@@ -49,6 +49,7 @@ MyPage {
         property variant jumper: null;
         property variant contextMenu: null;
         property variant commonDialog: null;
+        property variant manageDialog: null;
 
         function openMenu(){
             if (!menu)
@@ -68,6 +69,14 @@ MyPage {
             jumper.totalPage = currentTab.totalPage;
             jumper.currentPage = currentTab.currentPage;
             jumper.open();
+        }
+
+        function threadManage(){
+            if (!manageDialog){
+                manageDialog = Qt.createComponent("ThreadManageMenu.qml").createObject(page);
+            }
+            manageDialog.view = currentTab;
+            manageDialog.open();
         }
 
         function openContextMenu(){
@@ -224,8 +233,27 @@ MyPage {
         id: menuComp;
         Menu {
             id: menu;
-            property bool currentEnabled: currentTab != null && currentTab.thread != null;
+            property bool currentEnabled: currentTab != null && currentTab.thread != null;            
             MenuLayout {
+                MenuItem {
+                    text: qsTr("Open browser");
+                    enabled: menu.currentEnabled;
+                    onClicked: signalCenter.openBrowser("http://tieba.baidu.com/p/"+currentTab.threadId);
+                    ToolButton {
+                        width: 0.4 * parent.width;
+                        anchors {
+                            right: parent.right; rightMargin: constant.paddingLarge;
+                            verticalCenter: parent.verticalCenter;
+                        }
+                        text: qsTr("Copy url");
+                        flat: false;
+                        onClicked: {
+                            utility.copyToClipbord("http://tieba.baidu.com/p/"+currentTab.threadId);
+                            signalCenter.showMessage(qsTr("Success"));
+                            menu.close();
+                        }
+                    }
+                }
                 MenuItem {
                     text: qsTr("Author only");
                     enabled: menu.currentEnabled;
@@ -262,23 +290,9 @@ MyPage {
                     onClicked: internal.jumpToPage();
                 }
                 MenuItem {
-                    text: qsTr("Open browser");
-                    enabled: menu.currentEnabled;
-                    onClicked: signalCenter.openBrowser("http://tieba.baidu.com/p/"+currentTab.threadId);
-                    ToolButton {
-                        width: 0.4 * parent.width;
-                        anchors {
-                            right: parent.right; rightMargin: constant.paddingLarge;
-                            verticalCenter: parent.verticalCenter;
-                        }
-                        text: qsTr("Copy url");
-                        flat: false;
-                        onClicked: {
-                            utility.copyToClipbord("http://tieba.baidu.com/p/"+currentTab.threadId);
-                            signalCenter.showMessage(qsTr("Success"));
-                            menu.close();
-                        }
-                    }
+                    text: qsTr("Manage");
+                    enabled: menu.currentEnabled && currentTab.user.is_manager === "1";
+                    onClicked: internal.threadManage();
                 }
             }
         }

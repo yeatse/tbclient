@@ -1,7 +1,8 @@
+// Deprecated
+
 import QtQuick 1.1
 import com.nokia.symbian 1.1
 import QtWebKit 1.0
-import com.yeatse.tbclient 1.0
 import "../Component"
 
 MyPage {
@@ -110,13 +111,13 @@ MyPage {
 
             }
 
-            CustomWebView {
+            WebView {
                 id: webView
                 objectName: "webView"
                 transformOrigin: Item.TopLeft
 
                 javaScriptWindowObjects: QtObject {
-                    CustomWebView.windowObjectName: "scroller";
+                    WebView.windowObjectName: "scroller";
                     function scrollTo(xPos, yPos){
                         flickable.contentX = xPos;
                         flickable.contentY = yPos;
@@ -171,7 +172,7 @@ MyPage {
                 // [Signal Handling]
                 Keys.onLeftPressed: { webView.contentsScale -= 0.1; }
                 Keys.onRightPressed: { webView.contentsScale += 0.1; }
-                onAlert: signalCenter.createQueryDialog(qsTr("Alert"),message,qsTr("OK"),"");
+//                onAlert: signalCenter.createQueryDialog(qsTr("Alert"),message,qsTr("OK"),"");
                 onFocusChanged: {
                     if ( focus == true ) { flickable.gotFocus(); }
                     else { flickable.lostFocus(); }

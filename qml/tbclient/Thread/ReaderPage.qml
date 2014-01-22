@@ -1,7 +1,6 @@
 import QtQuick 1.1
 import com.nokia.symbian 1.1
 import QtWebKit 1.0
-import com.yeatse.tbclient 1.0
 import "../Component"
 import "../../js/Utils.js" as Utils
 
@@ -122,7 +121,7 @@ MyPage {
                     contentHeight: webView.height;
                     boundsBehavior: Flickable.StopAtBounds;
 
-                    CustomWebView {
+                    WebView {
                         id: webView;
                         preferredWidth: root.width;
                         preferredHeight: root.height;
@@ -134,11 +133,15 @@ MyPage {
                         onLoadStarted: loading = true;
                         onLoadFinished: loading = false;
                         onLoadFailed: loading = false;
-                        onLinkClicked: signalCenter.linkClicked(link.toString())
-                        Component.onCompleted: {
-                            webView.setQmlCaptureLink(true);
-                            coldDown.start();
+
+                        javaScriptWindowObjects: QtObject {
+                            WebView.windowObjectName: "clickListener";
+                            function onClick(hrefValue){
+                                signalCenter.linkClicked(hrefValue);
+                            }
                         }
+
+                        Component.onCompleted: coldDown.start();
                         Timer {
                             id: coldDown;
                             interval: 200;
@@ -162,6 +165,12 @@ MyPage {
                                 }
                                 webView.html = res;
                                 webView.evaluateJavaScript("document.body.style.background=\"#F3ECDC\"");
+                                webView.evaluateJavaScript("\
+document.onclick=function(ev){\
+ev=ev||window.event;\
+var target=ev.target||ev.srcElement;\
+var tagName=target.tagName.toLowerCase();\
+if(tagName=='a'){window.clickListener.onClick(target.href)}}");
                             }
                         }
                     }

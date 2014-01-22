@@ -91,6 +91,7 @@ void QWebViewProxyWidget::init()
     charm = new FlickCharm(this);
     charm->activateOn(webView);
 
+    webView->setAttribute(Qt::WA_OpaquePaintEvent, true);
     webView->setAttribute(Qt::WA_NoSystemBackground, true);
     webView->setAttribute(Qt::WA_InputMethodEnabled, true);
 
@@ -252,6 +253,8 @@ void QWebViewItem::init()
     connect(dl, SIGNAL(started()), SIGNAL(downloadStarted()));
     connect(dl, SIGNAL(finished()), SIGNAL(downloadFinished()));
     connect(dl, SIGNAL(progressChanged(QString)), SIGNAL(downloadProgress(QString)));
+
+    connect(proxy->frame(), SIGNAL(loadFinished(bool)), SIGNAL(htmlChanged()));
 }
 
 void QWebViewItem::componentComplete()
@@ -295,7 +298,6 @@ void QWebViewItem::setHtml(const QString &html)
         m_pendingHtml = html;
     } else if (this->html() != html){
         proxy->view()->setHtml(html);
-        emit htmlChanged();
     }
 }
 

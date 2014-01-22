@@ -65,9 +65,13 @@ var BaiduApi = {
     C_C_USER_FOLLOW: HOST + "/c/c/user/follow",
     C_C_PROFILE_MODIFY: HOST + "/c/c/profile/modify",
     C_C_IMG_PORTRAIT: HOST + "/c/c/img/portrait",
+
     C_C_BAWU_DELPOST: HOST + "/c/c/bawu/delpost",
     C_C_BAWU_DELTHREAD: HOST + "/c/c/bawu/delthread",
     C_C_BAWU_COMMITPRISON: HOST + "/c/c/bawu/commitprison",
+    C_C_BAWU_COMMITTOP: HOST + "/c/c/bawu/committop",
+    C_C_BAWU_GOODLIST: HOST + "/c/c/bawu/goodlist",
+    C_C_BAWU_COMMITGOOD: HOST + "/c/c/bawu/commitgood",
 
     C_U_FEED_REPLYME: HOST + "/c/u/feed/replyme",
     C_U_FEED_ATME: HOST + "/c/u/feed/atme",

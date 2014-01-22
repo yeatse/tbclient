@@ -18,16 +18,5 @@ Menu {
             text: qsTr("Open browser");
             onClicked: utility.openURLDefault(webView.url);
         }
-        MenuItem {
-            text: tbsettings.compatibilityMode ? qsTr("Switch to fast mode") : qsTr("Switch to compatibility mode");
-            onClicked: {
-                if (tbsettings.compatibilityMode){
-                    pageStack.replace(Qt.resolvedUrl("WebViewPage.qml"), { url: url });
-                } else {
-                    pageStack.replace(Qt.resolvedUrl("WebPage.qml"), { url: url });
-                }
-                tbsettings.compatibilityMode = !tbsettings.compatibilityMode;
-            }
-        }
     }
 }

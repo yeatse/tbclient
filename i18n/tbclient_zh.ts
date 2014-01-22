@@ -2,6 +2,14 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="zh_CN">
 <context>
+    <name>AboutPage</name>
+    <message>
+        <location filename="../qml/tbclient/AboutPage.qml" line="8"/>
+        <source>About tbclient</source>
+        <translation>关于贴吧客户端</translation>
+    </message>
+</context>
+<context>
     <name>AccountPage</name>
     <message>
         <location filename="../qml/tbclient/AccountPage.qml" line="14"/>
@@ -525,6 +533,14 @@
         <location filename="../qml/tbclient/Profile/FriendsPage.qml" line="17"/>
         <source>Refresh</source>
         <translation>刷新</translation>
+    </message>
+</context>
+<context>
+    <name>GoodListDialog</name>
+    <message>
+        <location filename="../qml/tbclient/Dialog/GoodListDialog.qml" line="11"/>
+        <source>Select class</source>
+        <translation>选择分类</translation>
     </message>
 </context>
 <context>
@@ -1105,17 +1121,17 @@
 <context>
     <name>QWebViewDownloader</name>
     <message>
-        <location filename="../src/qwebviewitem.cpp" line="175"/>
+        <location filename="../src/qwebviewitem.cpp" line="176"/>
         <source>Download started</source>
         <translation>正在下载文件</translation>
     </message>
     <message>
-        <location filename="../src/qwebviewitem.cpp" line="211"/>
+        <location filename="../src/qwebviewitem.cpp" line="212"/>
         <source>Download finished</source>
         <translation>文件下载完成</translation>
     </message>
     <message>
-        <location filename="../src/qwebviewitem.cpp" line="216"/>
+        <location filename="../src/qwebviewitem.cpp" line="217"/>
         <source>Download failed</source>
         <translation>文件下载失败</translation>
     </message>
@@ -1153,14 +1169,14 @@
 <context>
     <name>ReaderPage</name>
     <message>
+        <location filename="../qml/tbclient/Thread/ReaderPage.qml" line="18"/>
         <location filename="../qml/tbclient/Thread/ReaderPage.qml" line="19"/>
-        <location filename="../qml/tbclient/Thread/ReaderPage.qml" line="20"/>
         <source>Prev</source>
         <translation>上一条</translation>
     </message>
     <message>
+        <location filename="../qml/tbclient/Thread/ReaderPage.qml" line="24"/>
         <location filename="../qml/tbclient/Thread/ReaderPage.qml" line="25"/>
-        <location filename="../qml/tbclient/Thread/ReaderPage.qml" line="26"/>
         <source>Next</source>
         <translation>下一条</translation>
     </message>
@@ -1564,12 +1580,12 @@
 <context>
     <name>TBSettings</name>
     <message>
-        <location filename="../qml/tbclient/TBSettings.qml" line="40"/>
+        <location filename="../qml/tbclient/TBSettings.qml" line="37"/>
         <source>Mobile network used</source>
         <translation>正在使用2G网络</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/TBSettings.qml" line="50"/>
+        <location filename="../qml/tbclient/TBSettings.qml" line="47"/>
         <source>High speed network used</source>
         <translation>正在使用3G/Wifi网络</translation>
     </message>
@@ -1580,6 +1596,35 @@
         <location filename="../qml/tbclient/Thread/ThreadHeader.qml" line="46"/>
         <source>Bar</source>
         <translation>吧</translation>
+    </message>
+</context>
+<context>
+    <name>ThreadManageMenu</name>
+    <message>
+        <location filename="../qml/tbclient/Thread/ThreadManageMenu.qml" line="19"/>
+        <location filename="../qml/tbclient/Thread/ThreadManageMenu.qml" line="33"/>
+        <source>Success</source>
+        <translation>操作成功</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Thread/ThreadManageMenu.qml" line="56"/>
+        <source>Add to top</source>
+        <translation>置顶</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Thread/ThreadManageMenu.qml" line="60"/>
+        <source>Remove from top</source>
+        <translation>取消置顶</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Thread/ThreadManageMenu.qml" line="64"/>
+        <source>Add to goodlist</source>
+        <translation>加精</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Thread/ThreadManageMenu.qml" line="68"/>
+        <source>Remove from goodlist</source>
+        <translation>取消加精</translation>
     </message>
 </context>
 <context>
@@ -1633,38 +1678,43 @@
         <translation>菜单</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="87"/>
-        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="205"/>
+        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="96"/>
+        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="214"/>
         <source>Tab page</source>
         <translation>标签页</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="230"/>
+        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="258"/>
         <source>Author only</source>
         <translation>只看楼主</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="245"/>
+        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="273"/>
         <source>Reverse</source>
         <translation>倒序查看</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="260"/>
+        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="288"/>
         <source>Jump to page</source>
         <translation>跳页</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="265"/>
+        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="293"/>
+        <source>Manage</source>
+        <translation>吧务管理</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="239"/>
         <source>Open browser</source>
         <translation>用浏览器打开</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="274"/>
+        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="248"/>
         <source>Copy url</source>
         <translation>复制链接</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="278"/>
+        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="252"/>
         <source>Success</source>
         <translation>操作成功</translation>
     </message>
@@ -1673,38 +1723,38 @@
         <translation type="obsolete">标签管理</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="293"/>
+        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="307"/>
         <source>Close current tab</source>
         <translation>关闭当前标签</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="298"/>
+        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="312"/>
         <source>Close other tabs</source>
         <translation>关闭其他标签</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="303"/>
+        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="317"/>
         <source>Close all tabs</source>
         <translation>关闭全部标签</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="308"/>
-        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="319"/>
+        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="322"/>
+        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="333"/>
         <source>Create a new tab</source>
         <translation>添加新标签</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="321"/>
+        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="335"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="321"/>
+        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="335"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="335"/>
+        <location filename="../qml/tbclient/Thread/ThreadPage.qml" line="349"/>
         <source>Input url or id of the post</source>
         <translation>输入贴子地址或贴子id</translation>
     </message>
@@ -1988,14 +2038,12 @@
         <translation>用浏览器打开</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Browser/WebMainMenu.qml" line="22"/>
         <source>Switch to fast mode</source>
-        <translation>切换至高速模式</translation>
+        <translation type="obsolete">切换至高速模式</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Browser/WebMainMenu.qml" line="22"/>
         <source>Switch to compatibility mode</source>
-        <translation>切换至兼容模式</translation>
+        <translation type="obsolete">切换至兼容模式</translation>
     </message>
 </context>
 <context>
@@ -2065,24 +2113,22 @@
 <context>
     <name>WebViewPage</name>
     <message>
-        <location filename="../qml/tbclient/Browser/WebViewPage.qml" line="23"/>
+        <location filename="../qml/tbclient/Browser/WebViewPage.qml" line="24"/>
         <source>Home page</source>
         <translation>首页</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Browser/WebViewPage.qml" line="28"/>
+        <location filename="../qml/tbclient/Browser/WebViewPage.qml" line="29"/>
         <source>Menu</source>
         <translation>菜单</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Browser/WebViewPage.qml" line="174"/>
         <source>Alert</source>
-        <translation>脚本警告</translation>
+        <translation type="obsolete">脚本警告</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Browser/WebViewPage.qml" line="174"/>
         <source>OK</source>
-        <translation>确定</translation>
+        <translation type="obsolete">确定</translation>
     </message>
 </context>
 <context>
