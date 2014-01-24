@@ -11,12 +11,15 @@ QtObject {
     property variant copyDialogComp: null;
     property variant commDialogComp: null;
     property variant goodDialogComp: null;
+    property variant emotDialogComp: null;
     property variant threadPage: null;
+    property variant emoticonModel: [];
 
     signal userChanged;
     signal userLogout;
     signal vcodeSent(variant caller, string vcode, string vcodeMd5);
     signal imageSelected(variant caller, string urls);
+    signal emoticonSelected(variant caller, string name);
     signal friendSelected(variant caller, string name);
     signal forumSigned(string fid);
     signal bookmarkChanged;
@@ -94,6 +97,24 @@ QtObject {
         diag.open();
     }
 
+    function createEmoticonDialog(caller){
+        if (!emotDialogComp){
+            emotDialogComp = Qt.createComponent("Dialog/EmoticonSelector.qml");
+            var fill = function(num){ return num <10 ? "0"+num : num };
+            var list = [], i = 0;
+            list.push("image_emoticon");
+            for (i=2; i<=50; i++) list.push("image_emoticon"+i);
+            for (i=1; i<=62; i++) list.push("b"+fill(i));
+            for (i=1; i<=70; i++) list.push("ali_0"+fill(i));
+            for (i=1; i<=40; i++) list.push("t_00"+fill(i));
+            for (i=1; i<=46; i++) list.push("yz_0"+fill(i));
+            for (i=1; i<=25; i++) list.push("B_00"+fill(i));
+            emoticonModel = list;
+        }
+        var prop = { caller: caller }
+        emotDialogComp.createObject(pageStack.currentPage, prop);
+    }
+
     // Pages
     function needAuthorization(forceLogin){
         if(pageStack.currentPage.objectName !== "LoginPage"){
@@ -139,7 +160,7 @@ QtObject {
         if (!threadPage)
             threadPage = Qt.createComponent("Thread/ThreadPage.qml").createObject(app);
         if (pageStack.currentPage !== threadPage){
-            if (pageStack.currentPage.objectName !== "ForumPage"
+            if (pageStack.currentPage.objectName === "MessagePage"
                     && pageStack.find(function(page){ return page === threadPage }))
             {
                 pageStack.pop(threadPage);

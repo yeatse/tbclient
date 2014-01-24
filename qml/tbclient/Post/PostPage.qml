@@ -37,6 +37,13 @@ MyPage {
                 contentArea.cursorPosition = c + name.length + 2;
             }
         }
+        onEmoticonSelected: {
+            if (caller === page){
+                var c = contentArea.cursorPosition;
+                contentArea.text = contentArea.text.substring(0, c)+name+contentArea.text.substring(c);
+                contentArea.cursorPosition = c + name.length;
+            }
+        }
     }
 
     Timer {
@@ -104,6 +111,7 @@ MyPage {
             ToolButton {
                 platformInverted: tbsettings.whiteTheme;
                 iconSource: "../../gfx/btn_insert_face"+constant.invertedString+".png"
+                onClicked: signalCenter.createEmoticonDialog(page);
             }
             ToolButton {
                 platformInverted: tbsettings.whiteTheme;

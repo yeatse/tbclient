@@ -91,12 +91,20 @@ public:             // Other functions.
     // Return forum name if it is a tieba link
     Q_INVOKABLE QString hasForumName(const QByteArray &link);
 
+    // Return image url if it is an existing emoticon
+    Q_INVOKABLE QString emoticonUrl(const QString &name) const;
+    // Return emoticon text
+    Q_INVOKABLE QString emoticonText(const QString &name);
+    // Return custom emoticon list
+    Q_INVOKABLE QStringList customEmoticonList();
+
 private:
     explicit Utility(QObject *parent = 0);    
     void initializeLangFormats();
     int normalize(int val, int single);
     bool deleteDir(const QString &dirName);
     inline void q_fromPercentEncoding(QByteArray *ba, char percent);
+    void initializeEmoticonHash();
 
 #ifdef Q_OS_SYMBIAN
     void LaunchAppL(const TUid aUid, HBufC* aParam);
@@ -115,6 +123,9 @@ private:
     QVariantMap map;
     QHash<QString, QString> lang;
     QList<QVariantList> formats;
+
+    QHash<QString, QString> m_emo;
+    QStringList m_emolist;
 };
 
 #endif // UTILITY_H

@@ -8,6 +8,16 @@
         <source>About tbclient</source>
         <translation>关于贴吧客户端</translation>
     </message>
+    <message>
+        <location filename="../qml/tbclient/AboutPage.qml" line="34"/>
+        <source>QML Tieba Client</source>
+        <translation>贴吧客户端Qt版</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/AboutPage.qml" line="62"/>
+        <source>Project homepage</source>
+        <translation>项目主页</translation>
+    </message>
 </context>
 <context>
     <name>AccountPage</name>
@@ -69,7 +79,7 @@
 <context>
     <name>BaiduParser</name>
     <message>
-        <location filename="../qml/js/BaiduParser.js" line="215"/>
+        <location filename="../qml/js/BaiduParser.js" line="217"/>
         <source>Click to watch video</source>
         <translation>点击查看视频</translation>
     </message>
@@ -256,6 +266,29 @@
         <location filename="../qml/tbclient/Dialog/CopyDialog.qml" line="42"/>
         <source>Operation completed</source>
         <translation>操作完成</translation>
+    </message>
+</context>
+<context>
+    <name>EmoticonSelector</name>
+    <message>
+        <location filename="../qml/tbclient/Dialog/EmoticonSelector.qml" line="10"/>
+        <source>Select emoticon</source>
+        <translation>选择表情</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Dialog/EmoticonSelector.qml" line="12"/>
+        <source>Close</source>
+        <translation>关闭</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Dialog/EmoticonSelector.qml" line="32"/>
+        <source>Default</source>
+        <translation>默认</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Dialog/EmoticonSelector.qml" line="36"/>
+        <source>Emoticon</source>
+        <translation>颜文字</translation>
     </message>
 </context>
 <context>
@@ -911,7 +944,7 @@
         <translation>发表回复</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Post/PostPage.qml" line="146"/>
+        <location filename="../qml/tbclient/Post/PostPage.qml" line="154"/>
         <source>Post</source>
         <translation>发送</translation>
     </message>
@@ -1876,77 +1909,77 @@
         <translation>%1%2%3</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="425"/>
+        <location filename="../src/utility.cpp" line="474"/>
         <source>ago</source>
         <translation>前</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="426"/>
+        <location filename="../src/utility.cpp" line="475"/>
         <source>From Now</source>
         <translation>后</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="427"/>
+        <location filename="../src/utility.cpp" line="476"/>
         <source>just now</source>
         <translation>1分钟前</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="428"/>
+        <location filename="../src/utility.cpp" line="477"/>
         <source>min</source>
         <translation>分钟</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="429"/>
+        <location filename="../src/utility.cpp" line="478"/>
         <source>mins</source>
         <translation>分钟</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="430"/>
+        <location filename="../src/utility.cpp" line="479"/>
         <source>hr</source>
         <translation>小时</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="431"/>
+        <location filename="../src/utility.cpp" line="480"/>
         <source>hrs</source>
         <translation>小时</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="432"/>
+        <location filename="../src/utility.cpp" line="481"/>
         <source>day</source>
         <translation>天</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="433"/>
+        <location filename="../src/utility.cpp" line="482"/>
         <source>days</source>
         <translation>天</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="434"/>
+        <location filename="../src/utility.cpp" line="483"/>
         <source>wk</source>
         <translation>周</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="435"/>
+        <location filename="../src/utility.cpp" line="484"/>
         <source>wks</source>
         <translation>周</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="436"/>
+        <location filename="../src/utility.cpp" line="485"/>
         <source>mth</source>
         <translation>个月</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="437"/>
+        <location filename="../src/utility.cpp" line="486"/>
         <source>mths</source>
         <translation>个月</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="438"/>
+        <location filename="../src/utility.cpp" line="487"/>
         <source>yr</source>
         <translation>年</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="439"/>
+        <location filename="../src/utility.cpp" line="488"/>
         <source>yrs</source>
         <translation>年</translation>
     </message>

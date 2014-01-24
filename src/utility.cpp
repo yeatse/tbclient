@@ -419,6 +419,55 @@ QString Utility::hasForumName(const QByteArray &link)
     return kw;
 }
 
+QString Utility::emoticonUrl(const QString &name) const
+{
+    QString path = QDir::currentPath().append(QDir::separator());
+
+    if (name.startsWith("image_emoticon") && name.mid(14).toInt() <= 50){
+        return path.append("qml/emo/image_emoticon/").append(name).append(".png");
+    } else if (name.startsWith("write_face_")){
+        int index = name.mid(11).toInt();
+        if (index == 1)
+            return path.append("qml/emo/image_emoticon/image_emoticon.png");
+        else if (index <= 50)
+            return path.append("qml/emo/image_emoticon/image_emoticon").append(QString::number(index)).append(".png");
+    } else if (name.startsWith("ali_") && name.mid(4).toInt() <= 70){
+        return path.append("qml/emo/ali/").append(name).append(".png");
+    } else if (name.startsWith("yz_") && name.mid(3).toInt() <= 46){
+        return path.append("qml/emo/yz/").append(name).append(".png");
+    } else if (name.startsWith("B_") && name.mid(2).toInt() <= 63){
+        return path.append("qml/emo/b/").append(name.toLower()).append(".png");
+    } else if (name.startsWith("b") && name.length() == 3 && name.mid(1).toInt() <= 62){
+        return path.append("qml/emo/b0/").append(name).append(".png");
+    } else if (name.startsWith("t_") && name.mid(2).toInt() <= 40){
+        return path.append("qml/emo/t/").append(name).append(".png");
+    }
+    return QString();
+}
+
+QString Utility::emoticonText(const QString &name)
+{
+    if (m_emo.isEmpty()){
+        initializeEmoticonHash();
+    }
+    return m_emo.value(name);
+}
+
+QStringList Utility::customEmoticonList()
+{
+    if (m_emolist.isEmpty()){
+        QFile file("qml/emo/custom.dat");
+        if (file.open(QIODevice::ReadOnly)){
+            QTextStream out(&file);
+            out.setCodec("UTF-8");
+            QString str = out.readAll();
+            file.close();
+            m_emolist = str.split(",");
+        }
+    }
+    return m_emolist;
+}
+
 // private
 void Utility::initializeLangFormats()
 {
@@ -538,6 +587,51 @@ inline void Utility::q_fromPercentEncoding(QByteArray *ba, char percent)
 
     if (outlen != len)
       ba->truncate(outlen);
+}
+
+void Utility::initializeEmoticonHash()
+{
+    QFile file("qml/emo/emo.dat");
+    if (file.open(QIODevice::ReadOnly)){
+        QTextStream out(&file);
+        out.setCodec("UTF-8");
+        QString text;
+
+        out >> text;
+        m_emo.insert("image_emoticon", text);
+
+        for (int i=2; i<=50; i++){
+            out >> text;
+            m_emo.insert("image_emoticon"+QString::number(i), text);
+        }
+
+        for (int i=1; i<=62; i++){
+            out >> text;
+            m_emo.insert((i<10?"b0":"b")+QString::number(i), text);
+        }
+
+        for (int i=1; i<=70; i++){
+            out >> text;
+            m_emo.insert((i<10?"ali_00":"ali_0")+QString::number(i), text);
+        }
+
+        for (int i=1; i<=40; i++){
+            out >> text;
+            m_emo.insert((i<10?"t_000":"t_00")+QString::number(i), text);
+        }
+
+        for (int i=1; i<=46; i++){
+            out >> text;
+            m_emo.insert((i<10?"yz_00":"yz_0")+QString::number(i), text);
+        }
+
+        for (int i=1; i<=25; i++){
+            out >> text;
+            m_emo.insert((i<10?"B_000":"B_00")+QString::number(i), text);
+        }
+
+        file.close();
+    }
 }
 
 #ifdef Q_OS_SYMBIAN

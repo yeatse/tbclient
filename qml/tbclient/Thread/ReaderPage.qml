@@ -48,6 +48,12 @@ MyPage {
         }
     }
 
+    Rectangle {
+        id: bg;
+        anchors.fill: parent;
+        color: "#F3ECDC";
+    }
+
     ListView {
         id: view;
         anchors { fill: parent; topMargin: viewHeader.height; }
@@ -126,7 +132,6 @@ MyPage {
                         preferredWidth: root.width;
                         preferredHeight: root.height;
                         settings {
-                            autoLoadImages: tbsettings.showImage;
                             defaultFixedFontSize: tbsettings.fontSize;
                             defaultFontSize: tbsettings.fontSize;
                         }
@@ -155,10 +160,13 @@ MyPage {
                                         else res += m.text;
                                         break;
                                     case "Image":
-                                        res += "<img src=\"%1\"/>".arg(m.format);
+                                        if (tbsettings.showImage){
+                                            res += "<img src=\""+m.format+"\"/>";
+                                        } else {
+                                            res += "<a href=\"img:"+m.format+"\">"+m.format+"</a>";
+                                        }
                                         break;
                                     case "Audio":
-                                        //res += "<audio src=\"%1\"></audio>".arg(Utils.getAudioUrl(m.text));
                                         break;
                                     }
                                     res += "<br/>";

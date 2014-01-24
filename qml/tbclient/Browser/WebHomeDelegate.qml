@@ -24,7 +24,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter;
             font: constant.subTitleFont;
             text: root.title;
-            color: constant.colorLight;
+            color: platformStyle.colorNormalLight;
         }
     }
     Rectangle {

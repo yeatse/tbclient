@@ -22,7 +22,7 @@ QtObject {
     property string signature: utility.getValue("signature", "");
     onSignatureChanged: utility.setValue("signature", signature);
 
-    property bool monitorNetworkMode: utility.getValue("monitorNetworkMode", true);
+    property bool monitorNetworkMode: utility.getValue("monitorNetworkMode", false);
     onMonitorNetworkModeChanged: utility.setValue("monitorNetworkMode", monitorNetworkMode);
 
     property string draftBox: utility.getValue("draftBox", "");

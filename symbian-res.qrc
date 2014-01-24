@@ -252,5 +252,7 @@
         <file>qml/tbclient/AboutPage.qml</file>
         <file>qml/tbclient/Dialog/GoodListDialog.qml</file>
         <file>qml/tbclient/Thread/ThreadManageMenu.qml</file>
+        <file>qml/gfx/tbclient.svg</file>
+        <file>qml/tbclient/Dialog/EmoticonSelector.qml</file>
     </qresource>
 </RCC>

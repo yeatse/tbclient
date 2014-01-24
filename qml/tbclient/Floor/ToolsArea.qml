@@ -17,6 +17,17 @@ Item {
     width: screen.width;
     height: toolBarHeight;
 
+    Connections {
+        target: signalCenter;
+        onEmoticonSelected: {
+            if (caller === root){
+                var c = inputArea.cursorPosition;
+                inputArea.text = inputArea.text.substring(0, c)+name+inputArea.text.substring(c);
+                inputArea.cursorPosition = c + name.length;
+            }
+        }
+    }
+
     Item {
         id: inputBar;
         y: root.height;
@@ -47,6 +58,7 @@ Item {
             visible: enabled;
             platformInverted: tbsettings.whiteTheme;
             iconSource: "../../gfx/btn_insert_face"+constant.invertedString+".png";
+            onClicked: signalCenter.createEmoticonDialog(root);
         }
         ToolButtonWithTip {
             id: sendBtn;

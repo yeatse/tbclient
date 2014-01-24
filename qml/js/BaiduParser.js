@@ -25,7 +25,8 @@ var BaiduParser = {
             model.clear();
         list.forEach(function(value){
                          var picUrl = "";
-                         if (tbsettings.showImage
+                         if (value.is_top !== "1"
+                                 && tbsettings.showImage
                                  && tbsettings.showAbstract
                                  && Array.isArray(value.media)){
                              value.media.some(function(media){
@@ -36,7 +37,8 @@ var BaiduParser = {
                                               });
                          }
                          var abst = "";
-                         if (tbsettings.showAbstract
+                         if (value.is_top !== "1"
+                                 && tbsettings.showAbstract
                                  && Array.isArray(value.abstract)){
                              value.abstract.some(function(abstr){
                                                      if (abstr.type === "0"){

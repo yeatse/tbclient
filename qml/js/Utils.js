@@ -33,7 +33,8 @@ function milliSecondsToString(milliseconds) {
 }
 
 function getEmoticon(text, c){
-    return "["+c+"]"
+    var url = utility.emoticonUrl(text);
+    return url ? "<img src=\""+url+"\"/>" : "["+(c||text)+"]";
 }
 
 var TextSlicer = {
