@@ -359,22 +359,32 @@ var BaiduParser = {
     __parseFloorContent:
     function(content){
         var result = "", textFormat = 0;
+        var enrich = function(){
+            if (textFormat == 0){
+                result = result.replace(/\n/g,"<br/>").replace(/</g,"&lt;");
+                textFormat = 1;
+            }
+        }
         var parse = function(c){
             switch(c.type){
             case "0":
-                result += c.text||"";
+                if (textFormat == 0){
+                    result += (c.text||"")
+                } else {
+                    result += (c.text||"").replace(/\n/g,"<br/>").replace(/</g,"&lt;");
+                }
                 break;
             case "1":
                 result += "<a href='link:"+c.link+"'>"+c.text+"</a>";
-                textFormat = 1;
+                enrich();
                 break;
             case "2":
                 result += getEmoticon(c.text, c.c);
-                textFormat = 1;
+                enrich();
                 break;
             case "4":
                 result += "<a href='at:"+c.uid+"'>"+c.text+"</a>";
-                textFormat = 1;
+                enrich();
                 break;
             case "9":
                 result += c.text;
@@ -384,7 +394,6 @@ var BaiduParser = {
             }
         };
         content.forEach(parse);
-        if (textFormat == 1) result = result.replace(/\n/g,"<br/>");
         return [result, textFormat];
     },
 

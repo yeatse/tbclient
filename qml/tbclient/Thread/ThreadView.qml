@@ -2,7 +2,6 @@ import QtQuick 1.1
 import com.nokia.symbian 1.1
 import "../../js/main.js" as Script
 import "../Component"
-import "../Silica"
 
 MyPage {
     id: page;
@@ -226,10 +225,10 @@ MyPage {
 
     title: thread ? thread.title : qsTr("New tab");
 
-    SilicaListView {
+    ListView {
         id: view;
         anchors.fill: parent;
-        cacheBuffer: view.height;
+        pressDelay: 50;
         model: ListModel {}
         delegate: ThreadDelegate {
             onClicked: floor === "1"

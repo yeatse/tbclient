@@ -133,8 +133,6 @@
         <file>qml/gfx/retweet_bg_inverted.png</file>
         <file>qml/gfx/save.svg</file>
         <file>qml/gfx/save_inverted.svg</file>
-        <file>qml/gfx/sheet_header.png</file>
-        <file>qml/gfx/sheet_header_inverted.png</file>
         <file>qml/gfx/splash.jpg</file>
         <file>qml/gfx/switch_windows.svg</file>
         <file>qml/gfx/switch_windows_inverted.svg</file>
@@ -203,7 +201,6 @@
         <file>qml/tbclient/Message/ReplyPage.qml</file>
         <file>qml/tbclient/Post/AttachedArea.qml</file>
         <file>qml/tbclient/Post/ImageArea.qml</file>
-        <file>qml/tbclient/Post/PostHeader.qml</file>
         <file>qml/tbclient/Post/PostPage.js</file>
         <file>qml/tbclient/Post/PostPage.qml</file>
         <file>qml/tbclient/Post/ScribblePage.qml</file>

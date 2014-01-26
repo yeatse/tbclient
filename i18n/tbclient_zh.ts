@@ -281,12 +281,12 @@
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Dialog/EmoticonSelector.qml" line="32"/>
+        <location filename="../qml/tbclient/Dialog/EmoticonSelector.qml" line="63"/>
         <source>Default</source>
         <translation>默认</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Dialog/EmoticonSelector.qml" line="36"/>
+        <location filename="../qml/tbclient/Dialog/EmoticonSelector.qml" line="67"/>
         <source>Emoticon</source>
         <translation>颜文字</translation>
     </message>
@@ -582,6 +582,14 @@
         <location filename="../src/httpuploader.cpp" line="558"/>
         <source>Failed to validate POST fields</source>
         <translation></translation>
+    </message>
+</context>
+<context>
+    <name>ImageArea</name>
+    <message>
+        <location filename="../qml/tbclient/Post/ImageArea.qml" line="26"/>
+        <source>Image size should be no larger than 5M</source>
+        <translation>图片大小应小于5M</translation>
     </message>
 </context>
 <context>
@@ -1836,53 +1844,53 @@
 <context>
     <name>ThreadView</name>
     <message>
-        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="59"/>
+        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="58"/>
         <source>First page now</source>
         <translation>已经是第一页</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="131"/>
+        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="130"/>
         <source>No more posts</source>
         <translation>没有更多贴子</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="146"/>
-        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="154"/>
-        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="181"/>
-        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="210"/>
+        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="145"/>
+        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="153"/>
+        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="180"/>
+        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="209"/>
         <source>Success</source>
         <translation>操作成功</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="191"/>
-        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="219"/>
+        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="190"/>
+        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="218"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="192"/>
+        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="191"/>
         <source>Delete this thread?</source>
         <translation>要删除这条主题吗？</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="193"/>
-        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="221"/>
+        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="192"/>
+        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="220"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="194"/>
-        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="222"/>
+        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="193"/>
+        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="221"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="220"/>
+        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="219"/>
         <source>Delete this post?</source>
         <translation>要删除此回贴吗？</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="227"/>
+        <location filename="../qml/tbclient/Thread/ThreadView.qml" line="226"/>
         <source>New tab</source>
         <translation>新标签</translation>
     </message>
@@ -1890,12 +1898,12 @@
 <context>
     <name>ToolsArea</name>
     <message>
-        <location filename="../qml/tbclient/Floor/ToolsArea.qml" line="37"/>
+        <location filename="../qml/tbclient/Floor/ToolsArea.qml" line="48"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Floor/ToolsArea.qml" line="57"/>
+        <location filename="../qml/tbclient/Floor/ToolsArea.qml" line="69"/>
         <source>Send</source>
         <translation>发送</translation>
     </message>

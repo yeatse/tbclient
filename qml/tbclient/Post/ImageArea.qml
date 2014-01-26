@@ -19,7 +19,13 @@ Item {
             if (urls.length > 0){
                 var newList = [];
                 var urlList = urls.split("\n");
-                imageList.forEach(function(value){newList.push(value)});
+                imageList.forEach(function(value){
+                                      if (utility.fileSize(value) < 0x500000){
+                                          newList.push(value);
+                                      } else {
+                                          signalCenter.showMessage(qsTr("Image size should be no larger than 5M"));
+                                      }
+                                  });
                 urlList = urlList.filter(function(value){return newList.indexOf(value) === -1});
                 imageList = newList.concat(urlList).slice(0,10);
             }

@@ -407,7 +407,7 @@ QString Utility::hasForumName(const QByteArray &link)
     QString kw;
     if (url.host().endsWith("tieba.baidu.com") && url.hasQueryItem("kw")){
         QList<QByteArray> path = url.encodedPath().split('/');
-        if (path.contains("m")){
+        if (path.contains("m") || url.queryItemValue("ie") == "utf-8"){
             kw = url.queryItemValue("kw");
         } else {
             QByteArray ba = url.encodedQueryItemValue("kw");
@@ -421,12 +421,11 @@ QString Utility::hasForumName(const QByteArray &link)
 
 QString Utility::emoticonUrl(const QString &name) const
 {
-    QString path = QDir::currentPath().append(QDir::separator());
+    QString path = QDir::currentPath().append("/");
 
-    if (name.startsWith("image_emoticon") && name.mid(14).toInt() <= 50){
-        return path.append("qml/emo/image_emoticon/").append(name).append(".png");
-    } else if (name.startsWith("write_face_")){
-        int index = name.mid(11).toInt();
+    if (name.startsWith("image_emoticon")||name.startsWith("write_face_")||name.startsWith("image_editoricon")){
+        QRegExp reg("\\d+");
+        int index = reg.indexIn(name) > -1 ? reg.cap().toInt() : 1;
         if (index == 1)
             return path.append("qml/emo/image_emoticon/image_emoticon.png");
         else if (index <= 50)

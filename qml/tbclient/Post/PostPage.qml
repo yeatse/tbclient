@@ -52,10 +52,10 @@ MyPage {
         onTriggered: Post.post();
     }
 
-    PostHeader {
+    ViewHeader {
         id: viewHeader;
         visible: app.inPortrait;
-        text: page.title;
+        title: page.title;
     }
 
     TextField {
