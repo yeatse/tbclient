@@ -108,7 +108,7 @@ CommonDialog {
                             id: icon;
                             anchors.centerIn: parent;
                             asynchronous: true;
-                            source: "file:///"+utility.emoticonUrl(modelData);
+                            source: utility.emoticonUrl(modelData);
                         }
                     }
                 }

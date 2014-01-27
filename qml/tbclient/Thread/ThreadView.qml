@@ -228,7 +228,7 @@ MyPage {
     ListView {
         id: view;
         anchors.fill: parent;
-        pressDelay: 50;
+        cacheBuffer: 600;
         model: ListModel {}
         delegate: ThreadDelegate {
             onClicked: floor === "1"

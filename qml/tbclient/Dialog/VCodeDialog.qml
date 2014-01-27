@@ -38,6 +38,7 @@ CommonDialog {
                     Image {
                         id: pic;
                         cache: false;
+                        asynchronous: true;
                         anchors.fill: parent;
                         smooth: true;
                         source: root.vcodePicUrl;

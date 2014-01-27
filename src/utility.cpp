@@ -421,9 +421,10 @@ QString Utility::hasForumName(const QByteArray &link)
 
 QString Utility::emoticonUrl(const QString &name) const
 {
-    QString path = QDir::currentPath().append("/");
+    QString path("file:///");
+    path.append(QDir::currentPath()).append("/");
 
-    if (name.startsWith("image_emoticon")||name.startsWith("write_face_")||name.startsWith("image_editoricon")){
+    if (name.startsWith("image_emoticon")||name.startsWith("write_face_")||name.startsWith("image_editoricon")||name.startsWith("i_f")){
         QRegExp reg("\\d+");
         int index = reg.indexIn(name) > -1 ? reg.cap().toInt() : 1;
         if (index == 1)

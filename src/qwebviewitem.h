@@ -92,6 +92,7 @@ class QWebViewItem : public QDeclarativeItem
     Q_PROPERTY(QSize contentsSize READ contentsSize NOTIFY contentsSizeChanged)
     Q_PROPERTY(qreal loadProgress READ loadProgress NOTIFY loadProgressChanged)
     Q_PROPERTY(QString title READ title NOTIFY titleChanged)
+    Q_PROPERTY(int defaultFontSize READ defaultFontSize WRITE setDefaultFontSize NOTIFY defaultFontSizeChanged)
 
     Q_PROPERTY(QAction* reload READ reloadAction CONSTANT)
     Q_PROPERTY(QAction* back READ backAction CONSTANT)
@@ -109,6 +110,8 @@ public:
     QString title() const;
     QSize contentsSize() const;
     qreal loadProgress() const;
+    int defaultFontSize() const;
+    void setDefaultFontSize(const int &fontSize);
 
     QAction *reloadAction() const;
     QAction *backAction() const;
@@ -125,6 +128,7 @@ signals:
     void titleChanged();
     void contentsSizeChanged();
     void loadProgressChanged();
+    void defaultFontSizeChanged();
 
     void loadStarted();
     void loadFinished(bool ok);

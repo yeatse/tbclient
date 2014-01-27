@@ -324,6 +324,18 @@ void QWebViewItem::doLoadProgress(int progress)
     emit loadProgressChanged();
 }
 
+int QWebViewItem::defaultFontSize() const
+{
+    return proxy->view()->settings()->fontSize(QWebSettings::DefaultFontSize);
+}
+
+void QWebViewItem::setDefaultFontSize(const int &fontSize)
+{
+    proxy->view()->settings()->setFontSize(QWebSettings::DefaultFontSize, fontSize);
+    proxy->view()->settings()->setFontSize(QWebSettings::DefaultFixedFontSize, fontSize);
+    emit defaultFontSizeChanged();
+}
+
 QAction* QWebViewItem::reloadAction() const
 {
     return proxy->view()->pageAction(QWebPage::Reload);

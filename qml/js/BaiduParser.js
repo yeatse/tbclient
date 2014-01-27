@@ -375,16 +375,16 @@ var BaiduParser = {
                 }
                 break;
             case "1":
-                result += "<a href='link:"+c.link+"'>"+c.text+"</a>";
                 enrich();
+                result += "<a href='link:"+c.link+"'>"+c.text+"</a>";
                 break;
             case "2":
-                result += getEmoticon(c.text, c.c);
                 enrich();
+                result += getEmoticon(c.text, c.c);
                 break;
             case "4":
-                result += "<a href='at:"+c.uid+"'>"+c.text+"</a>";
                 enrich();
+                result += "<a href='at:"+c.uid+"'>"+c.text+"</a>";
                 break;
             case "9":
                 result += c.text;

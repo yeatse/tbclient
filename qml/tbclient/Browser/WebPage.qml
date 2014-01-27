@@ -47,6 +47,7 @@ MyPage {
         id: webView;
         property bool locking: false;
         anchors.fill: parent;
+        defaultFontSize: tbsettings.fontSize;
         onLoadStarted: page.loading = true;
         onLoadFinished: page.loading = false;
         onDownloadStarted: downloadInfo.open();
