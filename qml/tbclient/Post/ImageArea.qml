@@ -20,14 +20,7 @@ Item {
                 var newList = [];
                 var urlList = urls.split("\n");
                 imageList.forEach(function(value){newList.push(value)});
-                urlList = urlList.filter(function(value){
-                                             if (utility.fileSize(value) < 0x500000){
-                                                 return newList.indexOf(value) === -1;
-                                             } else {
-                                                 signalCenter.showMessage(qsTr("Image size should be no larger than 5M"));
-                                                 return false;
-                                             }
-                                         });
+                urlList = urlList.filter(function(value){return newList.indexOf(value) === -1});
                 imageList = newList.concat(urlList).slice(0,10);
             }
         }

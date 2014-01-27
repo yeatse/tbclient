@@ -384,6 +384,62 @@ function uploadImage(caller, filename){
     uploader.send();
 }
 
+function chunkUpload(caller, type, filename, offset){
+    if (uploader.uploadState == 2)
+        uploader.abort();
+    var chunkLength = type === "Image" ? 51200 : 30720;
+    var chunk = utility.chunkFile(filename, offset, chunkLength);
+    var size = utility.fileSize(filename);
+
+    uploader.caller = caller;
+    BaiduConst._client_type = tbsettings.clientType;
+    BaiduConst._phone_newimei = Qt.md5(utility.imei+"0").toUpperCase();
+    BaiduConst.cuid = Qt.md5(utility.imei).toUpperCase();
+    BaiduConst._timestamp = Date.now();
+    BaiduConst._phone_imei = BaiduConst.cuid;
+    BaiduConst._client_id = tbsettings.clientId;
+    var paramArray = [];
+    for (var i in BaiduConst){
+        paramArray.push(i+"="+BaiduConst[i]);
+    }
+    var param = {
+        chunk_md5: utility.fileHash(chunk),
+        chunk_no: Math.floor(offset/chunkLength)+1,
+        total_length: size,
+        length: utility.fileSize(chunk),
+        total_num: Math.ceil(size/chunkLength),
+        offset: offset
+    }
+    if (type === "Image"){
+        param.md5 = utility.fileHash(filename);
+    } else {
+        param.voice_md5 = utility.fileHash(filename);
+    }
+    for (var i in param){
+        paramArray.push(i+"="+param[i]);
+    }
+    paramArray = paramArray.sort();
+    var tmp = decodeURIComponent(paramArray.join(""))+"tiebaclient!!!";
+    var sign = Qt.md5(tmp).toUpperCase();
+    paramArray.push("sign="+sign);
+
+    if (type === "Image"){
+        uploader.open(BaiduApi.C_C_IMG_CHUNKUPLOAD);
+    } else {
+        uploader.open(BaiduApi.C_C_VOICE_UPLOAD);
+    }
+    paramArray.forEach(function(value){
+                           var eq = value.indexOf("=");
+                           uploader.addField(value.substring(0, eq), value.substring(eq+1));
+                       });
+    if (type === "Image"){
+        uploader.addFile("pic_chunk", chunk);
+    } else {
+        uploader.addFile("voice_chunk", chunk);
+    }
+    uploader.send();
+}
+
 function uploadAvatar(caller, filename){
     if (uploader.uploadState == 2)
         uploader.abort();
@@ -405,49 +461,6 @@ function uploadAvatar(caller, filename){
     uploader.send();
 }
 
-function uploadVoice(caller, filename, offset){
-    if (uploader.uploadState == 2)
-        uploader.abort();
-    var chunk = utility.chunkFile(filename, offset);
-    var size = utility.fileSize(filename);
-
-    uploader.caller = caller;
-    BaiduConst._client_type = tbsettings.clientType;
-    BaiduConst._phone_newimei = Qt.md5(utility.imei+"0").toUpperCase();
-    BaiduConst.cuid = Qt.md5(utility.imei).toUpperCase();
-    BaiduConst._timestamp = Date.now();
-    BaiduConst._phone_imei = BaiduConst.cuid;
-    BaiduConst._client_id = tbsettings.clientId;
-    var paramArray = [];
-    for (var i in BaiduConst){
-        paramArray.push(i+"="+BaiduConst[i]);
-    }
-    var param = {
-        chunk_md5: utility.fileHash(chunk),
-        chunk_no: Math.floor(offset/30720)+1,
-        total_length: size,
-        length: utility.fileSize(chunk),
-        voice_md5: utility.fileHash(filename),
-        total_num: Math.ceil(size/30720),
-        offset: offset
-    }
-    for (var i in param){
-        paramArray.push(i+"="+param[i]);
-    }
-    paramArray = paramArray.sort();
-    var tmp = decodeURIComponent(paramArray.join(""))+"tiebaclient!!!";
-    var sign = Qt.md5(tmp).toUpperCase();
-    paramArray.push("sign="+sign);
-
-    uploader.open(BaiduApi.C_C_VOICE_UPLOAD);
-    paramArray.forEach(function(value){
-                           var eq = value.indexOf("=");
-                           uploader.addField(value.substring(0, eq), value.substring(eq+1));
-                       });
-    uploader.addFile("voice_chunk", chunk);
-    uploader.send();
-}
-
 function uploadStateChanged(){
     if (uploader.uploadState == 3){
         signalCenter.showMessage(qsTr("Operation canceled"));
@@ -464,6 +477,13 @@ function uploadStateChanged(){
 function voiceFinChunkUpload(option, onSuccess, onFailed){
     var req = new BaiduRequest(BaiduApi.C_C_VOICE_FINUPLOAD);
     var param = { voice_md5: option.voiceMd5 }
+    req.signForm(param);
+    req.sendRequest(onSuccess, onFailed);
+}
+
+function imageFinChunkUpload(option, onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_C_IMG_FINUPLOAD);
+    var param = { pic_type: 0, md5: option.md5 }
     req.signForm(param);
     req.sendRequest(onSuccess, onFailed);
 }

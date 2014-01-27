@@ -1,9 +1,10 @@
-var imageCursor = 0;
-var imageInfoList = []; //id, width, height
+var imageCursor = 0;    // index of current image
+var imageInfoList = []; // id, width, height
 
 var voiceUploaded = false;
-var voiceOffset = 0;
 var voiceMd5 = "";
+
+var chunkFileOffset = 0;
 
 function post(vcode, vcodeMd5){
     if (isReply){
@@ -19,11 +20,20 @@ function post(vcode, vcodeMd5){
     }
 
     if (imageCursor < attachedArea.imageList.length){
-        Script.uploadImage(page, attachedArea.imageList[imageCursor]);
+        var fn = attachedArea.imageList[imageCursor];
+        if (utility.fileSize(fn) >= 0x160000){
+            fn = utility.resizeImage(fn);
+        }
+        if (fn !== ""){
+            Script.uploadImage(page, fn);
+        } else {
+            imageCursor ++;
+            postTimer.start();
+        }
         return;
     }
-    if (!voiceUploaded && voiceOffset < utility.fileSize(attachedArea.audioFile)){
-        Script.uploadVoice(page, attachedArea.audioFile, voiceOffset);
+    if (!voiceUploaded && attachedArea.audioFile != ""){
+        Script.chunkUpload(page, "Voice", attachedArea.audioFile, chunkFileOffset);
         return;
     }
     var content = contentArea.text;
@@ -106,36 +116,49 @@ function isVoiceUpload(){
 }
 
 function uploadFailed(){
-    if (isVoiceUpload) voiceUploaded = true;
-    else imageCursor ++;
+    if (isVoiceUpload())
+        voiceUploaded = true;
+    else
+        imageCursor ++;
+    chunkFileOffset = 0;
     postTimer.start();
 }
 
 function uploadFinished(response){
-    if (isVoiceUpload()){
-        var obj = JSON.parse(response);
-        if (obj.error && obj.error.errno != "0"){
+    var isVoice = isVoiceUpload();
+    var obj = JSON.parse(response);
+    var offset, length, opt, s, f = function(err){
+        console.log(err); postTimer.start();
+    }
+
+    if (obj.error && obj.error.errno != "0"){
+        if (isVoice) voiceUploaded = true;
+        else imageCursor ++;;
+        chunkFileOffset = 0;
+
+        postTimer.start();
+        return;
+    }
+
+    if (isVoice){
+        offset = Number(obj.chunk_offset);
+        length = Number(obj.chunk_length);
+        if (offset + length >= Number(obj.total_length)){
             voiceUploaded = true;
-            postTimer.start();
-            return;
-        }
-        var offset = Number(obj.chunk_offset);
-        var length = Number(obj.chunk_length);
-        if (offset+length >= Number(obj.total_length)){
-            voiceUploaded = true;
-            var opt = { voiceMd5: obj.total_file_md5 }
-            var s = function(obj){
-                if (obj.error && obj.error.errno != "0"){
-                    console.log(JSON.stringify(obj));
-                } else {
-                    voiceMd5 = obj.info.voice_md5;
-                }
-                postTimer.start();
-            }
-            var f = function(err){ console.log(err); postTimer.start(); }
+            chunkFileOffset = 0;
+
+            opt = { voiceMd5: obj.total_file_md5 }
+            s = function(obj){
+                        if (obj.error && obj.error.errno != "0"){
+                            console.log(JSON.stringify(obj));
+                        } else {
+                            voiceMd5 = obj.info.voice_md5;
+                        }
+                        postTimer.start();
+                    }
             Script.voiceFinChunkUpload(opt, s, f);
         } else {
-            voiceOffset = offset + length;
+            chunkFileOffset = offset + length;
             postTimer.start();
         }
     } else {
@@ -143,5 +166,28 @@ function uploadFinished(response){
         var info = JSON.parse(response).info;
         imageInfoList.push({id: info.pic_id, width: info.width, height: info.height});
         postTimer.start();
+//        offset = chunkFileOffset;
+//        length = 51200;
+//        var fn = attachedArea.imageList[imageCursor];
+
+//        if (offset + length >= utility.fileSize(fn)){
+//            imageCursor ++;
+//            chunkFileOffset = 0;
+
+//            opt = { md5: utility.fileHash(fn) }
+//            s = function(obj){
+//                        if (obj.error && obj.error.errno != "0"){
+//                            console.log(JSON.stringify(obj));
+//                        } else {
+//                            var info = obj.info;
+//                            imageInfoList.push({id: info.pic_id, width: info.width, height: info.height});
+//                        }
+//                        postTimer.start();
+//                    }
+//            Script.imageFinChunkUpload(opt, s, f);
+//        } else {
+//            chunkFileOffset = offset + length;
+//            postTimer.start();
+//        }
     }
 }

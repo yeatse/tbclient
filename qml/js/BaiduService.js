@@ -59,6 +59,8 @@ var BaiduApi = {
     C_C_FORUM_LIKE: HOST + "/c/c/forum/like",
     C_C_FORUM_UNFAVOLIKE: HOST + "/c/c/forum/unfavolike",
     C_C_IMG_UPLOAD: HOST + "/c/c/img/upload",
+    C_C_IMG_CHUNKUPLOAD: HOST + "/c/c/img/chunkupload",
+    C_C_IMG_FINUPLOAD: HOST + "/c/c/img/finupload",
     C_C_VOICE_UPLOAD: HOST + "/c/c/voice/chunkupload",
     C_C_VOICE_FINUPLOAD: HOST + "/c/c/voice/voice_fin_chunk_upload",
     C_C_USER_UNFOLLOW: HOST + "/c/c/user/unfollow",

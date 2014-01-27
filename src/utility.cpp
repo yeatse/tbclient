@@ -355,6 +355,24 @@ QString Utility::cutImage(const QString &filename, double scale, int x, int y, i
     }
 }
 
+QString Utility::resizeImage(const QString &filename)
+{
+    QImage image(filename);
+    if (image.isNull())
+        return QString();
+    if (image.width() > 1600){
+        image = image.scaledToWidth(1600);
+    } else if (image.height() > 1600){
+        image = image.scaledToHeight(1600);
+    }
+    QString result = tempPath() + QDir::separator() + "upload_temp.jpg";
+    if (image.save(result)){
+        return result;
+    } else {
+        return QString();
+    }
+}
+
 QString Utility::easyDate(const QDateTime &date)
 {
     if (formats.length() == 0) initializeLangFormats();
