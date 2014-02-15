@@ -475,7 +475,7 @@
         <translation>刷新</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Forum/ForumPage.qml" line="214"/>
+        <location filename="../qml/tbclient/Forum/ForumPage.qml" line="227"/>
         <source>Create a thread</source>
         <translation>发表主题</translation>
     </message>
@@ -496,8 +496,8 @@
     </message>
     <message>
         <location filename="../qml/tbclient/Forum/ForumPage.qml" line="190"/>
-        <location filename="../qml/tbclient/Forum/ForumPage.qml" line="229"/>
-        <location filename="../qml/tbclient/Forum/ForumPage.qml" line="247"/>
+        <location filename="../qml/tbclient/Forum/ForumPage.qml" line="242"/>
+        <location filename="../qml/tbclient/Forum/ForumPage.qml" line="260"/>
         <source>Boutique</source>
         <translation>精品区</translation>
     </message>
@@ -508,6 +508,11 @@
     </message>
     <message>
         <location filename="../qml/tbclient/Forum/ForumPage.qml" line="209"/>
+        <source>Forum manage</source>
+        <translation>吧务管理(需在浏览器登录)</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/Forum/ForumPage.qml" line="222"/>
         <source>Jump to page</source>
         <translation>跳页</translation>
     </message>
@@ -587,9 +592,8 @@
 <context>
     <name>ImageArea</name>
     <message>
-        <location filename="../qml/tbclient/Post/ImageArea.qml" line="26"/>
         <source>Image size should be no larger than 5M</source>
-        <translation>图片大小应小于5M</translation>
+        <translation type="obsolete">图片大小应小于5M</translation>
     </message>
 </context>
 <context>
@@ -873,17 +877,16 @@
 <context>
     <name>NewVCodeDialog</name>
     <message>
-        <location filename="../qml/tbclient/Dialog/NewVCodeDialog.qml" line="16"/>
         <source>Please enter verify code:</source>
-        <translation>请输入验证码：</translation>
+        <translation type="obsolete">请输入验证码：</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Dialog/NewVCodeDialog.qml" line="17"/>
+        <location filename="../qml/tbclient/Dialog/NewVCodeDialog.qml" line="19"/>
         <source>Continue</source>
         <translation>继续</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Dialog/NewVCodeDialog.qml" line="17"/>
+        <location filename="../qml/tbclient/Dialog/NewVCodeDialog.qml" line="20"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -957,18 +960,18 @@
         <translation>发送</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Post/PostPage.js" line="11"/>
+        <location filename="../qml/tbclient/Post/PostPage.js" line="12"/>
         <source>Content required</source>
         <translation>请输入回复内容</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Post/PostPage.js" line="16"/>
+        <location filename="../qml/tbclient/Post/PostPage.js" line="17"/>
         <source>Illegal title</source>
         <translation>标题字数不符合要求</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Post/PostPage.js" line="61"/>
-        <location filename="../qml/tbclient/Post/PostPage.js" line="95"/>
+        <location filename="../qml/tbclient/Post/PostPage.js" line="71"/>
+        <location filename="../qml/tbclient/Post/PostPage.js" line="105"/>
         <source>Success</source>
         <translation>发送成功</translation>
     </message>
@@ -1528,12 +1531,22 @@
         <translation>签名</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/SettingsPage.qml" line="194"/>
-        <source>Clear cache and cookies</source>
-        <translation>清空缓存和Cookies</translation>
+        <location filename="../qml/tbclient/SettingsPage.qml" line="189"/>
+        <source>Clear cache</source>
+        <translation>清空缓存</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/SettingsPage.qml" line="198"/>
+        <location filename="../qml/tbclient/SettingsPage.qml" line="200"/>
+        <source>Clear cookies</source>
+        <translation>清空Cookies</translation>
+    </message>
+    <message>
+        <source>Clear cache and cookies</source>
+        <translation type="obsolete">清空缓存和Cookies</translation>
+    </message>
+    <message>
+        <location filename="../qml/tbclient/SettingsPage.qml" line="193"/>
+        <location filename="../qml/tbclient/SettingsPage.qml" line="203"/>
         <source>Operation completed</source>
         <translation>操作完成</translation>
     </message>
@@ -1911,83 +1924,83 @@
 <context>
     <name>Utility</name>
     <message>
-        <location filename="../src/utility.cpp" line="380"/>
+        <location filename="../src/utility.cpp" line="398"/>
         <source>%1 %2 %3</source>
         <comment>e.g. %1 is number value such as 2, %2 is mins, %3 is ago</comment>
         <translation>%1%2%3</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="474"/>
+        <location filename="../src/utility.cpp" line="492"/>
         <source>ago</source>
         <translation>前</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="475"/>
+        <location filename="../src/utility.cpp" line="493"/>
         <source>From Now</source>
         <translation>后</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="476"/>
+        <location filename="../src/utility.cpp" line="494"/>
         <source>just now</source>
         <translation>1分钟前</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="477"/>
+        <location filename="../src/utility.cpp" line="495"/>
         <source>min</source>
         <translation>分钟</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="478"/>
+        <location filename="../src/utility.cpp" line="496"/>
         <source>mins</source>
         <translation>分钟</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="479"/>
+        <location filename="../src/utility.cpp" line="497"/>
         <source>hr</source>
         <translation>小时</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="480"/>
+        <location filename="../src/utility.cpp" line="498"/>
         <source>hrs</source>
         <translation>小时</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="481"/>
+        <location filename="../src/utility.cpp" line="499"/>
         <source>day</source>
         <translation>天</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="482"/>
+        <location filename="../src/utility.cpp" line="500"/>
         <source>days</source>
         <translation>天</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="483"/>
+        <location filename="../src/utility.cpp" line="501"/>
         <source>wk</source>
         <translation>周</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="484"/>
+        <location filename="../src/utility.cpp" line="502"/>
         <source>wks</source>
         <translation>周</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="485"/>
+        <location filename="../src/utility.cpp" line="503"/>
         <source>mth</source>
         <translation>个月</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="486"/>
+        <location filename="../src/utility.cpp" line="504"/>
         <source>mths</source>
         <translation>个月</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="487"/>
+        <location filename="../src/utility.cpp" line="505"/>
         <source>yr</source>
         <translation>年</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="488"/>
+        <location filename="../src/utility.cpp" line="506"/>
         <source>yrs</source>
         <translation>年</translation>
     </message>
@@ -2015,7 +2028,7 @@
         <translation>请输入图片中的字符</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Dialog/VCodeDialog.qml" line="62"/>
+        <location filename="../qml/tbclient/Dialog/VCodeDialog.qml" line="63"/>
         <source>Input verify code</source>
         <translation>输入验证码</translation>
     </message>
@@ -2175,12 +2188,12 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../qml/js/main.js" line="453"/>
+        <location filename="../qml/js/main.js" line="466"/>
         <source>Operation canceled</source>
         <translation>操作已取消</translation>
     </message>
     <message>
-        <location filename="../qml/js/main.js" line="922"/>
+        <location filename="../qml/js/main.js" line="942"/>
         <source>Success</source>
         <translation>操作成功</translation>
     </message>

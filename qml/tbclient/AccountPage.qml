@@ -40,7 +40,7 @@ MyPage {
             if (Script.checkAuthData(model.id)){
                 Script.BaiduRequest.intercomm();
                 tbsettings.currentUid = model.id;
-                signalCenter.clearLocalCache();
+                signalCenter.clearLocalCache(true);
                 signalCenter.userChanged();
             } else {
                 removeAccount(index);
@@ -66,7 +66,7 @@ MyPage {
             pageStack.pop(mainPage, true);
             tbsettings.currentUid = "";
             signalCenter.userLogout();
-            signalCenter.clearLocalCache();
+            signalCenter.clearLocalCache(true);
             signalCenter.needAuthorization(true);
         }
     }

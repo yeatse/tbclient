@@ -182,21 +182,25 @@ MyPage {
                     }
                 }
             }
-            Item {
-                anchors {
-                    left: parent.left; right: parent.right; margins: constant.graphicSizeMedium;
+            Item { width: 1; height: constant.paddingLarge; }
+            Button {
+                platformInverted: tbsettings.whiteTheme;
+                anchors { left: parent.left; right: parent.right; margins: constant.paddingLarge*2; }
+                text: qsTr("Clear cache");
+                onClicked: {
+                    utility.clearCache();
+                    signalCenter.clearLocalCache();
+                    signalCenter.showMessage(qsTr("Operation completed"));
                 }
-                height: constant.graphicSizeLarge;
-                Button {
-                    platformInverted: tbsettings.whiteTheme;
-                    anchors.verticalCenter: parent.verticalCenter;
-                    width: parent.width;
-                    text: qsTr("Clear cache and cookies");
-                    onClicked: {
-                        utility.clearCache();
-                        signalCenter.clearLocalCache();
-                        signalCenter.showMessage(qsTr("Operation completed"));
-                    }
+            }
+            Item { width: 1; height: constant.paddingLarge; }
+            Button {
+                platformInverted: tbsettings.whiteTheme;
+                anchors { left: parent.left; right: parent.right; margins: constant.paddingLarge*2; }
+                text: qsTr("Clear cookies");
+                onClicked: {
+                    utility.clearCookies();
+                    signalCenter.showMessage(qsTr("Operation completed"));
                 }
             }
         }

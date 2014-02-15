@@ -251,5 +251,6 @@
         <file>qml/tbclient/Thread/ThreadManageMenu.qml</file>
         <file>qml/gfx/tbclient.svg</file>
         <file>qml/tbclient/Dialog/EmoticonSelector.qml</file>
+        <file>qml/tbclient/Component/Sheet.qml</file>
     </qresource>
 </RCC>

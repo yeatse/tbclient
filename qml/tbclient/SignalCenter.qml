@@ -40,10 +40,10 @@ QtObject {
         LinkDecoder.linkActivated(link);
     }
 
-    function clearLocalCache(){
+    function clearLocalCache(cookie){
         mainPage.forceRefresh = true;
         utility.clearUserData();
-        utility.clearCookies();
+        if (cookie) utility.clearCookies();
     }
 
     // Dialogs

@@ -1,7 +1,7 @@
 TEMPLATE = app
 TARGET = tbclient
 
-VERSION = 2.1.1
+VERSION = 2.1.2
 DEFINES += VER=\\\"$$VERSION\\\"
 
 QT += network webkit

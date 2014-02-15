@@ -53,7 +53,7 @@ QNetworkReply *TBNetworkAccessManager::createRequest(Operation op, const QNetwor
     if (op == PostOperation){
         req.setRawHeader("User-Agent", "IDP");
     } else {
-        req.setRawHeader("User-Agent", "Mozilla/5.0 (iPod; CPU iPhone OS 6_1_3 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10B329");
+        req.setRawHeader("User-Agent", "Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_4 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11B554a Safari/9537.53");
     }
     QByteArray urldata = req.url().toString().toAscii();
     // convert unsupported image url

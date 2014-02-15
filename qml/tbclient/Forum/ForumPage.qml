@@ -206,6 +206,19 @@ MyPage {
                                                  {name: internal.getName()});
                 }
                 MenuItem {
+                    text: qsTr("Forum manage");
+                    visible: internal.user.is_manager === "1"
+                    onClicked: {
+                        var url = "http://tieba.baidu.com/mo/q/bawuindex";
+                        url+="?fn="+internal.forum.name;
+                        url+="&fid="+internal.forum.id;
+                        url+="&cuid="+Qt.md5(utility.imei).toUpperCase()+"|"+utility.imei;
+                        url+="&timestamp="+Date.now();
+                        url+="&_client_version=5.5.2";
+                        signalCenter.openBrowser(url);
+                    }
+                }
+                MenuItem {
                     text: qsTr("Jump to page");
                     enabled: menu.menuEnabled;
                     onClicked: internal.jumpToPage();
