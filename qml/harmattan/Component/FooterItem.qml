@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 
 Item {
     id: root;
@@ -7,7 +7,7 @@ Item {
     property alias text: button.text;
     signal clicked;
 
-    width: screen.width;
+    width: page.width;
     height: visible ? constant.graphicSizeLarge : 0;
 
     Button {
@@ -16,7 +16,6 @@ Item {
             left: parent.left; right: parent.right; margins: constant.paddingLarge;
             verticalCenter: parent.verticalCenter;
         }
-        platformInverted: tbsettings.whiteTheme;
         text: qsTr("Load More");
         onClicked: root.clicked();
     }

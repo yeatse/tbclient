@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 import com.yeatse.tbclient 1.0
 import "../../js/Utils.js" as Utils
 
@@ -14,12 +14,6 @@ Item {
 
     width: parent.width; height: parent.height;
 
-    BorderImage {
-        anchors.fill: parent;
-        source: privateStyle.imagePath("qtg_fr_list_heading_normal", tbsettings.whiteTheme);
-        border { left: 28; top: 5; right: 28; bottom: 0 }
-    }
-
     Image {
         id: icon;
         anchors.centerIn: parent;
@@ -29,12 +23,12 @@ Item {
         source: "../../gfx/but_posts_record_%1_%2.png".arg(mode).arg(stateString);
     }
 
-    ToolButton {
+    Button {
         id: deleteBtn;
         visible: false;
         anchors { left: icon.right; bottom: icon.bottom; bottomMargin: -constant.paddingMedium; }
-        iconSource: "toolbar-delete";
-        platformInverted: tbsettings.whiteTheme;
+        iconSource: "image://theme/icon-m-toolbar-delete"+(theme.inverted?"-white":"");
+        platformStyle: ButtonStyle { buttonWidth: buttonHeight; }
         onClicked: {
             audioWrapper.stop();
             audioUrl = "";

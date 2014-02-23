@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 import "../Component"
 import "../Silica"
 import "../../js/main.js" as Script
@@ -16,19 +16,16 @@ MyPage {
 
     tools: ToolBarLayout {
         BackButton {}
-        ToolButtonWithTip {
-            toolTipText: qsTr("Refresh");
-            iconSource: "toolbar-refresh";
+        ToolIcon {
+            platformIconId: "toolbar-refresh";
             onClicked: internal.getlist();
         }
-        ToolButtonWithTip {
-            toolTipText: qsTr("Opened tabs");
-            iconSource: "../../gfx/switch_windows"+constant.invertedString+".svg"
+        ToolIcon {
+            platformIconId: "toolbar-grid"
             onClicked: signalCenter.enterThread();
         }
-        ToolButtonWithTip {
-            toolTipText: qsTr("Menu");
-            iconSource: "toolbar-menu";
+        ToolIcon {
+            platformIconId: "toolbar-view-menu";
             onClicked: internal.openMenu();
         }
     }
@@ -71,7 +68,8 @@ MyPage {
                 forum.good_classify.forEach(function(value){
                                                 var prop = {
                                                     "class_id": value.class_id,
-                                                    "modelData": value.class_name
+                                                    "modelData": value.class_name,
+                                                    "name": value.class_name
                                                 };
                                                 goodSelector.model.append(prop);
                                             });
@@ -206,6 +204,19 @@ MyPage {
                                                  {name: internal.getName()});
                 }
                 MenuItem {
+                    text: qsTr("Forum manage");
+                    visible: internal.user.is_manager === "1"
+                    onClicked: {
+                        var url = "http://tieba.baidu.com/mo/q/bawuindex";
+                        url+="?fn="+internal.forum.name;
+                        url+="&fid="+internal.forum.id;
+                        url+="&cuid="+Qt.md5(utility.imei).toUpperCase()+"|"+utility.imei;
+                        url+="&timestamp="+Date.now();
+                        url+="&_client_version=5.5.2";
+                        signalCenter.openBrowser(url);
+                    }
+                }
+                MenuItem {
                     text: qsTr("Jump to page");
                     enabled: menu.menuEnabled;
                     onClicked: internal.jumpToPage();
@@ -250,12 +261,12 @@ MyPage {
             }
         }
         onClicked: view.scrollToTop();
-        ToolButton {
+        ToolIcon {
             anchors {
                 right: parent.right; rightMargin: constant.paddingMedium;
                 verticalCenter: parent.verticalCenter;
             }
-            iconSource: privateStyle.imagePath("qtg_graf_choice_list_indicator");
+            iconSource: "image://theme/icon-m-common-filter";
             visible: internal.isGood && internal.forum.good_classify.length > 0;
             onClicked: internal.selectGood();
         }
@@ -265,6 +276,8 @@ MyPage {
         id: view;
         anchors { fill: parent; topMargin: viewHeader.height; }
         cacheBuffer: 7200;
+        pressDelay: 150;
+        spacing: -8;
         model: ListModel {}
         header: ForumHeader {
             PullToActivate {
@@ -289,31 +302,5 @@ MyPage {
 
     ScrollDecorator {
         flickableItem: view;
-        platformInverted: tbsettings.whiteTheme;
-    }
-
-
-    // For keypad
-    Connections {
-        target: platformPopupManager;
-        onPopupStackDepthChanged: {
-            if (platformPopupManager.popupStackDepth === 0
-                    && page.status === PageStatus.Active){
-                view.forceActiveFocus();
-            }
-        }
-    }
-    onStatusChanged: {
-        if (status === PageStatus.Active){
-            view.forceActiveFocus();
-        }
-    }
-
-    Keys.onPressed: {
-        switch (event.key){
-        case Qt.Key_M: internal.openMenu(); event.accepted = true; break;
-        case Qt.Key_R: internal.getlist(); event.accepted = true; break;
-        case Qt.Key_Right: signalCenter.enterThread(); event.accepted = true; break;
-        }
     }
 }

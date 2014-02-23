@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 
 Item {
     id: root;
@@ -7,39 +7,30 @@ Item {
     property alias imageList: imageArea.imageList;
     property alias audioFile: voiceArea.audioUrl;
     property alias audioDuration: voiceArea.duration;
-    
-    anchors.bottom: parent.bottom;
-    width: screen.width;
-    height: screen.height < 480 ? 120 : 200;
+
+    width: parent.width;
+    height: 0;
     
     ImageArea {
         id: imageArea;
-        y: root.height;
-        opacity: 0;
+        visible: false;
     }
 
     VoiceArea {
         id: voiceArea;
-        y: root.height;
-        opacity: 0;
+        visible: false;
     }
     
     states: [
         State {
             name: "Image";
-            PropertyChanges { target: app; showToolBar: false; }
-            PropertyChanges { target: imageArea; y: 0; opacity: 1; }
+            PropertyChanges { target: root; height: 240; }
+            PropertyChanges { target: imageArea; visible: true; }
         },
         State {
             name: "Voice";
-            PropertyChanges { target: app; showToolBar: false; }
-            PropertyChanges { target: voiceArea; y: 0; opacity: 1; }
-        }
-    ]
-    
-    transitions: [
-        Transition {
-            PropertyAnimation { properties: "y,opacity"; }
+            PropertyChanges { target: root; height: 240; }
+            PropertyChanges { target: voiceArea; visible: true; }
         }
     ]
 

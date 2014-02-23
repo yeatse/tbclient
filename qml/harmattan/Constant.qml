@@ -1,41 +1,36 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 
 QtObject {
     id: constant;
 
     // color
-    property color colorLight: tbsettings.whiteTheme ? platformStyle.colorNormalLightInverted
-                                                     : platformStyle.colorNormalLight;
-    property color colorMid: tbsettings.whiteTheme ? platformStyle.colorNormalMidInverted
-                                                   : platformStyle.colorNormalMid;
-    property color colorMarginLine: tbsettings.whiteTheme ? platformStyle.colorDisabledLightInverted
-                                                          : platformStyle.colorDisabledMid;
-    property color colorTextSelection: tbsettings.whiteTheme ? platformStyle.colorTextSelection
-                                                             : platformStyle.colorTextSelectionInverted;
-    property color colorDisabled: tbsettings.whiteTheme ? platformStyle.colorDisabledMid
-                                                        : platformStyle.colorDisabledMidInverted;
+    property color colorLight: tbsettings.whiteTheme ? "#191919" : "#ffffff";
+    property color colorMid: tbsettings.whiteTheme ? "#505050" : "#d2d2d2";
+    property color colorMarginLine: tbsettings.whiteTheme ? "#a9a9a9" : "#444444";
+    property color colorTextSelection: tbsettings.whiteTheme ? "#4591ff" : "#0072b2";
+    property color colorDisabled: tbsettings.whiteTheme ? "#b2b2b4" : "#7f7f7f";
 
     // padding size
-    property int paddingSmall: platformStyle.paddingSmall
-    property int paddingMedium: platformStyle.paddingMedium
-    property int paddingLarge: platformStyle.paddingLarge
-    property int paddingXLarge: platformStyle.paddingLarge + platformStyle.paddingSmall
+    property int paddingSmall: 4;
+    property int paddingMedium: 6;
+    property int paddingLarge: 12;
+    property int paddingXLarge: 24;
 
     // graphic size
-    property int graphicSizeTiny: platformStyle.graphicSizeTiny
-    property int graphicSizeSmall: platformStyle.graphicSizeSmall
-    property int graphicSizeMedium: platformStyle.graphicSizeMedium
-    property int graphicSizeLarge: platformStyle.graphicSizeLarge
-    property int thumbnailSize: platformStyle.graphicSizeLarge * 1.5
+    property int graphicSizeTiny: 32;
+    property int graphicSizeSmall: 48;
+    property int graphicSizeMedium: 64;
+    property int graphicSizeLarge: 80;
+    property int thumbnailSize: 120;
 
     // font size
-    property int fontXSmall: platformStyle.fontSizeSmall - 2
-    property int fontSmall: platformStyle.fontSizeSmall
-    property int fontMedium: platformStyle.fontSizeMedium
-    property int fontLarge: platformStyle.fontSizeLarge
-    property int fontXLarge: platformStyle.fontSizeLarge + 2
-    property int fontXXLarge: platformStyle.fontSizeLarge + 4
+    property int fontXSmall: 16;
+    property int fontSmall: 22;
+    property int fontMedium: 24;
+    property int fontLarge: 26;
+    property int fontXLarge: 28;
+    property int fontXXLarge: 32;
     property variant subTitleFont: __subTitleText.font;
     property variant labelFont: __label.font;
     property variant titleFont: __titleText.font;
@@ -45,12 +40,21 @@ QtObject {
     property variant sizeMedium: Qt.size(graphicSizeMedium, graphicSizeMedium);
 
     // others
-    property int headerHeight: app.inPortrait ? privateStyle.tabBarHeightPortrait
-                                              : privateStyle.tabBarHeightLandscape;
-    property string invertedString: tbsettings.whiteTheme ? "_inverted" : "";
+    property int headerHeight: app.inPortrait ? 72 : 46;
+    property string invertedString: tbsettings.whiteTheme ? ".png" : "_1.png";
 
     // private
-    property ListItemText __titleText: ListItemText {}
-    property ListItemText __subTitleText: ListItemText { role: "SubTitle"; }
-    property Label __label: Label {}
+    property Text __titleText: Text {
+        font.pixelSize: fontLarge;
+        font.family: "Nokia Pure Text";
+    }
+    property Text __subTitleText: Text {
+        font.pixelSize: fontSmall;
+        font.family: "Nokia Pure Text";
+        font.weight: Font.Light;
+    }
+    property Text __label: Text {
+        font.pixelSize: fontMedium;
+        font.family: "Nokia Pure Text";
+    }
 }

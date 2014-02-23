@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 import "Component"
 import "../js/main.js" as Script
 
@@ -10,7 +10,7 @@ MyPage {
 
     tools: ToolBarLayout {
         BackButton {}
-        ToolButtonWithTip {
+        ToolIcon {
             toolTipText: internal.isEdit ? qsTr("OK") : qsTr("Edit");
             iconSource: "../gfx/"+(internal.isEdit?"ok":"edit")+constant.invertedString+".svg";
             onClicked: internal.isEdit = !internal.isEdit;
@@ -40,7 +40,7 @@ MyPage {
             if (Script.checkAuthData(model.id)){
                 Script.BaiduRequest.intercomm();
                 tbsettings.currentUid = model.id;
-                signalCenter.clearLocalCache();
+                signalCenter.clearLocalCache(true);
                 signalCenter.userChanged();
             } else {
                 removeAccount(index);
@@ -66,7 +66,7 @@ MyPage {
             pageStack.pop(mainPage, true);
             tbsettings.currentUid = "";
             signalCenter.userLogout();
-            signalCenter.clearLocalCache();
+            signalCenter.clearLocalCache(true);
             signalCenter.needAuthorization(true);
         }
     }

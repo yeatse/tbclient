@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 import "Component"
 import "Silica"
 import "../js/main.js" as Script
@@ -14,31 +14,12 @@ MyPage {
     title: qsTr("My tieba");
 
     tools: ToolBarLayout {
-        ToolButtonWithTip {
-            id: quitButton;
-            toolTipText: qsTr("Quit");
-            iconSource: "toolbar-back";
-            onClicked: {
-                if (quitTimer.running){
-                    Qt.quit();
-                } else {
-                    quitTimer.start();
-                    signalCenter.showMessage(qsTr("Press again to quit"));
-                }
-            }
-            Timer {
-                id: quitTimer;
-                interval: infoBanner.timeout;
-            }
-        }
-        ToolButtonWithTip {
-            toolTipText: qsTr("Home page");
-            iconSource: "toolbar-home";
+        ToolIcon {
+            platformIconId: "toolbar-home";
             onClicked: pageStack.push(Qt.resolvedUrl("Explore/FeedPage.qml"));
         }
-        ToolButtonWithTip {
-            toolTipText: qsTr("Messages");
-            iconSource: "../gfx/messaging"+constant.invertedString+".svg"
+        ToolIcon {
+            platformIconId: "toolbar-new-message";
             onClicked: pageStack.push(Qt.resolvedUrl("Message/MessagePage.qml"))
             Bubble {
                 anchors.verticalCenter: parent.top;
@@ -53,9 +34,8 @@ MyPage {
                 visible: text != "";
             }
         }
-        ToolButtonWithTip {
-            toolTipText: qsTr("User center");
-            iconSource: "../gfx/contacts"+constant.invertedString+".svg"
+        ToolIcon {
+            platformIconId: "toolbar-contact";
             onClicked: pageStack.push(Qt.resolvedUrl("ProfilePage.qml"), { uid: tbsettings.currentUid })
             Bubble {
                 anchors.verticalCenter: parent.top;
@@ -69,9 +49,8 @@ MyPage {
                 visible: text != "";
             }
         }
-        ToolButtonWithTip {
-            toolTipText: qsTr("More");
-            iconSource: "../gfx/toolbar_extension"+constant.invertedString+".svg"
+        ToolIcon {
+            platformIconId: "toolbar-view-menu";
             onClicked: pageStack.push(Qt.resolvedUrl("MorePage.qml"));
         }
     }
@@ -132,7 +111,7 @@ MyPage {
             } else {
                 color = "yellow";
             }
-            return "../gfx/icon_grade_"+color + constant.invertedString+".png";
+            return "../gfx/icon_grade_".concat(color, constant.invertedString);
         }
     }
 
@@ -140,27 +119,32 @@ MyPage {
         id: viewHeader;
         title: page.title;
         onClicked: view.scrollToTop();
-        ToolButton {
+        ToolIcon {
             anchors {
                 right: parent.right; rightMargin: constant.paddingMedium;
                 verticalCenter: parent.verticalCenter;
             }
-            iconSource: "../gfx/calendar_week.svg";
+            iconSource: "image://theme/icon-m-toolbar-clock-white";
+            platformIconId: "toolbar-clock";
             onClicked: pageStack.push(Qt.resolvedUrl("BatchSignPage.qml"));
         }
     }
 
-    SilicaListView {
+    SilicaGridView {
         id: view;
         anchors { fill: parent; topMargin: viewHeader.height; }
         model: ListModel {}
+        pressDelay: 120;
+        cacheBuffer: 2000;
+        cellWidth: width / 2;
+        cellHeight: constant.graphicSizeLarge;
         header: headerComp;
         delegate: forumDelegate;
         Component {
             id: headerComp;
             Item {
                 id: root;
-                width: screen.width;
+                width: view.width;
                 height: constant.graphicSizeLarge;
                 PullToActivate {
                     myView: view;
@@ -190,43 +174,66 @@ MyPage {
                         right: parent.right; rightMargin: constant.paddingLarge;
                         verticalCenter: parent.verticalCenter;
                     }
-                    width: height;
-                    iconSource: privateStyle.toolBarIconPath("toolbar-mediacontrol-play");
-                    onClicked: pageStack.push(Qt.resolvedUrl("SearchPage.qml"),
-                                              undefined, true);
+                    platformStyle: ButtonStyle { buttonWidth: buttonHeight; }
+                    iconSource: "image://theme/icon-m-toolbar-mediacontrol-play"+(theme.inverted?"-white":"");
+                    onClicked: pageStack.push(Qt.resolvedUrl("SearchPage.qml"), undefined, true);
                 }
             }
         }
         Component {
             id: forumDelegate;
-            AbstractItem {
+            Item {
                 id: root;
-                onClicked: signalCenter.enterForum(forum_name);
+                width: view.cellWidth;
+                height: view.cellHeight;
+                BorderImage {
+                    id: background;
+                    anchors {
+                        fill: parent;
+                        margins: constant.paddingSmall;
+                    }
+                    border {
+                        left: 10; top: 10;
+                        right: 10; bottom: 10;
+                    }
+                    source: "../gfx/bg_pop_choose_"+(mouseArea.pressed?"s":"n")+constant.invertedString;
+                }
                 Text {
                     anchors {
-                        left: root.paddingItem.left;
+                        left: background.left; leftMargin: 16;
+                        right: infoIcon.left;
                         verticalCenter: parent.verticalCenter;
                     }
                     text: forum_name;
-                    font: constant.titleFont;
+                    font: constant.labelFont;
                     color: constant.colorLight;
+                    wrapMode: Text.Wrap;
+                    elide: Text.ElideRight;
+                    maximumLineCount: 2;
                 }
                 Row {
                     id: infoIcon;
-                    anchors { right: root.paddingItem.right; verticalCenter: parent.verticalCenter; }
-                    spacing: constant.paddingMedium;
+                    anchors {
+                        right: background.right;
+                        rightMargin: 10;
+                        verticalCenter: parent.verticalCenter;
+                    }
                     Image {
-                        asynchronous: true;
                         anchors.verticalCenter: parent.verticalCenter;
-                        width: signText.width + 20;
-                        height: Math.floor(width/111*46);
-                        source: "../gfx/ico_sign"+constant.invertedString+".png"
+                        source: "../gfx/icon_jinba_sign"+constant.invertedString;
                         visible: is_sign;
                         Text {
                             id: signText;
-                            anchors.centerIn: parent;
-                            font: constant.subTitleFont;
-                            color: "darkred";
+                            anchors.fill: parent;
+                            verticalAlignment: Text.AlignVCenter;
+                            horizontalAlignment: Text.AlignHCenter;
+                            elide: Text.ElideRight;
+                            font {
+                                pixelSize: constant.fontXSmall - 2;
+                                family: "Nokia Pure Text";
+                                weight: Font.Light;
+                            }
+                            color: "red";
                             text: is_sign ? qsTr("signed") : "";
                         }
                     }
@@ -235,37 +242,39 @@ MyPage {
                         anchors.verticalCenter: parent.verticalCenter;
                         source: internal.getGradeIcon(level_id);
                         Text {
-                            anchors.centerIn: parent;
-                            font.pixelSize: constant.fontXSmall;
+                            id: levelText;
+                            anchors.fill: parent;
+                            verticalAlignment: Text.AlignVCenter;
+                            horizontalAlignment: Text.AlignHCenter;
+                            font {
+                                pixelSize: constant.fontXSmall;
+                                family: "Nokia Pure Text";
+                                weight: Font.Light;
+                            }
                             color: "white";
                             text: level_id;
                         }
                     }
                 }
+                MouseArea {
+                    id: mouseArea;
+                    anchors.fill: parent;
+                    onClicked: signalCenter.enterForum(forum_name);
+                }
             }
         }
     }
 
-    ScrollBar {
-        anchors { right: view.right; top: view.top; }
+    ScrollDecorator {
         flickableItem: view;
-        platformInverted: tbsettings.whiteTheme;
     }
 
-    // For keypad
     onStatusChanged: {
         if (status === PageStatus.Active){
-            view.forceActiveFocus();
             if (page.forceRefresh){
                 page.forceRefresh = false;
                 internal.getLikedForum();
             }
-        }
-    }
-    Keys.onPressed: {
-        if (event.key === Qt.Key_Backspace){
-            quitButton.clicked();
-            event.accepted = true;
         }
     }
 }

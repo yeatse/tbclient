@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 import "Component"
 import "Silica"
 import "../js/main.js" as Script
@@ -136,19 +136,28 @@ MyPage {
                             }
                         }
                     }
-                    ListHeading {
-                        platformInverted: tbsettings.whiteTheme;
-                        ListItemText {
-                            role: "SubTitle";
-                            anchors.fill: parent.paddingItem;
-                            platformInverted: parent.platformInverted;
+                    Rectangle {
+                        width: parent.width;
+                        height: headingLeftLabel.height + constant.paddingMedium*2;
+                        color: theme.inverted ? "#2c3543" : "#e6e8ea"
+                        Text {
+                            id: headingLeftLabel;
+                            anchors {
+                                left: parent.left; leftMargin: constant.paddingMedium;
+                                verticalCenter: parent.verticalCenter;
+                            }
                             text: internal.info ? internal.info.title : "";
+                            font: constant.subTitleFont;
+                            color: constant.colorMid;
                         }
-                        ListItemText {
-                            role: "Heading";
-                            anchors.fill: parent.paddingItem;
-                            platformInverted: parent.platformInverted;
+                        Text {
+                            anchors {
+                                right: parent.right; rightMargin: constant.paddingMedium;
+                                verticalCenter: parent.verticalCenter;
+                            }
                             text: qsTr("Signed: %1/%2").arg(internal.signedCount).arg(view.count);
+                            font: constant.subTitleFont;
+                            color: constant.colorMid;
                         }
                     }
                 }
@@ -210,7 +219,7 @@ MyPage {
                             width: infoText.width + 20;
                             asynchronous: true;
                             border { left: 25; right: 25; top: 0; bottom: 0; }
-                            source: "../gfx/btn_bg_n"+constant.invertedString+".png";
+                            source: "../gfx/btn_bg_n"+constant.invertedString;
                             Text {
                                 id: infoText;
                                 anchors.centerIn: parent;
@@ -247,7 +256,7 @@ MyPage {
         }
     }
 
-    ScrollDecorator { flickableItem: view; platformInverted: tbsettings.whiteTheme; }
+    ScrollDecorator { flickableItem: view; }
 
     Rectangle {
         id: bgRect;
@@ -260,8 +269,9 @@ MyPage {
             spacing: constant.paddingSmall;
             BusyIndicator {
                 anchors.horizontalCenter: parent.horizontalCenter;
-                width: constant.thumbnailSize;
-                height: constant.thumbnailSize;
+                platformStyle: BusyIndicatorStyle {
+                    size: "large";
+                }
                 running: true;
             }
             Text {
@@ -277,11 +287,4 @@ MyPage {
     }
 
     Component.onCompleted: internal.getlist();
-
-    // For keypad
-    onStatusChanged: {
-        if (status === PageStatus.Active){
-            view.forceActiveFocus();
-        }
-    }
 }

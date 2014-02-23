@@ -202,8 +202,8 @@ var BaiduParser = {
             case "3":
                 if (tbsettings.showImage){
                     var bsize = c.bsize.split(","), w = Number(bsize[0]), h = Number(bsize[1]);
-                    var ww = Math.min(200, w), hh = Math.min(h * ww/w, 200);
-                    push("Image", getThumbnail(c.cdn_src||c.src),
+                    var ww = Math.min(360, w), hh = Math.min(h * ww/w, 480);
+                    push("Image", utility.percentDecode(c.cdn_src||c.src),
                          utility.percentDecode(c.big_cdn_src||c.src), ww, hh);
                 } else {
                     push("Image", "", utility.percentDecode(c.big_cdn_src||c.src),

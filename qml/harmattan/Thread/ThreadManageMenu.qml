@@ -1,8 +1,9 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
+import "../Component"
 import "../../js/main.js" as Script
 
-ContextMenu {
+AbstractDialog {
     id: root;
 
     property variant view: null;
@@ -51,22 +52,23 @@ ContextMenu {
         }
     }
 
-    MenuLayout {
-        MenuItem {
+    titleText: page.title;
+    contentList: [
+        DialogItem {
             text: qsTr("Add to top");
             onClicked: internal.setTop(true);
-        }
-        MenuItem {
+        },
+        DialogItem {
             text: qsTr("Remove from top");
             onClicked: internal.setTop(false);
-        }
-        MenuItem {
+        },
+        DialogItem {
             text: qsTr("Add to goodlist");
             onClicked: internal.getGoodList();
-        }
-        MenuItem {
+        },
+        DialogItem {
             text: qsTr("Remove from goodlist");
             onClicked: internal.setGood(false);
         }
-    }
+    ]
 }

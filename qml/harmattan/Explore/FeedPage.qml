@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 import "../Component"
 import "../Silica"
 import "../../js/main.js" as Script
@@ -9,12 +9,12 @@ MyPage {
     title: qsTr("Home page");
     tools: ToolBarLayout {
         BackButton {}
-        ToolButtonWithTip {
+        ToolIcon {
             toolTipText: qsTr("Refresh");
             iconSource: "toolbar-refresh";
             onClicked: internal.getlist();
         }
-        ToolButtonWithTip {
+        ToolIcon {
             toolTipText: qsTr("Square");
             iconSource: "../../gfx/compass"+constant.invertedString+".svg";
             onClicked: pageStack.push(Qt.resolvedUrl("SquarePage.qml"));

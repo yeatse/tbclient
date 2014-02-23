@@ -18,6 +18,9 @@
 #endif
 
 #ifdef Q_OS_HARMATTAN
+#define CAMERA_SERVICE "com.nokia.maemo.CameraService"
+#define CAMERA_INTERFACE "com.nokia.maemo.meegotouch.CameraInterface"
+
 #include <maemo-meegotouch-interfaces/videosuiteinterface.h>
 #include <maemo-meegotouch-interfaces/shareuiinterface.h>
 #include <MDataUri>
@@ -108,6 +111,12 @@ void Utility::setValue(const QString &key, const QVariant &value)
         map.insert(key, value);
         settings->setValue(key, value);
     }
+}
+
+void Utility::clearSettings()
+{
+    map.clear();
+    settings->clear();
 }
 
 void Utility::setUserData(const QString &key, const QString &data)
@@ -256,6 +265,13 @@ QString Utility::selectImage(int param)
         break;
     }
     return result;
+#elif defined(Q_OS_HARMATTAN)
+    if (param == 2){
+        startCamera();
+        return QString();
+    } else {
+        return QString();
+    }
 #else
     Q_UNUSED(param);
     return QFileDialog::getOpenFileName(0, QString(), QString(), "Images (*.png *.gif *.jpg)");
@@ -439,8 +455,12 @@ QString Utility::hasForumName(const QByteArray &link)
 
 QString Utility::emoticonUrl(const QString &name) const
 {
+#ifdef Q_OS_HARMATTAN
+    QString path("file:///opt/tbclient/");
+#else
     QString path("file:///");
     path.append(QDir::currentPath()).append("/");
+#endif
 
     if (name.startsWith("image_emoticon")||name.startsWith("write_face_")||name.startsWith("image_editoricon")||name.startsWith("i_f")){
         QRegExp reg("\\d+");
@@ -756,4 +776,48 @@ QString Utility::LaunchLibrary2()
     CleanupStack::PopAndDestroy(fileNames);
     return result.join("\n");
 }
+#endif
+
+#ifdef Q_OS_HARMATTAN
+void Utility::startCamera()
+{
+    QDBusConnection bus = QDBusConnection::sessionBus();
+    bus.connect(CAMERA_SERVICE, "/", CAMERA_INTERFACE,
+                "captureCanceled", this, SLOT(captureCanceled(QString)));
+    bus.connect(CAMERA_SERVICE, "/", CAMERA_INTERFACE,
+                "captureCompleted", this, SLOT(captureCompleted(QString,QString)));
+    QDBusMessage message = QDBusMessage::createMethodCall(CAMERA_SERVICE, "/", CAMERA_INTERFACE, "showCamera");
+    QVariantList arguments;
+    uint someVar = 0;
+    arguments << someVar << "" << "still-capture" << true;
+    message.setArguments(arguments);
+    QDBusMessage reply = bus.call(message);
+    if (reply.type() == QDBusMessage::ErrorMessage){
+        disconnectSignals();
+    }
+}
+
+void Utility::disconnectSignals()
+{
+    QDBusConnection bus = QDBusConnection::sessionBus();
+    bus.disconnect(CAMERA_SERVICE, "/", CAMERA_INTERFACE,
+                   "captureCanceled", this, SLOT(captureCanceled(QString)));
+
+    bus.disconnect(CAMERA_SERVICE, "/", CAMERA_INTERFACE,
+                   "captureCompleted", this, SLOT(captureCompleted(QString,QString)));
+}
+
+void Utility::captureCompleted(const QString &mode, const QString &fileName)
+{
+    Q_UNUSED(mode)
+    disconnectSignals();
+    emit imageCaptured(fileName);
+}
+
+void Utility::captureCanceled(const QString &mode)
+{
+    Q_UNUSED(mode)
+    disconnectSignals();
+}
+
 #endif

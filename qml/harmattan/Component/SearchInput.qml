@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 
 TextField {
     id: root;
@@ -11,8 +11,10 @@ TextField {
         inputTimer.restart();
     }
 
-    platformLeftMargin: searchIcon.width + platformStyle.paddingMedium;
-    platformRightMargin: clearButton.width + platformStyle.paddingMedium;
+    platformStyle: TextFieldStyle {
+        paddingLeft: searchIcon.width + constant.paddingMedium;
+        paddingRight: clearButton.width + constant.paddingMedium;
+    }
 
     Timer {
         id: inputTimer;
@@ -22,32 +24,28 @@ TextField {
 
     Image {
         id: searchIcon;
-        anchors { left: parent.left; leftMargin: platformStyle.paddingMedium; verticalCenter: parent.verticalCenter; }
-        height: platformStyle.graphicSizeSmall;
-        width: platformStyle.graphicSizeSmall;
-        sourceSize: Qt.size(platformStyle.graphicSizeSmall, platformStyle.graphicSizeSmall);
-        source: privateStyle.toolBarIconPath("toolbar-search", true);
+        anchors { left: parent.left; leftMargin: constant.paddingMedium; verticalCenter: parent.verticalCenter; }
+        source: "image://theme/icon-m-common-search";
     }
 
     Item {
         id: clearButton;
-        anchors { right: parent.right; rightMargin: platformStyle.paddingMedium; verticalCenter: parent.verticalCenter; }
-        height: platformStyle.graphicSizeSmall;
-        width: platformStyle.graphicSizeSmall;
+        anchors { right: parent.right; rightMargin: constant.paddingMedium; verticalCenter: parent.verticalCenter; }
+        height: clearButtonImage.height;
+        width: clearButtonImage.width;
         opacity: root.activeFocus ? 1 : 0;
         Behavior on opacity {
             NumberAnimation { duration: 100; }
         }
         Image {
-            anchors.fill: parent;
-            sourceSize: Qt.size(platformStyle.graphicSizeSmall, platformStyle.graphicSizeSmall);
-            source: privateStyle.imagePath(clearMouseArea.pressed?"qtg_graf_textfield_clear_pressed":"qtg_graf_textfield_clear_normal", root.platformInverted);
+            id: clearButtonImage;
+            source: "image://theme/icon-m-input-clear"+(theme.inverted?"-inverse":"")
         }
         MouseArea {
             id: clearMouseArea;
             anchors.fill: parent;
             onClicked: {
-                root.closeSoftwareInputPanel();
+                root.platformCloseSoftwareInputPanel();
                 root.text = "";
                 root.parent.forceActiveFocus();
                 root.cleared();

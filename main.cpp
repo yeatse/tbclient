@@ -118,10 +118,18 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     if (utility->qtVersion() > 0x040800)
         QApplication::setStartDragDistance(2);
 
+    // Initialize settings;
+    if (utility->getValue("AppVersion", "").toString() != VER){
+        utility->clearSettings();
+        utility->setValue("AppVersion", VER);
+    }
+
 #ifdef Q_OS_SYMBIAN
     viewer.setSource(QUrl("qrc:/qml/tbclient/main.qml"));
+#elif defined(Q_OS_HARMATTAN)
+    viewer.setMainQmlFile(QLatin1String("qml/harmattan/main.qml"));
 #else
-    viewer.setMainQmlFile(QLatin1String("qml/tbclient/main.qml"));
+    viewer.setMainQmlFile(QLatin1String("qml/harmattan/main.qml"));
 #endif
     viewer.showExpanded();
 

@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 import com.yeatse.tbclient 1.0
 import "../Component"
 
@@ -14,23 +14,21 @@ MyPage {
     ToolBarLayout {
         id: defaultTools;
         BackButton {}
-        ToolButtonWithTip {
-            toolTipText: qsTr("Tools");
-            iconSource: "../../gfx/toolbox"+constant.invertedString+".svg";
+        ToolIcon {
+            platformIconId: "toolbar-tools";
             onClicked: toolsMenu.open();
         }
-        ToolButtonWithTip {
-            toolTipText: qsTr("Clear");
-            iconSource: "toolbar-delete";
+        ToolIcon {
+            platformIconId: "toolbar-delete";
             onClicked: scribbleArea.clear();
         }
-        ToolButtonWithTip {
+        ToolIcon {
             id: saveButton;
-            toolTipText: qsTr("Save");
-            iconSource: "../../gfx/ok"+constant.invertedString+".svg";
+            platformIconId: "toolbar-done";
             onClicked: {
                 var filename = "scribble_"+Qt.formatDateTime(new Date(), "yyyyMMddhhmmss")+".jpg";
                 var path = tbsettings.imagePath + "/" + filename;
+                console.log(path);
                 if (scribbleArea.save(path)){
                     signalCenter.imageSelected(caller, path);
                     pageStack.pop();
@@ -43,18 +41,17 @@ MyPage {
 
     ToolBarLayout {
         id: importTools;
-        ToolButton {
-            platformInverted: tbsettings.whiteTheme;
-            text: qsTr("OK");
+        visible: false;
+        ToolIcon {
+            platformIconId: "toolbar-done";
             onClicked: {
                 scribbleArea.loadImage(importer.source, imageLoader.x, imageLoader.y);
                 importer.state = "";
                 importer.source = "";
             }
         }
-        ToolButton {
-            platformInverted: tbsettings.whiteTheme;
-            text: qsTr("Cancel");
+        ToolIcon {
+            platformIconId: "toolbar-delete";
             onClicked: {
                 importer.state = "";
                 importer.source = "";
@@ -129,6 +126,7 @@ MyPage {
             State {
                 name: "show";
                 PropertyChanges { target: importer; visible: true; }
+                PropertyChanges { target: defaultTools; visible: false; }
             }
         ]
         transitions: [
@@ -147,116 +145,107 @@ MyPage {
         ]
     }
 
-    Menu {
+    Connections {
+        target: signalCenter;
+        onImageSelected: {
+            if (caller == page){
+                importer.source = urls;
+                importer.state = "show";
+            }
+        }
+    }
+
+    Sheet {
         id: toolsMenu;
-        MenuLayout {
-            MenuItem {
-                text: qsTr("Pen color");
-                Rectangle {
-                    anchors {
-                        right: parent.right; top: parent.top; bottom: parent.bottom;
-                        margins: constant.paddingLarge;
+        acceptButtonText: qsTr("OK");
+        title: Text {
+            font.pixelSize: constant.fontXXLarge;
+            color: constant.colorLight;
+            anchors { left: parent.left; leftMargin: constant.paddingXLarge; verticalCenter: parent.verticalCenter; }
+            text: qsTr("Tools");
+        }
+        content: Flickable {
+            anchors.fill: parent;
+            contentWidth: width;
+            contentHeight: contentCol.height+constant.paddingLarge*2;
+            clip: true;
+            Column {
+                id: contentCol;
+                anchors {
+                    left: parent.left; right: parent.right;
+                    top: parent.top; margins: constant.paddingLarge;
+                }
+                Button {
+                    width: parent.width;
+                    text: qsTr("Import picture");
+                    onClicked: {
+                        toolsMenu.accept();
+                        signalCenter.selectImage(page);
                     }
-                    width: height;
+                }
+                Text {
+                    height: constant.graphicSizeSmall;
+                    text: qsTr("Select pen width(selected: %1)").arg(slider.value);
+                    verticalAlignment: Text.AlignVCenter;
+                    font: constant.labelFont;
+                    color: constant.colorLight;
+                }
+                Slider {
+                    id: slider
+                    width: parent.width;
+                    minimumValue: 1
+                    maximumValue: 40
+                    stepSize: 1
+                    value: scribbleArea.penWidth
+                    onPressedChanged: {
+                        if (!pressed){
+                            scribbleArea.penWidth = slider.value;
+                        }
+                    }
+                }
+                Text {
+                    height: constant.graphicSizeSmall;
+                    text: qsTr("Pen color");
+                    verticalAlignment: Text.AlignVCenter;
+                    font: constant.labelFont;
+                    color: constant.colorLight;
+                }
+
+                Rectangle {
+                    id: indicator;
+                    width: parent.width;
+                    height: constant.graphicSizeSmall;
                     color: scribbleArea.color;
                 }
-                onClicked: {
-                    scribbleArea.color = utility.selectColor(scribbleArea.color);
-                }
-            }
-            MenuItem {
-                text: qsTr("Pen width");
-                Text {
-                    anchors {
-                        right: parent.right; rightMargin: constant.paddingLarge;
-                        verticalCenter: parent.verticalCenter;
-                    }
-                    font: constant.labelFont;
-                    color: platformStyle.colorNormalLight;
-                    text: scribbleArea.penWidth+"";
-                }
-                onClicked: widthSelector.open();
-            }
-            MenuItem {
-                text: qsTr("Import picture");
-                onClicked: {
-                    var url = utility.selectImage();
-                    if (url !== ""){
-                        importer.source = url;
-                        importer.state = "show";
+
+                Repeater {
+                    model: 4;
+                    Slider {
+                        objectName: "colorS";
+                        width: parent.width;
+                        minimumValue: 0;
+                        maximumValue: 255;
+                        stepSize: 1;
+                        valueIndicatorVisible: true;
+                        onPressedChanged: {
+                            if (!pressed){
+                                scribbleArea.color = toolsMenu.getColorValue();
+                            }
+                        }
+                        value: index == 3 ? 255 : 0;
                     }
                 }
             }
         }
-    }
-
-    CommonDialog {
-        id: widthSelector
-        titleText: qsTr("Select pen width(selected: %1)").arg(slider.value);
-        buttonTexts: [ qsTr("OK"), qsTr("Cancel")];
-        onButtonClicked: if (index === 0) accept();
-        onAccepted: scribbleArea.penWidth = slider.value;
-        content: Slider {
-            id: slider
-            anchors {
-                left: parent.left;
-                right: parent.right;
-                margins: constant.paddingLarge
-                verticalCenter: parent.verticalCenter
-            }
-            minimumValue: 1
-            maximumValue: 40
-            stepSize: 1
-            value: scribbleArea.penWidth
-            Keys.onPressed: {
-                if (event.key == Qt.Key_Select
-                        ||event.key == Qt.Key_Enter
-                        ||event.key == Qt.Key_Return){
-                    widthSelector.accept();
-                    event.accepted = true;
-                } else if (event.key == Qt.Key_Backspace){
-                    widthSelector.reject();
-                    event.accepted = true;
+        function getColorValue(){
+            var v = [];
+            for (var i=0; i<contentCol.children.length; i++){
+                var c = contentCol.children[i];
+                if (c.objectName == "colorS"){
+                    v.push(c.value/255);
                 }
             }
-        }
-        onStatusChanged: {
-            if (status === DialogStatus.Open){
-                slider.forceActiveFocus();
-            }
-        }
-    }
-
-    // For keypad
-    Connections {
-        target: platformPopupManager;
-        onPopupStackDepthChanged: {
-            if (platformPopupManager.popupStackDepth === 0
-                    && page.status === PageStatus.Active){
-                page.forceActiveFocus();
-            }
-        }
-    }
-    onStatusChanged: {
-        if (status === PageStatus.Active){
-            page.forceActiveFocus();
-        }
-    }
-
-    Keys.onPressed: {
-        if (importer.state == "" && platformPopupManager.popupStackDepth === 0){
-            switch (event.key){
-            case Qt.Key_M:
-                toolsMenu.open();
-                event.accepted = true;
-                break;
-            case Qt.Key_Enter:
-            case Qt.Key_Return:
-            case Qt.Key_Select:
-                saveButton.clicked();
-                event.accepted = true;
-                break;
-            }
+            return Qt.rgba(v[0], v[1], v[2], v[3]);
         }
     }
 }

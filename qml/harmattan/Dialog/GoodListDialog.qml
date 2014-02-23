@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 
 SelectionDialog {
     id: root;
@@ -17,7 +17,7 @@ SelectionDialog {
         if (status === DialogStatus.Closing){
             __isClosing = true;
         } else if (status === DialogStatus.Closed && __isClosing){
-            root.destroy();
+            root.destroy(250);
         }
     }
 }

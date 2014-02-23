@@ -1,10 +1,11 @@
 #ifndef AUDIORECORDER_H
 #define AUDIORECORDER_H
 
-#include <QtDeclarative>
+#include <QObject>
 #include <QMediaRecorder>
-
-class QAudioCaptureSource;
+#include <QAudioCaptureSource>
+#include <QPointer>
+#include <QUrl>
 
 class AudioRecorder : public QObject
 {

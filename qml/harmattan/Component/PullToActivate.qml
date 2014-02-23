@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 
 Item {
     id: root
@@ -52,11 +52,12 @@ Item {
         anchors {
             bottom: isHeader ? parent.top : undefined; top: isHeader ? undefined : parent.bottom
             horizontalCenter: parent.horizontalCenter
-            bottomMargin: isHeader ? platformStyle.paddingLarge : 0
-            topMargin: isHeader ? 0 : platformStyle.paddingLarge
+            bottomMargin: isHeader ? constant.paddingLarge : 0
+            topMargin: isHeader ? 0 : constant.paddingLarge
         }
+        spacing: constant.paddingLarge;
         Image {
-            source: "../../gfx/pull_down"+constant.invertedString+".svg"
+            source: "../../gfx/adp_down_arrow.png";
             opacity: visualY < indicatorStart ? 0 : 1
             Behavior on opacity { NumberAnimation { duration: 100 } }
             rotation: {
@@ -81,11 +82,9 @@ Item {
         }
         Column {
             Label {
-                platformInverted: root.platformInverted
                 text: root.enabled ? reloadTriggered ? releaseRefreshMessage : pullDownMessage : disabledMessage;
             }
             Label {
-                platformInverted: root.platformInverted;
                 visible: root.enabled && root.lastUpdateTime != 0;
                 Timer {
                     id: timer;

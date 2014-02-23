@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 import "Component"
 
 MyPage {
@@ -11,9 +11,8 @@ MyPage {
 
     tools: ToolBarLayout {
         BackButton {}
-        ToolButtonWithTip {
-            toolTipText: qsTr("Save image");
-            iconSource: "../gfx/save"+constant.invertedString+".svg";
+        ToolIcon {
+            platformIconId: "toolbar-down";
             onClicked: {
                 var path = tbsettings.imagePath + "/" + imageUrl.toString().split("/").pop();
                 if (utility.saveCache(imageUrl, path)){
@@ -157,9 +156,10 @@ MyPage {
                 BusyIndicator {
                     id: imageLoadingIndicator
                     anchors.horizontalCenter: parent.horizontalCenter
-                    height: constant.graphicSizeLarge; width: constant.graphicSizeLarge
                     running: true
-                    platformInverted: tbsettings.whiteTheme;
+                    platformStyle: BusyIndicatorStyle {
+                        size: "large";
+                    }
                 }
 
                 Text {
@@ -184,12 +184,5 @@ MyPage {
         }
     }
 
-    ScrollDecorator { platformInverted: tbsettings.whiteTheme; flickableItem: imageFlickable }
-
-    // For keypad
-    onStatusChanged: {
-        if (status === PageStatus.Active){
-            page.forceActiveFocus();
-        }
-    }
+    ScrollDecorator { flickableItem: imageFlickable }
 }

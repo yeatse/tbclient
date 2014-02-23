@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 import "../Component"
 import "../Floor" as Floor
 import "../../js/main.js" as Script
@@ -13,21 +13,18 @@ MyPage {
 
     tools: ToolBarLayout {
         BackButton {}
-        ToolButtonWithTip {
-            toolTipText: qsTr("Refresh");
-            iconSource: "toolbar-refresh";
+        ToolIcon {
+            platformIconId: "toolbar-refresh";
             enabled: view.currentItem != null;
             onClicked: view.currentItem.getlist();
         }
-        ToolButtonWithTip {
-            toolTipText: qsTr("Reply");
-            iconSource: "../../gfx/edit"+constant.invertedString+".svg";
+        ToolIcon {
+            platformIconId: "toolbar-edit";
             enabled: view.currentItem != null;
             onClicked: toolsArea.state = "Input";
         }
-        ToolButtonWithTip {
-            toolTipText: qsTr("Save");
-            iconSource: "../../gfx/save"+constant.invertedString+".svg";
+        ToolIcon {
+            platformIconId: "toolbar-down";
             enabled: view.currentItem != null;
             onClicked: {
                 var url = view.model.get(view.currentIndex).url;
@@ -106,22 +103,14 @@ MyPage {
         onVcodeSent: if (caller === page) internal.addPost(vcode, vcodeMd5);
     }
 
-    ListHeading {
+    ViewHeader {
         id: viewHeader;
-        platformInverted: tbsettings.whiteTheme;
-        z: 10;
-        ListItemText {
-            anchors.fill: parent.paddingItem;
-            platformInverted: parent.platformInverted;
-            role: "Heading";
-            text: (view.currentIndex+1)+"/"+internal.picAmount;
-        }
-        BusyIndicator {
-            anchors { left: parent.paddingItem.left; verticalCenter: parent.verticalCenter; }
-            platformInverted: parent.platformInverted;
-            running: true;
-            visible: view.currentItem != null && view.currentItem.loading;
-        }
+        title: (view.currentIndex+1)+"/"+internal.picAmount;
+//        BusyIndicator {
+//            anchors { left: parent.paddingItem.left; verticalCenter: parent.verticalCenter; }
+//            running: true;
+//            visible: view.currentItem != null && view.currentItem.loading;
+//        }
     }
 
     ListView {
@@ -152,27 +141,10 @@ MyPage {
         id: toolsArea;
     }
 
-    // For keypad
     onStatusChanged: {
-        if (status === PageStatus.Active){
-            view.forceActiveFocus();
-        } else if (status === PageStatus.Deactivating){
+        if (status === PageStatus.Deactivating){
             toolsArea.state = "";
         }
     }
 
-    Keys.onPressed: {
-        switch (event.key){
-        case Qt.Key_R:
-            if (view.currentItem)
-                view.currentItem.getlist();
-            event.accepted = true;
-            break;
-        case Qt.Key_E:
-            if (view.currentItem)
-                toolsArea.state = "Input";
-            event.accepted = true;
-            break;
-        }
-    }
 }

@@ -30,6 +30,7 @@ public:             // Cache and network
     // Save and load settings.
     Q_INVOKABLE QVariant getValue(const QString &key, const QVariant defaultValue = QVariant());
     Q_INVOKABLE void setValue(const QString &key, const QVariant &value);
+    Q_INVOKABLE void clearSettings();
 
     // Save and load user data.
     Q_INVOKABLE void setUserData(const QString &key, const QString &data);
@@ -99,6 +100,11 @@ public:             // Other functions.
     // Return custom emoticon list
     Q_INVOKABLE QStringList customEmoticonList();
 
+#ifdef Q_OS_HARMATTAN
+signals:
+    void imageCaptured(const QString &filename);
+#endif
+
 private:
     explicit Utility(QObject *parent = 0);    
     void initializeLangFormats();
@@ -116,6 +122,14 @@ private:
     // Otherwise return selected image url;
     QString LaunchLibrary();
     QString LaunchLibrary2();
+#endif
+
+#ifdef Q_OS_HARMATTAN
+    void startCamera();
+    void disconnectSignals();
+private slots:
+    void captureCanceled(const QString &mode);
+    void captureCompleted(const QString &mode, const QString &fileName);
 #endif
 
 private:

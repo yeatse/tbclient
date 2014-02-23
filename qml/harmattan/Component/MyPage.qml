@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 
 Page {
     id: root;
@@ -32,20 +32,6 @@ Page {
         font.pixelSize: constant.fontXXLarge;
         color: constant.colorDisabled;
         text: root.loadingText;
-    }
-
-    Binding {
-        target: statusPaneText;
-        property: "text";
-        value: root.title;
-        when: root.visible && root.status === PageStatus.Active;
-    }
-
-    Keys.onPressed: {
-        if (event.key === Qt.Key_Backspace){
-            pageStack.pop();
-            event.accepted = true;
-        }
     }
 
     Component.onCompleted: internal.getFlickable();

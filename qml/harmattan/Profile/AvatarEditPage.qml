@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 import "../Component"
 
 MyPage {
@@ -10,7 +10,7 @@ MyPage {
 
     tools: ToolBarLayout {
         BackButton {}
-        ToolButtonWithTip {
+        ToolIcon {
             toolTipText: qsTr("OK");
             iconSource: "../../gfx/ok"+constant.invertedString+".svg";
             onClicked: {

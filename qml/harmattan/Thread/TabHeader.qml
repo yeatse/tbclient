@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 
 Rectangle {
     id: root;
@@ -7,21 +7,12 @@ Rectangle {
     default property alias content: tabBarLayout.data;
     property alias layout: tabBarLayout;
 
-    implicitWidth: screen.width;
+    implicitWidth: page.width;
     implicitHeight: constant.headerHeight;
-    color: "#1080dd";
+    color: "#1f2837";
     z: 10;
 
-    Image {
-        anchors { left: parent.left; top: parent.top; }
-        source: "../../gfx/meegoTLCorner.png";
-    }
-    Image {
-        anchors { right: parent.right; top: parent.top; }
-        source: "../../gfx/meegoTRCorner.png";
-    }
-
-    TabBarLayout { id: tabBarLayout; anchors.fill: parent; }
+    ButtonRow { id: tabBarLayout; anchors.fill: parent; exclusive: false; }
 
     Rectangle {
         id: currentSectionIndicator;

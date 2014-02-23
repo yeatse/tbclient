@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 import "../Component"
 import "../Silica"
 import "../Floor" as Floor
@@ -16,12 +16,12 @@ MyPage {
 
     tools: ToolBarLayout {
         BackButton {}
-        ToolButtonWithTip {
+        ToolIcon {
             toolTipText: qsTr("Edit");
             iconSource: "../../gfx/edit"+constant.invertedString+".svg";
             onClicked: toolsArea.state = "Input";
         }
-        ToolButtonWithTip {
+        ToolIcon {
             toolTipText: qsTr("Clear");
             iconSource: "toolbar-delete";
             onClicked: internal.clearMsg();

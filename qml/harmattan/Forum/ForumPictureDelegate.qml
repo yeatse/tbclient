@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 
 Item {
     id: root;
@@ -11,7 +11,7 @@ Item {
         pageStack.push(Qt.resolvedUrl("../Thread/ThreadPicture.qml"), prop);
     }
 
-    implicitWidth: screen.width / 2;
+    implicitWidth: page.width / 2;
     implicitHeight: Math.floor(pheight / pwidth * width);
 
     Image {
@@ -30,7 +30,7 @@ Item {
     Image {
         anchors.centerIn: parent;
         asynchronous: true;
-        source: "../../gfx/photos.svg";
+        source: "../../gfx/image_default"+constant.invertedString;
         visible: image.status != Image.Ready;
     }
 
@@ -46,11 +46,12 @@ Item {
             anchors { left: parent.left; right: parent.right; bottom: parent.bottom; }
             height: Math.min(parent.height/2, constant.graphicSizeSmall);
             color: "#C0000000";
-            ListItemText {
+            Text {
                 anchors { left: parent.left; right: parent.right; }
                 anchors.verticalCenter: parent.verticalCenter;
+                font: constant.subTitleFont;
                 text: title;
-                role: "SubTitle";
+                color: "white";
             }
         }
     }

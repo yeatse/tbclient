@@ -6,7 +6,7 @@ Text {
     width: parent.width;
     wrapMode: Text.WrapAnywhere;
     font.pixelSize: tbsettings.fontSize;
-    font.family: platformStyle.fontFamilyRegular;
+    font.family: "Nokia Pure Text";
     color: constant.colorLight;
     onLinkActivated: signalCenter.linkClicked(link);
 }

@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 import "../Component"
 
 MyPage {
@@ -7,29 +7,24 @@ MyPage {
 
     title: internal.getTitle();
     tools: ToolBarLayout {
-        BackButton {
-            onPlatformPressAndHold: internal.removeThreadPage(currentTab);
-        }
-        ToolButtonWithTip {
+        BackButton {}
+        ToolIcon {
             visible: currentTab != null;
-            toolTipText: qsTr("Refresh");
-            iconSource: "toolbar-refresh";
+            platformIconId: "toolbar-refresh";
             onClicked: currentTab.getlist();
         }
-        ToolButtonWithTip {
+        ToolIcon {
             id: editBtn;
             visible: currentTab != null;
             enabled: visible && currentTab.thread != null;
-            toolTipText: qsTr("Reply");
-            iconSource: "../../gfx/edit"+constant.invertedString+".svg";
+            platformIconId: "toolbar-edit";
             onClicked: {
                 var prop = { isReply: true, caller: currentTab }
                 pageStack.push(Qt.resolvedUrl("../Post/PostPage.qml"), prop);
             }
         }
-        ToolButtonWithTip {
-            toolTipText: qsTr("Menu");
-            iconSource: "toolbar-menu";
+        ToolIcon {
+            platformIconId: "toolbar-view-menu";
             onClicked: internal.openMenu();
         }
     }
@@ -121,20 +116,31 @@ MyPage {
             if (!tabComp) tabComp = Qt.createComponent("ThreadButton.qml");
             tabComp.createObject(viewHeader.layout, { tab: view });
 
-
             if (option.pid)
                 view.getlist(option.pid);
             else
                 view.getlist();
+
+            tabGroup.currentTab = view;
         }
 
         function removeThreadPage(page){
             var button = findTabButtonByTab(page);
             if (button){
+                if (page == tabGroup.currentTab){
+                    var i = 0, l = viewHeader.layout.children.length;
+                    while (i < l-1 && button != viewHeader.layout.children[i])
+                        ++i;
+                    if (l > i+1)
+                        tabGroup.currentTab = viewHeader.layout.children[i+1].tab;
+                    else if (l > 1)
+                        tabGroup.currentTab = viewHeader.layout.children[i-1].tab;
+                    else
+                        tabGroup.currentTab = null;
+                }
                 button.destroy();
                 page.destroy();
             }
-            currentTab = null;
         }
 
         function removeAllThread(){
@@ -222,10 +228,7 @@ MyPage {
             topMargin: viewHeader.height;
         }
         onCurrentTabChanged: {
-            if (currentTab)
-                currentTab.focus();
-            else
-                page.forceActiveFocus();
+            if (currentTab) currentTab.focus();
         }
     }
 
@@ -233,7 +236,7 @@ MyPage {
         id: menuComp;
         Menu {
             id: menu;
-            property bool currentEnabled: currentTab != null && currentTab.thread != null;            
+            property bool currentEnabled: currentTab != null && currentTab.thread != null;
             MenuLayout {
                 MenuItem {
                     text: qsTr("Open browser");
@@ -300,39 +303,39 @@ MyPage {
 
     Component {
         id: tabsManager;
-        ContextMenu {
+        AbstractDialog {
             id: contextMenu;
-            MenuLayout {
-                MenuItem {
+            titleText: qsTr("Tab page");
+            contentList: [
+                DialogItem {
                     text: qsTr("Close current tab");
                     enabled: currentTab != null;
                     onClicked: internal.removeThreadPage(currentTab);
-                }
-                MenuItem {
+                },
+                DialogItem {
                     text: qsTr("Close other tabs");
                     enabled: currentTab != null;
                     onClicked: internal.removeOtherThread(currentTab);
-                }
-                MenuItem {
+                },
+                DialogItem {
                     text: qsTr("Close all tabs");
                     enabled: viewHeader.layout.children.length > 0;
                     onClicked: internal.removeAllThread();
-                }
-                MenuItem {
+                },
+                DialogItem {
                     text: qsTr("Create a new tab");
                     onClicked: internal.openTabCreator();
                 }
-            }
+            ]
         }
     }
 
     Component {
         id: tabCreator;
-        CommonDialog {
+        Sheet {
             id: commonDialog;
-            titleText: qsTr("Create a new tab");
-            titleIcon: "../../gfx/edit.svg";
-            buttonTexts: [qsTr("OK"), qsTr("Cancel")];
+            acceptButtonText: qsTr("OK");
+            rejectButtonText: qsTr("Cancel");
             content: Item {
                 width: parent.width;
                 height: contentCol.height + constant.paddingLarge*2;
@@ -360,19 +363,12 @@ MyPage {
                             validator: RegExpValidator {
                                 regExp: /((http:\/\/)?tieba.baidu.com\/p\/)?\d+(\?.*)?/
                             }
-                            Keys.onPressed: {
-                                if (event.key == Qt.Key_Select
-                                        ||event.key == Qt.Key_Enter
-                                        ||event.key == Qt.Key_Return){
-                                    event.accepted = true;
-                                    commonDialog.accept();
-                                }
-                            }
                         }
                         Button {
                             id: pasteButton
                             anchors.verticalCenter: parent.verticalCenter;
-                            iconSource: privateStyle.imagePath("qtg_toolbar_paste");
+                            platformStyle: ButtonStyle { buttonWidth: buttonHeight; }
+                            iconSource: "image://theme/icon-m-toolbar-cut-paste".concat(theme.inverted?"-white":"");
                             onClicked: textField.paste();
                         }
                     }
@@ -382,10 +378,9 @@ MyPage {
                 if (status === DialogStatus.Open){
                     textField.text = "";
                     textField.forceActiveFocus();
-                    textField.openSoftwareInputPanel();
+                    textField.platformOpenSoftwareInputPanel();
                 }
             }
-            onButtonClicked: if (index === 0) accept();
             onAccepted: {
                 if (textField.acceptableInput){
                     var id = textField.text.match(/\d+/)[0];
@@ -396,33 +391,11 @@ MyPage {
         }
     }
 
-
-    // For keypad
-    Connections {
-        target: platformPopupManager;
-        onPopupStackDepthChanged: {
-            if (platformPopupManager.popupStackDepth === 0
-                    && page.status === PageStatus.Active){
-                if (currentTab) currentTab.focus();
-                else page.forceActiveFocus();
-            }
-        }
-    }
     onStatusChanged: {
         if (status === PageStatus.Active){
             if (currentTab) currentTab.focus();
-            else page.forceActiveFocus();
         } else if (status === PageStatus.Deactivating){
             audioWrapper.stop();
-        }
-    }
-    Keys.onPressed: {
-        switch (event.key){
-        case Qt.Key_M: internal.openMenu(); event.accepted = true; break;
-        case Qt.Key_R: if(currentTab)currentTab.getlist(); event.accepted = true; break;
-        case Qt.Key_E: if(currentTab)editBtn.clicked(); event.accepted = true; break;
-        case Qt.Key_Left: internal.switchTab("left"); event.accepted = true; break;
-        case Qt.Key_Right: internal.switchTab("right"); event.accepted = true; break;
         }
     }
 }

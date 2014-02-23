@@ -1,27 +1,27 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 
-CommonDialog {
+Sheet {
     id: root;
 
     property int currentPage: 1;
     property int totalPage: 1;
 
-    titleText: qsTr("Jump to page: [1-%1]").arg(totalPage);
-    buttonTexts: [qsTr("OK"), qsTr("Cancel")];
-    privateCloseIcon: true;
+    acceptButtonText: qsTr("OK");
+    rejectButtonText: qsTr("Cancel");
 
-    content: Item {
+    content: Column {
         id: contentItem;
-        width: parent.width;
-        height: row.height + constant.paddingLarge*2;
+        anchors { top: parent.top; left: parent.left; right: parent.right; margins: constant.paddingLarge; }
+        spacing: constant.paddingLarge;
+        Text {
+            font: constant.labelFont;
+            color: constant.colorLight;
+            text: qsTr("Jump to page: [1-%1]").arg(totalPage);
+        }
         Row {
             id: row;
-            anchors {
-                left: parent.left; right: parent.right;
-                margins: constant.paddingLarge;
-                verticalCenter: parent.verticalCenter;
-            }
+            width: parent.width;
             Slider {
                 id: slider;
                 width: parent.width - textField.width;
@@ -38,25 +38,17 @@ CommonDialog {
                 validator: IntValidator {
                     bottom: 1; top: root.totalPage;
                 }
+                platformStyle: TextFieldStyle { defaultWidth: 72; }
                 onTextChanged: root.currentPage = text||1;
                 inputMethodHints: Qt.ImhDigitsOnly;
-                Keys.onPressed: {
-                    if (event.key == Qt.Key_Select
-                            ||event.key == Qt.Key_Enter
-                            ||event.key == Qt.Key_Return){
-                        event.accepted = true;
-                        root.accept();
-                    }
-                }
             }
         }
     }
 
-    onButtonClicked: index === 0 ? accept() : reject();
     onStatusChanged: {
-        if (status === DialogStatus.Open){
+        if (status == DialogStatus.Open){
             textField.forceActiveFocus();
-            textField.selectAll();
+            textField.platformOpenSoftwareInputPanel();
         }
     }
 }

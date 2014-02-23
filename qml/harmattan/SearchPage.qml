@@ -1,5 +1,6 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.extras 1.1
+import com.nokia.meego 1.1
 import "Component"
 import "../js/main.js" as Script
 
@@ -33,14 +34,6 @@ MyPage {
             }
             placeholderText: qsTr("Tap to search");
             onCleared: pageStack.pop(undefined, true);
-            Keys.onPressed: {
-                if (event.key == Qt.Key_Select
-                        ||event.key == Qt.Key_Enter
-                        ||event.key == Qt.Key_Return){
-                    searchBtn.clicked();
-                    event.accepted = true;
-                }
-            }
             onTypeStopped: {
                 if (tabGroup.currentTab == suggestView){
                     if (text != "") suggestView.get();
@@ -57,8 +50,8 @@ MyPage {
                 right: parent.right; rightMargin: constant.paddingLarge;
                 verticalCenter: parent.verticalCenter;
             }
-            width: height;
-            iconSource: privateStyle.toolBarIconPath("toolbar-mediacontrol-play");
+            platformStyle: ButtonStyle { buttonWidth: buttonHeight; }
+            iconSource: "image://theme/icon-m-toolbar-mediacontrol-play"+(theme.inverted?"-white":"");
             onClicked: {
                 if (tabGroup.currentTab == suggestView){
                     if (searchInput.text != "")
@@ -76,8 +69,8 @@ MyPage {
         id: tabRow;
         anchors.top: searchItem.bottom;
         width: parent.width;
+        style: TabButtonStyle {}
         TabButton {
-            platformInverted: tbsettings.whiteTheme;
             text: qsTr("Search tieba");
             tab: suggestView;
             onClicked: {
@@ -89,7 +82,6 @@ MyPage {
             }
         }
         TabButton {
-            platformInverted: tbsettings.whiteTheme;
             text: qsTr("Search posts");
             tab: searchView;
             onClicked: {
@@ -100,7 +92,6 @@ MyPage {
             }
         }
         TabButton {
-            platformInverted: tbsettings.whiteTheme;
             text: qsTr("Search web");
             onClicked: {
                 var url = "http://m.baidu.com/"
@@ -117,6 +108,7 @@ MyPage {
             top: tabRow.bottom; bottom: parent.bottom;
         }
         clip: true;
+        currentTab: suggestView;
         ListView {
             id: suggestView;
             property string searchText;
@@ -129,19 +121,25 @@ MyPage {
                 function f(err){ loading = false; signalCenter.showMessage(err); }
                 Script.forumSuggest(opt, s, f);
             }
+            anchors.fill: parent;
             model: ListModel {}
-            delegate: ListItem {
-                subItemIndicator: true;
-                platformInverted: tbsettings.whiteTheme;
+            delegate: Item {
+                width: suggestView.width;
+                height: constant.graphicSizeLarge;
+                opacity: mouseArea.pressed ? 0.7 : 1;
                 Text {
-                    anchors.fill: parent.paddingItem;
+                    anchors { fill: parent; margins: constant.paddingLarge; }
                     verticalAlignment: Text.AlignVCenter;
                     elide: Text.ElideRight;
                     font: constant.titleFont;
                     color: constant.colorLight;
                     text: modelData;
                 }
-                onClicked: signalCenter.enterForum(modelData);
+                MouseArea {
+                    id: mouseArea;
+                    anchors.fill: parent;
+                    onClicked: signalCenter.enterForum(modelData);
+                }
             }
         }
         ListView {
@@ -171,6 +169,7 @@ MyPage {
                 var f = function(err){ loading = false; signalCenter.showMessage(err); }
                 Script.searchPost(opt, s, f);
             }
+            anchors.fill: parent;
             model: ListModel{}
             delegate: searchDelegate;
             footer: FooterItem {
@@ -205,7 +204,7 @@ MyPage {
                             BorderImage {
                                 anchors.fill: parent;
                                 asynchronous: true;
-                                source: "../gfx/retweet_bg"+constant.invertedString+".png";
+                                source: "../gfx/retweet_bg"+constant.invertedString;
                                 border { left: 32; right: 10; top: 15; bottom: 10; }
                             }
                             Text {
@@ -251,7 +250,7 @@ MyPage {
             searchInput.forceActiveFocus();
             if (firstStart){
                 firstStart = false;
-                searchInput.openSoftwareInputPanel();
+                searchInput.platformOpenSoftwareInputPanel();
             }
         }
     }

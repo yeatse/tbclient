@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 import "../Floor" as Floor
 import "../Component" as Comp
 import "../Silica" as Silica

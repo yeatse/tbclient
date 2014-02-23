@@ -1,38 +1,40 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
+import "../Component"
 
-ContextMenu {
+AbstractDialog {
     id: root;
 
     property int index: -1;
     property variant model: null;
 
-    MenuLayout {
-        MenuItem {
+    titleText: page.title;
+    contentList: [
+        DialogItem {
             property bool isCollected: model != null && model.id === collectMarkPid;
             text: isCollected ? qsTr("Remove from bookmark") : qsTr("Add to bookmark");
             onClicked: isCollected ? rmStore() : addStore(model.id);
-        }
-        MenuItem {
+        },
+        DialogItem {
             text: qsTr("Reader mode");
             onClicked: {
                 var prop = { listModel: view.model, currentIndex: index, parentView: view, title: title }
                 pageStack.push(Qt.resolvedUrl("ReaderPage.qml"), prop);
             }
-        }
-        MenuItem {
+        },
+        DialogItem {
             text: qsTr("Copy content");
             onClicked: signalCenter.copyToClipboard(model.content_raw);
-        }
-        MenuItem {
+        },
+        DialogItem {
             text: qsTr("Delete this post");
             // is manager || is author || is lz
             visible: model != null && (user.is_manager !== "0"
                                        ||model.authorId === tbsettings.currentUid
                                        ||thread.author.id === tbsettings.currentUid);
             onClicked: delPost(root.index);
-        }
-        MenuItem {
+        },
+        DialogItem {
             text: qsTr("Commit to prison");
             visible: user.is_manager !== "0";
             onClicked: {
@@ -46,5 +48,5 @@ ContextMenu {
                 signalCenter.commitPrison(prop);
             }
         }
-    }
+    ]
 }

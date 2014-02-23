@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 import "Component"
 import "../js/main.js" as Script
 
@@ -13,18 +13,15 @@ MyPage {
     title: qsTr("Login");
 
     tools: ToolBarLayout {
-        ToolButtonWithTip {
-            toolTipText: qsTr("Back");
-            iconSource: "toolbar-back";
-            onClicked: forceLogin||pageStack.depth <= 1 ? Qt.quit()
-                                                        : pageStack.pop();
+        ToolIcon {
+            platformIconId: "toolbar-back";
+            onClicked: forceLogin||pageStack.depth <= 1 ? Qt.quit() : pageStack.pop();
         }
         CheckBox {
             id: phoneNumberCheck;
+            anchors.centerIn: parent;
             enabled: !loading;
-            platformInverted: tbsettings.whiteTheme;
             text: qsTr("Use phone number");
-            KeyNavigation.up: pwField;
         }
     }
 
@@ -88,48 +85,27 @@ MyPage {
             }
             spacing: constant.paddingLarge;
             Text {
-                text: phoneNumberCheck.checked ? qsTr("Phone number")
-                                               : qsTr("ID or e-mail");
+                text: phoneNumberCheck.checked ? qsTr("Phone number") : qsTr("ID or e-mail");
                 font: constant.subTitleFont;
                 color: constant.colorMid;
             }
             Flipable {
                 id: flipable;
                 width: parent.width;
-                height: privateStyle.textFieldHeight;
+                height: unField.height;
                 front: TextField {
                     id: unField;
                     enabled: !loading;
                     width: parent.width;
                     placeholderText: qsTr("Tap to input");
-                    platformInverted: tbsettings.whiteTheme;
                     inputMethodHints: Qt.ImhNoAutoUppercase;
-                    KeyNavigation.down: pwField;
-                    Keys.onPressed: {
-                        if (event.key == Qt.Key_Select
-                                ||event.key == Qt.Key_Enter
-                                ||event.key == Qt.Key_Return){
-                            pwField.forceActiveFocus();
-                            event.accepted = true;
-                        }
-                    }
                 }
                 back: TextField {
                     id: pnField;
                     enabled: !loading;
                     width: parent.width;
                     placeholderText: qsTr("Tap to input");
-                    platformInverted: tbsettings.whiteTheme;
                     inputMethodHints: Qt.ImhDialableCharactersOnly;
-                    KeyNavigation.down: pwField;
-                    Keys.onPressed: {
-                        if (event.key == Qt.Key_Select
-                                ||event.key == Qt.Key_Enter
-                                ||event.key == Qt.Key_Return){
-                            pwField.forceActiveFocus();
-                            event.accepted = true;
-                        }
-                    }
                 }
                 transform: Rotation {
                     id: flipRot;
@@ -160,19 +136,9 @@ MyPage {
                 width: parent.width;
                 enabled: !loading;
                 placeholderText: qsTr("Tap to input");
-                platformInverted: tbsettings.whiteTheme;
                 echoMode: TextInput.Password;
                 inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText;
-                KeyNavigation.up: flipable.state === "" ? unField : pnField;
-                KeyNavigation.down: phoneNumberCheck;
-                Keys.onPressed: {
-                    if (event.key == Qt.Key_Select
-                            ||event.key == Qt.Key_Enter
-                            ||event.key == Qt.Key_Return){
-                        loginBtn.clicked();
-                        event.accepted = true;
-                    }
-                }
+                platformWesternNumericInputEnforced: true;
             }
             Text {
                 font: constant.labelFont;
@@ -190,7 +156,6 @@ MyPage {
                     margins: constant.paddingLarge*3;
                 }
                 text: qsTr("Login");
-                platformInverted: tbsettings.whiteTheme;
                 onClicked: login();
             }
             Item { width: 1; height: 1; }
@@ -207,30 +172,6 @@ MyPage {
                 color: constant.colorLight;
                 onLinkActivated: signalCenter.openBrowser("http://wappass.baidu.com/passport/reg");
             }
-        }
-    }
-
-
-    // For keypad
-    Connections {
-        target: platformPopupManager;
-        onPopupStackDepthChanged: {
-            if (platformPopupManager.popupStackDepth === 0
-                    && page.status === PageStatus.Active){
-                unField.forceActiveFocus();
-            }
-        }
-    }
-
-    onStatusChanged: {
-        if (status === PageStatus.Active){
-            unField.forceActiveFocus();
-            unField.openSoftwareInputPanel();
-        }
-    }
-    Keys.onPressed: {
-        if (event.key === Qt.Key_Backspace){
-            if (forceLogin) Qt.quit();
         }
     }
 }

@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 
 Item {
     id: root;
@@ -7,34 +7,32 @@ Item {
     signal likeButtonClicked;
     signal signButtonClicked;
 
-    width: screen.width;
-    height: constant.thumbnailSize;
+    width: page.width;
+    height: contentCol.height + constant.paddingLarge*3;
 
     BorderImage {
         id: bgImg;
-        asynchronous: true;
         anchors.fill: parent;
-        source: privateStyle.imagePath("qtg_fr_list_heading_normal",
-                                       tbsettings.whiteTheme);
-        border { left: 28; top: 5; right: 28; bottom: 0 }
-        smooth: true;
+        border.bottom: 10;
+        source: "../../gfx/bg_grade_up"+constant.invertedString;
     }
 
     Image {
         id: icon;
         anchors {
             left: parent.left; top: parent.top;
-            bottom: parent.bottom; margins: constant.paddingLarge;
+            margins: constant.paddingLarge;
         }
+        width: constant.thumbnailSize;
+        height: width;
         asynchronous: true;
-        width: height;
         source: internal.forum.avatar||"";
     }
     Column {
+        id: contentCol;
         anchors {
-            left: icon.right;
-            leftMargin: constant.paddingLarge;
-            verticalCenter: parent.verticalCenter;
+            left: icon.right; right: parent.right;
+            top: parent.top; margins: constant.paddingLarge;
         }
         Text {
             font: constant.titleFont;
@@ -50,31 +48,33 @@ Item {
         }
         Item { width: 1; height: constant.paddingSmall; }
         Row {
-            spacing: constant.paddingLarge;
+            spacing: constant.paddingXLarge;
+
             Column {
                 visible: internal.isLike;
                 anchors.verticalCenter: parent.verticalCenter;
+
                 Text {
-                    font.pixelSize: constant.fontXSmall;
-                    font.weight: Font.Light;
+                    font: constant.subTitleFont;
                     color: constant.colorMid;
                     text: (internal.forum.level_name)+"  "
                           +qsTr("Lv.%1").arg(internal.forum.level_id);
                 }
                 ProgressBar {
-                    width: constant.thumbnailSize;
-                    platformInverted: tbsettings.whiteTheme;
+                    width: parent.width;
                     minimumValue: 0;
                     maximumValue: internal.forum.levelup_score||0;
                     value: internal.forum.cur_score||0;
                 }
             }
+
             Image {
-                width: constant.thumbnailSize; height: Math.floor(width/111*46);
+                width: 111
+                height: 46
                 visible: !internal.isLike;
                 anchors.verticalCenter: parent.verticalCenter;
                 sourceSize: Qt.size(width, height);
-                source: "../../gfx/btn_like_"+likeBtnMouseArea.stateString+constant.invertedString+".png";
+                source: "../../gfx/btn_like_"+likeBtnMouseArea.stateString+constant.invertedString;
                 MouseArea {
                     id: likeBtnMouseArea;
                     property string stateString: pressed ? "s" : "n";
@@ -82,15 +82,16 @@ Item {
                     onClicked: root.likeButtonClicked();
                 }
             }
+
             Image {
-                width: constant.thumbnailSize; height: Math.floor(width/111*46);
+                width: 111;
+                height: 46;
                 visible: !internal.hasSigned;
                 anchors.verticalCenter: parent.verticalCenter;
                 sourceSize: Qt.size(width, height);
-                source: "../../gfx/btn_sign_"+signBtnMouseArea.stateString+constant.invertedString+".png";
+                source: "../../gfx/btn_sign_"+signBtnMouseArea.stateString+constant.invertedString;
                 BusyIndicator {
                     anchors.centerIn: parent;
-                    platformInverted: tbsettings.whiteTheme;
                     running: true;
                     visible: internal.signing;
                 }
@@ -102,18 +103,19 @@ Item {
                     onClicked: root.signButtonClicked();
                 }
             }
+
             Image {
-                width: Math.max(constant.thumbnailSize, signInfoText.width+constant.paddingLarge*2);
-                height: Math.floor(constant.thumbnailSize/111*46);
+                width: signInfoText.paintedWidth + 20;
+                height: 46;
                 visible: internal.hasSigned;
                 anchors.verticalCenter: parent.verticalCenter;
-                source: "../../gfx/ico_sign.png";
+                source: "../../gfx/ico_sign"+constant.invertedString;
                 smooth: true;
                 Text {
                     id: signInfoText;
                     anchors.centerIn: parent;
                     font: constant.subTitleFont;
-                    color: "darkred";
+                    color: "red";
                     text: qsTr("Signed %1 days").arg(internal.signDays);
                 }
             }

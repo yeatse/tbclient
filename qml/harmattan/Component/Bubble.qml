@@ -16,7 +16,7 @@ Item {
 
     Text {
         id: label;
-        color: platformStyle.colorNormalLight;
+        color: "white";
         font: constant.subTitleFont;
         anchors.centerIn: parent;
     }

@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 import com.nokia.extras 1.1
 import com.yeatse.tbclient 1.0
 import "Component"
@@ -8,9 +8,7 @@ import "../js/main.js" as Script
 PageStackWindow {
     id: app;
 
-    platformInverted: tbsettings.whiteTheme;
-    platformSoftwareInputPanelEnabled: utility.qtVersion > 0x040800;
-    showStatusBar: inPortrait || !(platformSoftwareInputPanelEnabled && inputContext.visible);
+    showStatusBar: inPortrait;
 
     initialPage: MainPage { id: mainPage; }
 
@@ -19,8 +17,6 @@ PageStackWindow {
     Constant { id: constant; }
 
     SignalCenter { id: signalCenter; }
-
-    StatusPaneText { id: statusPaneText; }
 
     InfoCenter { id: infoCenter; }
 
@@ -44,34 +40,13 @@ PageStackWindow {
         outputLocation: utility.tempPath+"/audio.amr";
     }
 
-    ToolTip {
-        id: toolTip;
-        platformInverted: tbsettings.whiteTheme;
-        visible: false;
-    }
+    InfoBanner { id: infoBanner; topMargin: app.showStatusBar?36:0; }
 
-    InfoBanner {
-        id: infoBanner;
-        iconSource: "../gfx/error.svg";
-        platformInverted: tbsettings.whiteTheme;
+    Binding {
+        target: theme;
+        property: "inverted";
+        value: !tbsettings.whiteTheme;
     }
-
-    // Background image
-    Image {
-        id: background;
-        z: -1;
-        parent: pageStack;
-        width: screen.width; height: screen.height;
-        sourceSize.height: 640;
-        fillMode: Image.PreserveAspectCrop;
-        asynchronous: true;
-        source: tbsettings.bgImageUrl;
-        visible: status === Image.Ready;
-        opacity: tbsettings.whiteTheme ? 0.7 : 0.5;
-    }
-
-    Keys.onVolumeUpPressed: audioWrapper.volumeUp();
-    Keys.onVolumeDownPressed: audioWrapper.volumeDown();
 
     Component.onCompleted: Script.initialize(signalCenter, tbsettings, utility, worker, uploader);
 }

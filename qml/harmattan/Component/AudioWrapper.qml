@@ -1,6 +1,5 @@
 import QtQuick 1.1
 import QtMultimediaKit 1.1
-import QtMobility.systeminfo 1.2
 import com.yeatse.tbclient 1.0
 import "../../js/Utils.js" as Utils
 
@@ -9,7 +8,7 @@ Item {
 
     // public api:
     property string currentMd5;
-    property real volume: devInfo.voiceRingtoneVolume / 100;
+    property real volume: audio.volume;
     property int position: audio.position;
     property bool playing: audio.playing;
     property bool loading: downloader.state == 2;
@@ -55,26 +54,6 @@ Item {
         return utility.cachePath + "/audio/" + md5 + ".mp3";
     }
 
-    function volumeUp() {
-        var maxVol = 1.0;
-        var volThreshold = 0.1;
-        if (root.volume < maxVol - volThreshold) {
-            root.volume += volThreshold;
-        } else {
-            root.volume = maxVol;
-        }
-    }
-
-    function volumeDown() {
-        var minVol = 0.0;
-        var volThreshold = 0.1;
-        if (root.volume > minVol + volThreshold) {
-            root.volume -= volThreshold;
-        } else {
-            root.volume = minVol;
-        }
-    }
-
     function stop(){
         audio.stop();
     }
@@ -83,7 +62,6 @@ Item {
 
     Audio {
         id: audio;
-        volume: root.volume;
     }
 
     Downloader {
@@ -94,14 +72,6 @@ Item {
                     changeFile("file:///"+currentFile);
                 }
             }
-        }
-    }
-
-    DeviceInfo {
-        id: devInfo;
-        monitorCurrentProfileChanges: true;
-        onCurrentProfileChanged: {
-            root.volume = devInfo.voiceRingtoneVolume / 100;
         }
     }
 

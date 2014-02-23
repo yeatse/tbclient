@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 import "../Component"
 import "../Silica"
 import "../../js/main.js" as Script
@@ -37,12 +37,12 @@ MyPage {
 
     tools: ToolBarLayout {
         BackButton {}
-        ToolButtonWithTip {
+        ToolIcon {
             toolTipText: qsTr("Refresh");
             iconSource: "toolbar-refresh";
             onClicked: getlist();
         }
-        ToolButtonWithTip {
+        ToolIcon {
             toolTipText: editMode ? qsTr("OK") : qsTr("Edit");
             iconSource: "../../gfx/"+(editMode?"ok":"edit")+constant.invertedString+".svg";
             enabled: uid === tbsettings.currentUid;

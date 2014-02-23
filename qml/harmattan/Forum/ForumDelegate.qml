@@ -1,10 +1,10 @@
 import QtQuick 1.1
 import "../Component"
 
-AbstractItem {
+AbstractDelegate {
     id: root;
 
-    implicitHeight: contentCol.height + constant.paddingLarge*2;
+    implicitHeight: contentCol.height + 32;
     onClicked: {
         var prop = { threadId: id, title: title };
         signalCenter.enterThread(prop);
@@ -28,18 +28,18 @@ AbstractItem {
             }
             Row {
                 anchors.right: parent.right;
-                spacing: 2;
+                spacing: 4;
                 Image {
                     asynchronous: true;
                     enabled: is_good;
                     visible: enabled;
-                    source: enabled ? "../../gfx/icon_elite"+constant.invertedString+".png" : "";
+                    source: enabled ? "../../gfx/icon_elite"+constant.invertedString : "";
                 }
                 Image {
                     asynchronous: true;
                     enabled: is_top;
                     visible: enabled;
-                    source: enabled ? "../../gfx/icon_top"+constant.invertedString+".png" : "";
+                    source: enabled ? "../../gfx/icon_top"+constant.invertedString : "";
                 }
             }
         }
@@ -85,10 +85,10 @@ AbstractItem {
         }
     }
     Row {
-        anchors { right: parent.right; bottom: parent.bottom; margins: constant.paddingSmall; }
+        anchors { right: parent.right; bottom: parent.bottom; margins: 12; }
         Image {
             asynchronous: true;
-            source: "../../gfx/btn_icon_comment_n"+constant.invertedString+".png";
+            source: "../../gfx/btn_icon_comment_n"+constant.invertedString;
         }
         Text {
             anchors.verticalCenter: parent.verticalCenter;

@@ -1,23 +1,22 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 
 Item {
     id: root;
 
     property Item tab;
-    property bool checked: tab === internal.tabGroup.currentTab;
+    property bool checked: internal.tabGroup !== null && tab === internal.tabGroup.currentTab;
     signal clicked;
+
+    width: parent.width / parent.children.length;
+    height: parent.height;
 
     QtObject {
         id: internal;
 
         property Item tabGroup: findParent(tab, "currentTab");
-        function press(){
-            privateStyle.play(Symbian.BasicButton);
-        }
         function click(){
             root.clicked();
-            privateStyle.play(Symbian.BasicButton);
             if (internal.tabGroup){
                 if (internal.tabGroup.currentTab == tab){
                     tab.positionAtTop();
@@ -44,8 +43,8 @@ Item {
         }
     }
 
-    Label {
-        anchors { fill: parent; margins: platformStyle.paddingSmall; }
+    Text {
+        anchors { fill: parent; margins: constant.paddingSmall; }
         elide: Text.ElideRight;
         horizontalAlignment: Text.AlignHCenter;
         verticalAlignment: Text.AlignVCenter;
@@ -53,6 +52,8 @@ Item {
         wrapMode: Text.WrapAnywhere;
         maximumLineCount: 1;
         text: tab.title;
+        font: constant.labelFont;
+        color: "white";
     }
 
     Loader {
@@ -69,6 +70,7 @@ Item {
                     opacity: 1;
                     anchors.centerIn: parent;
                     running: true;
+                    platformStyle.inverted: true;
                 }
                 Component.onCompleted: PropertyAnimation {
                     target: indBg;
@@ -99,7 +101,6 @@ Item {
     MouseArea {
         id: sectionMouseArea;
         anchors.fill: parent;
-        onPressed: internal.press();
         onClicked: internal.click();
     }
 }

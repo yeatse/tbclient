@@ -4,6 +4,7 @@ Version=1.0
 Type=Application
 Terminal=false
 Name=tbclient
+Name[zh]=百度贴吧
 Exec=/usr/bin/invoker --type=d -s /opt/tbclient/bin/tbclient
 Icon=/usr/share/icons/hicolor/80x80/apps/tbclient80.png
 X-Window-Icon=

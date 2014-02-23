@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 import com.yeatse.tbclient 1.0
 import "../Component"
 import "../../js/main.js" as Script
@@ -13,17 +13,6 @@ MyPage {
     property bool isReply: false;
 
     title: isReply ? qsTr("Send reply") : qsTr("Create a new thread");
-
-    tools: ToolBarLayout {
-        BackButton {
-            onClicked: {
-                tbsettings.draftBox = contentArea.text;
-                if (uploader.uploadState == HttpUploader.Loading){
-                    uploader.abort();
-                }
-            }
-        }
-    }
 
     Connections {
         target: signalCenter;
@@ -56,76 +45,96 @@ MyPage {
         id: viewHeader;
         visible: app.inPortrait;
         title: page.title;
-    }
-
-    TextField {
-        id: titlefield;
-        property bool acceptableInput: Utils.TextSlicer.textLength(text) <= 60;
-        visible: !isReply;
-        height: visible ? implicitHeight : 0;
-        anchors.left: parent.left;
-        anchors.right: parent.right;
-        anchors.top: viewHeader.bottom;
-        anchors.margins: constant.paddingMedium;
-        platformInverted: tbsettings.whiteTheme;
-        KeyNavigation.down: contentArea;
-        Keys.onPressed: {
-            if (event.key == Qt.Key_Select
-                    ||event.key == Qt.Key_Enter
-                    ||event.key == Qt.Key_Return){
-                contentArea.forceActiveFocus();
-                contentArea.openSoftwareInputPanel();
-                event.accepted = true;
+        Button {
+            anchors {
+                right: parent.right;
+                rightMargin: constant.paddingXLarge;
+                verticalCenter: parent.verticalCenter;
+            }
+            platformStyle: ButtonStyle {
+                buttonWidth: 150; buttonHeight: 42;
+            }
+            text: "返回";
+            onClicked: {
+                tbsettings.draftBox = contentArea.text;
+                if (uploader.uploadState == HttpUploader.Loading){
+                    uploader.abort();
+                }
+                pageStack.pop();
             }
         }
     }
 
-    TextArea {
-        id: contentArea;
-        anchors.left: parent.left;
-        anchors.right: parent.right;
-        anchors.top: isReply ? viewHeader.bottom : titlefield.bottom;
-        anchors.bottom: undefined;
-        anchors.margins: constant.paddingMedium;
-        height: screen.height
-                - privateStyle.statusBarHeight
-                - viewHeader.height
-                - titlefield.height
-                - toolsBanner.height
-                - attachedArea.height
-                - constant.paddingMedium*4;
-        platformInverted: tbsettings.whiteTheme;
-        text: tbsettings.draftBox;
+    Flickable {
+        id: view;
+        anchors {
+            left: parent.left; right: parent.right;
+            top: viewHeader.bottom; bottom: toolsBanner.top;
+        }
+        clip: true;
+        boundsBehavior: Flickable.StopAtBounds;
+        contentWidth: parent.width;
+        contentHeight: contentCol.height+constant.paddingLarge*2;
+
+        Column {
+            id: contentCol;
+            anchors {
+                left: parent.left; right: parent.right;
+                top: parent.top; margins: constant.paddingLarge;
+            }
+            width: parent.width;
+            spacing: constant.paddingLarge;
+
+            TextField {
+                id: titlefield;
+                property bool acceptableInput: Utils.TextSlicer.textLength(text) <= 60;
+                width: parent.width;
+                height: visible ? implicitHeight : 0;
+                visible: !isReply;
+            }
+
+            TextArea {
+                id: contentArea;
+                property int minHeight: view.height - titlefield.height - constant.paddingLarge*3;
+                width: parent.width;
+                textFormat: TextEdit.PlainText;
+                text: tbsettings.draftBox;
+                function setHeight(){ contentArea.height = Math.max(implicitHeight, minHeight); }
+                onMinHeightChanged: setHeight();
+                onImplicitHeightChanged: setHeight();
+            }
+        }
     }
 
     Item {
         id: toolsBanner;
         anchors {
             left: parent.left; right: parent.right;
-            top: contentArea.bottom; margins: constant.paddingMedium;
+            bottom: parent.bottom; margins: constant.paddingLarge;
         }
-        height: childrenRect.height;
+        height: toolsRow.height+attachedArea.height;
+        ButtonStyle { id: toolBtnStyle; buttonWidth: buttonHeight; }
         Row {
             id: toolsRow;
             spacing: constant.paddingSmall;
-            ToolButton {
-                platformInverted: tbsettings.whiteTheme;
-                iconSource: "../../gfx/btn_insert_face"+constant.invertedString+".png"
+            Button {
+                platformStyle: toolBtnStyle;
+                iconSource: "../../gfx/btn_insert_face"+constant.invertedString;
                 onClicked: signalCenter.createEmoticonDialog(page);
             }
-            ToolButton {
-                platformInverted: tbsettings.whiteTheme;
-                iconSource: "../../gfx/btn_insert_at"+constant.invertedString+".png";
+            Button {
+                platformStyle: toolBtnStyle;
+                iconSource: "../../gfx/btn_insert_at"+constant.invertedString;
                 onClicked: {
                     var prop = { type: "at", caller: page }
                     pageStack.push(Qt.resolvedUrl("../Profile/SelectFriendPage.qml"), prop);
                 }
             }
-            ToolButton {
+            Button {
                 id: picBtn;
+                platformStyle: toolBtnStyle;
                 checkable: true;
-                platformInverted: tbsettings.whiteTheme;
-                iconSource: "../../gfx/btn_insert_pics"+constant.invertedString+".png";
+                iconSource: "../../gfx/btn_insert_pics"+constant.invertedString;
                 onClicked: attachedArea.state = attachedArea.state == "Image" ? "" : "Image";
                 Image {
                     anchors { top: parent.top; right: parent.right; }
@@ -133,11 +142,11 @@ MyPage {
                     visible: attachedArea.imageList.length > 0;
                 }
             }
-            ToolButton {
+            Button {
                 id: voiBtn;
+                platformStyle: toolBtnStyle;
                 checkable: true;
-                platformInverted: tbsettings.whiteTheme;
-                iconSource: "../../gfx/btn_insert_voice"+constant.invertedString+".png";
+                iconSource: "../../gfx/btn_insert_voice"+constant.invertedString;
                 onClicked: attachedArea.state = attachedArea.state == "Voice" ? "" : "Voice";
                 Image {
                     anchors { top: parent.top; right: parent.right; }
@@ -146,59 +155,45 @@ MyPage {
                 }
             }
         }
-        ToolButton {
-            anchors.top: app.inPortrait ? toolsRow.bottom : parent.top;
+        Button {
             anchors.right: parent.right;
-            platformInverted: tbsettings.whiteTheme;
+            platformStyle: ButtonStyle {
+                buttonWidth: buttonHeight*2;
+                inverted: !theme.inverted;
+            }
             enabled: !loading && attachedArea.enabled;
             text: qsTr("Post");
             onClicked: postTimer.start();
         }
-    }
-
-    AttachedArea {
-        id: attachedArea;
-        enabled: uploader.uploadState != HttpUploader.Loading||uploader.caller != page;
-        onStateChanged: {
-            picBtn.checked = state === "Image";
-            voiBtn.checked = state === "Voice";
-        }
-        BusyIndicator {
-            anchors.centerIn: parent;
-            running: true;
-            width: constant.graphicSizeLarge;
-            height: constant.graphicSizeLarge;
-            platformInverted: tbsettings.whiteTheme;
-            visible: !(attachedArea.enabled||attachedArea.state=="");
-        }
-        ProgressBar {
-            anchors.bottom: parent.bottom;
-            width: parent.width;
-            value: uploader.progress;
-            platformInverted: tbsettings.whiteTheme;
-            visible: !(attachedArea.enabled||attachedArea.state=="");
+        AttachedArea {
+            id: attachedArea;
+            anchors.top: toolsRow.bottom;
+            enabled: uploader.uploadState != HttpUploader.Loading||uploader.caller != page;
+            onStateChanged: {
+                picBtn.checked = state === "Image";
+                voiBtn.checked = state === "Voice";
+            }
+            BusyIndicator {
+                anchors.centerIn: parent;
+                running: true;
+                width: constant.graphicSizeLarge;
+                height: constant.graphicSizeLarge;
+                visible: !(attachedArea.enabled||attachedArea.state=="");
+            }
+            ProgressBar {
+                anchors.bottom: parent.bottom;
+                width: parent.width;
+                value: uploader.progress;
+                visible: !(attachedArea.enabled||attachedArea.state=="");
+            }
         }
     }
 
-    states: [
-        State {
-            name: "VKBOpened";
-            PropertyChanges { target: viewHeader; visible: false; }
-            PropertyChanges { target: contentArea; height: undefined; }
-            AnchorChanges { target: contentArea; anchors.bottom: page.bottom; }
-            PropertyChanges { target: toolsBanner; visible: false; }
-            PropertyChanges { target: attachedArea; visible: false; }
-            when: app.platformSoftwareInputPanelEnabled && inputContext.visible;
-        }
-    ]
-
-    // for keypad
     Connections {
-        target: platformPopupManager;
-        onPopupStackDepthChanged: {
-            if (platformPopupManager.popupStackDepth === 0
-                    && page.status === PageStatus.Active){
-                contentArea.forceActiveFocus();
+        target: inputContext;
+        onSoftwareInputPanelVisibleChanged: {
+            if (inputContext.softwareInputPanelVisible){
+                attachedArea.state = "";
             }
         }
     }
@@ -207,10 +202,10 @@ MyPage {
         if (status === PageStatus.Active){
             if (titlefield.visible && contentArea.text.length == 0){
                 titlefield.forceActiveFocus();
-                titlefield.openSoftwareInputPanel();
+                titlefield.platformOpenSoftwareInputPanel();
             } else {
                 contentArea.forceActiveFocus();
-                contentArea.openSoftwareInputPanel();
+                contentArea.platformOpenSoftwareInputPanel();
             }
         } else if (status === PageStatus.Deactivating){
             attachedArea.state = "";

@@ -1,17 +1,19 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 
-CommonDialog {
+Sheet {
     id: root;
 
     property alias text: textArea.text;
     property bool __isClosing: false;
+    property int __isPage;  //to make sheet happy
 
-    titleText: qsTr("Copy to clipboard");
+    acceptButtonText: qsTr("Copy");
+    rejectButtonText: qsTr("Cancel");
 
     content: Item {
         width: parent.width;
-        height: platformContentMaximumHeight;
+        height: parent.height;
         TextArea {
             id: textArea;
             anchors {
@@ -22,15 +24,11 @@ CommonDialog {
         }
     }
 
-    buttonTexts: [qsTr("Copy"), qsTr("Cancel")];
-
-    onButtonClicked: if (index === 0) accept();
-
     onStatusChanged: {
         if (status === DialogStatus.Closing){
             __isClosing = true;
         } else if (status === DialogStatus.Closed && __isClosing){
-            root.destroy();
+            root.destroy(250);
         } else if (status === DialogStatus.Open){
             textArea.selectAll();
         }

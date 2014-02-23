@@ -1,86 +1,80 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 
-CommonDialog {
+Sheet {
     id: root
 
     property variant caller;
     property string vcodeMd5;
     property string vcodePicUrl;
 
+    property int __isPage;  //to make sheet happy
     property bool __isClosing: false;
 
-    titleText: qsTr("Please enter verify code:");
-    buttonTexts: [qsTr("Continue"), qsTr("Cancel")];
+    acceptButtonText: qsTr("Continue");
+    rejectButtonText: qsTr("Cancel");
 
-    content: Item {
-        width: platformContentMaximumWidth;
-        height: Math.min(platformContentMaximumHeight, contentCol.height);
+    content: Flickable {
+        anchors.fill: parent;
+        contentWidth: parent.width;
+        contentHeight: contentCol.height;
 
-        Flickable {
-            anchors.fill: parent;
-            clip: true;
-            contentWidth: parent.width;
-            contentHeight: contentCol.height;
-
-            Column {
-                id: contentCol;
+        Column {
+            id: contentCol;
+            anchors.horizontalCenter: parent.horizontalCenter;
+            spacing: constant.paddingLarge;
+            Item { width: 1; height: 1; }
+            Text {
                 anchors.horizontalCenter: parent.horizontalCenter;
-                spacing: constant.paddingLarge;
-                Item { width: 1; height: 1; }
-                ListItemText {
-                    anchors.horizontalCenter: parent.horizontalCenter;
-                    text: qsTr("Please input these characters");
+                text: qsTr("Please input these characters");
+                font: constant.titleFont;
+                color: constant.colorLight;
+            }
+            Item {
+                anchors.horizontalCenter: parent.horizontalCenter;
+                width: 150; height: 60;
+                Image {
+                    id: pic;
+                    cache: false;
+                    asynchronous: true;
+                    anchors.fill: parent;
+                    smooth: true;
+                    source: root.vcodePicUrl;
                 }
-                Item {
-                    anchors.horizontalCenter: parent.horizontalCenter;
-                    width: 120; height: 48;
-                    Image {
-                        id: pic;
-                        cache: false;
-                        asynchronous: true;
-                        anchors.fill: parent;
-                        smooth: true;
-                        source: root.vcodePicUrl;
-                    }
-                    BusyIndicator {
-                        anchors.centerIn: parent;
-                        running: true;
-                        visible: pic.status == Image.Loading;
-                    }
-                    MouseArea {
-                        anchors.fill: parent;
-                        onClicked: {
-                            pic.source = "";
-                            pic.source = root.vcodePicUrl;
-                        }
+                BusyIndicator {
+                    anchors.centerIn: parent;
+                    running: true;
+                    visible: pic.status == Image.Loading;
+                }
+                MouseArea {
+                    anchors.fill: parent;
+                    onClicked: {
+                        pic.source = "";
+                        pic.source = root.vcodePicUrl;
                     }
                 }
-                TextField {
-                    id: vcodeInput;
-                    width: 150;
-                    anchors.horizontalCenter: parent.horizontalCenter;
-                    placeholderText: qsTr("Input verify code");
-                    inputMethodHints: Qt.ImhNoPredictiveText|Qt.ImhNoAutoUppercase;
-                    Keys.onEnterPressed: accept();
-                    Keys.onReturnPressed: accept();
-                }
+            }
+            TextField {
+                id: vcodeInput;
+                width: 150;
+                anchors.horizontalCenter: parent.horizontalCenter;
+                placeholderText: qsTr("Input verify code");
+                inputMethodHints: Qt.ImhNoPredictiveText|Qt.ImhNoAutoUppercase;
             }
         }
     }
 
-    onButtonClicked: if (index === 0) accept();
     onAccepted: signalCenter.vcodeSent(caller, vcodeInput.text, root.vcodeMd5);
 
     Component.onCompleted: open();
     onStatusChanged: {
         if (status === DialogStatus.Open){
             vcodeInput.forceActiveFocus();
-            vcodeInput.openSoftwareInputPanel();
+            vcodeInput.platformOpenSoftwareInputPanel();
         } else if (status === DialogStatus.Closing){
             __isClosing = true;
         } else if (status === DialogStatus.Closed && __isClosing){
-            root.destroy();
+            root.destroy(500);
         }
     }
 }

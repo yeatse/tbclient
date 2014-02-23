@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 import "../Component"
 import "../../js/main.js" as Script
 
@@ -39,7 +39,7 @@ Item {
             source: privateStyle.imagePath("qtg_fr_toolbar", tbsettings.whiteTheme);
             border { left: 20; top: 20; right: 20; bottom: 20 }
         }
-        ToolButtonWithTip {
+        ToolIcon {
             id: inputBarCancelBtn;
             anchors {
                 left: parent.left; leftMargin: app.inPortrait ? 0 : 2*constant.paddingLarge;
@@ -60,7 +60,7 @@ Item {
             iconSource: "../../gfx/btn_insert_face"+constant.invertedString+".png";
             onClicked: signalCenter.createEmoticonDialog(root);
         }
-        ToolButtonWithTip {
+        ToolIcon {
             id: sendBtn;
             anchors {
                 right: parent.right; rightMargin: app.inPortrait ? 0 : 2*constant.paddingLarge;

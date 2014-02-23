@@ -1,19 +1,11 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 
 Item {
     id: root;
 
-    width: screen.width;
-    height: contentCol.height + constant.paddingMedium*2;
-
-    BorderImage {
-        id: bgImg;
-        anchors.fill: parent;
-        source: privateStyle.imagePath("qtg_fr_list_heading_normal", tbsettings.whiteTheme);
-        border { left: 28; top: 5; right: 28; bottom: 0; }
-        smooth: true;
-    }
+    width: page.width;
+    height: contentCol.height + constant.paddingMedium*3;
 
     Column {
         id: contentCol;
@@ -34,18 +26,12 @@ Item {
             text: thread ? thread.title : "";
         }
         Item {
-            width: parent.width; height: privateStyle.tabBarHeightLandscape;
-            ButtonRow {
-                id: forumBtnRow;
-                width: Math.min(forumBtn.implicitWidth, parent.width - constant.graphicSizeLarge);
-                height: parent.height;
-                TabButton {
-                    id: forumBtn;
-                    platformInverted: tbsettings.whiteTheme;
-                    height: parent.height;
-                    text: forum ? forum.name + qsTr("Bar") : "";
-                    onClicked: signalCenter.enterForum(forum.name);
-                }
+            width: parent.width;
+            height: forumBtn.height;
+            SheetButton {
+                id: forumBtn;
+                text: forum ? forum.name + qsTr("Bar") : "";
+                onClicked: signalCenter.enterForum(forum.name);
             }
             Loader {
                 anchors {
@@ -56,7 +42,7 @@ Item {
                 Component {
                     id: livePostBtn;
                     Image {
-                        source: "../../gfx/icon_live"+constant.invertedString+".png";
+                        source: "../../gfx/icon_live"+constant.invertedString;
                         opacity: livePostMouseArea.pressed ? 0.6 : 1;
                         MouseArea {
                             id: livePostMouseArea;
@@ -78,5 +64,13 @@ Item {
                 }
             }
         }
+    }
+
+    Rectangle {
+        anchors {
+            left: root.left; right: parent.right; bottom: parent.bottom;
+        }
+        height: 1;
+        color: constant.colorMarginLine;
     }
 }

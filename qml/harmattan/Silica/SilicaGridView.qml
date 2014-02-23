@@ -43,6 +43,6 @@ GridView {
     property real originY: 0;
 
     function scrollToTop() {
-        FastScroll.scrollToTop(listView)
+        FastScroll.scrollToTop(gridView)
     }
 }

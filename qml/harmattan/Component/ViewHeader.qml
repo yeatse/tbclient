@@ -7,9 +7,9 @@ Rectangle {
 
     signal clicked;
 
-    implicitWidth: screen.width;
+    implicitWidth: page.width;
     implicitHeight: visible ? constant.headerHeight : 0;
-    color: "#1080dd";
+    color: "#1f2837";
     z: 10;
 
     Rectangle {
@@ -19,15 +19,6 @@ Rectangle {
         opacity: mouseArea.pressed ? 0.3 : 0;
     }
 
-    Image {
-        anchors { left: parent.left; top: parent.top; }
-        source: "../../gfx/meegoTLCorner.png";
-    }
-    Image {
-        anchors { right: parent.right; top: parent.top; }
-        source: "../../gfx/meegoTRCorner.png";
-    }
-
     Text {
         id: text;
         anchors {
@@ -35,10 +26,10 @@ Rectangle {
             margins: constant.paddingXLarge;
             verticalCenter: parent.verticalCenter;
         }
-        font.pixelSize: constant.fontXLarge;
+        font.pixelSize: constant.fontXXLarge;
         color: "white";
         style: Text.Raised;
-        styleColor: platformStyle.colorNormalMid;
+        styleColor: "#8c8c8c";
         maximumLineCount: 2;
         elide: Text.ElideRight;
         wrapMode: Text.WrapAnywhere;

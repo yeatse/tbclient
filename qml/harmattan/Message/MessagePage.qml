@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 import "../Component"
 import "../Thread" as Thread
 
@@ -13,12 +13,12 @@ MyPage {
 
     tools: ToolBarLayout {
         BackButton {}
-        ToolButtonWithTip {
+        ToolIcon {
             toolTipText: qsTr("Refresh");
             iconSource: "toolbar-refresh";
             onClicked: tabGroup.currentTab.getlist();
         }
-        ToolButtonWithTip {
+        ToolIcon {
             toolTipText: qsTr("Chat");
             iconSource: "toolbar-add";
             onClicked: {

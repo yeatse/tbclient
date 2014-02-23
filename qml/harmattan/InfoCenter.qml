@@ -1,6 +1,4 @@
 import QtQuick 1.1
-import com.nokia.extras 1.1
-import QtMobility.systeminfo 1.2
 import com.yeatse.tbclient 1.0
 import "../js/main.js" as Script
 
@@ -36,9 +34,7 @@ Item {
     Connections {
         target: Qt.application;
         onActiveChanged: {
-            if (Qt.application.active){
-                internal.displayMessage();
-            } else {
+            if (!Qt.application.active){
                 audioWrapper.stop();
             }
         }
@@ -60,40 +56,29 @@ Item {
         function displayMessage(){
             var list = [], count = 0;
             if (fans > 0 && tbsettings.remindFans){
-                infoBanner.type = "fans";
                 list.push(qsTr("%n new fan(s)", "", fans));
                 count += fans;
             }
             if (pletter > 0 && tbsettings.remindPletter){
-                infoBanner.type = "pletter";
                 list.push(qsTr("%n new pletter(s)", "", pletter));
                 count += pletter;
             }
             if (bookmark > 0 && tbsettings.remindBookmark){
-                infoBanner.type = "bookmark";
                 list.push(qsTr("%n new bookmark update(s)", "", bookmark));
                 count += bookmark;
             }
             if (replyme > 0 && tbsettings.remindReplyme){
-                infoBanner.type = "replyme";
                 list.push(qsTr("%n new reply(ies)", "", replyme));
                 count += replyme;
             }
             if (atme > 0 && tbsettings.remindAtme){
-                infoBanner.type = "atme";
                 list.push(qsTr("%n new remind(s)", "", atme));
                 count += atme;
             }
             if (list.length > 0){
-                if (Qt.application.active){
-                    infoBanner.text = list.join("\n");
-                    infoBanner.open();
-                } else if (tbsettings.remindBackground){
-                    var title = qsTr("Baidu Tieba");
-                    var message = qsTr("%n new message(s)", "", count);
-                    utility.showNotification(title, message);
-                    vibra.start(800);
-                }
+                var title = qsTr("Baidu Tieba");
+                var message = list.join("\n");
+                utility.showNotification(title, message);
             }
         }
 
@@ -115,24 +100,4 @@ Item {
             Script.getMessage(internal.loadMessage, internal.loadError);
         }
     }
-
-    InfoBanner {
-        id: infoBanner;
-        property string type;
-        interactive: true;
-        platformInverted: tbsettings.whiteTheme;
-        onClicked: signalCenter.readMessage(type);
-    }
-
-    DeviceInfo {
-        id: deviceInfo;
-        monitorLockStatusChanges: true;
-        onLockStatusChanged: {
-            if (deviceInfo.lockStatus == DeviceInfo.UnknownLock){
-                internal.displayMessage();
-            }
-        }
-    }
-
-    Vibra { id: vibra; }
 }

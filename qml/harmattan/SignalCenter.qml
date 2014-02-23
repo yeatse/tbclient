@@ -12,6 +12,7 @@ QtObject {
     property variant commDialogComp: null;
     property variant goodDialogComp: null;
     property variant emotDialogComp: null;
+    property variant gallDialogComp: null;
     property variant threadPage: null;
     property variant emoticonModel: [];
 
@@ -32,7 +33,7 @@ QtObject {
     function showMessage(msg){
         if (msg||false){
             infoBanner.text = msg;
-            infoBanner.open();
+            infoBanner.show();
         }
     }
 
@@ -40,10 +41,10 @@ QtObject {
         LinkDecoder.linkActivated(link);
     }
 
-    function clearLocalCache(){
+    function clearLocalCache(cookie){
         mainPage.forceRefresh = true;
         utility.clearUserData();
-        utility.clearCookies();
+        if (cookie) utility.clearCookies();
     }
 
     // Dialogs
@@ -113,6 +114,11 @@ QtObject {
         }
         var prop = { caller: caller }
         emotDialogComp.createObject(pageStack.currentPage, prop);
+    }
+
+    function selectImage(caller){
+        if (!gallDialogComp) gallDialogComp = Qt.createComponent("Dialog/GallerySheet.qml");
+        gallDialogComp.createObject(pageStack.currentPage, { caller: caller });
     }
 
     // Pages
@@ -195,10 +201,6 @@ QtObject {
     }
 
     function openBrowser(url){
-        if (tbsettings.browser == ""){
-            pageStack.push(Qt.resolvedUrl("Browser/WebPage.qml"), {url: utility.percentDecode(url)});
-        } else {
-            utility.openURLDefault(url);
-        }
+        utility.openURLDefault(url);
     }
 }

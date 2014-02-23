@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 import "Component"
 import "Profile"
 import "../js/main.js" as Script
@@ -39,12 +39,12 @@ MyPage {
 
     tools: ToolBarLayout {
         BackButton {}
-        ToolButtonWithTip {
+        ToolIcon {
             toolTipText: qsTr("Refresh");
             iconSource: "toolbar-refresh";
             onClicked: getProfile();
         }
-        ToolButtonWithTip {
+        ToolIcon {
             toolTipText: qsTr("Chat");
             iconSource: "../gfx/instant_messenger_chat"+constant.invertedString+".svg";
             enabled: !isMe && userData != null;

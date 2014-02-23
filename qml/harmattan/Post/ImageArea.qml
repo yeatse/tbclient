@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 
 Item {
     id: root;
@@ -38,11 +38,13 @@ Item {
         }
     }
 
-    BorderImage {
-        anchors.fill: parent;
-        source: privateStyle.imagePath("qtg_fr_list_heading_normal", tbsettings.whiteTheme);
-        border { left: 28; top: 5; right: 28; bottom: 0 }
+    Connections {
+        target: utility;
+        onImageCaptured: {
+            internal.imageSelected(filename);
+        }
     }
+
     Flickable {
         anchors.fill: parent;
         contentWidth: Math.max(parent.width, imageInsertRow.width);
@@ -60,17 +62,16 @@ Item {
                         anchors.fill: parent;
                         fillMode: Image.PreserveAspectCrop;
                         sourceSize.width: parent.width;
-                        source: "file:///"+modelData;
+                        source: "file://"+modelData;
                         clip: true;
                         asynchronous: true;
                     }
-                    ToolButton {
+                    ToolIcon {
                         anchors {
                             top: parent.top; right: parent.right;
                             margins: -constant.paddingMedium;
                         }
-                        platformInverted: tbsettings.whiteTheme;
-                        iconSource: "../../gfx/tb_close_stop"+constant.invertedString+".svg";
+                        platformIconId: "toolbar-close";
                         onClicked: internal.removeImage(modelData);
                     }
                 }
@@ -82,8 +83,8 @@ Item {
                 Button {
                     width: height;
                     anchors.centerIn: parent;
-                    platformInverted: tbsettings.whiteTheme;
-                    iconSource: privateStyle.toolBarIconPath("toolbar-add", platformInverted);
+                    platformStyle: ButtonStyle { buttonWidth: buttonHeight; }
+                    iconSource: "image://theme/icon-m-toolbar-add"+(theme.inverted?"-white":"")
                     onClicked: internal.selectImage();
                 }
             }

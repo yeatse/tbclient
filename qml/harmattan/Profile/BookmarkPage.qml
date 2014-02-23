@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 import "../../js/main.js" as Script
 import "../Component"
 import "../Silica"
@@ -9,12 +9,12 @@ MyPage {
 
     tools: ToolBarLayout {
         BackButton {}
-        ToolButtonWithTip {
+        ToolIcon {
             toolTipText: qsTr("Refresh");
             iconSource: "toolbar-refresh";
             onClicked: internal.getlist();
         }
-        ToolButtonWithTip {
+        ToolIcon {
             toolTipText: internal.editMode ? qsTr("OK") : qsTr("Edit");
             iconSource: "../../gfx/"+(internal.editMode?"ok":"edit")+constant.invertedString+".svg";
             onClicked: internal.editMode = !internal.editMode;

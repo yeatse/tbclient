@@ -54,7 +54,7 @@ QtObject {
     }
 
     // design
-    property bool whiteTheme: utility.getValue("whiteTheme", false);
+    property bool whiteTheme: utility.getValue("whiteTheme", true);
     onWhiteThemeChanged: utility.setValue("whiteTheme", whiteTheme);
 
     property bool showImage: utility.getValue("showImage", true);

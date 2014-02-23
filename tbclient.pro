@@ -1,7 +1,7 @@
 TEMPLATE = app
 TARGET = tbclient
 
-VERSION = 2.1.1
+VERSION = 2.1.2
 DEFINES += VER=\\\"$$VERSION\\\"
 
 QT += network webkit
@@ -28,21 +28,7 @@ SOURCES += main.cpp \
     src/audiorecorder.cpp \
     src/scribblearea.cpp \
     src/flickcharm.cpp \
-    src/qwebviewitem.cpp \
-#    qml/tbclient/*.qml \
-#    qml/tbclient/Component/*.qml \
-#    qml/tbclient/Dialog/*.qml \
-#    qml/tbclient/Explore/*.qml \
-#    qml/tbclient/Floor/*.qml \
-#    qml/tbclient/Forum/*.qml \
-#    qml/tbclient/Message/*.qml \
-#    qml/tbclient/Post/*.* \
-#    qml/tbclient/Profile/*.qml \
-#    qml/tbclient/Thread/*.qml \
-#    qml/tbclient/Browser/*.qml \
-#    qml/js/main.js \
-#    qml/js/BaiduParser.js \
-#    qml/js/LinkDecoder.js
+    src/qwebviewitem.cpp
 
 TRANSLATIONS += i18n/tbclient_zh.ts
 RESOURCES += tbclient-res.qrc
@@ -54,7 +40,7 @@ folder_symbian3.target = qml
 folder_symbian1.source = qml/symbian1
 folder_symbian1.target = qml
 
-folder_harmattan.source = qml/meego
+folder_harmattan.source = qml/harmattan
 folder_harmattan.target = qml
 
 folder_js.source = qml/js
@@ -69,16 +55,19 @@ folder_emo.target = qml
 DEPLOYMENTFOLDERS = folder_emo
 
 simulator {
-    DEPLOYMENTFOLDERS += folder_js folder_symbian3 folder_gfx
+    DEPLOYMENTFOLDERS += folder_js folder_harmattan folder_gfx
 }
 
 contains(MEEGO_EDITION,harmattan){
     DEFINES += Q_OS_HARMATTAN
-    CONFIG += qdeclarative-boostable meegotouch
+    CONFIG += qdeclarative-boostable
+    CONFIG += videosuiteinterface-maemo-meegotouch  #video suite
+    CONFIG += shareuiinterface-maemo-meegotouch share-ui-plugin share-ui-common #share ui
+    CONFIG += mdatauri  #mdatauri
     QT += dbus
     MOBILITY += gallery
 
-    DEPLOYMENTFOLDERS += folder_harmattan
+    DEPLOYMENTFOLDERS += folder_js folder_harmattan folder_gfx
 }
 
 symbian {

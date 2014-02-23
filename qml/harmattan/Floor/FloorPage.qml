@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 import "../Component"
 import "../Silica"
 import "../../js/main.js" as Script
@@ -20,20 +20,17 @@ MyPage {
 
     tools: ToolBarLayout {
         BackButton {}
-        ToolButtonWithTip {
-            toolTipText: qsTr("Refresh");
-            iconSource: "toolbar-refresh";
+        ToolIcon {
+            platformIconId: "toolbar-refresh"
             onClicked: internal.getlist();
         }
-        ToolButtonWithTip {
-            toolTipText: qsTr("Reply");
+        ToolIcon {
             enabled: internal.post != null;
-            iconSource: "../../gfx/edit"+constant.invertedString+".svg";
+            platformIconId: "toolbar-edit";
             onClicked: toolsArea.state = "Input";
         }
-        ToolButtonWithTip {
-            toolTipText: qsTr("Menu");
-            iconSource: "toolbar-menu";
+        ToolIcon {
+            platformIconId: "toolbar-view-menu";
             onClicked: internal.openMenu();
         }
     }
@@ -236,27 +233,16 @@ MyPage {
         }
     }
 
-    ScrollDecorator { flickableItem: view; platformInverted: tbsettings.whiteTheme; }
+    ScrollDecorator { flickableItem: view; }
 
     ToolsArea {
         id: toolsArea;
     }
 
-    // For keypad
     onStatusChanged: {
-        if (status === PageStatus.Active){
-            view.forceActiveFocus();
-        } else if (status === PageStatus.Deactivating){
+        if (status === PageStatus.Deactivating){
             audioWrapper.stop();
             toolsArea.state = "";
-        }
-    }
-
-    Keys.onPressed: {
-        switch (event.key){
-        case Qt.Key_M: internal.openMenu(); event.accepted = true; break;
-        case Qt.Key_R: internal.getlist(); event.accepted = true; break;
-        case Qt.Key_E: if (internal.post)toolsArea.state = "Input"; event.accepted = true; break;
         }
     }
 }

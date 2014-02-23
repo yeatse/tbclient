@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 import "../Component"
 import "../Silica"
 import "../../js/main.js" as Script
@@ -18,24 +18,21 @@ MyPage {
 
     tools: ToolBarLayout {
         BackButton {}
-        ToolButtonWithTip {
-            toolTipText: qsTr("Refresh");
-            iconSource: "toolbar-refresh";
+        ToolIcon {
+            platformIconId: "toolbar-refresh";
             onClicked: internal.getlist();
         }
-        ToolButtonWithTip {
+        ToolIcon {
             id: editBtn;
-            toolTipText: qsTr("Create a thread");
-            iconSource: "../../gfx/edit"+constant.invertedString+".svg";
+            platformIconId: "toolbar-edit";
             onClicked: {
                 var prop = { caller: internal };
                 pageStack.push(Qt.resolvedUrl("../Post/PostPage.qml"), prop);
             }
         }
-        ToolButtonWithTip {
+        ToolIcon {
             id: listBtn;
-            toolTipText: qsTr("Activities");
-            iconSource: "toolbar-list";
+            platformIconId: "toolbar-list";
             onClicked: pageStack.replace(Qt.resolvedUrl("ForumPage.qml"),{name: internal.getName()});
         }
     }
@@ -149,31 +146,5 @@ MyPage {
         }
     }
 
-    ScrollDecorator { flickableItem: view; platformInverted: tbsettings.whiteTheme; }
-
-    // For keypad
-    Connections {
-        target: platformPopupManager;
-        onPopupStackDepthChanged: {
-            if (platformPopupManager.popupStackDepth === 0
-                    && page.status === PageStatus.Active){
-                view.forceActiveFocus();
-            }
-        }
-    }
-    onStatusChanged: {
-        if (status === PageStatus.Active){
-            view.forceActiveFocus();
-        }
-    }
-
-    Keys.onPressed: {
-        switch (event.key){
-        case Qt.Key_M: listBtn.clicked(); event.accepted = true; break;
-        case Qt.Key_R: internal.getlist(); event.accepted = true; break;
-        case Qt.Key_E: editBtn.clicked(); event.accepted = true; break;
-        case Qt.Key_Up: view.contentY = Math.max(0, view.contentY-view.height); break;
-        case Qt.Key_Down: view.contentY = Math.min(view.contentHeight-view.height, view.contentY+view.height); break;
-        }
-    }
+    ScrollDecorator { flickableItem: view; }
 }

@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 import "../../js/main.js" as Script
 import "../Component"
 
@@ -229,6 +229,7 @@ MyPage {
         id: view;
         anchors.fill: parent;
         cacheBuffer: 600;
+        pressDelay: 200;
         model: ListModel {}
         delegate: ThreadDelegate {
             onClicked: floor === "1"
@@ -253,44 +254,5 @@ MyPage {
 
     ScrollDecorator {
         flickableItem: view;
-        platformInverted: tbsettings.whiteTheme;
-    }
-
-    Column {
-        id: btnCol;
-        anchors {
-            right: parent.right; rightMargin: constant.paddingSmall;
-            verticalCenter: view.verticalCenter;
-        }
-        spacing: constant.paddingLarge;
-        Image {
-            source: "../../gfx/icon_arrow.png";
-            opacity: upMA.pressed ? 0.7 : 0.3;
-            Behavior on opacity { NumberAnimation { duration: 50; } }
-            MouseArea {
-                id: upMA;
-                anchors.fill: parent;
-                onClicked: {
-                    view.contentY -= view.height;
-                    if (view.atYBeginning) view.positionViewAtBeginning();
-                }
-                onPressAndHold: view.positionViewAtBeginning();
-            }
-        }
-        Image {
-            source: "../../gfx/icon_arrow.png";
-            rotation: 180;
-            opacity: downMA.pressed ? 0.7 : 0.3;
-            Behavior on opacity { NumberAnimation { duration: 50; } }
-            MouseArea {
-                id: downMA;
-                anchors.fill: parent;
-                onClicked: {
-                    view.contentY += view.height;
-                    if (view.atYEnd) view.positionViewAtEnd();
-                }
-                onPressAndHold: view.positionViewAtEnd();
-            }
-        }
     }
 }

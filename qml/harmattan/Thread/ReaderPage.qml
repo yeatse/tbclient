@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import com.nokia.meego 1.1
 import QtWebKit 1.0
 import "../Component"
 import "../../js/Utils.js" as Utils
@@ -14,15 +14,13 @@ MyPage {
 
     tools: ToolBarLayout {
         BackButton {}
-        ToolButtonWithTip {
-            toolTipText: qsTr("Prev");
-            text: qsTr("Prev");
+        ToolIcon {
+            platformIconId: "toolbar-up";
             enabled: !view.atYBeginning;
             onClicked: view.decrementCurrentIndex();
         }
-        ToolButtonWithTip {
-            toolTipText: qsTr("Next");
-            text: qsTr("Next");
+        ToolIcon {
+            platformIconId: "toolbar-down"
             enabled: !view.atYEnd;
             onClicked: view.incrementCurrentIndex();
         }
@@ -30,21 +28,15 @@ MyPage {
 
     loading: view.currentItem != null && view.currentItem.loading;
 
-    ListHeading {
+    ViewHeader {
         id: viewHeader;
-        platformInverted: tbsettings.whiteTheme;
-        z: 10;
-        ListItemText {
-            anchors.fill: parent.paddingItem;
-            role: "SubTitle";
-            platformInverted: parent.platformInverted;
-            text: view.currentItem ? listModel.get(view.currentIndex).floor+"#" : "";
-        }
-        ListItemText {
-            anchors.fill: parent.paddingItem;
-            role: "Heading";
-            platformInverted: parent.platformInverted;
-            text: view.currentItem ? listModel.get(view.currentIndex).authorName : "";
+        title: {
+            if (view.currentItem){
+                var d = listModel.get(view.currentIndex);
+                return d.floor+"#    "+d.authorName;
+            } else {
+                return "";
+            }
         }
     }
 
@@ -70,55 +62,6 @@ MyPage {
                 property bool loading: false;
                 implicitWidth: view.width;
                 implicitHeight: view.height;
-
-                Keys.onPressed: {
-                    if (!event.isAutoRepeat) {
-                        switch (event.key) {
-                        case Qt.Key_Up: {
-                            if (symbian.listInteractionMode != Symbian.KeyNavigation) {
-                                symbian.listInteractionMode = Symbian.KeyNavigation
-                                ListView.view.positionViewAtIndex(index, ListView.Beginning)
-                            } else
-                                up();
-                            event.accepted = true
-                            break
-                        }
-                        case Qt.Key_Down: {
-                            if (symbian.listInteractionMode != Symbian.KeyNavigation) {
-                                symbian.listInteractionMode = Symbian.KeyNavigation
-                                ListView.view.positionViewAtIndex(index, ListView.Beginning)
-                            } else
-                                down();
-                            event.accepted = true
-                            break
-                        }
-                        default: {
-                            event.accepted = false
-                            break
-                        }
-                        }
-                    }
-                    if (event.key == Qt.Key_Up || event.key == Qt.Key_Down)
-                        symbian.privateListItemKeyNavigation(ListView.view)
-                }
-
-                function up(){
-                    if (flickable.contentY <= 0){
-                        if (!ListView.view.atYBeginning)
-                            ListView.view.decrementCurrentIndex();
-                    } else {
-                        flickable.contentY = Math.max(0, flickable.contentY-flickable.height);
-                    }
-                }
-                function down(){
-                    if (flickable.contentY >= flickable.contentHeight-flickable.height){
-                        if (!ListView.view.atYEnd)
-                            ListView.view.incrementCurrentIndex();
-                    } else {
-                        flickable.contentY = Math.min(flickable.contentHeight-flickable.height,
-                                                      flickable.contentY+flickable.height);
-                    }
-                }
 
                 Flickable {
                     id: flickable;
@@ -183,7 +126,7 @@ if(tagName=='a'){window.clickListener.onClick(target.href)}}");
                         }
                     }
                 }
-                ScrollDecorator { flickableItem: flickable; platformInverted: tbsettings.whiteTheme; }
+                ScrollDecorator { flickableItem: flickable;}
             }
         }
     }
@@ -194,7 +137,6 @@ if(tagName=='a'){window.clickListener.onClick(target.href)}}");
                 firstStart = false;
                 view.positionViewAtIndex(currentIndex, ListView.Beginning);
             }
-            view.forceActiveFocus();
         } else if (status === PageStatus.Deactivating){
             if (parentView)
                 parentView.positionViewAtIndex(view.currentIndex, ListView.Visible);
