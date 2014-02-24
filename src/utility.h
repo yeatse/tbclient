@@ -30,6 +30,7 @@ public:             // Cache and network
     // Save and load settings.
     Q_INVOKABLE QVariant getValue(const QString &key, const QVariant defaultValue = QVariant());
     Q_INVOKABLE void setValue(const QString &key, const QVariant &value);
+    Q_INVOKABLE void clearSettings();
 
     // Save and load user data.
     Q_INVOKABLE void setUserData(const QString &key, const QString &data);

@@ -110,6 +110,12 @@ void Utility::setValue(const QString &key, const QVariant &value)
     }
 }
 
+void Utility::clearSettings()
+{
+    map.clear();
+    settings->clear();
+}
+
 void Utility::setUserData(const QString &key, const QString &data)
 {
     QString path = QDesktopServices::storageLocation(QDesktopServices::DataLocation) + QDir::separator() + ".userdata";

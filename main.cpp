@@ -118,6 +118,12 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     if (utility->qtVersion() > 0x040800)
         QApplication::setStartDragDistance(2);
 
+    // Initialize settings
+    if (utility->getValue("AppVersion","").toString() != VER){
+        utility->clearSettings();
+        utility->setValue("AppVersion", VER);
+    }
+
 #ifdef Q_OS_SYMBIAN
     viewer.setSource(QUrl("qrc:/qml/tbclient/main.qml"));
 #else
