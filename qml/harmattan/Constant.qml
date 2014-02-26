@@ -40,7 +40,7 @@ QtObject {
     property variant sizeMedium: Qt.size(graphicSizeMedium, graphicSizeMedium);
 
     // others
-    property int headerHeight: app.inPortrait ? 72 : 46;
+    property int headerHeight: app.inPortrait ? 72 : 56;
     property string invertedString: tbsettings.whiteTheme ? ".png" : "_1.png";
 
     // private

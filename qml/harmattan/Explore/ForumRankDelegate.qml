@@ -6,6 +6,8 @@ AbstractItem {
 
     onClicked: signalCenter.enterForum(forum_name);
 
+    implicitHeight: constant.thumbnailSize;
+
     Image {
         id: logo;
         asynchronous: true;
@@ -18,15 +20,11 @@ AbstractItem {
     }
     Image {
         id: subItemIcon;
-        asynchronous: true;
         anchors {
-            right: parent.right;
-            rightMargin: privateStyle.scrollBarThickness;
+            right: root.paddingItem.right;
             verticalCenter: parent.verticalCenter;
         }
-        source: privateStyle.imagePath("qtg_graf_drill_down_indicator", tbsettings.whiteTheme);
-        sourceSize.width: platformStyle.graphicSizeSmall;
-        sourceSize.height: platformStyle.graphicSizeSmall;
+        source: "image://theme/icon-m-common-drilldown-arrow"+(theme.inverted?"-inverse":"");
     }
     Column {
         anchors {
@@ -64,6 +62,7 @@ AbstractItem {
             font: constant.subTitleFont;
             color: constant.colorMid;
             text: slogan;
+            visible: slogan != "";
         }
     }
 }

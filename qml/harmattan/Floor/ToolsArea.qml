@@ -6,16 +6,14 @@ import "../../js/main.js" as Script
 Item {
     id: root;
 
-    property int toolBarHeight: (screen.width < screen.height)
-                                ? privateStyle.toolBarHeightPortrait
-                                : privateStyle.toolBarHeightLandscape
+    property int toolBarHeight: constant.headerHeight;
     property alias text: inputArea.text;
     property alias cursorPosition: inputArea.cursorPosition;
     property alias emoticonEnabled: faceInsertBtn.enabled;
 
     anchors.bottom: parent.bottom;
-    width: screen.width;
-    height: toolBarHeight;
+    width: page.width;
+    height: 0;
 
     Connections {
         target: signalCenter;
@@ -30,57 +28,68 @@ Item {
 
     Item {
         id: inputBar;
-        y: root.height;
-        opacity: 0;
+        anchors.top: parent.top;
         width: parent.width;
-        height: Math.max(toolBarHeight, inputArea.height+constant.paddingMedium);
+        height: Math.max(toolBarHeight, inputAreaFlickable.height+constant.paddingMedium);
+        opacity: 0;
         BorderImage {
-            anchors.fill: parent
-            source: privateStyle.imagePath("qtg_fr_toolbar", tbsettings.whiteTheme);
-            border { left: 20; top: 20; right: 20; bottom: 20 }
+            id: bgImage
+            ToolBarStyle { id: toolBarStyle; }
+            anchors.fill: parent;
+            border.left: 10
+            border.right: 10
+            border.top: 10
+            border.bottom: 10
+            source: toolBarStyle.background;
         }
         ToolIcon {
             id: inputBarCancelBtn;
             anchors {
-                left: parent.left; leftMargin: app.inPortrait ? 0 : 2*constant.paddingLarge;
+                left: parent.left;
                 verticalCenter: parent.verticalCenter;
             }
-            toolTipText: qsTr("Cancel");
-            iconSource: "toolbar-back";
+            platformIconId: "toolbar-back";
             onClicked: root.state = "";
         }
-        ToolButton {
+        ToolIcon {
             id: faceInsertBtn;
             anchors {
                 left: inputBarCancelBtn.right;
                 verticalCenter: parent.verticalCenter;
             }
             visible: enabled;
-            platformInverted: tbsettings.whiteTheme;
-            iconSource: "../../gfx/btn_insert_face"+constant.invertedString+".png";
+            iconSource: "../../gfx/btn_insert_face"+constant.invertedString;
             onClicked: signalCenter.createEmoticonDialog(root);
         }
         ToolIcon {
             id: sendBtn;
             anchors {
-                right: parent.right; rightMargin: app.inPortrait ? 0 : 2*constant.paddingLarge;
+                right: parent.right;
                 verticalCenter: parent.verticalCenter;
             }
-            toolTipText: qsTr("Send");
-            iconSource: "../../gfx/message_send"+constant.invertedString+".svg";
+            platformIconId: "toolbar-send-chat";
             enabled: inputArea.text.length > 0 && !inputArea.errorHighlight && !loading;
             onClicked: internal.addPost();
         }
-        TextArea {
-            id: inputArea;
+        Flickable {
+            id: inputAreaFlickable;
             anchors {
                 left: faceInsertBtn.enabled ? faceInsertBtn.right : inputBarCancelBtn.right;
                 right: sendBtn.left;
                 verticalCenter: parent.verticalCenter;
             }
-            errorHighlight: Script.TextSlicer.textLength(text) > 280;
-            platformInverted: tbsettings.whiteTheme;
-            platformMaxImplicitHeight: app.inPortrait ? 150 : 100;
+            height: Math.min(inputArea.height, 240);
+            clip: true;
+            boundsBehavior: Flickable.StopAtBounds;
+            contentWidth: width;
+            contentHeight: inputArea.height;
+            TextArea {
+                id: inputArea;
+                width: parent.width;
+                errorHighlight: Script.TextSlicer.textLength(text) > 280;
+                function setHeight(){ inputArea.height = Math.max(52, implicitHeight); }
+                onImplicitHeightChanged: setHeight();
+            }
         }
     }
 
@@ -90,7 +99,7 @@ Item {
             PropertyChanges { target: app; showToolBar: false; }
             PropertyChanges { target: viewHeader; visible: app.showStatusBar; }
             PropertyChanges { target: root; height: inputBar.height; }
-            PropertyChanges { target: inputBar; y: 0; opacity: 1; }
+            PropertyChanges { target: inputBar; opacity: 1; }
         }
     ]
 
@@ -98,33 +107,21 @@ Item {
         Transition {
             to: "Input";
             SequentialAnimation {
-                PropertyAnimation { properties: "y,opacity"; }
+                PropertyAnimation { properties: "height,opacity"; }
                 ScriptAction {
                     script: {
                         inputArea.forceActiveFocus();
-                        inputArea.openSoftwareInputPanel();
+                        inputArea.platformOpenSoftwareInputPanel();
                     }
                 }
             }
         },
         Transition {
             to: "";
-            PropertyAnimation { properties: "y,opacity"; }
+            PropertyAnimation { properties: "height,opacity"; }
             ScriptAction {
                 script: view.forceActiveFocus();
             }
         }
     ]
-
-    // For keypad
-    Connections {
-        target: platformPopupManager;
-        onPopupStackDepthChanged: {
-            if (platformPopupManager.popupStackDepth === 0
-                    && page.status === PageStatus.Active){
-                if (root.state == "") view.forceActiveFocus();
-                else inputArea.forceActiveFocus();
-            }
-        }
-    }
 }

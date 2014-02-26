@@ -2,7 +2,7 @@ import QtQuick 1.1
 import com.nokia.meego 1.1
 import "../../js/main.js" as Script
 
-CommonDialog {
+Sheet {
     id: root;
 
     property string fname;
@@ -12,10 +12,11 @@ CommonDialog {
 
     property bool majorManager: false;
     property bool __isClosing: false;
+    property int __isPage;  //to make sheet happy
 
-    titleText: qsTr("Confirmation");
-    buttonTexts: [qsTr("Ban ID"), qsTr("Cancel")];
-    onButtonClicked: if (index === 0) accept();
+    acceptButtonText: qsTr("Ban ID");
+    rejectButtonText: qsTr("Cancel");
+
     onAccepted: {
         var opt = {
             word: fname,
@@ -27,54 +28,45 @@ CommonDialog {
         Script.commitPrison(opt);
     }
 
-    content: Item {
-        id: container;
-        width: platformContentMaximumWidth;
-        height: Math.min(platformContentMaximumHeight,
-                         contentCol.height);
+    content: Flickable {
+        id: flickable;
+        anchors.fill: parent;
+        clip: true;
+        contentWidth: parent.width;
+        contentHeight: contentCol.heigh+constant.paddingLarge*2;
 
-        Flickable {
-            id: flickable;
-            anchors.fill: parent;
-            clip: true;
-            contentWidth: parent.width;
-            contentHeight: contentCol.height;
-
-            Column {
-                id: contentCol;
-                width: parent.width;
-                spacing: constant.paddingMedium;
-                Item { width: 1; height: 1; }
-                Label {
-                    x: constant.paddingLarge;
-                    text: qsTr("User name:")+username;
+        Column {
+            id: contentCol;
+            anchors {
+                left: parent.left; top: parent.top;
+                right: parent.right; margins: constant.paddingLarge;
+            }
+            spacing: constant.paddingMedium;
+            Label {
+                text: qsTr("User name:")+username;
+            }
+            Label {
+                text: qsTr("Ban period:");
+            }
+            ButtonColumn {
+                id: buttonCol;
+                anchors.horizontalCenter: parent.horizontalCenter;
+                Button {
+                    objectName: "ban1";
+                    width: parent.width;
+                    text: qsTr("%n day(s)", "", 1);
                 }
-                Label {
-                    x: constant.paddingLarge;
-                    text: qsTr("Ban period:");
+                Button {
+                    objectName: "ban3";
+                    width: parent.width;
+                    text: qsTr("%n day(s)", "", 3);
+                    visible: majorManager;
                 }
-                ButtonColumn {
-                    id: buttonCol;
-                    width: parent.width / 2;
-                    anchors.horizontalCenter: parent.horizontalCenter;
-                    spacing: constant.paddingLarge;
-                    Button {
-                        objectName: "ban1";
-                        width: parent.width;
-                        text: qsTr("%n day(s)", "", 1);
-                    }
-                    Button {
-                        objectName: "ban3";
-                        width: parent.width;
-                        text: qsTr("%n day(s)", "", 3);
-                        visible: majorManager;
-                    }
-                    Button {
-                        objectName: "ban10";
-                        width: parent.width;
-                        text: qsTr("%n day(s)", "", 10);
-                        visible: majorManager;
-                    }
+                Button {
+                    objectName: "ban10";
+                    width: parent.width;
+                    text: qsTr("%n day(s)", "", 10);
+                    visible: majorManager;
                 }
             }
         }
@@ -85,7 +77,7 @@ CommonDialog {
         if (status === DialogStatus.Closing){
             __isClosing = true;
         } else if (status === DialogStatus.Closed && __isClosing){
-            root.destroy();
+            root.destroy(250);
         }
     }
 }

@@ -22,13 +22,11 @@ MyPage {
     tools: ToolBarLayout {
         BackButton {}
         ToolIcon {
-            toolTipText: qsTr("Refresh");
-            iconSource: "toolbar-refresh";
+            platformIconId: "toolbar-refresh";
             onClicked: getlist();
         }
         ToolIcon {
-            toolTipText: qsTr("Catalogue");
-            iconSource: "toolbar-list";
+            platformIconId: "toolbar-list";
             onClicked: pageStack.push(Qt.resolvedUrl("ForumDirPage.qml"));
         }
     }
@@ -81,7 +79,8 @@ MyPage {
                         }
                         Image {
                             anchors.centerIn: parent;
-                            source: previewImg.status === Image.Ready ? "" : "../../gfx/photos.svg";
+                            source: previewImg.status === Image.Ready
+                                    ? "" : "../../gfx/image_default"+constant.invertedString;
                         }
                         Rectangle {
                             anchors.fill: parent;
@@ -119,15 +118,27 @@ MyPage {
                 columns: 2;
                 Repeater {
                     model: squareData ? squareData.forum_list_recommend : [];
-                    MenuItem {
-                        platformInverted: tbsettings.whiteTheme;
+                    Item {
                         width: flr.width / 2;
-                        text: modelData.title;
-                        onClicked: {
-                            var link = modelData.link;
-                            if (link.indexOf("list:")===0){
-                                var prop = { stType: "topBarList|"+index, listId: link.substring(5), title: modelData.title };
-                                pageStack.push(Qt.resolvedUrl("SquareListPage.qml"), prop);
+                        height: constant.graphicSizeLarge;
+                        Text {
+                            anchors {
+                                fill: parent; margins: constant.paddingLarge;
+                            }
+                            verticalAlignment: Text.AlignVCenter;
+                            elide: Text.ElideRight;
+                            font: constant.labelFont;
+                            color: constant.colorLight;
+                            text: modelData.title;
+                        }
+                        MouseArea {
+                            anchors.fill: parent;
+                            onClicked: {
+                                var link = modelData.link;
+                                if (link.indexOf("list:")===0){
+                                    var prop = { stType: "topBarList|"+index, listId: link.substring(5), title: modelData.title };
+                                    pageStack.push(Qt.resolvedUrl("SquareListPage.qml"), prop);
+                                }
                             }
                         }
                         Rectangle {
@@ -138,23 +149,26 @@ MyPage {
                     }
                 }
             }
-
-            ListHeading {
+            Rectangle {
                 id: fbt;
-                platformInverted: tbsettings.whiteTheme;
-                ListItemText {
-                    anchors.fill: parent.paddingItem;
-                    platformInverted: parent.platformInverted;
+                width: parent.width;
+                height: headingLeftLabel.height + constant.paddingMedium*2;
+                color: theme.inverted ? "#2c3543" : "#e6e8ea"
+                Text {
+                    id: headingLeftLabel;
+                    anchors {
+                        left: parent.left; leftMargin: constant.paddingMedium;
+                        verticalCenter: parent.verticalCenter;
+                    }
                     text: squareData ? squareData.forum_browse_title||"" : "";
-                    role: "Heading";
+                    font: constant.subTitleFont;
+                    color: constant.colorMid;
                 }
             }
             Repeater {
                 id: fbr;
                 model: squareData ? squareData.forum_browse : [];
-                ListItem {
-                    platformInverted: tbsettings.whiteTheme;
-                    subItemIndicator: true;
+                AbstractItem {
                     onClicked: {
                         if (modelData.is_all === "1"){
                             pageStack.push(Qt.resolvedUrl("ForumDirPage.qml"));
@@ -198,14 +212,20 @@ MyPage {
                     }
                 }
             }
-            ListHeading {
+            Rectangle {
                 id: tlt;
-                platformInverted: tbsettings.whiteTheme;
-                ListItemText {
-                    anchors.fill: parent.paddingItem;
-                    platformInverted: parent.platformInverted;
-                    role: "Heading";
+                width: parent.width;
+                height: headingLeftLabel2.height + constant.paddingMedium*2;
+                color: theme.inverted ? "#2c3543" : "#e6e8ea"
+                Text {
+                    id: headingLeftLabel2;
+                    anchors {
+                        left: parent.left; leftMargin: constant.paddingMedium;
+                        verticalCenter: parent.verticalCenter;
+                    }
                     text: qsTr("Thread recommend");
+                    font: constant.subTitleFont;
+                    color: constant.colorMid;
                 }
             }
             ListView {
@@ -273,7 +293,7 @@ MyPage {
                                 }
                                 Image {
                                     asynchronous: true;
-                                    source: "../../gfx/btn_icon_comment_n"+constant.invertedString+".png";
+                                    source: "../../gfx/btn_icon_comment_n"+constant.invertedString;
                                 }
                                 Text {
                                     anchors.verticalCenter: parent.verticalCenter;
@@ -305,11 +325,4 @@ MyPage {
     }
 
     Component.onCompleted: getlist();
-
-    // For keypad
-    onStatusChanged: {
-        if (status === PageStatus.Active){
-            view.forceActiveFocus();
-        }
-    }
 }

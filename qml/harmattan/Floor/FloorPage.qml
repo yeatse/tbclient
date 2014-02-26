@@ -206,9 +206,8 @@ MyPage {
         id: view;
         anchors {
             left: parent.left; right: parent.right;
-            top: viewHeader.bottom;
+            top: viewHeader.bottom; bottom: toolsArea.top;
         }
-        height: screen.height - privateStyle.statusBarHeight - viewHeader.height - toolsArea.height;
         cacheBuffer: height * 3;
         model: ListModel {}
         header: internal.post ? headerComp : null;

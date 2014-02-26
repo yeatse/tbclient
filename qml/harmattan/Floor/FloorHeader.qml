@@ -6,14 +6,13 @@ Item {
 
     property variant post;
 
-    width: screen.width;
+    width: page.width;
     height: contentCol.height + constant.paddingLarge*2;
 
     BorderImage {
-        asynchronous: true;
         anchors.fill: parent;
-        source: privateStyle.imagePath("qtg_fr_list_heading_normal", tbsettings.whiteTheme);
-        border { left: 28; top: 5; right: 28; bottom: 0 }
+        border.bottom: 10;
+        source: "../../gfx/bg_grade_up"+constant.invertedString;
     }
 
     Image {
@@ -51,7 +50,7 @@ Item {
         MouseArea {
             id: contentMouseArea;
             width: parent.width;
-            height: Math.min(contentLabel.height, constant.graphicSizeLarge);
+            height: Math.min(contentLabel.height, constant.graphicSizeLarge+20);
             onHeightChanged: view.positionViewAtBeginning();
             clip: true;
             onClicked: state = state === "" ? "Expanded" : "";
@@ -89,7 +88,7 @@ Item {
                 anchors.right: parent.right;
                 Image {
                     asynchronous: true;
-                    source: "../../gfx/btn_icon_comment_n"+constant.invertedString+".png";
+                    source: "../../gfx/btn_icon_comment_n"+constant.invertedString;
                 }
                 Text {
                     anchors.verticalCenter: parent.verticalCenter;

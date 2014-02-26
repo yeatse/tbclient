@@ -10,13 +10,11 @@ MyPage {
     tools: ToolBarLayout {
         BackButton {}
         ToolIcon {
-            toolTipText: qsTr("Refresh");
-            iconSource: "toolbar-refresh";
+            platformIconId: "toolbar-refresh";
             onClicked: internal.getlist();
         }
         ToolIcon {
-            toolTipText: qsTr("Square");
-            iconSource: "../../gfx/compass"+constant.invertedString+".svg";
+            platformIconId: "toolbar-application"
             onClicked: pageStack.push(Qt.resolvedUrl("SquarePage.qml"));
         }
     }
@@ -74,20 +72,7 @@ MyPage {
         }
     }
 
-    ScrollDecorator { flickableItem: view; platformInverted: tbsettings.whiteTheme; }
-
-    // For keypad
-    onStatusChanged: {
-        if (status === PageStatus.Active){
-            view.forceActiveFocus();
-        }
-    }
-
-    Keys.onPressed: {
-        switch (event.key){
-        case Qt.Key_R: internal.getlist(); event.accepted = true; break;
-        }
-    }
+    ScrollDecorator { flickableItem: view; }
 
     Component.onCompleted: internal.getlist();
 }

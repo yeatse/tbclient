@@ -14,15 +14,13 @@ MyPage {
     tools: ToolBarLayout {
         BackButton {}
         ToolIcon {
-            toolTipText: qsTr("Refresh");
-            iconSource: "toolbar-refresh";
+            platformIconId: "toolbar-refresh";
             onClicked: tabGroup.currentTab.getlist();
         }
         ToolIcon {
-            toolTipText: qsTr("Chat");
-            iconSource: "toolbar-add";
+            platformIconId: "toolbar-new-chat";
             onClicked: {
-                var prop = { title: toolTipText, type: "chat" }
+                var prop = { title: qsTr("Chat"), type: "chat" }
                 pageStack.push(Qt.resolvedUrl("../Profile/SelectFriendPage.qml"), prop);
             }
         }
@@ -95,27 +93,9 @@ MyPage {
             }
         }
     }
-
-    // For keypad
-    Connections {
-        target: platformPopupManager;
-        onPopupStackDepthChanged: {
-            if (platformPopupManager.popupStackDepth === 0
-                    && page.status === PageStatus.Active){
-                tabGroup.currentTab.takeToForeground();
-            }
-        }
-    }
     onStatusChanged: {
         if (status === PageStatus.Active){
             tabGroup.currentTab.takeToForeground();
-        }
-    }
-    Keys.onPressed: {
-        switch (event.key){
-        case Qt.Key_R: tabGroup.currentTab.getlist(); event.accepted = true; break;
-        case Qt.Key_Left: switchTab("left"); event.accepted = true; break;
-        case Qt.Key_Right: switchTab("right"); event.accepted = true; break;
         }
     }
 }

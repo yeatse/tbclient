@@ -14,8 +14,7 @@ MyPage {
     tools: ToolBarLayout {
         BackButton {}
         ToolIcon {
-            toolTipText: qsTr("Refresh");
-            iconSource: "toolbar-refresh";
+            platformIconId: "toolbar-refresh";
             onClicked: internal.getlist();
         }
     }
@@ -115,7 +114,7 @@ MyPage {
                         right: root.paddingItem.right;
                         verticalCenter: parent.verticalCenter;
                     }
-                    source: "../../gfx/instant_messenger_chat"+constant.invertedString+".svg";
+                    source: "image://theme/icon-m-toolbar-new-chat"+(theme.inverted?"-white":"");
                     opacity: chatBtnMa.pressed ? 0.7 : 1;
                     MouseArea {
                         id: chatBtnMa;
@@ -130,17 +129,5 @@ MyPage {
         }
     }
 
-    ScrollDecorator { flickableItem: view; platformInverted: tbsettings.whiteTheme; }
-
-    // For keypad
-    onStatusChanged: {
-        if (status === PageStatus.Active){
-            view.forceActiveFocus();
-        }
-    }
-    Keys.onPressed: {
-        switch (event.key){
-        case Qt.Key_R: internal.getlist(); event.accepted = true; break;
-        }
-    }
+    ScrollDecorator { flickableItem: view; }
 }

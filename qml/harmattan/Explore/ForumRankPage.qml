@@ -20,8 +20,7 @@ MyPage {
     tools: ToolBarLayout {
         BackButton {}
         ToolIcon {
-            toolTipText: qsTr("Refresh");
-            iconSource: "toolbar-refresh";
+            platformIconId: "toolbar-refresh";
             onClicked: internal.getlist();
         }
     }
@@ -95,42 +94,29 @@ MyPage {
         id: viewHeader;
         title: page.title;
         onClicked: tabGroup.currentTab.scrollToTop();
-        ToolButton {
+        ToolIcon {
             anchors {
                 right: parent.right; rightMargin: constant.paddingMedium;
                 verticalCenter: parent.verticalCenter;
             }
             enabled: !internal.dirLoading;
-            iconSource: privateStyle.imagePath("qtg_graf_choice_list_indicator");
+            iconSource: "image://theme/icon-m-common-filter";
             onClicked: secondDirDialog.open();
-            BusyIndicator {
-                anchors.centerIn: parent;
-                running: true;
-                visible: internal.dirLoading;
-            }
         }
     }
 
-    Item {
+    ButtonRow {
         id: tabButtonContainer;
         visible: internal.tabVisible;
         anchors { left: parent.left; right: parent.right; top: viewHeader.bottom; }
-        height: privateStyle.tabBarHeightLandscape + constant.paddingMedium*2;
-        ButtonRow {
-            id: tabButtonRow;
-            anchors { fill: parent; margins: constant.paddingMedium; }
-            TabButton {
-                id: leftButton;
-                height: privateStyle.tabBarHeightLandscape;
-                platformInverted: tbsettings.whiteTheme;
-                tab: leftView;
-            }
-            TabButton {
-                id: rightButton;
-                height: privateStyle.tabBarHeightLandscape;
-                platformInverted: tbsettings.whiteTheme;
-                tab: rightView;
-            }
+        style: TabButtonStyle {}
+        TabButton {
+            id: leftButton;
+            tab: leftView;
+        }
+        TabButton {
+            id: rightButton;
+            tab: rightView;
         }
     }
 
@@ -147,6 +133,7 @@ MyPage {
         }
         SilicaListView {
             id: leftView;
+            anchors.fill: parent;
             model: ListModel {}
             delegate: ForumRankDelegate {}
             footer: FooterItem {
@@ -157,6 +144,7 @@ MyPage {
         }
         SilicaListView {
             id: rightView;
+            anchors.fill: parent;
             model: ListModel {}
             delegate: ForumRankDelegate {}
             footer: FooterItem {
@@ -164,13 +152,6 @@ MyPage {
                 enabled: !loading;
                 onClicked: internal.getlist("next");
             }
-        }
-    }
-
-    // For keypad
-    onStatusChanged: {
-        if (status === PageStatus.Active){
-            leftView.forceActiveFocus();
         }
     }
 }

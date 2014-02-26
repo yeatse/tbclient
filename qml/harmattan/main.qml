@@ -12,6 +12,13 @@ PageStackWindow {
 
     initialPage: MainPage { id: mainPage; }
 
+    platformStyle: PageStackWindowStyle {
+        background: tbsettings.bgImageUrl == ""
+                    ? "image://theme/meegotouch-applicationpage-background"+__invertedString
+                    : "image://bgProvider/"+tbsettings.bgImageUrl+__invertedString;
+        backgroundFillMode: Image.PreserveAspectCrop;
+    }
+
     TBSettings { id: tbsettings; }
 
     Constant { id: constant; }

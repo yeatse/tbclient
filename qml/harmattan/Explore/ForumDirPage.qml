@@ -12,8 +12,7 @@ MyPage {
     tools: ToolBarLayout {
         BackButton {}
         ToolIcon {
-            toolTipText: qsTr("Refresh");
-            iconSource: "toolbar-refresh";
+            platformIconId: "toolbar-refresh";
             onClicked: getlist();
         }
     }
@@ -58,15 +57,11 @@ MyPage {
                 }
                 Image {
                     id: subItemIcon;
-                    asynchronous: true;
                     anchors {
-                        right: parent.right;
-                        rightMargin: privateStyle.scrollBarThickness;
+                        right: root.paddingItem.right;
                         verticalCenter: parent.verticalCenter;
                     }
-                    source: privateStyle.imagePath("qtg_graf_drill_down_indicator", tbsettings.whiteTheme);
-                    sourceSize.width: platformStyle.graphicSizeSmall;
-                    sourceSize.height: platformStyle.graphicSizeSmall;
+                    source: "image://theme/icon-m-common-drilldown-arrow"+(theme.inverted?"-inverse":"");
                 }
                 Column {
                     anchors {
@@ -92,14 +87,7 @@ MyPage {
         }
     }
 
-    ScrollDecorator { flickableItem: view; platformInverted: true; }
-
-    // For keypad
-    onStatusChanged: {
-        if (status === PageStatus.Active){
-            view.forceActiveFocus();
-        }
-    }
+    ScrollDecorator { flickableItem: view; }
 
     Component.onCompleted: getlist();
 }

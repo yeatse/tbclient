@@ -12,7 +12,7 @@ MyPage {
     tools: ToolBarLayout {
         BackButton {}
         ToolIcon {
-            platformIconId: "toolbar-down";
+            platformIconId: "toolbar-directory-move-to"
             onClicked: {
                 var path = tbsettings.imagePath + "/" + imageUrl.toString().split("/").pop();
                 if (utility.saveCache(imageUrl, path)){

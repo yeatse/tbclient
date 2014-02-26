@@ -18,6 +18,12 @@
 #include "QVibra/qvibra.h"
 #endif
 
+#ifdef Q_OS_HARMATTAN
+#include <QtDBus/QDBusConnection>
+#include "src/tbclientif.h"
+#include "src/harmattanbackgroundprovider.h"
+#endif
+
 #ifdef Q_OS_SYMBIAN
 #include <QSymbianEvent>
 #include <w32std.h>
@@ -90,13 +96,24 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterType<QObject>("com.yeatse.tbclient", 1, 0, "Vibra");
 #endif
 
+#ifdef Q_OS_HARMATTAN
+    QWebSettings::globalSettings()->setUserStyleSheetUrl(QUrl::fromLocalFile("/opt/tbclient/qml/emo/default_theme.css"));
+#else
     QWebSettings::globalSettings()->setUserStyleSheetUrl(QUrl::fromLocalFile("qml/emo/default_theme.css"));
+#endif
 
     QmlApplicationViewer viewer;
     viewer.setAttribute(Qt::WA_OpaquePaintEvent);
     viewer.setAttribute(Qt::WA_NoSystemBackground);
     viewer.viewport()->setAttribute(Qt::WA_OpaquePaintEvent);
     viewer.viewport()->setAttribute(Qt::WA_NoSystemBackground);
+
+#ifdef Q_OS_HARMATTAN
+    new TBClientIf(app.data(), &viewer);
+    QDBusConnection bus = QDBusConnection::sessionBus();
+    bus.registerService("com.tbclient");
+    bus.registerObject("/com/tbclient", app.data());
+#endif
 
     // For fiddler network debugging
 #ifdef Q_WS_SIMULATOR
@@ -113,6 +130,11 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     Utility* utility = Utility::Instance();
     utility->setEngine(viewer.engine());
     viewer.rootContext()->setContextProperty("utility", utility);
+
+#ifdef Q_OS_HARMATTAN
+    HarmattanBackgroundProvider provider;
+    viewer.engine()->addImageProvider("bgProvider", &provider);
+#endif
 
     // For smoother flicking (only supported by Belle FP2)
     if (utility->qtVersion() > 0x040800)

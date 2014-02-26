@@ -1,19 +1,25 @@
 import QtQuick 1.1
 import com.nokia.meego 1.1
+import com.nokia.extras 1.1
 
-CommonDialog {
+Sheet {
     id: root;
 
     property variant caller: null;
     property bool __isClosing: false;
+    property int __isPage;  //to make sheet happy
 
-    titleText: qsTr("Select emoticon");
-    titleIcon: "../../gfx/btn_insert_face.png";
-    buttonTexts: [qsTr("Close")]
+    title: Text {
+        font.pixelSize: constant.fontXXLarge;
+        color: constant.colorLight;
+        anchors { left: parent.left; leftMargin: constant.paddingXLarge; verticalCenter: parent.verticalCenter; }
+        text: qsTr("Select emoticon");
+    }
+
+    acceptButtonText: qsTr("Close");
 
     content: Item {
-        implicitWidth: platformContentMaximumWidth;
-        implicitHeight: platformContentMaximumHeight;
+        anchors.fill: parent;
 
         Item {
             id: iconTip;
@@ -23,26 +29,27 @@ CommonDialog {
             function show(target){
                 var targetPos = parent.mapFromItem(target, 0, 0);
                 x = targetPos.x + (target.width/2) - (iconTip.width/2);
-                y = targetPos.y - (iconTip.height) - platformStyle.paddingMedium;
+                y = targetPos.y - (iconTip.height) - constant.paddingMedium;
                 visible = true;
                 autoHider.restart();
             }
             z: 10;
-            width: privateStyle.textWidth(text, constant.labelFont)+platformStyle.paddingMedium*4;
-            height: privateStyle.fontHeight(constant.labelFont)+platformStyle.paddingMedium*2;
+            width: iconTipLabel.width + constant.paddingMedium*4;
+            height: 32;
             visible: false;
             BorderImage {
+                source: "image://theme/meegotouch-countbubble-background-large";
                 anchors.fill: parent
-                source: privateStyle.imagePath("qtg_fr_tooltip");
-                border { left: 20; top: 20; right: 20; bottom: 20 }
+                border { left: 10; top: 10; right: 10; bottom: 10 }
             }
             Text {
-                id: iconTipLabel;
-                color: platformStyle.colorNormalLight;
-                font: constant.labelFont;
-                anchors.fill: parent;
-                verticalAlignment: Text.AlignVCenter;
-                horizontalAlignment: Text.AlignHCenter;
+                id: iconTipLabel
+                height: parent.height
+                y:1
+                color: "#FFFFFF"
+                font: constant.subTitleFont;
+                anchors.horizontalCenter: parent.horizontalCenter
+                verticalAlignment: Text.AlignVCenter
             }
             Timer {
                 id: autoHider;
@@ -59,11 +66,11 @@ CommonDialog {
                 right: parent.right;
                 margins: constant.paddingMedium;
             }
-            ToolButton {
+            Button {
                 text: qsTr("Default");
                 onClicked: tabGroup.currentTab = defaultEmo;
             }
-            ToolButton {
+            Button {
                 text: qsTr("Emoticon");
                 onClicked: tabGroup.currentTab = textEmo;
             }
@@ -82,8 +89,7 @@ CommonDialog {
             GridView {
                 id: defaultEmo;
                 anchors.fill: parent;
-                cellWidth: app.inPortrait ? Math.floor(parent.width / 5)
-                                          : Math.floor(parent.width / 7);
+                cellWidth: Math.floor(app.inPortrait ? width / 5 : width / 7);
                 cellHeight: cellWidth;
                 clip: true;
                 model: signalCenter.emoticonModel;
@@ -121,11 +127,33 @@ CommonDialog {
                 anchors.fill: parent;
                 clip: true;
                 model: utility.customEmoticonList();
-                delegate: MenuItem {
-                    text: modelData;
-                    onClicked: {
-                        signalCenter.emoticonSelected(caller, text);
-                        root.accept();
+                delegate: Item {
+                    width: parent.width;
+                    height: 64;
+                    Text {
+                        text: modelData;
+                        font: constant.titleFont;
+                        color: constant.colorLight;
+                        anchors {
+                            left: parent.left;
+                            leftMargin: constant.paddingLarge;
+                            verticalCenter: parent.verticalCenter;
+                        }
+                    }
+
+                    Rectangle {
+                        id: backgroundRect
+                        anchors.fill: parent
+                        color: delegateMouseArea.pressed ? "#3D3D3D" : "transparent";
+                    }
+
+                    MouseArea {
+                        id: delegateMouseArea;
+                        anchors.fill: parent;
+                        onClicked: {
+                            signalCenter.emoticonSelected(caller, modelData);
+                            root.accept();
+                        }
                     }
                 }
                 ScrollDecorator {
@@ -135,12 +163,11 @@ CommonDialog {
         }
     }
 
-    onClickedOutside: close();
     onStatusChanged: {
         if (status == DialogStatus.Closing){
             __isClosing = true;
         } else if (status == DialogStatus.Closed && __isClosing){
-            root.destroy();
+            root.destroy(250);
         } else if (status == DialogStatus.Open){
         }
     }

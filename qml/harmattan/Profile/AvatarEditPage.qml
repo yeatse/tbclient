@@ -11,10 +11,10 @@ MyPage {
     tools: ToolBarLayout {
         BackButton {}
         ToolIcon {
-            toolTipText: qsTr("OK");
-            iconSource: "../../gfx/ok"+constant.invertedString+".svg";
+            platformIconId: "toolbar-done";
             onClicked: {
-                var cutImage = utility.cutImage(imageUrl,
+                var url = imageUrl.toString().replace("file://","");
+                var cutImage = utility.cutImage(url,
                                                 imagePreview.scale,
                                                 imageFlickable.contentX,
                                                 imageFlickable.contentY,
@@ -30,16 +30,9 @@ MyPage {
             }
         }
     }
-    ListHeading {
+    ViewHeader {
         id: viewHeader;
-        platformInverted: tbsettings.whiteTheme;
-        z: 10;
-        ListItemText {
-            anchors.fill: parent.paddingItem;
-            role: "Heading";
-            platformInverted: parent.platformInverted;
-            text: qsTr("Edit avatar");
-        }
+        title: qsTr("Edit avatar");
     }
     Item {
         id: container;
@@ -144,11 +137,11 @@ MyPage {
 
         BusyIndicator {
             anchors.centerIn: parent;
-            width: constant.graphicSizeLarge;
-            height: constant.graphicSizeLarge;
             running: true;
             visible: imagePreview.status === Image.Loading;
-            platformInverted: tbsettings.whiteTheme;
+            platformStyle: BusyIndicatorStyle {
+                size: "large";
+            }
         }
 
         Rectangle {

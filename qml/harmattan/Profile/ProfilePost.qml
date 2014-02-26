@@ -13,8 +13,7 @@ MyPage {
     tools: ToolBarLayout {
         BackButton {}
         ToolIcon {
-            toolTipText: qsTr("Refresh");
-            iconSource: "toolbar-refresh";
+            platformIconId: "toolbar-refresh";
             onClicked: internal.getlist();
         }
     }
@@ -81,8 +80,7 @@ MyPage {
                 Row {
                     x: constant.paddingLarge;
                     Image {
-                        asynchronous: true;
-                        source: "../../gfx/icon_time_node"+constant.invertedString+".png"
+                        source: "../../gfx/icon_time_node"+constant.invertedString;
                     }
                     Text {
                         anchors.verticalCenter: parent.verticalCenter;
@@ -113,7 +111,7 @@ MyPage {
                         left: root.paddingItem.left; top: root.paddingItem.top;
                     }
                     asynchronous: true;
-                    source: "../../gfx/icon_thread_node"+constant.invertedString+".png";
+                    source: "../../gfx/icon_thread_node"+constant.invertedString;
                 }
                 BorderImage {
                     id: background;
@@ -123,7 +121,7 @@ MyPage {
                     }
                     border { left: 20; top: 25; right: 10; bottom: 10; }
                     asynchronous: true;
-                    source: "../../gfx/time_line"+constant.invertedString+".png";
+                    source: "../../gfx/time_line"+constant.invertedString;
                 }
                 Column {
                     id: contentCol;
@@ -162,28 +160,5 @@ MyPage {
 
     ScrollDecorator {
         flickableItem: view;
-        platformInverted: tbsettings.whiteTheme;
-    }
-
-    // For keypad
-    Connections {
-        target: platformPopupManager;
-        onPopupStackDepthChanged: {
-            if (platformPopupManager.popupStackDepth === 0
-                    && page.status === PageStatus.Active){
-                view.forceActiveFocus();
-            }
-        }
-    }
-    onStatusChanged: {
-        if (status === PageStatus.Active){
-            view.forceActiveFocus();
-        }
-    }
-
-    Keys.onPressed: {
-        switch (event.key){
-        case Qt.Key_R: internal.getlist(); event.accepted = true; break;
-        }
     }
 }

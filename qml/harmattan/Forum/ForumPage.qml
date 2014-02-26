@@ -21,7 +21,7 @@ MyPage {
             onClicked: internal.getlist();
         }
         ToolIcon {
-            platformIconId: "toolbar-grid"
+            platformIconId: "toolbar-pages-all"
             onClicked: signalCenter.enterThread();
         }
         ToolIcon {
@@ -277,7 +277,6 @@ MyPage {
         anchors { fill: parent; topMargin: viewHeader.height; }
         cacheBuffer: 7200;
         pressDelay: 150;
-        spacing: -8;
         model: ListModel {}
         header: ForumHeader {
             PullToActivate {

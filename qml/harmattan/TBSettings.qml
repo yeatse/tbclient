@@ -33,7 +33,8 @@ QtObject {
         console.log("currnet bearer:", currentBearerName);
         if (!monitorNetworkMode) return;
         switch (currentBearerName){
-        case "2G": {
+        case "2G":
+        case "HSPA": {
             signalCenter.showMessage(qsTr("Mobile network used"));
             remindInterval = remindInterval == 0 ? 0 : Math.max(remindInterval, 5);
             remindBackground = false;
@@ -42,7 +43,6 @@ QtObject {
         }
         case "CDMA2000":
         case "WCDMA":
-        case "HSPA":
         case "WLAN": {
             signalCenter.showMessage(qsTr("High speed network used"));
             remindInterval = remindInterval == 0 ? 0 : Math.min(remindInterval, 1);

@@ -40,13 +40,11 @@ MyPage {
     tools: ToolBarLayout {
         BackButton {}
         ToolIcon {
-            toolTipText: qsTr("Refresh");
-            iconSource: "toolbar-refresh";
+            platformIconId: "toolbar-refresh";
             onClicked: getProfile();
         }
         ToolIcon {
-            toolTipText: qsTr("Chat");
-            iconSource: "../gfx/instant_messenger_chat"+constant.invertedString+".svg";
+            platformIconId: "toolbar-new-chat";
             enabled: !isMe && userData != null;
             onClicked: {
                 var prop = { chatName: userData.name_show, chatId: getUid() };
@@ -73,7 +71,7 @@ MyPage {
         anchors { left: parent.left; right: parent.right; top: viewHeader.bottom; }
         height: constant.graphicSizeLarge*2.7 - view.contentY;
         clip: true;
-        source: "../gfx/profile_bg.jpg"
+        source: "../gfx/pic_banner_pic.png"
         fillMode: Image.PreserveAspectCrop;
     }
 
@@ -90,11 +88,10 @@ MyPage {
                 width: parent.width;
                 height: constant.graphicSizeLarge*2;
 
-                BorderImage {
+                Rectangle {
                     id: bottomBanner;
                     anchors { fill: parent; topMargin: parent.height*3/5; }
-                    source: privateStyle.imagePath("qtg_fr_list_heading_normal", tbsettings.whiteTheme);
-                    border { left: 28; top: 5; right: 28; bottom: 0 }
+                    color: theme.inverted ? "#2c3543" : "#e6e8ea"
                 }
 
                 Image {
@@ -108,7 +105,7 @@ MyPage {
                     Image {
                         anchors { fill: parent; margins: constant.paddingMedium; }
                         source: userData ? "http://tb.himg.baidu.com/sys/portraith/item/"+userData.portraith
-                                         : "../gfx/photo.png";
+                                         : "../gfx/person_photo.png";
                     }
                 }
 
@@ -123,16 +120,16 @@ MyPage {
                         Text {
                             anchors.verticalCenter: parent.verticalCenter;
                             font: constant.titleFont;
-                            color: constant.colorLight;
+                            color: "white";
                             text: userData ? userData.name_show : "";
                         }
                         Image {
                             source: {
                                 if (userData){
                                     if (userData.sex === "1"){
-                                        return "../gfx/icon_man"+constant.invertedString+".png";
+                                        return "../gfx/icon_man"+constant.invertedString;
                                     } else {
-                                        return "../gfx/icon_woman"+constant.invertedString+".png";
+                                        return "../gfx/icon_woman"+constant.invertedString;
                                     }
                                 } else {
                                     return "";
@@ -147,7 +144,7 @@ MyPage {
                         maximumLineCount: 1;
                         textFormat: Text.PlainText;
                         font: constant.labelFont;
-                        color: constant.colorLight;
+                        color: "white";
                         text: userData ? userData.intro : "";
                     }
                 }
@@ -169,7 +166,7 @@ MyPage {
                             BorderImage {
                                 anchors.fill: parent;
                                 border { left: 25; right: 25; top: 0; bottom: 0; }
-                                source: "../gfx/btn_bg_"+parent.pressString+constant.invertedString+".png";
+                                source: "../gfx/btn_bg_"+parent.pressString+constant.invertedString;
                                 smooth: true;
                             }
                             Row {
@@ -178,7 +175,7 @@ MyPage {
                                 spacing: constant.paddingSmall;
                                 Image {
                                     anchors.verticalCenter: parent.verticalCenter;
-                                    source: "../gfx/btn_icon_edit"+constant.invertedString+".png";
+                                    source: "../gfx/btn_icon_edit"+constant.invertedString;
                                 }
                                 Text {
                                     anchors.verticalCenter: parent.verticalCenter;
@@ -202,7 +199,7 @@ MyPage {
                                 id: icon;
                                 anchors.fill: parent;
                                 border { left: 25; right: 25; top: 0; bottom: 0; }
-                                source: "../gfx/btn_%1_%2%3.png".arg(parent.name).arg(parent.pressString).arg(constant.invertedString);
+                                source: "../gfx/btn_%1_%2%3".arg(parent.name).arg(parent.pressString).arg(constant.invertedString);
                             }
                             Text {
                                 visible: isLike;
@@ -263,20 +260,12 @@ MyPage {
                 ProfileCell {
                     iconName: "tiezi";
                     title: qsTr("Posts");
-                    subTitle: userData ? userData.post_num : "";
                     onClicked: {
                         var prop = { title: title, uid: getUid() };
                         pageStack.push(Qt.resolvedUrl("Profile/ProfilePost.qml"), prop);
                     }
                 }
             }
-        }
-    }
-
-    // For keypad
-    onStatusChanged: {
-        if (status === PageStatus.Active){
-            view.forceActiveFocus();
         }
     }
 }

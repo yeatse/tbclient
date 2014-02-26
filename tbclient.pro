@@ -28,7 +28,20 @@ SOURCES += main.cpp \
     src/audiorecorder.cpp \
     src/scribblearea.cpp \
     src/flickcharm.cpp \
-    src/qwebviewitem.cpp
+    src/qwebviewitem.cpp \
+#    qml/harmattan/*.qml \
+#    qml/harmattan/Component/*.qml \
+#    qml/harmattan/Dialog/*.qml \
+#    qml/harmattan/Explore/*.qml \
+#    qml/harmattan/Floor/*.qml \
+#    qml/harmattan/Forum/*.qml \
+#    qml/harmattan/Message/*.qml \
+#    qml/harmattan/Post/*.* \
+#    qml/harmattan/Profile/*.qml \
+#    qml/harmattan/Thread/*.qml \
+#    qml/js/main.js \
+#    qml/js/BaiduParser.js \
+#    qml/js/LinkDecoder.js
 
 TRANSLATIONS += i18n/tbclient_zh.ts
 RESOURCES += tbclient-res.qrc
@@ -62,10 +75,20 @@ contains(MEEGO_EDITION,harmattan){
     DEFINES += Q_OS_HARMATTAN
     CONFIG += qdeclarative-boostable
     CONFIG += videosuiteinterface-maemo-meegotouch  #video suite
-    CONFIG += shareuiinterface-maemo-meegotouch share-ui-plugin share-ui-common #share ui
-    CONFIG += mdatauri  #mdatauri
+    CONFIG += meegotouch
     QT += dbus
     MOBILITY += gallery
+
+    HEADERS += src/tbclientif.h \
+        src/harmattanbackgroundprovider.h
+    SOURCES += src/tbclientif.cpp \
+        src/harmattanbackgroundprovider.cpp
+
+    include(notifications/notifications.pri)
+
+    splash.files = splash/splash.png
+    splash.path = /opt/tbclient/splash
+    INSTALLS += splash
 
     DEPLOYMENTFOLDERS += folder_js folder_harmattan folder_gfx
 }

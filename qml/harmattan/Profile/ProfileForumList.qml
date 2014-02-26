@@ -38,13 +38,11 @@ MyPage {
     tools: ToolBarLayout {
         BackButton {}
         ToolIcon {
-            toolTipText: qsTr("Refresh");
-            iconSource: "toolbar-refresh";
+            platformIconId: "toolbar-refresh";
             onClicked: getlist();
         }
         ToolIcon {
-            toolTipText: editMode ? qsTr("OK") : qsTr("Edit");
-            iconSource: "../../gfx/"+(editMode?"ok":"edit")+constant.invertedString+".svg";
+            platformIconId: editMode ? "toolbar-done" : "toolbar-edit";
             enabled: uid === tbsettings.currentUid;
             onClicked: page.editMode = !page.editMode;
         }
@@ -121,9 +119,10 @@ MyPage {
                     Component {
                         id: editBtn;
                         Button {
-                            platformInverted: tbsettings.whiteTheme;
-                            width: height;
-                            iconSource: privateStyle.toolBarIconPath("toolbar-delete", platformInverted);
+                            platformStyle: ButtonStyle {
+                                buttonWidth: buttonHeight;
+                            }
+                            iconSource: "image://theme/icon-m-toolbar-delete"+(theme.inverted?"-white":"");
                             onClicked: removeForum(index);
                         }
                     }
@@ -132,18 +131,5 @@ MyPage {
         }
     }
 
-    ScrollDecorator { flickableItem: view; platformInverted: tbsettings.whiteTheme; }
-
-    // For keypad
-    onStatusChanged: {
-        if (status === PageStatus.Active){
-            view.forceActiveFocus();
-        }
-    }
-    Keys.onPressed: {
-        switch (event.key){
-        case Qt.Key_R: getlist(); event.accepted = true; break;
-        case Qt.Key_E: editMode = !editMode; event.accepted = true; break;
-        }
-    }
+    ScrollDecorator { flickableItem: view; }
 }

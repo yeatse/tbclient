@@ -11,8 +11,7 @@ MyPage {
     tools: ToolBarLayout {
         BackButton {}
         ToolIcon {
-            toolTipText: internal.isEdit ? qsTr("OK") : qsTr("Edit");
-            iconSource: "../gfx/"+(internal.isEdit?"ok":"edit")+constant.invertedString+".svg";
+            platformIconId: internal.isEdit ? "toolbar-done" : "toolbar-edit";
             onClicked: internal.isEdit = !internal.isEdit;
         }
     }
@@ -124,7 +123,7 @@ MyPage {
                         Component {
                             id: currentActiveIcon;
                             Image {
-                                source: "../gfx/ok"+constant.invertedString+".svg"
+                                source: "image://theme/icon-m-toolbar-done"+(theme.inverted?"-white":"");
                             }
                         }
                     }
@@ -135,9 +134,8 @@ MyPage {
                         Component {
                             id: removeButtonComp;
                             Button {
-                                platformInverted: tbsettings.whiteTheme;
-                                iconSource: privateStyle.toolBarIconPath("toolbar-delete", platformInverted);
-                                width: height;
+                                platformStyle: ButtonStyle { buttonWidth: buttonHeight; }
+                                iconSource: "image://theme/icon-m-toolbar-delete"+(theme.inverted?"-white":"");
                                 onClicked: internal.removeAccount(index);
                             }
                         }
@@ -158,13 +156,12 @@ MyPage {
         }
     }
 
-    ScrollDecorator { flickableItem: view; platformInverted: tbsettings.whiteTheme; }
+    ScrollDecorator { flickableItem: view; }
 
     onStatusChanged: {
         if (status === PageStatus.Active){
             if (worker.running) workerRunningListener.target = worker;
             else internal.refreshModel();
-            view.forceActiveFocus();
         }
     }
 }

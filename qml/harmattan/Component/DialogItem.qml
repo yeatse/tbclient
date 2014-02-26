@@ -26,14 +26,6 @@ Item {
         color: delegateMouseArea.pressed ? "#3D3D3D" : "transparent";
     }
 
-    BorderImage {
-        id: background
-        anchors.fill: parent
-        border { left: 22; top: 22; right: 22; bottom: 22 }
-        source: delegateMouseArea.pressed ? "image://theme/" + theme.colorString + "meegotouch-panel-inverted-background-pressed"
-                                          : "";
-    }
-
     Text {
         id: itemText
         elide: Text.ElideRight

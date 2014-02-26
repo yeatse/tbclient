@@ -1,11 +1,17 @@
 import QtQuick 1.1
 import com.nokia.meego 1.1
 
-CommonDialog {
+Sheet {
     id: root;
 
-    titleText: qsTr("Remind settings");
-    buttonTexts: [qsTr("OK")];
+    title: Text {
+        font.pixelSize: constant.fontXXLarge;
+        color: constant.colorLight;
+        anchors { left: parent.left; leftMargin: constant.paddingXLarge; verticalCenter: parent.verticalCenter; }
+        text: qsTr("Remind settings");
+    }
+
+    acceptButtonText: qsTr("OK");
 
     QtObject {
         id: internal;
@@ -18,8 +24,8 @@ CommonDialog {
             default: return 4;
             }
         }
-        function getValueText(){
-            switch (slider.value){
+        function getValueText(v){
+            switch (v){
             case 0: return qsTr("Disabled");
             case 1: return qsTr("%n min(s)", "", 1);
             case 2: return qsTr("%n min(s)", "", 2);
@@ -38,56 +44,59 @@ CommonDialog {
         }
     }
 
-    content: Item {
-        width: platformContentMaximumWidth;
-        height: Math.min(platformContentMaximumHeight, contentCol.height);
-
-        Flickable {
-            id: flickable;
-            anchors.fill: parent;
-            clip: true;
-            contentWidth: parent.width;
-            contentHeight: contentCol.height;
-            Column {
-                id: contentCol;
-                anchors { left: parent.left; right: parent.right; margins: platformStyle.paddingLarge; }
-                spacing: platformStyle.paddingMedium;
-                Item { width: 1; height: 1; }
-                ListItemText {
-                    text: qsTr("Remind interval");
+    content: Flickable {
+        id: flickable;
+        anchors.fill: parent;
+        clip: true;
+        contentWidth: width;
+        contentHeight: contentCol.height + constant.paddingLarge*2;
+        Column {
+            id: contentCol;
+            anchors {
+                left: parent.left; right: parent.right; top: parent.top;
+                margins: constant.paddingLarge;
+            }
+            spacing: constant.paddingMedium;
+            Text {
+                font: constant.labelFont;
+                color: constant.colorMid;
+                text: qsTr("Remind interval");
+            }
+            Slider {
+                id: slider;
+                width: parent.width;
+                minimumValue: 0;
+                maximumValue: 4;
+                stepSize: 1;
+                value: internal.getValue();
+                function formatValue(v){
+                    return internal.getValueText(v);
                 }
-                Slider {
-                    id: slider;
-                    width: parent.width;
-                    minimumValue: 0;
-                    maximumValue: 4;
-                    stepSize: 1;
-                    value: internal.getValue();
-                    valueIndicatorVisible: true;
-                    valueIndicatorText: internal.getValueText();
-                    onPressedChanged: {
-                        if (!pressed){
-                            tbsettings.remindInterval = internal.setValue();
-                        }
+                valueIndicatorVisible: true;
+                onPressedChanged: {
+                    if (!pressed){
+                        tbsettings.remindInterval = internal.setValue();
                     }
                 }
-                ListItemText {
-                    text: qsTr("Remind contents");
-                }
-                Repeater {
-                    model: [
-                        [qsTr("Remind at background"),"remindBackground"],
-                        [qsTr("New fans"),"remindFans"],
-                        [qsTr("Private letters"),"remindPletter"],
-                        [qsTr("Bookmark updates"),"remindBookmark"],
-                        [qsTr("Reply me"),"remindReplyme"],
-                        [qsTr("Mentions"),"remindAtme"]
-                    ]
-                    CheckBox {
-                        checked: tbsettings[modelData[1]];
-                        text: modelData[0];
-                        onClicked: tbsettings[modelData[1]] = checked;
-                    }
+            }
+            Text {
+                font: constant.labelFont;
+                color: constant.colorMid;
+                text: qsTr("Remind interval");
+            }
+            Repeater {
+                model: [
+                    [qsTr("Remind at background"),"remindBackground"],
+                    [qsTr("New fans"),"remindFans"],
+                    [qsTr("Private letters"),"remindPletter"],
+                    [qsTr("Bookmark updates"),"remindBookmark"],
+                    [qsTr("Reply me"),"remindReplyme"],
+                    [qsTr("Mentions"),"remindAtme"]
+                ]
+                CheckBox {
+                    checked: tbsettings[modelData[1]];
+                    text: modelData[0];
+                    onClicked: tbsettings[modelData[1]] = checked;
                 }
             }
         }

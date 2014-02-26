@@ -17,49 +17,88 @@ MyPage {
         onClicked: view.scrollToTop();
     }
 
+    Connections {
+        target: signalCenter;
+        onImageSelected: {
+            if (caller === page){
+                tbsettings.bgImageUrl = urls||tbsettings.bgImageUrl;
+            }
+        }
+    }
+
     SilicaFlickable {
         id: view;
         anchors { fill: parent; topMargin: viewHeader.height; }
         contentWidth: view.width;
         contentHeight: contentCol.height + constant.paddingLarge*2;
+        pressDelay: 120;
 
         Column {
             id: contentCol;
             anchors { top: parent.top; topMargin: constant.paddingLarge; }
             width: parent.width;
-            Column {
-                x: constant.paddingLarge;
-                spacing: constant.paddingLarge;
-                CheckBox {
-                    text: qsTr("Night theme");
-                    platformInverted: tbsettings.whiteTheme;
+            SettingsItem {
+                title: qsTr("Night theme");
+                Switch {
+                    anchors {
+                        right: parent.right; rightMargin: 18;
+                        verticalCenter: parent.verticalCenter;
+                    }
                     checked: !tbsettings.whiteTheme;
-                    onClicked: tbsettings.whiteTheme = !checked;
-                }
-                CheckBox {
-                    text: qsTr("Show image");
-                    platformInverted: tbsettings.whiteTheme;
-                    checked: tbsettings.showImage;
-                    onClicked: tbsettings.showImage = checked;
-                }
-                CheckBox {
-                    text: qsTr("Show abstract");
-                    platformInverted: tbsettings.whiteTheme;
-                    checked: tbsettings.showAbstract;
-                    onClicked: tbsettings.showAbstract = checked;
-                }
-                CheckBox {
-                    text: qsTr("Monitor network changes");
-                    platformInverted: tbsettings.whiteTheme;
-                    checked: tbsettings.monitorNetworkMode;
-                    onClicked: tbsettings.monitorNetworkMode = checked;
+                    Component.onCompleted: {
+                        checkedChanged.connect(function(){tbsettings.whiteTheme = !checked})
+                    }
                 }
             }
+            SettingsItem {
+                title: qsTr("Show image");
+                Switch {
+                    anchors {
+                        right: parent.right; rightMargin: 18;
+                        verticalCenter: parent.verticalCenter;
+                    }
+                    checked: tbsettings.showImage;
+                    Component.onCompleted: {
+                        checkedChanged.connect(function(){tbsettings.showImage = checked})
+                    }
+                }
+            }
+            SettingsItem {
+                title: qsTr("Show abstract");
+                Switch {
+                    anchors {
+                        right: parent.right; rightMargin: 18;
+                        verticalCenter: parent.verticalCenter;
+                    }
+                    checked: tbsettings.showAbstract;
+                    Component.onCompleted: {
+                        checkedChanged.connect(function(){tbsettings.showAbstract = checked;})
+                    }
+                }
+            }
+            SettingsItem {
+                title: qsTr("Monitor network changes");
+                Switch {
+                    anchors {
+                        right: parent.right; rightMargin: 18;
+                        verticalCenter: parent.verticalCenter;
+                    }
+                    checked: tbsettings.monitorNetworkMode;
+                    Component.onCompleted: {
+                        checkedChanged.connect(function(){tbsettings.monitorNetworkMode = checked})
+                    }
+                }
+            }
+            Rectangle {
+                anchors { left: parent.left; right: parent.right; margins: constant.paddingXLarge; }
+                height: 1;
+                color: constant.colorMarginLine;
+            }
             Text {
-                x: constant.paddingLarge;
+                x: 18;
                 height: constant.graphicSizeSmall;
-                font: constant.labelFont;
                 color: constant.colorLight;
+                font: constant.titleFont;
                 text: qsTr("Font size");
                 verticalAlignment: Text.AlignBottom;
             }
@@ -67,8 +106,7 @@ MyPage {
                 minimumValue: constant.fontXSmall;
                 maximumValue: constant.fontXXLarge;
                 value: tbsettings.fontSize;
-                platformInverted: tbsettings.whiteTheme;
-                anchors { left: parent.left; right: parent.right; margins: constant.paddingLarge; }
+                anchors { left: parent.left; right: parent.right; margins: constant.paddingXLarge; }
                 stepSize: 1;
                 valueIndicatorVisible: true;
                 onPressedChanged: {
@@ -78,9 +116,9 @@ MyPage {
                 }
             }
             Text {
-                x: constant.paddingLarge;
+                x: 18;
                 height: constant.graphicSizeSmall;
-                font: constant.labelFont;
+                font: constant.titleFont;
                 color: constant.colorLight;
                 text: qsTr("Max tabs count");
                 verticalAlignment: Text.AlignBottom;
@@ -89,8 +127,7 @@ MyPage {
                 minimumValue: 1;
                 maximumValue: 10;
                 value: tbsettings.maxTabCount;
-                platformInverted: tbsettings.whiteTheme;
-                anchors { left: parent.left; right: parent.right; margins: constant.paddingLarge; }
+                anchors { left: parent.left; right: parent.right; margins: constant.paddingXLarge; }
                 stepSize: 1;
                 valueIndicatorVisible: true;
                 onPressedChanged: {
@@ -99,129 +136,69 @@ MyPage {
                     }
                 }
             }
-            SelectionListItem {
+            Rectangle {
+                anchors { left: parent.left; right: parent.right; margins: constant.paddingXLarge; }
+                height: 1;
+                color: constant.colorMarginLine;
+            }
+            SettingsItem {
                 property variant remindDialog: null;
-                platformInverted: tbsettings.whiteTheme;
                 title: qsTr("Remind settings");
-                subTitle: qsTr("Click to set");
+                subtitle: qsTr("Click to set");
                 onClicked: {
                     if (!remindDialog)
-                        remindDialog = Qt.createComponent("Dialog/RemindSettingDialog.qml").createObject(parent);
+                        remindDialog = Qt.createComponent("Dialog/RemindSettingDialog.qml").createObject(page);
                     remindDialog.open();
                 }
             }
-            SelectionListItem {
-                platformInverted: tbsettings.whiteTheme;
+            SettingsItem {
                 title: qsTr("Background image(long press to clear)");
-                subTitle: tbsettings.bgImageUrl || qsTr("Click to set")
+                subtitle: tbsettings.bgImageUrl || qsTr("Click to set")
                 onPressAndHold: tbsettings.bgImageUrl = "";
-                onClicked: tbsettings.bgImageUrl = utility.selectImage()||tbsettings.bgImageUrl;
+                onClicked: {
+                    signalCenter.selectImage(page);
+                }
             }
-            SelectionListItem {
-                platformInverted: tbsettings.whiteTheme;
-                title: qsTr("Image save path");
-                subTitle: tbsettings.imagePath;
-                onClicked: tbsettings.imagePath = utility.selectFolder()||tbsettings.imagePath;
-            }
-            SelectionListItem {
-                platformInverted: tbsettings.whiteTheme;
+            SettingsItem {
                 title: clientTypeSelector.titleText;
-                subTitle: clientTypeSelector.model[clientTypeSelector.selectedIndex];
+                subtitle: clientTypeSelector.model[clientTypeSelector.selectedIndex];
                 onClicked: clientTypeSelector.open();
                 SelectionDialog {
                     id: clientTypeSelector;
                     titleText: qsTr("User agent");
-                    model: ["iPhone","Android"]//,"Windows Phone","Windows 8",qsTr("Others")];
+                    model: ["iPhone","Android"];
                     selectedIndex: tbsettings.clientType-1;
                     onAccepted: tbsettings.clientType = selectedIndex + 1;
                 }
             }
-            SelectionListItem {
+            SettingsItem {
                 property variant signatureDiag: null;
-                platformInverted: tbsettings.whiteTheme;
                 title: qsTr("Signature")
-                subTitle: tbsettings.signature.replace(/(^\s*)|(\s*$)/g,"").replace(/\s/g," ")||qsTr("Click to set");
+                subtitle: tbsettings.signature.replace(/(^\s*)|(\s*$)/g,"").replace(/\s/g," ")||qsTr("Click to set");
                 onClicked: {
                     if (!signatureDiag)
-                        signatureDiag = Qt.createComponent("Dialog/SignatureDialog.qml").createObject(parent);
+                        signatureDiag = Qt.createComponent("Dialog/SignatureDialog.qml").createObject(page);
                     signatureDiag.open();
                 }
             }
-            SelectionListItem {
-                platformInverted: tbsettings.whiteTheme;
-                title: browserSelector.titleText;
-                subTitle: browserSelector.model[browserSelector.selectedIndex];
-                onClicked: browserSelector.open();
-                SelectionDialog {
-                    id: browserSelector;
-                    titleText: qsTr("Default browser")
-                    model: [
-                        qsTr("Built-in"),
-                        qsTr("System browser"),
-                        qsTr("UC"),
-                        qsTr("UC International"),
-                        qsTr("Opera Mobile")
-                    ]
-                    selectedIndex: {
-                        switch (tbsettings.browser){
-                        case "System": return 1;
-                        case "UC": return 2;
-                        case "UC International": return 3;
-                        case "Opera": return 4;
-                        default: return 0;
-                        }
-                    }
-                    onAccepted: {
-                        switch (selectedIndex){
-                        case 1: tbsettings.browser = "System"; break;
-                        case 2: tbsettings.browser = "UC"; break;
-                        case 3: tbsettings.browser = "UC International"; break;
-                        case 4: tbsettings.browser = "Opera"; break;
-                        default: tbsettings.browser = ""; break;
-                        }
-                    }
-                }
+            Rectangle {
+                anchors { left: parent.left; right: parent.right; margins: constant.paddingXLarge; }
+                height: 1;
+                color: constant.colorMarginLine;
             }
             Item { width: 1; height: constant.paddingLarge; }
             Button {
-                platformInverted: tbsettings.whiteTheme;
-                anchors { left: parent.left; right: parent.right; margins: constant.paddingLarge*2; }
+                anchors.horizontalCenter: parent.horizontalCenter;
                 text: qsTr("Clear cache");
                 onClicked: {
                     utility.clearCache();
+                    utility.clearCookies();
                     signalCenter.clearLocalCache();
                     signalCenter.showMessage(qsTr("Operation completed"));
                 }
             }
-            Item { width: 1; height: constant.paddingLarge; }
-            Button {
-                platformInverted: tbsettings.whiteTheme;
-                anchors { left: parent.left; right: parent.right; margins: constant.paddingLarge*2; }
-                text: qsTr("Clear cookies");
-                onClicked: {
-                    utility.clearCookies();
-                    signalCenter.showMessage(qsTr("Operation completed"));
-                }
-            }
         }
     }
 
-    ScrollDecorator { flickableItem: view; platformInverted: tbsettings.whiteTheme; }
-
-    // For keypad
-    Connections {
-        target: platformPopupManager;
-        onPopupStackDepthChanged: {
-            if (platformPopupManager.popupStackDepth === 0
-                    && page.status === PageStatus.Active){
-                view.forceActiveFocus();
-            }
-        }
-    }
-
-    onStatusChanged: {
-        if (status === PageStatus.Active){
-            view.forceActiveFocus();
-        }
-    }
+    ScrollDecorator { flickableItem: view; }
 }

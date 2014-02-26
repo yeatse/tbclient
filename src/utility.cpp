@@ -20,10 +20,11 @@
 #ifdef Q_OS_HARMATTAN
 #define CAMERA_SERVICE "com.nokia.maemo.CameraService"
 #define CAMERA_INTERFACE "com.nokia.maemo.meegotouch.CameraInterface"
+#define NOTIFICATION_EVENTTYPE "tbclient"
 
-#include <maemo-meegotouch-interfaces/videosuiteinterface.h>
-#include <maemo-meegotouch-interfaces/shareuiinterface.h>
-#include <MDataUri>
+#include "videosuiteinterface.h"
+#include <MNotification>
+#include <MRemoteAction>
 #endif
 
 Utility::Utility(QObject *parent) :
@@ -293,15 +294,34 @@ QColor Utility::selectColor(const QColor &defaultColor)
     }
 }
 
-void Utility::showNotification(const QString &title, const QString &message) const
+void Utility::showNotification(const QString &title, const QString &message)
 {
 #ifdef Q_OS_SYMBIAN
     TPtrC16 sTitle(static_cast<const TUint16 *>(title.utf16()), title.length());
     TPtrC16 sMessage(static_cast<const TUint16 *>(message.utf16()), message.length());
     TUid uid = TUid::Uid(0x2006622A);
     TRAP_IGNORE(CAknDiscreetPopup::ShowGlobalPopupL(sTitle, sMessage, KAknsIIDNone, KNullDesC, 0, 0, KAknDiscreetPopupDurationLong, 0, NULL, uid));
+#elif defined(Q_OS_HARMATTAN)
+    clearNotifications();
+    MNotification notification(NOTIFICATION_EVENTTYPE, title, message);
+    MRemoteAction action("com.tbclient", "/com/tbclient", "com.tbclient", "activateWindow");
+    notification.setAction(action);
+    notification.publish();
 #else
     qDebug() << "showNotification:" << title << message;
+#endif
+}
+
+void Utility::clearNotifications()
+{
+#ifdef Q_OS_HARMATTAN
+    QList<MNotification*> activeNotifications = MNotification::notifications();
+    QMutableListIterator<MNotification*> i(activeNotifications);
+    while (i.hasNext()) {
+        MNotification *notification = i.next();
+        if (notification->eventType() == NOTIFICATION_EVENTTYPE)
+            notification->remove();
+    }
 #endif
 }
 
@@ -494,7 +514,11 @@ QString Utility::emoticonText(const QString &name)
 QStringList Utility::customEmoticonList()
 {
     if (m_emolist.isEmpty()){
+#ifdef Q_OS_HARMATTAN
+        QFile file("/opt/tbclient/qml/emo/custom.dat");
+#else
         QFile file("qml/emo/custom.dat");
+#endif
         if (file.open(QIODevice::ReadOnly)){
             QTextStream out(&file);
             out.setCodec("UTF-8");
@@ -629,7 +653,11 @@ inline void Utility::q_fromPercentEncoding(QByteArray *ba, char percent)
 
 void Utility::initializeEmoticonHash()
 {
+#ifdef Q_OS_HARMATTAN
+    QFile file("/opt/tbclient/qml/emo/emo.dat");
+#else
     QFile file("qml/emo/emo.dat");
+#endif
     if (file.open(QIODevice::ReadOnly)){
         QTextStream out(&file);
         out.setCodec("UTF-8");

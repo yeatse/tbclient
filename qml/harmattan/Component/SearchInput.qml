@@ -39,7 +39,7 @@ TextField {
         }
         Image {
             id: clearButtonImage;
-            source: "image://theme/icon-m-input-clear"+(theme.inverted?"-inverse":"")
+            source: "image://theme/icon-m-input-clear";
         }
         MouseArea {
             id: clearMouseArea;

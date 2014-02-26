@@ -149,7 +149,6 @@ Dialog {
             id: selectionListView;
             anchors.fill: parent;
             clip: true;
-            pressDelay: genericDialog.platformStyle.pressDelay
             contentWidth: parent.width;
             contentHeight: contentCol.height;
             Column {

@@ -114,7 +114,8 @@ MyPage {
             if (!viewComp) viewComp = Qt.createComponent("ThreadView.qml");
             var view = viewComp.createObject(tabGroup, prop);
             if (!tabComp) tabComp = Qt.createComponent("ThreadButton.qml");
-            tabComp.createObject(viewHeader.layout, { tab: view });
+            var tabBtn = tabComp.createObject(viewHeader.layout);
+            tabBtn.tab = view;
 
             if (option.pid)
                 view.getlist(option.pid);

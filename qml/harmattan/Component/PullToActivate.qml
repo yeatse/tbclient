@@ -26,7 +26,7 @@ Item {
 
     signal refresh;
 
-    width: parent ? parent.width : screen.width
+    width: parent ? parent.width : page.width
     height: 0
 
     Connections {

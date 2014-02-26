@@ -18,12 +18,12 @@ Sheet {
     }
     Component.onCompleted: open();
 
-    rejectButtonText: "取消";
+    acceptButtonText: "取消";
 
     title: Text {
         font.pixelSize: constant.fontXXLarge;
         color: constant.colorLight;
-        anchors { right: parent.right; rightMargin: constant.paddingXLarge; verticalCenter: parent.verticalCenter; }
+        anchors { left: parent.left; leftMargin: constant.paddingXLarge; verticalCenter: parent.verticalCenter; }
         text: "选择图片";
     }
 
@@ -40,8 +40,9 @@ Sheet {
         model: galleryModel;
         anchors.fill: parent;
         clip: true;
-        cellWidth: app.inPortrait ? parent.width/3 : parent.width/5;
+        cellWidth: Math.floor(app.inPortrait ? width/3 : width/5);
         cellHeight: cellWidth;
+
         delegate: MouseArea {
             implicitWidth: GridView.view.cellWidth;
             implicitHeight: GridView.view.cellHeight;

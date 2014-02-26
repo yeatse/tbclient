@@ -10,6 +10,14 @@ function getThumbnail(bigPic){
     }
 }
 
+function getBigImage(cdnPic){
+    if (cdnPic.indexOf(".hiphotos.baidu.com") > 0){
+        return "http://imgsrc.baidu.com/forum/pic/item/"+cdnPic.split("/").pop();
+    } else {
+        return utility.percentDecode(cdnPic);
+    }
+}
+
 function getPortrait(portrait){
     if (portrait){
         return "http://tb.himg.baidu.com/sys/portraitn/item/"+portrait;

@@ -1,44 +1,35 @@
 import QtQuick 1.1
 import com.nokia.meego 1.1
 
-CommonDialog {
+Sheet {
     id: root;
 
-    titleText: qsTr("Signature");
-    buttonTexts: [qsTr("Save"), qsTr("Clear"), qsTr("Cancel")];
+    acceptButtonText: qsTr("Save");
+    rejectButtonText: qsTr("Cancel");
 
-    content: Item {
-        width: platformContentMaximumWidth;
-        height: Math.min(platformContentMaximumHeight, 180);
+    onAccepted: tbsettings.signature = textArea.text;
+
+    content: Flickable {
+        id: flickable;
+        anchors { fill: parent; margins: constant.paddingLarge; }
+        contentWidth: width;
+        contentHeight: textArea.height;
+        onHeightChanged: textArea.setHeight();
         TextArea {
             id: textArea;
-            anchors {
-                fill: parent; margins: constant.paddingMedium;
-            }
+            width: parent.width;
             text: tbsettings.signature;
-        }
-    }
-
-    onButtonClicked: {
-        switch (index){
-        case 0:
-            tbsettings.signature = textArea.text;
-            root.accept();
-            break;
-        case 1:
-            tbsettings.signature = "";
-            root.accept();
-            break;
-        default:
-            root.reject();
-            break;
+            function setHeight(){
+                height = Math.max(implicitHeight, flickable.height);
+            }
+            onImplicitHeightChanged: setHeight();
         }
     }
 
     onStatusChanged: {
         if (status === DialogStatus.Open){
             textArea.forceActiveFocus();
-            textArea.openSoftwareInputPanel();
+            textArea.platformOpenSoftwareInputPanel();
         }
     }
 }

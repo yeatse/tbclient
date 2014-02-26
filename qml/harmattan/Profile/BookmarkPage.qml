@@ -10,13 +10,11 @@ MyPage {
     tools: ToolBarLayout {
         BackButton {}
         ToolIcon {
-            toolTipText: qsTr("Refresh");
-            iconSource: "toolbar-refresh";
+            platformIconId: "toolbar-refresh";
             onClicked: internal.getlist();
         }
         ToolIcon {
-            toolTipText: internal.editMode ? qsTr("OK") : qsTr("Edit");
-            iconSource: "../../gfx/"+(internal.editMode?"ok":"edit")+constant.invertedString+".svg";
+            platformIconId: internal.editMode ? "toolbar-done" : "toolbar-edit";
             onClicked: internal.editMode = !internal.editMode;
         }
     }
@@ -120,7 +118,7 @@ MyPage {
                     }
                     Image {
                         visible: isVisible;
-                        source: "../../gfx/btn_icon_comment_n"+constant.invertedString+".png"
+                        source: "../../gfx/btn_icon_comment_n"+constant.invertedString;
                     }
                     Text {
                         anchors.verticalCenter: parent.verticalCenter;
@@ -143,9 +141,8 @@ MyPage {
                     Component {
                         id: editBtn;
                         Button {
-                            platformInverted: tbsettings.whiteTheme;
-                            width: height;
-                            iconSource: privateStyle.toolBarIconPath("toolbar-delete", platformInverted);
+                            platformStyle: ButtonStyle { buttonWidth: buttonHeight; }
+                            iconSource: "image://theme/icon-m-toolbar-delete"+(theme.inverted?"-white":"");
                             onClicked: internal.removeBookmark(index);
                         }
                     }
@@ -154,22 +151,14 @@ MyPage {
         }
     }
 
-    ScrollDecorator { flickableItem: view; platformInverted: tbsettings.whiteTheme; }
+    ScrollDecorator { flickableItem: view; }
 
-    // For keypad
     onStatusChanged: {
         if (status === PageStatus.Active){
             if (internal.dataDirty){
                 internal.dataDirty = false;
                 internal.getlist();
             }
-            view.forceActiveFocus();
-        }
-    }
-    Keys.onPressed: {
-        switch (event.key){
-        case Qt.Key_R: internal.getlist(); event.accepted = true; break;
-        case Qt.Key_E: internal.editMode = !internal.editMode; event.accepted = true; break;
         }
     }
 }

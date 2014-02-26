@@ -204,9 +204,9 @@ var BaiduParser = {
                     var bsize = c.bsize.split(","), w = Number(bsize[0]), h = Number(bsize[1]);
                     var ww = Math.min(360, w), hh = Math.min(h * ww/w, 480);
                     push("Image", utility.percentDecode(c.cdn_src||c.src),
-                         utility.percentDecode(c.big_cdn_src||c.src), ww, hh);
+                         getBigImage(c.big_cdn_src||c.src), ww, hh);
                 } else {
-                    push("Image", "", utility.percentDecode(c.big_cdn_src||c.src),
+                    push("Image", "", getBigImage(c.big_cdn_src||c.src),
                          200, 200);
                 }
                 return;
@@ -467,7 +467,7 @@ var BaiduParser = {
                              user_name: value.user_name,
                              comment_amount: value.comment_amount,
                              idx: value.index,
-                             url: utility.percentDecode(o.url)
+                             url: getBigImage(o.url)
                          };
                          model.append(prop);
                      });

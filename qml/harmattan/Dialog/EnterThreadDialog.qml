@@ -1,7 +1,8 @@
 import QtQuick 1.1
 import com.nokia.meego 1.1
+import "../Component"
 
-ContextMenu {
+AbstractDialog {
     id: root;
 
     property bool __isClosing: false;
@@ -13,8 +14,10 @@ ContextMenu {
     property string fname;
     property bool fromSearch: false;
 
-    MenuLayout {
-        MenuItem {
+    titleText: title;
+
+    contentList: [
+        DialogItem {
             text: qsTr("View this post");
             onClicked: {
                 if (isfloor){
@@ -26,19 +29,19 @@ ContextMenu {
                     signalCenter.enterThread(prop);
                 }
             }
-        }
-        MenuItem {
+        },
+        DialogItem {
             text: qsTr("View this thread");
             onClicked: {
                 var prop = { title: title, threadId: tid };
                 signalCenter.enterThread(prop);
             }
-        }
-        MenuItem {
+        },
+        DialogItem {
             text: qsTr("View this forum");
             onClicked: signalCenter.enterForum(fname);
         }
-    }
+    ]
     onStatusChanged: {
         if (status == DialogStatus.Closing){
             __isClosing = true;

@@ -1,25 +1,26 @@
 import QtQuick 1.1
 import com.nokia.meego 1.1
+import "../Component"
 
-ContextMenu {
+AbstractDialog {
     id: root;
 
     property int index: -1;
     property variant model: null;
 
-    MenuLayout {
-        MenuItem {
+    contentList: [
+        DialogItem {
             text: qsTr("Copy content");
             onClicked: signalCenter.copyToClipboard(model.content);
-        }
-        MenuItem {
+        },
+        DialogItem {
             text: qsTr("Delete this post");
             visible: model != null && (managerGroup !== 0
                                        ||model.authorId === tbsettings.currentUid
                                        ||internal.thread.author.id === tbsettings.currentUid);
             onClicked: internal.delPost(root.index);
-        }
-        MenuItem {
+        },
+        DialogItem {
             text: qsTr("Commit to prison");
             visible: managerGroup !== 0;
             onClicked: {
@@ -33,5 +34,5 @@ ContextMenu {
                 signalCenter.commitPrison(prop);
             }
         }
-    }
+    ]
 }

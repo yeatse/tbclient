@@ -82,7 +82,7 @@ binary-arch: build install
 #	dh_perl
 #	dh_makeshlibs
 	dh_installdeb
-	# dh_shlibdeps # Uncomment this line for use without Qt Creator
+	dh_shlibdeps # Uncomment this line for use without Qt Creator
 	dh_gencontrol
 	dh_md5sums
 	dh_builddeb

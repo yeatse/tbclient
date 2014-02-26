@@ -93,7 +93,7 @@ MyPage {
             id: delegateComp;
             AbstractItem {
                 id: root;
-                height: constant.graphicSizeLarge+constant.paddingLarge*2;
+                height: constant.thumbnailSize;
                 onPressAndHold: delcom(index);
                 onClicked: {
                     var prop = { chatName: name_show, chatId: user_id };
@@ -106,6 +106,7 @@ MyPage {
                         top: root.paddingItem.top;
                         bottom: root.paddingItem.bottom;
                     }
+                    smooth: true;
                     asynchronous: true;
                     width: height;
                     source: portrait;
@@ -153,5 +154,5 @@ MyPage {
             }
         }
     }
-    ScrollDecorator { flickableItem: view; platformInverted: tbsettings.whiteTheme; }
+    ScrollDecorator { flickableItem: view; }
 }

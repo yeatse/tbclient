@@ -117,5 +117,5 @@ MyPage {
         }
     }
 
-    ScrollDecorator { flickableItem: view; platformInverted: tbsettings.whiteTheme; }
+    ScrollDecorator { flickableItem: view; }
 }

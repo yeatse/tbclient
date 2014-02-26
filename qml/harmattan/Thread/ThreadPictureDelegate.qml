@@ -11,9 +11,6 @@ Item {
     implicitWidth: ListView.view.width;
     implicitHeight: ListView.view.height;
 
-    Keys.onUpPressed: view.contentY = Math.max(0, view.contentY-view.height);
-    Keys.onDownPressed: view.contentY = Math.min(view.contentHeight-view.height,
-                                                 view.contentY+view.height);
     Component.onCompleted: coldDown.start();
 
     property int totalPage: 0;
@@ -74,11 +71,11 @@ Item {
                 }
                 BusyIndicator {
                     anchors.centerIn: parent;
-                    platformInverted: tbsettings.whiteTheme;
                     running: true;
                     visible: preview.status == Image.Loading;
-                    width: constant.graphicSizeLarge;
-                    height: constant.graphicSizeLarge;
+                    platformStyle: BusyIndicatorStyle {
+                        size: "large";
+                    }
                 }
                 MouseArea {
                     anchors.fill: parent;
@@ -102,22 +99,28 @@ Item {
                     text: descr;
                 }
             }
-            ListHeading {
-                platformInverted: tbsettings.whiteTheme;
+            Rectangle {
+                width: parent.width;
+                height: headingLeftLabel.height + constant.paddingMedium*2;
+                color: theme.inverted ? "#2c3543" : "#e6e8ea"
+                Text {
+                    id: headingLeftLabel;
+                    anchors {
+                        left: parent.left; leftMargin: constant.paddingMedium;
+                        verticalCenter: parent.verticalCenter;
+                    }
+                    text: user_name;
+                    font: constant.subTitleFont;
+                    color: constant.colorMid;
+                }
                 Text {
                     anchors {
-                        left: parent.paddingItem.left;
-                        top: parent.paddingItem.top;
+                        right: parent.right; rightMargin: constant.paddingMedium;
+                        verticalCenter: parent.verticalCenter;
                     }
-                    font: constant.subTitleFont;
-                    color: constant.colorTextSelection;
-                    text: user_name;
-                }
-                ListItemText {
-                    anchors.fill: parent.paddingItem;
                     text: qsTr("Comments")+"(%1)".arg(comment_amount);
-                    platformInverted: parent.platformInverted;
-                    role: "Heading";
+                    font: constant.subTitleFont;
+                    color: constant.colorMid;
                 }
             }
             Repeater {

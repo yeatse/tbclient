@@ -17,13 +17,11 @@ MyPage {
     tools: ToolBarLayout {
         BackButton {}
         ToolIcon {
-            toolTipText: qsTr("Edit");
-            iconSource: "../../gfx/edit"+constant.invertedString+".svg";
+            platformIconId: "toolbar-edit";
             onClicked: toolsArea.state = "Input";
         }
         ToolIcon {
-            toolTipText: qsTr("Clear");
-            iconSource: "toolbar-delete";
+            platformIconId: "toolbar-delete";
             onClicked: internal.clearMsg();
         }
     }
@@ -112,9 +110,8 @@ MyPage {
         id: view;
         anchors {
             left: parent.left; right: parent.right;
-            top: viewHeader.bottom;
+            top: viewHeader.bottom; bottom: toolsArea.top;
         }
-        height: screen.height - privateStyle.statusBarHeight - viewHeader.height - toolsArea.height;
         model: ListModel {}
         cacheBuffer: view.height * 5;
         delegate: chatDelegate;
@@ -135,7 +132,7 @@ MyPage {
                 BorderImage {
                     asynchronous: true;
                     source: isMe ? "../../gfx/msg_out.png" : "../../gfx/msg_in.png";
-                    anchors { fill: parent; margins: constant.paddingMedium; }
+                    anchors { fill: parent; margins: constant.paddingLarge; }
                     border { left: 10; top: 10; right: 10; bottom: 15; }
                     mirror: true;
                 }
@@ -143,8 +140,8 @@ MyPage {
                 Column {
                     id: contentCol;
                     anchors {
-                        left: parent.left; leftMargin: constant.paddingMedium+10;
-                        right: parent.right; rightMargin: constant.paddingMedium+10;
+                        left: parent.left; leftMargin: constant.paddingLarge+10;
+                        right: parent.right; rightMargin: constant.paddingLarge+10;
                         top: parent.top; topMargin: constant.paddingLarge*2;
                     }
                     Text {
@@ -166,23 +163,17 @@ MyPage {
         }
     }
 
-    ScrollDecorator { flickableItem: view; platformInverted: tbsettings.whiteTheme; }
+    ScrollDecorator { flickableItem: view; }
 
     Floor.ToolsArea {
         id: toolsArea;
         emoticonEnabled: false;
     }
 
-    // For keypad
     onStatusChanged: {
-        if (status === PageStatus.Active){
-            view.forceActiveFocus();
-        }
-    }
-    Keys.onPressed: {
-        switch (event.key){
-        case Qt.Key_R: internal.getlist("renew"); event.accepted = true; break;
-        case Qt.Key_E: toolsArea.state = "Input"; event.accepted = true; break;
+        if (status === PageStatus.Deactivating){
+            audioWrapper.stop();
+            toolsArea.state = "";
         }
     }
 }

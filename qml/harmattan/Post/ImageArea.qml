@@ -56,8 +56,8 @@ Item {
             Repeater {
                 model: root.imageList;
                 Item {
-                    width: constant.thumbnailSize;
-                    height: constant.thumbnailSize;
+                    width: 160;
+                    height: 160;
                     Image {
                         anchors.fill: parent;
                         fillMode: Image.PreserveAspectCrop;
@@ -77,8 +77,8 @@ Item {
                 }
             }
             Item {
-                width: constant.thumbnailSize;
-                height: constant.thumbnailSize;
+                width: 160;
+                height: 160;
                 visible: imageList.length < 10;
                 Button {
                     width: height;

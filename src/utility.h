@@ -69,7 +69,10 @@ public:             // Symbian avkon helper.
     Q_INVOKABLE QColor selectColor(const QColor &defaultColor);
 
     // Show notification
-    Q_INVOKABLE void showNotification(const QString &title, const QString &message) const;
+    Q_INVOKABLE void showNotification(const QString &title, const QString &message);
+
+    // Clear notification list
+    Q_INVOKABLE void clearNotifications();
 
 #ifdef Q_OS_SYMBIAN
     void LaunchL(int id, const QString& param);

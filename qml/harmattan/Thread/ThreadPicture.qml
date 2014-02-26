@@ -24,7 +24,7 @@ MyPage {
             onClicked: toolsArea.state = "Input";
         }
         ToolIcon {
-            platformIconId: "toolbar-down";
+            platformIconId: "toolbar-directory-move-to"
             enabled: view.currentItem != null;
             onClicked: {
                 var url = view.model.get(view.currentIndex).url;
@@ -106,11 +106,7 @@ MyPage {
     ViewHeader {
         id: viewHeader;
         title: (view.currentIndex+1)+"/"+internal.picAmount;
-//        BusyIndicator {
-//            anchors { left: parent.paddingItem.left; verticalCenter: parent.verticalCenter; }
-//            running: true;
-//            visible: view.currentItem != null && view.currentItem.loading;
-//        }
+        loadingVisible: page.loading || (view.currentItem != null && view.currentItem.loading);
     }
 
     ListView {
@@ -146,5 +142,4 @@ MyPage {
             toolsArea.state = "";
         }
     }
-
 }

@@ -1,16 +1,19 @@
 import QtQuick 1.1
 import "../Component"
 
-AbstractItem {
+AbstractDelegate {
     id: root;
-    implicitHeight: contentCol.height + constant.paddingLarge;
+    implicitHeight: contentCol.height + 32;
     onClicked: {
         var prop = { threadId: thread_id, title: title };
         signalCenter.enterThread(prop);
     }
     Column {
         id: contentCol;
-        width: parent.width;
+        anchors {
+            left: parent.left; right: parent.right;
+            top: parent.top; margins: constant.paddingSmall+4;
+        }
         spacing: constant.paddingSmall;
         Item {
             width: parent.width;
@@ -18,7 +21,7 @@ AbstractItem {
             BorderImage {
                 id: feedLabel;
                 asynchronous: true;
-                source: "../../gfx/bg_forum_feed_label"+constant.invertedString+".png";
+                source: "../../gfx/bg_forum_feed_label"+constant.invertedString;
                 border { left: 10; right: 30; top: 0; bottom: 0; }
                 width: feedLabelText.width + 40;
                 Text {
@@ -37,18 +40,18 @@ AbstractItem {
                     right: parent.right; top: parent.top;
                     margins: constant.paddingMedium;
                 }
-                spacing: 2;
+                spacing: 4;
                 Image {
                     asynchronous: true;
                     enabled: is_good;
                     visible: enabled;
-                    source: enabled ? "../../gfx/icon_elite"+constant.invertedString+".png" : "";
+                    source: enabled ? "../../gfx/icon_elite"+constant.invertedString : "";
                 }
                 Image {
                     asynchronous: true;
                     enabled: is_top;
                     visible: enabled;
-                    source: enabled ? "../../gfx/icon_top"+constant.invertedString+".png" : "";
+                    source: enabled ? "../../gfx/icon_top"+constant.invertedString : "";
                 }
             }
         }
@@ -94,10 +97,10 @@ AbstractItem {
         }
     }
     Row {
-        anchors { right: parent.right; bottom: parent.bottom; margins: constant.paddingMedium; }
+        anchors { right: parent.right; bottom: parent.bottom; margins: 12 }
         Image {
             asynchronous: true;
-            source: "../../gfx/btn_icon_comment_n"+constant.invertedString+".png";
+            source: "../../gfx/btn_icon_comment_n"+constant.invertedString;
         }
         Text {
             anchors.verticalCenter: parent.verticalCenter;

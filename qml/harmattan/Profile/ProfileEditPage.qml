@@ -11,8 +11,7 @@ MyPage {
     tools: ToolBarLayout {
         BackButton {}
         ToolIcon {
-            toolTipText: qsTr("OK");
-            iconSource: "../../gfx/ok"+constant.invertedString+".svg";
+            platformIconId: "toolbar-done";
             onClicked: save();
         }
     }
@@ -61,11 +60,22 @@ MyPage {
                 signalCenter.showMessage(qsTr("Avatar uploading failed"));
             }
         }
+        onImageSelected: {
+            if (caller === page){
+                var prop = { imageUrl: urls, caller: page }
+                pageStack.push(Qt.resolvedUrl("AvatarEditPage.qml"), prop);
+            }
+        }
+    }
+
+    ViewHeader {
+        id: viewHeader;
+        title: page.title;
     }
 
     Flickable {
         id: view;
-        anchors.fill: parent;
+        anchors { fill: parent; topMargin: viewHeader.height; }
         contentWidth: parent.width;
         contentHeight: contentCol.height;
         boundsBehavior: Flickable.StopAtBounds;
@@ -81,23 +91,25 @@ MyPage {
         Column {
             id: contentCol;
             width: parent.width;
-            ListHeading {
-                platformInverted: tbsettings.whiteTheme;
-                ListItemText {
-                    anchors.fill: parent.paddingItem;
-                    platformInverted: parent.platformInverted;
-                    role: "Heading";
+            Rectangle {
+                width: parent.width;
+                height: headingLeftLabel.height + constant.paddingMedium*2;
+                color: theme.inverted ? "#2c3543" : "#e6e8ea"
+                Text {
+                    id: headingLeftLabel;
+                    anchors {
+                        left: parent.left; leftMargin: constant.paddingMedium;
+                        verticalCenter: parent.verticalCenter;
+                    }
                     text: qsTr("Avatar");
+                    font: constant.subTitleFont;
+                    color: constant.colorMid;
                 }
             }
             AbstractItem {
                 height: 110 + constant.paddingLarge*2;
                 onClicked: {
-                    var url = utility.selectImage();
-                    if (url !== ""){
-                        var prop = { imageUrl: url, caller: page }
-                        pageStack.push(Qt.resolvedUrl("AvatarEditPage.qml"), prop);
-                    }
+                    signalCenter.selectImage(page);
                 }
                 Image {
                     id: avatarImage;
@@ -118,13 +130,18 @@ MyPage {
                     text: qsTr("Edit avatar");
                 }
             }
-            ListHeading {
-                platformInverted: tbsettings.whiteTheme;
-                ListItemText {
-                    anchors.fill: parent.paddingItem;
-                    platformInverted: parent.platformInverted;
-                    role: "Heading";
+            Rectangle {
+                width: parent.width;
+                height: headingLeftLabel.height + constant.paddingMedium*2;
+                color: theme.inverted ? "#2c3543" : "#e6e8ea"
+                Text {
+                    anchors {
+                        left: parent.left; leftMargin: constant.paddingMedium;
+                        verticalCenter: parent.verticalCenter;
+                    }
                     text: qsTr("Gender");
+                    font: constant.subTitleFont;
+                    color: constant.colorMid;
                 }
             }
             Item {
@@ -136,25 +153,29 @@ MyPage {
                         margins: constant.paddingLarge;
                         verticalCenter: parent.verticalCenter;
                     }
+                    spacing: constant.paddingLarge;
                     RadioButton {
                         id: btn1;
-                        platformInverted: tbsettings.whiteTheme;
                         text: qsTr("Male");
                     }
                     RadioButton {
                         id: btn2;
-                        platformInverted: tbsettings.whiteTheme;
                         text: qsTr("Female");
                     }
                 }
             }
-            ListHeading {
-                platformInverted: tbsettings.whiteTheme;
-                ListItemText {
-                    anchors.fill: parent.paddingItem;
-                    platformInverted: parent.platformInverted;
-                    role: "Heading";
+            Rectangle {
+                width: parent.width;
+                height: headingLeftLabel.height + constant.paddingMedium*2;
+                color: theme.inverted ? "#2c3543" : "#e6e8ea"
+                Text {
+                    anchors {
+                        left: parent.left; leftMargin: constant.paddingMedium;
+                        verticalCenter: parent.verticalCenter;
+                    }
                     text: qsTr("Intro");
+                    font: constant.subTitleFont;
+                    color: constant.colorMid;
                 }
             }
             Item {
@@ -166,9 +187,6 @@ MyPage {
                         left: parent.left; right: parent.right;
                         top: parent.top; margins: constant.paddingLarge;
                     }
-                    platformMaxImplicitHeight: 150;
-                    platformInverted: tbsettings.whiteTheme;
-                    onActiveFocusChanged: view.positionToBottom();
                     text: userData ? userData.intro : "";
                 }
             }
@@ -186,9 +204,11 @@ MyPage {
             spacing: constant.paddingSmall;
             BusyIndicator {
                 anchors.horizontalCenter: parent.horizontalCenter;
-                width: constant.thumbnailSize;
-                height: constant.thumbnailSize;
                 running: true;
+                platformStyle: BusyIndicatorStyle {
+                    size: "large";
+                    inverted: true;
+                }
             }
             Text {
                 anchors.horizontalCenter: parent.horizontalCenter;

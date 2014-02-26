@@ -3,7 +3,6 @@
 
 #define PORTRAIT_PREFIX "http://tb.himg.baidu.com/sys/portraitn/item/"
 #define IMG_PREFIX "http://imgsrc.baidu.com/forum/pic/item/"
-#define IMG_CDN_HOST "hiphotos.baidu.com"
 #define IMG_UNSUPPORTED_HOST "http://c.tieba.baidu.com/c/p/img"
 #define HOST_PREFIX "http://c.tieba.baidu.com/"
 
@@ -62,7 +61,7 @@ QNetworkReply *TBNetworkAccessManager::createRequest(Operation op, const QNetwor
         req.setUrl(QUrl::fromEncoded(urldata));
     }
     // set cache control
-    if (req.url().host().endsWith(IMG_CDN_HOST) || urldata.startsWith(PORTRAIT_PREFIX) || urldata.startsWith(IMG_PREFIX)){
+    if (urldata.startsWith(PORTRAIT_PREFIX) || urldata.startsWith(IMG_PREFIX)){
         req.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferCache);
     } else {
         req.setAttribute(QNetworkRequest::CacheSaveControlAttribute, false);

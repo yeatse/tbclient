@@ -11,24 +11,27 @@ MyPage {
         BackButton {}
     }
 
+    ViewHeader {
+        id: viewHeader;
+        title: page.title;
+    }
+
     Column {
         anchors {
             horizontalCenter: parent.horizontalCenter;
-            top: parent.top;
-            topMargin: app.inPortrait ? constant.graphicSizeLarge : 0;
+            top: viewHeader.bottom;
+            topMargin: app.inPortrait ? constant.graphicSizeLarge : constant.paddingLarge;
         }
         spacing: constant.paddingMedium;
 
         Image {
             anchors.horizontalCenter: parent.horizontalCenter;
-            sourceSize.width: constant.graphicSizeLarge*2.5;
-            sourceSize.height: constant.graphicSizeLarge*2.5;
-            source: "../gfx/tbclient.svg";
+            source: "file:///usr/share/icons/hicolor/80x80/apps/tbclient80.png";
         }
 
         Text {
             font.pixelSize: constant.fontXXLarge;
-            font.family: platformStyle.fontFamilyRegular;
+            font.family: "Nokia Pure Text";
             color: constant.colorLight;
             anchors.horizontalCenter: parent.horizontalCenter;
             text: qsTr("QML Tieba Client");
@@ -38,7 +41,7 @@ MyPage {
             font: constant.labelFont;
             color: constant.colorMid;
             anchors.horizontalCenter: parent.horizontalCenter;
-            text: "Designed for Nokia Belle";
+            text: "Designed for Meego Harmattan";
         }
 
         Text {
@@ -54,7 +57,6 @@ MyPage {
             horizontalCenter: parent.horizontalCenter;
             bottom: parent.bottom; bottomMargin: constant.paddingMedium;
         }
-        visible: screen.height > 360;
         Text {
             font: constant.subTitleFont;
             color: constant.colorMid;
@@ -67,13 +69,6 @@ MyPage {
             color: constant.colorMid;
             anchors.horizontalCenter: parent.horizontalCenter;
             text: "Yeatse CC, 2014";
-        }
-    }
-
-    // For keypad
-    onStatusChanged: {
-        if (status === PageStatus.Active){
-            page.forceActiveFocus();
         }
     }
 }
