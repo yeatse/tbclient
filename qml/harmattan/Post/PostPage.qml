@@ -189,6 +189,25 @@ MyPage {
         }
     }
 
+    Rectangle {
+        id: bgRect;
+        z: 100;
+        anchors { fill: parent; topMargin: viewHeader.height; }
+        color: "#A0000000";
+        visible: page.loading;
+        BusyIndicator {
+            anchors.centerIn: parent;
+            platformStyle: BusyIndicatorStyle {
+                size: "large";
+                inverted: true;
+            }
+            running: true;
+        }
+        MouseArea {
+            anchors.fill: parent;
+        }
+    }
+
     Connections {
         target: inputContext;
         onSoftwareInputPanelVisibleChanged: {
