@@ -11,16 +11,25 @@ Sheet {
     acceptButtonText: qsTr("Copy");
     rejectButtonText: qsTr("Cancel");
 
-    content: Item {
-        width: parent.width;
-        height: parent.height;
+    content: Flickable {
+        id: view;
+        anchors {
+            fill: parent; margins: constant.paddingLarge;
+        }
+        contentWidth: width;
+        contentHeight: textArea.height;
+        boundsBehavior: Flickable.StopAtBounds;
+        clip: true;
+
         TextArea {
             id: textArea;
-            anchors {
-                fill: parent; margins: constant.paddingMedium;
-            }
+            property int minHeight: view.height;
+            width: parent.width;
             readOnly: true;
             textFormat: TextEdit.PlainText;
+            function setHeight(){ textArea.height = Math.max(implicitHeight, minHeight); }
+            onMinHeightChanged: setHeight();
+            onImplicitHeightChanged: setHeight();
         }
     }
 

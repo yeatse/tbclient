@@ -41,6 +41,7 @@ Item {
     MouseArea {
         id: mouseArea;
         anchors.fill: icon;
+        enabled: !isLoading;
         onClicked: audioWrapper.playAudio(text);
     }
 }

@@ -5,7 +5,8 @@ Item {
     id: root;
 
     property Item tab;
-    property bool checked: internal.tabGroup !== null && tab === internal.tabGroup.currentTab;
+    // Don't use checked because it has bugs on N9
+    property bool active: internal.tabGroup !== null && internal.tabGroup.currentTab === tab;
     signal clicked;
 
     width: parent.width / parent.children.length;
@@ -34,8 +35,6 @@ Item {
             return next
         }
         function getMask(){
-            if (!tab)
-                return undefined;
             if (tab.loading)
                 return busyIndicator;
             if (sectionMouseArea.pressed)
@@ -53,7 +52,7 @@ Item {
         textFormat: Text.PlainText;
         wrapMode: Text.WrapAnywhere;
         maximumLineCount: 1;
-        text: tab?tab.title:"";
+        text: tab.title;
         font: constant.labelFont;
         color: "white";
     }

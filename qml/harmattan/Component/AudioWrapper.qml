@@ -1,6 +1,5 @@
 import QtQuick 1.1
 import QtMultimediaKit 1.1
-import com.yeatse.tbclient 1.0
 import "../../js/Utils.js" as Utils
 
 Item {
@@ -11,47 +10,34 @@ Item {
     property real volume: audio.volume;
     property int position: audio.position;
     property bool playing: audio.playing;
-    property bool loading: downloader.state == 2;
-
-    // private:
-    property string __currentFile;
+    property bool loading: audio.status == Audio.Loading;
 
     function changeFile(filename){
         audio.stop();
         if (audio.status != Audio.Loading){
             audio.source = filename;
             audio.play();
-        } else {
-            __currentFile = filename;
-            coldDown.target = audio;
         }
     }
 
     function playAudio(md5){
-        var filename = audioFileName(md5);
-        var url = Utils.getAudioUrl(md5);
-        if (currentMd5 === md5){
-            if (utility.existsFile(filename)){
+        if (audio.status === Audio.Loading){
+            coldDown.pendingMd5 = md5;
+            coldDown.target = audio;
+        } else {
+            if (currentMd5 === md5){
                 if (audio.playing && !audio.paused){
                     audio.pause();
                 } else {
                     audio.play();
                 }
-            }
-        } else {
-            currentMd5 = md5;
-            audio.stop();
-            if (utility.existsFile(filename)){
-                changeFile("file:///"+filename);
             } else {
-                downloader.abortDownload(true);
-                downloader.appendDownload(url, filename);
+                currentMd5 = md5;
+                audio.stop();
+                audio.source = Utils.getAudioUrl(md5);
+                audio.play();
             }
         }
-    }
-
-    function audioFileName(md5){
-        return utility.cachePath + "/audio/" + md5 + ".mp3";
     }
 
     function stop(){
@@ -64,25 +50,14 @@ Item {
         id: audio;
     }
 
-    Downloader {
-        id: downloader;
-        onStateChanged: {
-            if (state == 3 && error == 0){
-                if (currentRequest === Utils.getAudioUrl(currentMd5)){
-                    changeFile("file:///"+currentFile);
-                }
-            }
-        }
-    }
-
     Connections {
         id: coldDown;
+        property string pendingMd5;
         target: null;
         onStatusChanged: {
             if (audio.status != Audio.Loading){
                 coldDown.target = null;
-                audio.source = "file:///"+__currentFile;
-                audio.play();
+                playAudio(coldDown.pendingMd5);
             }
         }
     }

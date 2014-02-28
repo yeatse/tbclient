@@ -56,4 +56,5 @@ PageStackWindow {
     }
 
     Component.onCompleted: Script.initialize(signalCenter, tbsettings, utility, worker, uploader);
+    Component.onDestruction: utility.clearNotifications();
 }

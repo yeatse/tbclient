@@ -33,7 +33,7 @@ Rectangle {
         function setIndicatorPosition(){
             for (var i=0, l=tabBarLayout.children.length; i<l; i++){
                 var btn = tabBarLayout.children[i];
-                if (btn.hasOwnProperty("checked") && btn.checked){
+                if (btn.hasOwnProperty("active") && btn.active){
                     currentSectionIndicator.x = currentSectionIndicator.width*i;
                     break;
                 }
@@ -42,9 +42,9 @@ Rectangle {
         function setButtonConnections(){
             for (var i=0, l=tabBarLayout.children.length; i<l; i++){
                 var btn = tabBarLayout.children[i];
-                if (btn.hasOwnProperty("checked")){
-                    btn.checkedChanged.disconnect(setIndicatorPosition);
-                    btn.checkedChanged.connect(setIndicatorPosition);
+                if (btn.hasOwnProperty("active")){
+                    btn.activeChanged.disconnect(setIndicatorPosition);
+                    btn.activeChanged.connect(setIndicatorPosition);
                 }
             }
         }

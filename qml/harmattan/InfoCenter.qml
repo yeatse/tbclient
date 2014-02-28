@@ -16,6 +16,7 @@ Item {
     function clear(type){
         if (root.hasOwnProperty(type))
             root[type] = 0;
+        internal.displayMessage();
     }
 
     enabled: false;
@@ -79,6 +80,8 @@ Item {
                 var title = qsTr("Baidu Tieba");
                 var message = list.join("\n");
                 utility.showNotification(title, message);
+            } else {
+                utility.clearNotifications();
             }
         }
 
