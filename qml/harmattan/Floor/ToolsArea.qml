@@ -58,7 +58,7 @@ Item {
                 verticalCenter: parent.verticalCenter;
             }
             visible: enabled;
-            iconSource: "../../gfx/btn_insert_face"+constant.invertedString;
+            iconSource: "../gfx/btn_insert_face"+constant.invertedString;
             onClicked: signalCenter.createEmoticonDialog(root);
         }
         ToolIcon {

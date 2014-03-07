@@ -111,7 +111,7 @@ MyPage {
             } else {
                 color = "yellow";
             }
-            return "../gfx/icon_grade_".concat(color, constant.invertedString);
+            return "gfx/icon_grade_".concat(color, constant.invertedString);
         }
     }
 
@@ -196,7 +196,7 @@ MyPage {
                         left: 10; top: 10;
                         right: 10; bottom: 10;
                     }
-                    source: "../gfx/bg_pop_choose_"+(mouseArea.pressed?"s":"n")+constant.invertedString;
+                    source: "gfx/bg_pop_choose_"+(mouseArea.pressed?"s":"n")+constant.invertedString;
                 }
                 Text {
                     anchors {
@@ -220,7 +220,7 @@ MyPage {
                     }
                     Image {
                         anchors.verticalCenter: parent.verticalCenter;
-                        source: "../gfx/icon_jinba_sign"+constant.invertedString;
+                        source: "gfx/icon_jinba_sign"+constant.invertedString;
                         visible: is_sign;
                         Text {
                             id: signText;

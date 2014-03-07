@@ -71,7 +71,7 @@ MyPage {
         anchors { left: parent.left; right: parent.right; top: viewHeader.bottom; }
         height: constant.graphicSizeLarge*2.7 - view.contentY;
         clip: true;
-        source: "../gfx/pic_banner_pic.png"
+        source: "gfx/pic_banner_pic.png"
         fillMode: Image.PreserveAspectCrop;
     }
 
@@ -101,11 +101,11 @@ MyPage {
                         verticalCenter: parent.verticalCenter;
                     }
                     width: 100; height: 100;
-                    source: "../gfx/person_photo_bg.png"
+                    source: "gfx/person_photo_bg.png"
                     Image {
                         anchors { fill: parent; margins: constant.paddingMedium; }
                         source: userData ? "http://tb.himg.baidu.com/sys/portraith/item/"+userData.portraith
-                                         : "../gfx/person_photo.png";
+                                         : "gfx/person_photo.png";
                     }
                 }
 
@@ -127,9 +127,9 @@ MyPage {
                             source: {
                                 if (userData){
                                     if (userData.sex === "1"){
-                                        return "../gfx/icon_man"+constant.invertedString;
+                                        return "gfx/icon_man"+constant.invertedString;
                                     } else {
-                                        return "../gfx/icon_woman"+constant.invertedString;
+                                        return "gfx/icon_woman"+constant.invertedString;
                                     }
                                 } else {
                                     return "";
@@ -166,7 +166,7 @@ MyPage {
                             BorderImage {
                                 anchors.fill: parent;
                                 border { left: 25; right: 25; top: 0; bottom: 0; }
-                                source: "../gfx/btn_bg_"+parent.pressString+constant.invertedString;
+                                source: "gfx/btn_bg_"+parent.pressString+constant.invertedString;
                                 smooth: true;
                             }
                             Row {
@@ -175,7 +175,7 @@ MyPage {
                                 spacing: constant.paddingSmall;
                                 Image {
                                     anchors.verticalCenter: parent.verticalCenter;
-                                    source: "../gfx/btn_icon_edit"+constant.invertedString;
+                                    source: "gfx/btn_icon_edit"+constant.invertedString;
                                 }
                                 Text {
                                     anchors.verticalCenter: parent.verticalCenter;
@@ -199,7 +199,7 @@ MyPage {
                                 id: icon;
                                 anchors.fill: parent;
                                 border { left: 25; right: 25; top: 0; bottom: 0; }
-                                source: "../gfx/btn_%1_%2%3".arg(parent.name).arg(parent.pressString).arg(constant.invertedString);
+                                source: "gfx/btn_%1_%2%3".arg(parent.name).arg(parent.pressString).arg(constant.invertedString);
                             }
                             Text {
                                 visible: isLike;

@@ -14,7 +14,7 @@ Item {
         id: bgImg;
         anchors.fill: parent;
         border.bottom: 10;
-        source: "../../gfx/bg_grade_up"+constant.invertedString;
+        source: "../gfx/bg_grade_up"+constant.invertedString;
     }
 
     Image {
@@ -74,7 +74,7 @@ Item {
                 visible: !internal.isLike;
                 anchors.verticalCenter: parent.verticalCenter;
                 sourceSize: Qt.size(width, height);
-                source: "../../gfx/btn_like_"+likeBtnMouseArea.stateString+constant.invertedString;
+                source: "../gfx/btn_like_"+likeBtnMouseArea.stateString+constant.invertedString;
                 MouseArea {
                     id: likeBtnMouseArea;
                     property string stateString: pressed ? "s" : "n";
@@ -89,7 +89,7 @@ Item {
                 visible: !internal.hasSigned;
                 anchors.verticalCenter: parent.verticalCenter;
                 sourceSize: Qt.size(width, height);
-                source: "../../gfx/btn_sign_"+signBtnMouseArea.stateString+constant.invertedString;
+                source: "../gfx/btn_sign_"+signBtnMouseArea.stateString+constant.invertedString;
                 BusyIndicator {
                     anchors.centerIn: parent;
                     running: true;
@@ -109,7 +109,7 @@ Item {
                 height: 46;
                 visible: internal.hasSigned;
                 anchors.verticalCenter: parent.verticalCenter;
-                source: "../../gfx/ico_sign"+constant.invertedString;
+                source: "../gfx/ico_sign"+constant.invertedString;
                 smooth: true;
                 Text {
                     id: signInfoText;

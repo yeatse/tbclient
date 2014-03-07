@@ -12,7 +12,7 @@ Item {
     BorderImage {
         anchors.fill: parent;
         border.bottom: 10;
-        source: "../../gfx/bg_grade_up"+constant.invertedString;
+        source: "../gfx/bg_grade_up"+constant.invertedString;
     }
 
     Image {
@@ -88,7 +88,7 @@ Item {
                 anchors.right: parent.right;
                 Image {
                     asynchronous: true;
-                    source: "../../gfx/btn_icon_comment_n"+constant.invertedString;
+                    source: "../gfx/btn_icon_comment_n"+constant.invertedString;
                 }
                 Text {
                     anchors.verticalCenter: parent.verticalCenter;

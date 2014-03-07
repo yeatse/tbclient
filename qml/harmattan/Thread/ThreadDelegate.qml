@@ -68,7 +68,7 @@ AbstractItem {
         visible: floor !== "1";
         Image {
             asynchronous: true;
-            source: "../../gfx/btn_icon_comment_n"+constant.invertedString;
+            source: "../gfx/btn_icon_comment_n"+constant.invertedString;
         }
         Text {
             anchors.verticalCenter: parent.verticalCenter;

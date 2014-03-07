@@ -30,7 +30,7 @@ Item {
     Image {
         anchors.centerIn: parent;
         asynchronous: true;
-        source: "../../gfx/image_default"+constant.invertedString;
+        source: "../gfx/image_default"+constant.invertedString;
         visible: image.status != Image.Ready;
     }
 

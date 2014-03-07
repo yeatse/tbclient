@@ -118,7 +118,7 @@ MyPage {
                     }
                     Image {
                         visible: isVisible;
-                        source: "../../gfx/btn_icon_comment_n"+constant.invertedString;
+                        source: "../gfx/btn_icon_comment_n"+constant.invertedString;
                     }
                     Text {
                         anchors.verticalCenter: parent.verticalCenter;
@@ -129,7 +129,7 @@ MyPage {
                 }
                 Image {
                     anchors { right: root.paddingItem.right; top: root.paddingItem.top; }
-                    source: "../../gfx/ico_mbar_news_point.png";
+                    source: "../gfx/ico_mbar_news_point.png";
                     visible: isNew;
                 }
                 Loader {

@@ -16,7 +16,7 @@ Item {
 
     BorderImage {
         anchors.fill: parent;
-        source: "../../gfx/btn_managebg"+constant.invertedString;
+        source: "../gfx/btn_managebg"+constant.invertedString;
         border { left: 5; right: 5; top: 5; bottom: 5; }
     }
 
@@ -25,10 +25,10 @@ Item {
         anchors.centerIn: parent;
         Image {
             anchors.horizontalCenter: parent.horizontalCenter;
-            source: "../../gfx/cent_icon_"+root.iconName+constant.invertedString;
+            source: "../gfx/cent_icon_"+root.iconName+constant.invertedString;
             Image {
                 anchors { top: parent.top; right: parent.right; }
-                source: root.markVisible ? "../../gfx/ico_mbar_news_point.png" : "";
+                source: root.markVisible ? "../gfx/ico_mbar_news_point.png" : "";
             }
         }
         Text {

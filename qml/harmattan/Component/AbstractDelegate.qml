@@ -23,7 +23,7 @@ Item {
             left: 10; top: 10;
             right: 10; bottom: 10;
         }
-        source: "../../gfx/bg_pb_add_"+(mouseArea.pressed?"s":"n")+constant.invertedString;
+        source: "../gfx/bg_pb_add_"+(mouseArea.pressed?"s":"n")+constant.invertedString;
         asynchronous: true;
     }
 

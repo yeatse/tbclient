@@ -59,16 +59,13 @@ folder_harmattan.target = qml
 folder_js.source = qml/js
 folder_js.target = qml
 
-folder_gfx.source = qml/gfx
-folder_gfx.target = qml
-
 folder_emo.source = qml/emo
 folder_emo.target = qml
 
-DEPLOYMENTFOLDERS = folder_emo
+DEPLOYMENTFOLDERS = folder_emo folder_js
 
 simulator {
-    DEPLOYMENTFOLDERS += folder_js folder_harmattan folder_gfx
+    DEPLOYMENTFOLDERS += folder_harmattan
 }
 
 contains(MEEGO_EDITION,harmattan){
@@ -90,7 +87,7 @@ contains(MEEGO_EDITION,harmattan){
     splash.path = /opt/tbclient/splash
     INSTALLS += splash
 
-    DEPLOYMENTFOLDERS += folder_js folder_harmattan folder_gfx
+    DEPLOYMENTFOLDERS += folder_harmattan
 }
 
 symbian {

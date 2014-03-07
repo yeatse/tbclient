@@ -50,7 +50,7 @@ MyPage {
         Image {
             anchors.centerIn: parent;
             sourceSize.height: parent.height - constant.paddingSmall;
-            source: "../../gfx/logo_teiba_top.png"
+            source: "../gfx/logo_teiba_top.png"
         }
         onClicked: view.scrollToTop();
     }

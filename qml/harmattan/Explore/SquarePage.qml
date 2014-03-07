@@ -80,7 +80,7 @@ MyPage {
                         Image {
                             anchors.centerIn: parent;
                             source: previewImg.status === Image.Ready
-                                    ? "" : "../../gfx/image_default"+constant.invertedString;
+                                    ? "" : "../gfx/image_default"+constant.invertedString;
                         }
                         Rectangle {
                             anchors.fill: parent;
@@ -293,7 +293,7 @@ MyPage {
                                 }
                                 Image {
                                     asynchronous: true;
-                                    source: "../../gfx/btn_icon_comment_n"+constant.invertedString;
+                                    source: "../gfx/btn_icon_comment_n"+constant.invertedString;
                                 }
                                 Text {
                                     anchors.verticalCenter: parent.verticalCenter;

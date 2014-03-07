@@ -119,12 +119,12 @@ MyPage {
             spacing: constant.paddingSmall;
             Button {
                 platformStyle: toolBtnStyle;
-                iconSource: "../../gfx/btn_insert_face"+constant.invertedString;
+                iconSource: "../gfx/btn_insert_face"+constant.invertedString;
                 onClicked: signalCenter.createEmoticonDialog(page);
             }
             Button {
                 platformStyle: toolBtnStyle;
-                iconSource: "../../gfx/btn_insert_at"+constant.invertedString;
+                iconSource: "../gfx/btn_insert_at"+constant.invertedString;
                 onClicked: {
                     var prop = { type: "at", caller: page }
                     pageStack.push(Qt.resolvedUrl("../Profile/SelectFriendPage.qml"), prop);
@@ -134,11 +134,11 @@ MyPage {
                 id: picBtn;
                 platformStyle: toolBtnStyle;
                 checkable: true;
-                iconSource: "../../gfx/btn_insert_pics"+constant.invertedString;
+                iconSource: "../gfx/btn_insert_pics"+constant.invertedString;
                 onClicked: attachedArea.state = attachedArea.state == "Image" ? "" : "Image";
                 Image {
                     anchors { top: parent.top; right: parent.right; }
-                    source: "../../gfx/ico_mbar_news_point.png";
+                    source: "../gfx/ico_mbar_news_point.png";
                     visible: attachedArea.imageList.length > 0;
                 }
             }
@@ -146,11 +146,11 @@ MyPage {
                 id: voiBtn;
                 platformStyle: toolBtnStyle;
                 checkable: true;
-                iconSource: "../../gfx/btn_insert_voice"+constant.invertedString;
+                iconSource: "../gfx/btn_insert_voice"+constant.invertedString;
                 onClicked: attachedArea.state = attachedArea.state == "Voice" ? "" : "Voice";
                 Image {
                     anchors { top: parent.top; right: parent.right; }
-                    source: "../../gfx/ico_mbar_news_point.png";
+                    source: "../gfx/ico_mbar_news_point.png";
                     visible: attachedArea.audioFile.length > 0;
                 }
             }

@@ -57,7 +57,7 @@ Item {
         }
         spacing: constant.paddingLarge;
         Image {
-            source: "../../gfx/adp_down_arrow.png";
+            source: "../gfx/adp_down_arrow.png";
             opacity: visualY < indicatorStart ? 0 : 1
             Behavior on opacity { NumberAnimation { duration: 100 } }
             rotation: {
