@@ -153,11 +153,11 @@ Item {
             color: root.headerBackgroundColor;
             Image {
                 anchors { left: parent.left; top: parent.top; }
-                source: "../../gfx/meegoTLCorner.png";
+                source: "../gfx/meegoTLCorner.png";
             }
             Image {
                 anchors { right: parent.right; top: parent.top; }
-                source: "../../gfx/meegoTRCorner.png";
+                source: "../gfx/meegoTRCorner.png";
             }
             Item {
                 id: buttonRow

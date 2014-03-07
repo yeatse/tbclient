@@ -74,7 +74,7 @@ Item {
                 visible: !internal.isLike;
                 anchors.verticalCenter: parent.verticalCenter;
                 sourceSize: Qt.size(width, height);
-                source: "../../gfx/btn_like_"+likeBtnMouseArea.stateString+constant.invertedString+".png";
+                source: "../gfx/btn_like_"+likeBtnMouseArea.stateString+constant.invertedString+".png";
                 MouseArea {
                     id: likeBtnMouseArea;
                     property string stateString: pressed ? "s" : "n";
@@ -87,7 +87,7 @@ Item {
                 visible: !internal.hasSigned;
                 anchors.verticalCenter: parent.verticalCenter;
                 sourceSize: Qt.size(width, height);
-                source: "../../gfx/btn_sign_"+signBtnMouseArea.stateString+constant.invertedString+".png";
+                source: "../gfx/btn_sign_"+signBtnMouseArea.stateString+constant.invertedString+".png";
                 BusyIndicator {
                     anchors.centerIn: parent;
                     platformInverted: tbsettings.whiteTheme;
@@ -107,7 +107,7 @@ Item {
                 height: Math.floor(constant.thumbnailSize/111*46);
                 visible: internal.hasSigned;
                 anchors.verticalCenter: parent.verticalCenter;
-                source: "../../gfx/ico_sign.png";
+                source: "../gfx/ico_sign.png";
                 smooth: true;
                 Text {
                     id: signInfoText;

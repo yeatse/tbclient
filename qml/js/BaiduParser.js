@@ -252,7 +252,7 @@ var BaiduParser = {
                          }
                          var portrait = tbsettings.showImage
                                  ? getPortrait(value.author.portrait)
-                                 : Qt.resolvedUrl("../gfx/photo.png");
+                                 : Qt.resolvedUrl("gfx/photo.png");
                          var prop = {
                              id: value.id,
                              floor: value.floor,
@@ -285,7 +285,7 @@ var BaiduParser = {
         list.forEach(function(value){
                          var portrait = tbsettings.showImage
                                  ? getPortrait(value.portrait)
-                                 : Qt.resolvedUrl("../gfx/photo.png");
+                                 : Qt.resolvedUrl("gfx/photo.png");
                          var text = "";
                          value.abstract.forEach(function(abs){
                                                     if (abs.text)
@@ -310,7 +310,7 @@ var BaiduParser = {
         list.forEach(function(value){
                          var portrait = tbsettings.showImage
                                  ? getPortrait(value.replyer.portrait)
-                                 : Qt.resolvedUrl("../gfx/photo.png");
+                                 : Qt.resolvedUrl("gfx/photo.png");
                          var prop = {
                              // subfloor
                              is_floor: value.is_floor === "1",
@@ -338,7 +338,7 @@ var BaiduParser = {
         list.forEach(function(value){
                          var portrait = tbsettings.showImage
                                  ? getPortrait(value.replyer.portrait)
-                                 : Qt.resolvedUrl("../gfx/photo.png");
+                                 : Qt.resolvedUrl("gfx/photo.png");
                          var prop = {
                              is_floor: value.is_floor === "1",
                              replyer: value.replyer.name_show,
@@ -568,7 +568,7 @@ var BaiduParser = {
         list.forEach(function(value){
                          value.portrait = tbsettings.showImage
                                  ? getPortrait(value.portrait)
-                                 : Qt.resolvedUrl("../gfx/photo.png");
+                                 : Qt.resolvedUrl("gfx/photo.png");
                          model.append(value);
                      });
     },

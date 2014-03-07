@@ -81,7 +81,7 @@ MyPage {
                         }
                         Image {
                             anchors.centerIn: parent;
-                            source: previewImg.status === Image.Ready ? "" : "../../gfx/photos.svg";
+                            source: previewImg.status === Image.Ready ? "" : "../gfx/photos.svg";
                         }
                         Rectangle {
                             anchors.fill: parent;
@@ -273,7 +273,7 @@ MyPage {
                                 }
                                 Image {
                                     asynchronous: true;
-                                    source: "../../gfx/btn_icon_comment_n"+constant.invertedString+".png";
+                                    source: "../gfx/btn_icon_comment_n"+constant.invertedString+".png";
                                 }
                                 Text {
                                     anchors.verticalCenter: parent.verticalCenter;

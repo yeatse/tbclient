@@ -23,7 +23,7 @@ MyPage {
             anchors.horizontalCenter: parent.horizontalCenter;
             sourceSize.width: constant.graphicSizeLarge*2.5;
             sourceSize.height: constant.graphicSizeLarge*2.5;
-            source: "../gfx/tbclient.svg";
+            source: "gfx/tbclient.svg";
         }
 
         Text {

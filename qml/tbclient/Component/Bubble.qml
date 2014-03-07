@@ -10,7 +10,7 @@ Item {
 
     BorderImage {
         anchors.fill: parent;
-        source: "../../gfx/countbubble.png";
+        source: "../gfx/countbubble.png";
         border { left: 10; right: 10; top: 10; bottom: 10; }
     }
 

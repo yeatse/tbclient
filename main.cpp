@@ -51,12 +51,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QScopedPointer<QApplication> app(createApplication(argc, argv));
 #endif
 
-#ifdef Q_OS_SYMBIAN
-    QSplashScreen *splash = new QSplashScreen(QPixmap(":/qml/gfx/splash.jpg"));
-    splash->show();
-    splash->raise();
-#elif defined(Q_WS_SIMULATOR)
-    QSplashScreen *splash = new QSplashScreen(QPixmap("qml/gfx/splash.jpg"));
+#if defined(Q_OS_SYMBIAN)||defined(Q_WS_SIMULATOR)
+    QSplashScreen *splash = new QSplashScreen(QPixmap("qml/tbclient/gfx/splash.jpg"));
     splash->show();
     splash->raise();
 #endif
@@ -90,7 +86,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterType<QObject>("com.yeatse.tbclient", 1, 0, "Vibra");
 #endif
 
-    QWebSettings::globalSettings()->setUserStyleSheetUrl(QUrl::fromLocalFile("qml/emo/default_theme.css"));
+    QWebSettings::globalSettings()->setUserStyleSheetUrl(QUrl::fromLocalFile("qml/js/default_theme.css"));
 
     QmlApplicationViewer viewer;
     viewer.setAttribute(Qt::WA_OpaquePaintEvent);
@@ -125,7 +121,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     }
 
 #ifdef Q_OS_SYMBIAN
-    viewer.setSource(QUrl("qrc:/qml/tbclient/main.qml"));
+    viewer.setMainQmlFile(QLatin1String("qml/tbclient/main.qml"));
 #else
     viewer.setMainQmlFile(QLatin1String("qml/tbclient/main.qml"));
 #endif

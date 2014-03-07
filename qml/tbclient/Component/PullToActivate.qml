@@ -56,7 +56,7 @@ Item {
             topMargin: isHeader ? 0 : platformStyle.paddingLarge
         }
         Image {
-            source: "../../gfx/pull_down"+constant.invertedString+".svg"
+            source: "../gfx/pull_down"+constant.invertedString+".svg"
             opacity: visualY < indicatorStart ? 0 : 1
             Behavior on opacity { NumberAnimation { duration: 100 } }
             rotation: {

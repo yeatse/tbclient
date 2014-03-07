@@ -21,7 +21,7 @@ MyPage {
             visible: currentTab != null;
             enabled: visible && currentTab.thread != null;
             toolTipText: qsTr("Reply");
-            iconSource: "../../gfx/edit"+constant.invertedString+".svg";
+            iconSource: "../gfx/edit"+constant.invertedString+".svg";
             onClicked: {
                 var prop = { isReply: true, caller: currentTab }
                 pageStack.push(Qt.resolvedUrl("../Post/PostPage.qml"), prop);
@@ -331,7 +331,7 @@ MyPage {
         CommonDialog {
             id: commonDialog;
             titleText: qsTr("Create a new tab");
-            titleIcon: "../../gfx/edit.svg";
+            titleIcon: "../gfx/edit.svg";
             buttonTexts: [qsTr("OK"), qsTr("Cancel")];
             content: Item {
                 width: parent.width;

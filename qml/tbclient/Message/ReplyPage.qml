@@ -116,7 +116,7 @@ MyPage {
                         BorderImage {
                             asynchronous: true;
                             anchors.fill: parent;
-                            source: "../../gfx/retweet_bg"+constant.invertedString+".png";
+                            source: "../gfx/retweet_bg"+constant.invertedString+".png";
                             border { left: 32; right: 10; top: 15; bottom: 10; }
                         }
                         Text {

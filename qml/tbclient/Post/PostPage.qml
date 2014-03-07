@@ -110,12 +110,12 @@ MyPage {
             spacing: constant.paddingSmall;
             ToolButton {
                 platformInverted: tbsettings.whiteTheme;
-                iconSource: "../../gfx/btn_insert_face"+constant.invertedString+".png"
+                iconSource: "../gfx/btn_insert_face"+constant.invertedString+".png"
                 onClicked: signalCenter.createEmoticonDialog(page);
             }
             ToolButton {
                 platformInverted: tbsettings.whiteTheme;
-                iconSource: "../../gfx/btn_insert_at"+constant.invertedString+".png";
+                iconSource: "../gfx/btn_insert_at"+constant.invertedString+".png";
                 onClicked: {
                     var prop = { type: "at", caller: page }
                     pageStack.push(Qt.resolvedUrl("../Profile/SelectFriendPage.qml"), prop);
@@ -125,11 +125,11 @@ MyPage {
                 id: picBtn;
                 checkable: true;
                 platformInverted: tbsettings.whiteTheme;
-                iconSource: "../../gfx/btn_insert_pics"+constant.invertedString+".png";
+                iconSource: "../gfx/btn_insert_pics"+constant.invertedString+".png";
                 onClicked: attachedArea.state = attachedArea.state == "Image" ? "" : "Image";
                 Image {
                     anchors { top: parent.top; right: parent.right; }
-                    source: "../../gfx/ico_mbar_news_point.png";
+                    source: "../gfx/ico_mbar_news_point.png";
                     visible: attachedArea.imageList.length > 0;
                 }
             }
@@ -137,11 +137,11 @@ MyPage {
                 id: voiBtn;
                 checkable: true;
                 platformInverted: tbsettings.whiteTheme;
-                iconSource: "../../gfx/btn_insert_voice"+constant.invertedString+".png";
+                iconSource: "../gfx/btn_insert_voice"+constant.invertedString+".png";
                 onClicked: attachedArea.state = attachedArea.state == "Voice" ? "" : "Voice";
                 Image {
                     anchors { top: parent.top; right: parent.right; }
-                    source: "../../gfx/ico_mbar_news_point.png";
+                    source: "../gfx/ico_mbar_news_point.png";
                     visible: attachedArea.audioFile.length > 0;
                 }
             }

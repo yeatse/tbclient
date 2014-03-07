@@ -1,7 +1,7 @@
 TEMPLATE = app
 TARGET = tbclient
 
-VERSION = 2.1.2
+VERSION = 2.1.3
 DEFINES += VER=\\\"$$VERSION\\\"
 
 QT += network webkit
@@ -60,16 +60,13 @@ folder_harmattan.target = qml
 folder_js.source = qml/js
 folder_js.target = qml
 
-folder_gfx.source = qml/gfx
-folder_gfx.target = qml
-
 folder_emo.source = qml/emo
 folder_emo.target = qml
 
-DEPLOYMENTFOLDERS = folder_emo
+DEPLOYMENTFOLDERS = folder_js folder_emo
 
 simulator {
-    DEPLOYMENTFOLDERS += folder_js folder_symbian3 folder_gfx
+    DEPLOYMENTFOLDERS += folder_symbian3
 }
 
 contains(MEEGO_EDITION,harmattan){
@@ -88,8 +85,8 @@ symbian {
         INCLUDEPATH += $$[QT_INSTALL_PREFIX]/include/Qt
     } else {
         CONFIG += qt-components
-        RESOURCES += symbian-res.qrc
         MMP_RULES += "OPTION gcce -march=armv6 -mfpu=vfp -mfloat-abi=softfp -marm"
+        DEPLOYMENTFOLDERS += folder_symbian3
     }
 
     CONFIG += localize_deployment

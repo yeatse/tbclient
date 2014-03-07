@@ -23,7 +23,7 @@ MyPage {
         }
         ToolButtonWithTip {
             toolTipText: qsTr("Opened tabs");
-            iconSource: "../../gfx/switch_windows"+constant.invertedString+".svg"
+            iconSource: "../gfx/switch_windows"+constant.invertedString+".svg"
             onClicked: signalCenter.enterThread();
         }
         ToolButtonWithTip {

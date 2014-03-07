@@ -264,7 +264,7 @@ MyPage {
         }
         spacing: constant.paddingLarge;
         Image {
-            source: "../../gfx/icon_arrow.png";
+            source: "../gfx/icon_arrow.png";
             opacity: upMA.pressed ? 0.7 : 0.3;
             Behavior on opacity { NumberAnimation { duration: 50; } }
             MouseArea {
@@ -278,7 +278,7 @@ MyPage {
             }
         }
         Image {
-            source: "../../gfx/icon_arrow.png";
+            source: "../gfx/icon_arrow.png";
             rotation: 180;
             opacity: downMA.pressed ? 0.7 : 0.3;
             Behavior on opacity { NumberAnimation { duration: 50; } }

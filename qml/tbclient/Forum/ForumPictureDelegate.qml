@@ -30,7 +30,7 @@ Item {
     Image {
         anchors.centerIn: parent;
         asynchronous: true;
-        source: "../../gfx/photos.svg";
+        source: "../gfx/photos.svg";
         visible: image.status != Image.Ready;
     }
 

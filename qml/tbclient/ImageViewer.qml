@@ -13,7 +13,7 @@ MyPage {
         BackButton {}
         ToolButtonWithTip {
             toolTipText: qsTr("Save image");
-            iconSource: "../gfx/save"+constant.invertedString+".svg";
+            iconSource: "gfx/save"+constant.invertedString+".svg";
             onClicked: {
                 var path = tbsettings.imagePath + "/" + imageUrl.toString().split("/").pop();
                 if (utility.saveCache(imageUrl, path)){

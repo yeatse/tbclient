@@ -54,21 +54,21 @@ MyPage {
             tab: replyPage;
             Image {
                 anchors { top: parent.top; right: parent.right; margins: constant.paddingLarge; }
-                source: infoCenter.replyme > 0 ? "../../gfx/ico_mbar_news_point.png" : "";
+                source: infoCenter.replyme > 0 ? "../gfx/ico_mbar_news_point.png" : "";
             }
         }
         Thread.ThreadButton {
             tab: pletterPage;
             Image {
                 anchors { top: parent.top; right: parent.right; margins: constant.paddingLarge; }
-                source: infoCenter.pletter > 0 ? "../../gfx/ico_mbar_news_point.png" : "";
+                source: infoCenter.pletter > 0 ? "../gfx/ico_mbar_news_point.png" : "";
             }
         }
         Thread.ThreadButton {
             tab: atmePage;
             Image {
                 anchors { top: parent.top; right: parent.right; margins: constant.paddingLarge; }
-                source: infoCenter.atme > 0 ? "../../gfx/ico_mbar_news_point.png" : "";
+                source: infoCenter.atme > 0 ? "../gfx/ico_mbar_news_point.png" : "";
             }
         }
     }

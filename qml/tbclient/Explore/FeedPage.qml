@@ -16,7 +16,7 @@ MyPage {
         }
         ToolButtonWithTip {
             toolTipText: qsTr("Square");
-            iconSource: "../../gfx/compass"+constant.invertedString+".svg";
+            iconSource: "../gfx/compass"+constant.invertedString+".svg";
             onClicked: pageStack.push(Qt.resolvedUrl("SquarePage.qml"));
         }
     }
@@ -52,7 +52,7 @@ MyPage {
         Image {
             anchors.centerIn: parent;
             sourceSize.height: parent.height - constant.paddingSmall;
-            source: "../../gfx/logo_teiba_top.png"
+            source: "../gfx/logo_teiba_top.png"
         }
         onClicked: view.scrollToTop();
     }

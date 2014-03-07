@@ -18,7 +18,7 @@ MyPage {
         BackButton {}
         ToolButtonWithTip {
             toolTipText: qsTr("Edit");
-            iconSource: "../../gfx/edit"+constant.invertedString+".svg";
+            iconSource: "../gfx/edit"+constant.invertedString+".svg";
             onClicked: toolsArea.state = "Input";
         }
         ToolButtonWithTip {
@@ -134,7 +134,7 @@ MyPage {
 
                 BorderImage {
                     asynchronous: true;
-                    source: isMe ? "../../gfx/msg_out.png" : "../../gfx/msg_in.png";
+                    source: isMe ? "../gfx/msg_out.png" : "../gfx/msg_in.png";
                     anchors { fill: parent; margins: constant.paddingMedium; }
                     border { left: 10; top: 10; right: 10; bottom: 15; }
                     mirror: true;

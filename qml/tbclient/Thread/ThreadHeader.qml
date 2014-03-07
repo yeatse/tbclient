@@ -56,7 +56,7 @@ Item {
                 Component {
                     id: livePostBtn;
                     Image {
-                        source: "../../gfx/icon_live"+constant.invertedString+".png";
+                        source: "../gfx/icon_live"+constant.invertedString+".png";
                         opacity: livePostMouseArea.pressed ? 0.6 : 1;
                         MouseArea {
                             id: livePostMouseArea;
@@ -69,7 +69,7 @@ Item {
             Image {
                 id: collectBtn;
                 anchors { right: parent.right; verticalCenter: parent.verticalCenter; }
-                source: "../../gfx/icon_grade_middle_star_%1.png".arg(collectMouseArea.pressed||isCollected?"s":"n");
+                source: "../gfx/icon_grade_middle_star_%1.png".arg(collectMouseArea.pressed||isCollected?"s":"n");
                 MouseArea {
                     id: collectMouseArea;
                     enabled: !loading;

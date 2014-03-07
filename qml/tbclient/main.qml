@@ -52,7 +52,7 @@ PageStackWindow {
 
     InfoBanner {
         id: infoBanner;
-        iconSource: "../gfx/error.svg";
+        iconSource: "gfx/error.svg";
         platformInverted: tbsettings.whiteTheme;
     }
 

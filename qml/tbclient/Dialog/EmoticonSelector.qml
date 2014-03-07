@@ -8,7 +8,7 @@ CommonDialog {
     property bool __isClosing: false;
 
     titleText: qsTr("Select emoticon");
-    titleIcon: "../../gfx/btn_insert_face.png";
+    titleIcon: "../gfx/btn_insert_face.png";
     buttonTexts: [qsTr("Close")]
 
     content: Item {

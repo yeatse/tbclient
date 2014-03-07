@@ -16,13 +16,13 @@ MyPage {
         BackButton {}
         ToolButtonWithTip {
             toolTipText: loading ? webView.stop.toolTip : webView.reload.toolTip;
-            iconSource: loading ? "../../gfx/tb_close_stop"+constant.invertedString+".svg" : "toolbar-refresh";
+            iconSource: loading ? "../gfx/tb_close_stop"+constant.invertedString+".svg" : "toolbar-refresh";
             enabled: loading ? webView.stop.enabled : webView.reload.enabled;
             onClicked: loading ? webView.stop.trigger() : webView.reload.trigger();
         }
         ToolButtonWithTip {
             toolTipText: qsTr("Home page");
-            iconSource: "../../gfx/home_sousuo.png";
+            iconSource: "../gfx/home_sousuo.png";
             onClicked: homeMenu.open();
         }
         ToolButtonWithTip {

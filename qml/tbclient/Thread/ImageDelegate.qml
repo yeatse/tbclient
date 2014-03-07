@@ -24,7 +24,7 @@ Item {
     Image {
         anchors.centerIn: img;
         sourceSize: constant.sizeMedium;
-        source: img.status === Image.Ready ? "" : "../../gfx/photos.svg";
+        source: img.status === Image.Ready ? "" : "../gfx/photos.svg";
         asynchronous: true;
     }
 }

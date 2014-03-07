@@ -16,7 +16,7 @@ MyPage {
         BackButton {}
         ToolButtonWithTip {
             toolTipText: qsTr("Tools");
-            iconSource: "../../gfx/toolbox"+constant.invertedString+".svg";
+            iconSource: "../gfx/toolbox"+constant.invertedString+".svg";
             onClicked: toolsMenu.open();
         }
         ToolButtonWithTip {
@@ -27,7 +27,7 @@ MyPage {
         ToolButtonWithTip {
             id: saveButton;
             toolTipText: qsTr("Save");
-            iconSource: "../../gfx/ok"+constant.invertedString+".svg";
+            iconSource: "../gfx/ok"+constant.invertedString+".svg";
             onClicked: {
                 var filename = "scribble_"+Qt.formatDateTime(new Date(), "yyyyMMddhhmmss")+".jpg";
                 var path = tbsettings.imagePath + "/" + filename;

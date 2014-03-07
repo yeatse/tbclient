@@ -26,7 +26,7 @@ Item {
         width: constant.thumbnailSize;
         height: constant.thumbnailSize;
         sourceSize: Qt.size(width, height);
-        source: "../../gfx/but_posts_record_%1_%2.png".arg(mode).arg(stateString);
+        source: "../gfx/but_posts_record_%1_%2.png".arg(mode).arg(stateString);
     }
 
     ToolButton {

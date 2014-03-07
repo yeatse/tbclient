@@ -18,7 +18,7 @@ AbstractItem {
             BorderImage {
                 id: feedLabel;
                 asynchronous: true;
-                source: "../../gfx/bg_forum_feed_label"+constant.invertedString+".png";
+                source: "../gfx/bg_forum_feed_label"+constant.invertedString+".png";
                 border { left: 10; right: 30; top: 0; bottom: 0; }
                 width: feedLabelText.width + 40;
                 Text {
@@ -42,13 +42,13 @@ AbstractItem {
                     asynchronous: true;
                     enabled: is_good;
                     visible: enabled;
-                    source: enabled ? "../../gfx/icon_elite"+constant.invertedString+".png" : "";
+                    source: enabled ? "../gfx/icon_elite"+constant.invertedString+".png" : "";
                 }
                 Image {
                     asynchronous: true;
                     enabled: is_top;
                     visible: enabled;
-                    source: enabled ? "../../gfx/icon_top"+constant.invertedString+".png" : "";
+                    source: enabled ? "../gfx/icon_top"+constant.invertedString+".png" : "";
                 }
             }
         }
@@ -97,7 +97,7 @@ AbstractItem {
         anchors { right: parent.right; bottom: parent.bottom; margins: constant.paddingMedium; }
         Image {
             asynchronous: true;
-            source: "../../gfx/btn_icon_comment_n"+constant.invertedString+".png";
+            source: "../gfx/btn_icon_comment_n"+constant.invertedString+".png";
         }
         Text {
             anchors.verticalCenter: parent.verticalCenter;

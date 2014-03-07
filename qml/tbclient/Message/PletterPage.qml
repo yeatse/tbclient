@@ -146,7 +146,7 @@ MyPage {
                         id: unreadInfo;
                         Image {
                             asynchronous: true;
-                            source: "../../gfx/ico_mbar_news_point.png";
+                            source: "../gfx/ico_mbar_news_point.png";
                         }
                     }
                 }

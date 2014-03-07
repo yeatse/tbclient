@@ -44,7 +44,7 @@ MyPage {
         }
         ToolButtonWithTip {
             toolTipText: editMode ? qsTr("OK") : qsTr("Edit");
-            iconSource: "../../gfx/"+(editMode?"ok":"edit")+constant.invertedString+".svg";
+            iconSource: "../gfx/"+(editMode?"ok":"edit")+constant.invertedString+".svg";
             enabled: uid === tbsettings.currentUid;
             onClicked: page.editMode = !page.editMode;
         }

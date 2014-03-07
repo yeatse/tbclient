@@ -57,7 +57,7 @@ Item {
             }
             visible: enabled;
             platformInverted: tbsettings.whiteTheme;
-            iconSource: "../../gfx/btn_insert_face"+constant.invertedString+".png";
+            iconSource: "../gfx/btn_insert_face"+constant.invertedString+".png";
             onClicked: signalCenter.createEmoticonDialog(root);
         }
         ToolButtonWithTip {
@@ -67,7 +67,7 @@ Item {
                 verticalCenter: parent.verticalCenter;
             }
             toolTipText: qsTr("Send");
-            iconSource: "../../gfx/message_send"+constant.invertedString+".svg";
+            iconSource: "../gfx/message_send"+constant.invertedString+".svg";
             enabled: inputArea.text.length > 0 && !inputArea.errorHighlight && !loading;
             onClicked: internal.addPost();
         }

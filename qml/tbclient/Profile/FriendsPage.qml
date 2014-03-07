@@ -115,7 +115,7 @@ MyPage {
                         right: root.paddingItem.right;
                         verticalCenter: parent.verticalCenter;
                     }
-                    source: "../../gfx/instant_messenger_chat"+constant.invertedString+".svg";
+                    source: "../gfx/instant_messenger_chat"+constant.invertedString+".svg";
                     opacity: chatBtnMa.pressed ? 0.7 : 1;
                     MouseArea {
                         id: chatBtnMa;

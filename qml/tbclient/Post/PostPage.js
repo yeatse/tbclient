@@ -44,7 +44,8 @@ function post(vcode, vcodeMd5){
         loading = false;
         signalCenter.showMessage(err);
         if (obj && obj.info && obj.info.need_vcode === "1"){
-            signalCenter.needVCodeNew(page, obj.info.vcode_md5, obj.info.vcode_pic_url);
+            signalCenter.needVCode(page, obj.info.vcode_md5, obj.info.vcode_pic_url,
+                                   obj.info.vcode_type === "4");
         }
     };
     if (isReply){

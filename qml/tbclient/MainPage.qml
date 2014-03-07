@@ -38,7 +38,7 @@ MyPage {
         }
         ToolButtonWithTip {
             toolTipText: qsTr("Messages");
-            iconSource: "../gfx/messaging"+constant.invertedString+".svg"
+            iconSource: "gfx/messaging"+constant.invertedString+".svg"
             onClicked: pageStack.push(Qt.resolvedUrl("Message/MessagePage.qml"))
             Bubble {
                 anchors.verticalCenter: parent.top;
@@ -55,7 +55,7 @@ MyPage {
         }
         ToolButtonWithTip {
             toolTipText: qsTr("User center");
-            iconSource: "../gfx/contacts"+constant.invertedString+".svg"
+            iconSource: "gfx/contacts"+constant.invertedString+".svg"
             onClicked: pageStack.push(Qt.resolvedUrl("ProfilePage.qml"), { uid: tbsettings.currentUid })
             Bubble {
                 anchors.verticalCenter: parent.top;
@@ -71,7 +71,7 @@ MyPage {
         }
         ToolButtonWithTip {
             toolTipText: qsTr("More");
-            iconSource: "../gfx/toolbar_extension"+constant.invertedString+".svg"
+            iconSource: "gfx/toolbar_extension"+constant.invertedString+".svg"
             onClicked: pageStack.push(Qt.resolvedUrl("MorePage.qml"));
         }
     }
@@ -132,7 +132,7 @@ MyPage {
             } else {
                 color = "yellow";
             }
-            return "../gfx/icon_grade_"+color + constant.invertedString+".png";
+            return "gfx/icon_grade_"+color + constant.invertedString+".png";
         }
     }
 
@@ -145,7 +145,7 @@ MyPage {
                 right: parent.right; rightMargin: constant.paddingMedium;
                 verticalCenter: parent.verticalCenter;
             }
-            iconSource: "../gfx/calendar_week.svg";
+            iconSource: "gfx/calendar_week.svg";
             onClicked: pageStack.push(Qt.resolvedUrl("BatchSignPage.qml"));
         }
     }
@@ -220,7 +220,7 @@ MyPage {
                         anchors.verticalCenter: parent.verticalCenter;
                         width: signText.width + 20;
                         height: Math.floor(width/111*46);
-                        source: "../gfx/ico_sign"+constant.invertedString+".png"
+                        source: "gfx/ico_sign"+constant.invertedString+".png"
                         visible: is_sign;
                         Text {
                             id: signText;

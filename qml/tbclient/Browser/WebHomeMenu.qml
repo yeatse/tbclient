@@ -21,7 +21,7 @@ CommonDialog {
                     model: ListModel { id: gridModel; }
                     WebHomeDelegate {
                         width: grid.width / 3;
-                        iconSource: "../../gfx/home_"+file+".png";
+                        iconSource: "../gfx/home_"+file+".png";
                         title: name;
                         onClicked: {
                             root.accept();

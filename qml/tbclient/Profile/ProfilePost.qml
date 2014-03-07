@@ -82,7 +82,7 @@ MyPage {
                     x: constant.paddingLarge;
                     Image {
                         asynchronous: true;
-                        source: "../../gfx/icon_time_node"+constant.invertedString+".png"
+                        source: "../gfx/icon_time_node"+constant.invertedString+".png"
                     }
                     Text {
                         anchors.verticalCenter: parent.verticalCenter;
@@ -113,7 +113,7 @@ MyPage {
                         left: root.paddingItem.left; top: root.paddingItem.top;
                     }
                     asynchronous: true;
-                    source: "../../gfx/icon_thread_node"+constant.invertedString+".png";
+                    source: "../gfx/icon_thread_node"+constant.invertedString+".png";
                 }
                 BorderImage {
                     id: background;
@@ -123,7 +123,7 @@ MyPage {
                     }
                     border { left: 20; top: 25; right: 10; bottom: 10; }
                     asynchronous: true;
-                    source: "../../gfx/time_line"+constant.invertedString+".png";
+                    source: "../gfx/time_line"+constant.invertedString+".png";
                 }
                 Column {
                     id: contentCol;

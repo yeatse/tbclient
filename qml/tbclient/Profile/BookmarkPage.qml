@@ -16,7 +16,7 @@ MyPage {
         }
         ToolButtonWithTip {
             toolTipText: internal.editMode ? qsTr("OK") : qsTr("Edit");
-            iconSource: "../../gfx/"+(internal.editMode?"ok":"edit")+constant.invertedString+".svg";
+            iconSource: "../gfx/"+(internal.editMode?"ok":"edit")+constant.invertedString+".svg";
             onClicked: internal.editMode = !internal.editMode;
         }
     }
@@ -120,7 +120,7 @@ MyPage {
                     }
                     Image {
                         visible: isVisible;
-                        source: "../../gfx/btn_icon_comment_n"+constant.invertedString+".png"
+                        source: "../gfx/btn_icon_comment_n"+constant.invertedString+".png"
                     }
                     Text {
                         anchors.verticalCenter: parent.verticalCenter;
@@ -131,7 +131,7 @@ MyPage {
                 }
                 Image {
                     anchors { right: root.paddingItem.right; top: root.paddingItem.top; }
-                    source: "../../gfx/ico_mbar_news_point.png";
+                    source: "../gfx/ico_mbar_news_point.png";
                     visible: isNew;
                 }
                 Loader {

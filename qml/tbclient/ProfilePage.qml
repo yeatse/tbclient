@@ -46,7 +46,7 @@ MyPage {
         }
         ToolButtonWithTip {
             toolTipText: qsTr("Chat");
-            iconSource: "../gfx/instant_messenger_chat"+constant.invertedString+".svg";
+            iconSource: "gfx/instant_messenger_chat"+constant.invertedString+".svg";
             enabled: !isMe && userData != null;
             onClicked: {
                 var prop = { chatName: userData.name_show, chatId: getUid() };
@@ -73,7 +73,7 @@ MyPage {
         anchors { left: parent.left; right: parent.right; top: viewHeader.bottom; }
         height: constant.graphicSizeLarge*2.7 - view.contentY;
         clip: true;
-        source: "../gfx/profile_bg.jpg"
+        source: "gfx/profile_bg.jpg"
         fillMode: Image.PreserveAspectCrop;
     }
 
@@ -104,11 +104,11 @@ MyPage {
                         verticalCenter: parent.verticalCenter;
                     }
                     width: 100; height: 100;
-                    source: "../gfx/person_photo_bg.png"
+                    source: "gfx/person_photo_bg.png"
                     Image {
                         anchors { fill: parent; margins: constant.paddingMedium; }
                         source: userData ? "http://tb.himg.baidu.com/sys/portraith/item/"+userData.portraith
-                                         : "../gfx/photo.png";
+                                         : "gfx/photo.png";
                     }
                 }
 
@@ -130,9 +130,9 @@ MyPage {
                             source: {
                                 if (userData){
                                     if (userData.sex === "1"){
-                                        return "../gfx/icon_man"+constant.invertedString+".png";
+                                        return "gfx/icon_man"+constant.invertedString+".png";
                                     } else {
-                                        return "../gfx/icon_woman"+constant.invertedString+".png";
+                                        return "gfx/icon_woman"+constant.invertedString+".png";
                                     }
                                 } else {
                                     return "";
@@ -169,7 +169,7 @@ MyPage {
                             BorderImage {
                                 anchors.fill: parent;
                                 border { left: 25; right: 25; top: 0; bottom: 0; }
-                                source: "../gfx/btn_bg_"+parent.pressString+constant.invertedString+".png";
+                                source: "gfx/btn_bg_"+parent.pressString+constant.invertedString+".png";
                                 smooth: true;
                             }
                             Row {
@@ -178,7 +178,7 @@ MyPage {
                                 spacing: constant.paddingSmall;
                                 Image {
                                     anchors.verticalCenter: parent.verticalCenter;
-                                    source: "../gfx/btn_icon_edit"+constant.invertedString+".png";
+                                    source: "gfx/btn_icon_edit"+constant.invertedString+".png";
                                 }
                                 Text {
                                     anchors.verticalCenter: parent.verticalCenter;
@@ -202,7 +202,7 @@ MyPage {
                                 id: icon;
                                 anchors.fill: parent;
                                 border { left: 25; right: 25; top: 0; bottom: 0; }
-                                source: "../gfx/btn_%1_%2%3.png".arg(parent.name).arg(parent.pressString).arg(constant.invertedString);
+                                source: "gfx/btn_%1_%2%3.png".arg(parent.name).arg(parent.pressString).arg(constant.invertedString);
                             }
                             Text {
                                 visible: isLike;

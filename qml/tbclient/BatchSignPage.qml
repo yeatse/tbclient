@@ -99,13 +99,13 @@ MyPage {
                     Image {
                         property string stateString: signBtnMA.pressed?"d":"n";
                         anchors.horizontalCenter: parent.horizontalCenter;
-                        source: "../gfx/bg_all_sign_%1.png".arg(stateString);
+                        source: "gfx/bg_all_sign_%1.png".arg(stateString);
                         Column {
                             anchors.centerIn: parent;
                             spacing: constant.paddingSmall;
                             Image {
                                 anchors.horizontalCenter: parent.horizontalCenter;
-                                source: "../gfx/icon_all_sign_%1.png".arg(parent.parent.stateString);
+                                source: "gfx/icon_all_sign_%1.png".arg(parent.parent.stateString);
                             }
                             Text {
                                 anchors.horizontalCenter: parent.horizontalCenter;
@@ -210,7 +210,7 @@ MyPage {
                             width: infoText.width + 20;
                             asynchronous: true;
                             border { left: 25; right: 25; top: 0; bottom: 0; }
-                            source: "../gfx/btn_bg_n"+constant.invertedString+".png";
+                            source: "gfx/btn_bg_n"+constant.invertedString+".png";
                             Text {
                                 id: infoText;
                                 anchors.centerIn: parent;

@@ -12,30 +12,26 @@ MyPage {
     }
 
     function init(){
-        var dict = [[qsTr("Tabs"),"tabs","signalCenter.enterThread()"],
-                    [qsTr("Browser"),"internet","signalCenter.openBrowser(\"http://m.baidu.com\")"],
-                    [qsTr("Square"),"square","pageStack.push(Qt.resolvedUrl(\"Explore/SquarePage.qml\"))"],
-                    [qsTr("Accounts"),"sign","pageStack.push(Qt.resolvedUrl(\"AccountPage.qml\"))"],
+        var dict = [[qsTr("Tabs"),"folder-empty","signalCenter.enterThread()"],
+                    [qsTr("Browser"),"browser","signalCenter.openBrowser(\"http://m.baidu.com\")"],
+                    [qsTr("Square"),"gallery","pageStack.push(Qt.resolvedUrl(\"Explore/SquarePage.qml\"))"],
+                    [qsTr("Accounts"),"accounts","pageStack.push(Qt.resolvedUrl(\"AccountPage.qml\"))"],
                     [qsTr("Settings"),"settings","pageStack.push(Qt.resolvedUrl(\"SettingsPage.qml\"))"],
-                    [qsTr("About"),"info","pageStack.push(Qt.resolvedUrl(\"AboutPage.qml\"))"]];
+                    [qsTr("About"),"user-guide","pageStack.push(Qt.resolvedUrl(\"AboutPage.qml\"))"]];
         dict.forEach(function(value){
                          view.model.append({name:value[0],file:value[1],script:value[2]});
                      });
     }
 
+    ViewHeader {
+        id: viewHeader;
+        title: page.title;
+    }
+
     ListView {
         id: view;
-        anchors.fill: parent;
+        anchors { fill: parent; topMargin: viewHeader.height; }
         model: ListModel {}
-        header: ViewHeader {
-            title: page.title;
-            Rectangle {
-                width: parent.width;
-                height: 400;
-                anchors.bottom: parent.top;
-                color: "black";
-            }
-        }
         delegate: AbstractItem {
             id: root;
             onClicked: eval(script);
@@ -43,9 +39,12 @@ MyPage {
                 id: iconImg;
                 anchors {
                     left: root.paddingItem.left;
-                    verticalCenter: parent.verticalCenter;
+                    top: root.paddingItem.top;
+                    bottom: root.paddingItem.bottom;
                 }
-                source: "../gfx/more_"+file+".svg"
+                width: height;
+                sourceSize: Qt.size(width, height);
+                source: "gfx/icon-l-"+file+".png"
             }
             Text {
                 anchors {
