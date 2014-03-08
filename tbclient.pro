@@ -54,7 +54,7 @@ folder_symbian3.target = qml
 folder_symbian1.source = qml/symbian1
 folder_symbian1.target = qml
 
-folder_harmattan.source = qml/meego
+folder_harmattan.source = qml/harmattan
 folder_harmattan.target = qml
 
 folder_js.source = qml/js
@@ -66,14 +66,27 @@ folder_emo.target = qml
 DEPLOYMENTFOLDERS = folder_js folder_emo
 
 simulator {
-    DEPLOYMENTFOLDERS += folder_symbian3
+    DEPLOYMENTFOLDERS += folder_symbian3 folder_harmattan
 }
 
 contains(MEEGO_EDITION,harmattan){
     DEFINES += Q_OS_HARMATTAN
-    CONFIG += qdeclarative-boostable meegotouch
+    CONFIG += qdeclarative-boostable
+    CONFIG += videosuiteinterface-maemo-meegotouch  #video suite
+    CONFIG += meegotouch
     QT += dbus
     MOBILITY += gallery
+
+    HEADERS += src/tbclientif.h \
+        src/harmattanbackgroundprovider.h
+    SOURCES += src/tbclientif.cpp \
+        src/harmattanbackgroundprovider.cpp
+
+    include(notifications/notifications.pri)
+
+    splash.files = splash/splash.png
+    splash.path = /opt/tbclient/splash
+    INSTALLS += splash
 
     DEPLOYMENTFOLDERS += folder_harmattan
 }

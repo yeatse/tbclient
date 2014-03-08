@@ -4,7 +4,8 @@ Version=1.0
 Type=Application
 Terminal=false
 Name=tbclient
-Exec=/usr/bin/invoker --type=d -s /opt/tbclient/bin/tbclient
+Name[zh]=百度贴吧
+Exec=/usr/bin/invoker --splash /opt/tbclient/splash/splash.png --type=d -s /opt/tbclient/bin/tbclient
 Icon=/usr/share/icons/hicolor/80x80/apps/tbclient80.png
 X-Window-Icon=
 X-HildonDesk-ShowInToolbar=true

@@ -1,12 +1,15 @@
 #include "audiorecorder.h"
-#include <QAudioCaptureSource>
 
 AudioRecorder::AudioRecorder(QObject *parent) :
     QObject(parent)
 {
     captureSource = new QAudioCaptureSource;
     recorder = new QMediaRecorder(captureSource);
+#ifdef Q_OS_HARMATTAN
+    audioSettings.setCodec("audio/AMR");
+#else
     audioSettings.setCodec("AMR");
+#endif
     audioSettings.setQuality(QtMultimediaKit::HighQuality);
     recorder->setEncodingSettings(audioSettings);
     connect(recorder, SIGNAL(error(QMediaRecorder::Error)), this, SIGNAL(errorChanged()));
@@ -42,7 +45,11 @@ int AudioRecorder::duration() const
 
 void AudioRecorder::setOutputLocation(const QUrl &location)
 {
+#ifdef Q_OS_HARMATTAN
+    recorder->setOutputLocation(QUrl(location.toString().remove("file://")));
+#else
     recorder->setOutputLocation(location);
+#endif
     emit outputLocationChanged();
 }
 
