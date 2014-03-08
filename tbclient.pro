@@ -29,17 +29,16 @@ SOURCES += main.cpp \
     src/scribblearea.cpp \
     src/flickcharm.cpp \
     src/qwebviewitem.cpp \
-#    qml/tbclient/*.qml \
-#    qml/tbclient/Component/*.qml \
-#    qml/tbclient/Dialog/*.qml \
-#    qml/tbclient/Explore/*.qml \
-#    qml/tbclient/Floor/*.qml \
-#    qml/tbclient/Forum/*.qml \
-#    qml/tbclient/Message/*.qml \
-#    qml/tbclient/Post/*.* \
-#    qml/tbclient/Profile/*.qml \
-#    qml/tbclient/Thread/*.qml \
-#    qml/tbclient/Browser/*.qml \
+#    qml/harmattan/*.qml \
+#    qml/harmattan/Component/*.qml \
+#    qml/harmattan/Dialog/*.qml \
+#    qml/harmattan/Explore/*.qml \
+#    qml/harmattan/Floor/*.qml \
+#    qml/harmattan/Forum/*.qml \
+#    qml/harmattan/Message/*.qml \
+#    qml/harmattan/Post/*.* \
+#    qml/harmattan/Profile/*.qml \
+#    qml/harmattan/Thread/*.qml \
 #    qml/js/main.js \
 #    qml/js/BaiduParser.js \
 #    qml/js/LinkDecoder.js

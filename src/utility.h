@@ -69,7 +69,10 @@ public:             // Symbian avkon helper.
     Q_INVOKABLE QColor selectColor(const QColor &defaultColor);
 
     // Show notification
-    Q_INVOKABLE void showNotification(const QString &title, const QString &message) const;
+    Q_INVOKABLE void showNotification(const QString &title, const QString &message);
+
+    // Clear notification list
+    Q_INVOKABLE void clearNotifications();
 
 #ifdef Q_OS_SYMBIAN
     void LaunchL(int id, const QString& param);
@@ -100,6 +103,11 @@ public:             // Other functions.
     // Return custom emoticon list
     Q_INVOKABLE QStringList customEmoticonList();
 
+#ifdef Q_OS_HARMATTAN
+signals:
+    void imageCaptured(const QString &filename);
+#endif
+
 private:
     explicit Utility(QObject *parent = 0);    
     void initializeLangFormats();
@@ -117,6 +125,14 @@ private:
     // Otherwise return selected image url;
     QString LaunchLibrary();
     QString LaunchLibrary2();
+#endif
+
+#ifdef Q_OS_HARMATTAN
+    void startCamera();
+    void disconnectSignals();
+private slots:
+    void captureCanceled(const QString &mode);
+    void captureCompleted(const QString &mode, const QString &fileName);
 #endif
 
 private:

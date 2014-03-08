@@ -162,7 +162,11 @@ void QWebViewDownloader::downloadStarted(QNetworkReply *reply)
         QFileInfo info(reply->url().toString(QUrl::RemoveQuery));
         basename = info.baseName();
     }
+#ifdef Q_OS_HARMATTAN
+    QString location = "";
+#else
     QString location = ut->getValue("imagePath", ut->defaultPictureLocation()).toString();
+#endif
     if (!(location.endsWith("\\")||location.endsWith("/")))
         location.append(QDir::separator());
     location.append(basename);

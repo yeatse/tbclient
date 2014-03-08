@@ -18,9 +18,13 @@
 #endif
 
 #ifdef Q_OS_HARMATTAN
-#include <maemo-meegotouch-interfaces/videosuiteinterface.h>
-#include <maemo-meegotouch-interfaces/shareuiinterface.h>
-#include <MDataUri>
+#define CAMERA_SERVICE "com.nokia.maemo.CameraService"
+#define CAMERA_INTERFACE "com.nokia.maemo.meegotouch.CameraInterface"
+#define NOTIFICATION_EVENTTYPE "tbclient"
+
+#include "videosuiteinterface.h"
+#include <MNotification>
+#include <MRemoteAction>
 #endif
 
 Utility::Utility(QObject *parent) :
@@ -262,6 +266,13 @@ QString Utility::selectImage(int param)
         break;
     }
     return result;
+#elif defined(Q_OS_HARMATTAN)
+    if (param == 2){
+        startCamera();
+        return QString();
+    } else {
+        return QString();
+    }
 #else
     Q_UNUSED(param);
     return QFileDialog::getOpenFileName(0, QString(), QString(), "Images (*.png *.gif *.jpg)");
@@ -283,15 +294,34 @@ QColor Utility::selectColor(const QColor &defaultColor)
     }
 }
 
-void Utility::showNotification(const QString &title, const QString &message) const
+void Utility::showNotification(const QString &title, const QString &message)
 {
 #ifdef Q_OS_SYMBIAN
     TPtrC16 sTitle(static_cast<const TUint16 *>(title.utf16()), title.length());
     TPtrC16 sMessage(static_cast<const TUint16 *>(message.utf16()), message.length());
     TUid uid = TUid::Uid(0x2006622A);
     TRAP_IGNORE(CAknDiscreetPopup::ShowGlobalPopupL(sTitle, sMessage, KAknsIIDNone, KNullDesC, 0, 0, KAknDiscreetPopupDurationLong, 0, NULL, uid));
+#elif defined(Q_OS_HARMATTAN)
+    clearNotifications();
+    MNotification notification(NOTIFICATION_EVENTTYPE, title, message);
+    MRemoteAction action("com.tbclient", "/com/tbclient", "com.tbclient", "activateWindow");
+    notification.setAction(action);
+    notification.publish();
 #else
     qDebug() << "showNotification:" << title << message;
+#endif
+}
+
+void Utility::clearNotifications()
+{
+#ifdef Q_OS_HARMATTAN
+    QList<MNotification*> activeNotifications = MNotification::notifications();
+    QMutableListIterator<MNotification*> i(activeNotifications);
+    while (i.hasNext()) {
+        MNotification *notification = i.next();
+        if (notification->eventType() == NOTIFICATION_EVENTTYPE)
+            notification->remove();
+    }
 #endif
 }
 
@@ -445,8 +475,12 @@ QString Utility::hasForumName(const QByteArray &link)
 
 QString Utility::emoticonUrl(const QString &name) const
 {
+#ifdef Q_OS_HARMATTAN
+    QString path("file:///opt/tbclient/");
+#else
     QString path("file:///");
     path.append(QDir::currentPath()).append("/");
+#endif
 
     if (name.startsWith("image_emoticon")||name.startsWith("write_face_")||name.startsWith("image_editoricon")||name.startsWith("i_f")){
         QRegExp reg("\\d+");
@@ -480,7 +514,11 @@ QString Utility::emoticonText(const QString &name)
 QStringList Utility::customEmoticonList()
 {
     if (m_emolist.isEmpty()){
+#ifdef Q_OS_HARMATTAN
+        QFile file("/opt/tbclient/qml/emo/custom.dat");
+#else
         QFile file("qml/emo/custom.dat");
+#endif
         if (file.open(QIODevice::ReadOnly)){
             QTextStream out(&file);
             out.setCodec("UTF-8");
@@ -615,7 +653,11 @@ inline void Utility::q_fromPercentEncoding(QByteArray *ba, char percent)
 
 void Utility::initializeEmoticonHash()
 {
+#ifdef Q_OS_HARMATTAN
+    QFile file("/opt/tbclient/qml/emo/emo.dat");
+#else
     QFile file("qml/emo/emo.dat");
+#endif
     if (file.open(QIODevice::ReadOnly)){
         QTextStream out(&file);
         out.setCodec("UTF-8");
@@ -762,4 +804,48 @@ QString Utility::LaunchLibrary2()
     CleanupStack::PopAndDestroy(fileNames);
     return result.join("\n");
 }
+#endif
+
+#ifdef Q_OS_HARMATTAN
+void Utility::startCamera()
+{
+    QDBusConnection bus = QDBusConnection::sessionBus();
+    bus.connect(CAMERA_SERVICE, "/", CAMERA_INTERFACE,
+                "captureCanceled", this, SLOT(captureCanceled(QString)));
+    bus.connect(CAMERA_SERVICE, "/", CAMERA_INTERFACE,
+                "captureCompleted", this, SLOT(captureCompleted(QString,QString)));
+    QDBusMessage message = QDBusMessage::createMethodCall(CAMERA_SERVICE, "/", CAMERA_INTERFACE, "showCamera");
+    QVariantList arguments;
+    uint someVar = 0;
+    arguments << someVar << "" << "still-capture" << true;
+    message.setArguments(arguments);
+    QDBusMessage reply = bus.call(message);
+    if (reply.type() == QDBusMessage::ErrorMessage){
+        disconnectSignals();
+    }
+}
+
+void Utility::disconnectSignals()
+{
+    QDBusConnection bus = QDBusConnection::sessionBus();
+    bus.disconnect(CAMERA_SERVICE, "/", CAMERA_INTERFACE,
+                   "captureCanceled", this, SLOT(captureCanceled(QString)));
+
+    bus.disconnect(CAMERA_SERVICE, "/", CAMERA_INTERFACE,
+                   "captureCompleted", this, SLOT(captureCompleted(QString,QString)));
+}
+
+void Utility::captureCompleted(const QString &mode, const QString &fileName)
+{
+    Q_UNUSED(mode)
+    disconnectSignals();
+    emit imageCaptured(fileName);
+}
+
+void Utility::captureCanceled(const QString &mode)
+{
+    Q_UNUSED(mode)
+    disconnectSignals();
+}
+
 #endif
