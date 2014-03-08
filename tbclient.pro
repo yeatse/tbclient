@@ -62,10 +62,10 @@ folder_js.target = qml
 folder_emo.source = qml/emo
 folder_emo.target = qml
 
-DEPLOYMENTFOLDERS = folder_emo folder_js
+DEPLOYMENTFOLDERS = folder_js folder_emo
 
 simulator {
-    DEPLOYMENTFOLDERS += folder_harmattan
+    DEPLOYMENTFOLDERS += folder_symbian3 folder_harmattan
 }
 
 contains(MEEGO_EDITION,harmattan){

@@ -10,11 +10,11 @@ function getThumbnail(bigPic){
     }
 }
 
-function getBigImage(cdnPic){
-    if (cdnPic.indexOf(".hiphotos.baidu.com") > 0){
-        return "http://imgsrc.baidu.com/forum/pic/item/"+cdnPic.split("/").pop();
+function getBigImage(cdnpic){
+    if (cdnpic.indexOf(".hiphotos.baidu.com") > 0){
+        return "http://imgsrc.baidu.com/forum/pic/item/"+cdnpic.split("/").pop();
     } else {
-        return utility.percentDecode(cdnPic);
+        return utility.percentDecode(cdnpic);
     }
 }
 
