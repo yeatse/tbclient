@@ -801,7 +801,17 @@ function batchSign(option, onSuccess, onFailed){
         req.signForm(param);
         req.sendRequest(onSuccess, onFailed);
     }
-    BaiduRequest.getTBS(s, onFailed);
+    getTBS(s, onFailed);
+}
+
+function getTBS(onSuccess, onFailed){
+    var req = new BaiduRequest(BaiduApi.C_S_TBS);
+    req.signForm();
+    var s = function(obj){
+        tbs = obj.tbs;
+        onSuccess();
+    }
+    req.sendRequest(s, onFailed);
 }
 
 function getForumSquare(onSuccess, onFailed){

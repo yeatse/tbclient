@@ -204,9 +204,9 @@ var BaiduParser = {
                     var bsize = c.bsize.split(","), w = Number(bsize[0]), h = Number(bsize[1]);
                     var ww = Math.min(200, w), hh = Math.min(h * ww/w, 200);
                     push("Image", getThumbnail(c.cdn_src||c.src), getBigImage(c.big_cdn_src||c.src), ww, hh);
-					
-					// for n9
-					// var ww = Math.min(360, w), hh = Math.min(h * ww/w, 480);
+
+                    // for n9
+                    // var ww = Math.min(360, w), hh = Math.min(h * ww/w, 480);
                     // push("Image", utility.percentDecode(c.cdn_src||c.src), getBigImage(c.big_cdn_src||c.src), ww, hh);
                 } else {
                     push("Image", "", getBigImage(c.big_cdn_src||c.src), 200, 200);
@@ -254,9 +254,8 @@ var BaiduParser = {
                                  }
                              }
                          }
-                         var portrait = tbsettings.showImage
-                                 ? getPortrait(value.author.portrait)
-                                 : Qt.resolvedUrl("gfx/photo.png");
+                         var portrait = tbsettings.showImage ? getPortrait(value.author.portrait)
+                                                             : PHOTO_THUMBNAIL
                          var prop = {
                              id: value.id,
                              floor: value.floor,
@@ -287,9 +286,8 @@ var BaiduParser = {
         var model = option.model;
         if (option.renew) model.clear();
         list.forEach(function(value){
-                         var portrait = tbsettings.showImage
-                                 ? getPortrait(value.portrait)
-                                 : Qt.resolvedUrl("gfx/photo.png");
+                         var portrait = tbsettings.showImage ? getPortrait(value.portrait)
+                                                             : PHOTO_THUMBNAIL
                          var text = "";
                          value.abstract.forEach(function(abs){
                                                     if (abs.text)
@@ -312,9 +310,8 @@ var BaiduParser = {
         var model = option.model;
         if (option.renew) model.clear();
         list.forEach(function(value){
-                         var portrait = tbsettings.showImage
-                                 ? getPortrait(value.replyer.portrait)
-                                 : Qt.resolvedUrl("gfx/photo.png");
+                         var portrait = tbsettings.showImage ? getPortrait(value.replyer.portrait)
+                                                             : PHOTO_THUMBNAIL;
                          var prop = {
                              // subfloor
                              is_floor: value.is_floor === "1",
@@ -340,9 +337,8 @@ var BaiduParser = {
         var model = option.model;
         if (option.renew) model.clear();
         list.forEach(function(value){
-                         var portrait = tbsettings.showImage
-                                 ? getPortrait(value.replyer.portrait)
-                                 : Qt.resolvedUrl("gfx/photo.png");
+                         var portrait = tbsettings.showImage ? getPortrait(value.replyer.portrait)
+                                                             : PHOTO_THUMBNAIL;
                          var prop = {
                              is_floor: value.is_floor === "1",
                              replyer: value.replyer.name_show,
@@ -570,9 +566,8 @@ var BaiduParser = {
         var model = option.model;
         if (option.renew) model.clear();
         list.forEach(function(value){
-                         value.portrait = tbsettings.showImage
-                                 ? getPortrait(value.portrait)
-                                 : Qt.resolvedUrl("gfx/photo.png");
+                         value.portrait = tbsettings.showImage ? getPortrait(value.portrait)
+                                                               : PHOTO_THUMBNAIL;
                          model.append(value);
                      });
     },

@@ -132,7 +132,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
         QApplication::setStartDragDistance(2);
 
     // Initialize settings
-    if (utility->getValue("AppVersion","").toString() != VER){
+    if (!utility->getValue("AppVersion","").toString().startsWith("2.1")){
         utility->clearSettings();
         utility->setValue("AppVersion", VER);
     }

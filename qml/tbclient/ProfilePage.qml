@@ -263,7 +263,6 @@ MyPage {
                 ProfileCell {
                     iconName: "tiezi";
                     title: qsTr("Posts");
-                    subTitle: userData ? userData.post_num : "";
                     onClicked: {
                         var prop = { title: title, uid: getUid() };
                         pageStack.push(Qt.resolvedUrl("Profile/ProfilePost.qml"), prop);

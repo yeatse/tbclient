@@ -208,7 +208,6 @@ MyPage {
                         id: signedInfo;
                         BorderImage {
                             width: infoText.width + 20;
-                            asynchronous: true;
                             border { left: 25; right: 25; top: 0; bottom: 0; }
                             source: "gfx/btn_bg_n"+constant.invertedString+".png";
                             Text {

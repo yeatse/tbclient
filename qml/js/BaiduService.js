@@ -30,6 +30,7 @@ var BaiduApi = {
     C_S_HISTORYMSG: HOST + "/c/s/historymsg",
     C_S_ADDMSG: HOST + "/c/s/addmsg",
     C_S_CLEARMSG: HOST + "/c/s/clearmsg",
+    C_S_TBS: HOST + "/c/s/tbs",
 
     C_F_FORUM_FORUMRECOMMEND: HOST + "/c/f/forum/forumrecommend",
     C_F_FORUM_FORUMSQUARE: HOST + "/c/f/forum/forumsquare",
@@ -154,24 +155,6 @@ BaiduRequest.prototype.sendRequest = function(onSuccess, onFailed){
                 xhr.setRequestHeader("Content-Length", toPost.length);
                 xhr.send(toPost);
             }
-        }
-
-BaiduRequest.getTBS = function(onSuccess, onFailed){
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function(){
-                        if (xhr.readyState === xhr.DONE){
-                            if (xhr.status === 200){
-                                try {
-                                    tbs = JSON.parse(xhr.responseText).tbs;
-                                    onSuccess();
-                                } catch(e){
-                                    onFailed(JSON.stringify(e));
-                                }
-                            }
-                        }
-                    }
-            xhr.open("GET", "http://tieba.baidu.com/dc/common/tbs");
-            xhr.send();
         }
 
 BaiduRequest.intercomm = function(){

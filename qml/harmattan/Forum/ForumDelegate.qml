@@ -1,10 +1,10 @@
 import QtQuick 1.1
 import "../Component"
 
-AbstractDelegate {
+AbstractItem {
     id: root;
 
-    implicitHeight: contentCol.height + 32;
+    implicitHeight: contentCol.height + constant.paddingLarge*2;
     onClicked: {
         var prop = { threadId: id, title: title };
         signalCenter.enterThread(prop);
@@ -85,7 +85,7 @@ AbstractDelegate {
         }
     }
     Row {
-        anchors { right: parent.right; bottom: parent.bottom; margins: 12; }
+        anchors { right: parent.right; bottom: parent.bottom; margins: constant.paddingSmall; }
         Image {
             asynchronous: true;
             source: "../gfx/btn_icon_comment_n"+constant.invertedString;

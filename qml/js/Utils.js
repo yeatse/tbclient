@@ -1,5 +1,7 @@
 .pragma library
 
+var PHOTO_THUMBNAIL = Qt.resolvedUrl("../tbclient/gfx/photo.png");
+
 function getThumbnail(bigPic){
     if (bigPic.indexOf(".hiphotos.baidu.com") > 0){
         return "http://imgsrc.baidu.com/forum/abpic/item/"+bigPic.split("/").pop();
@@ -22,7 +24,7 @@ function getPortrait(portrait){
     if (portrait){
         return "http://tb.himg.baidu.com/sys/portraitn/item/"+portrait;
     } else {
-        return Qt.resolvedUrl("gfx/photo.png");
+        return PHOTO_THUMBNAIL;
     }
 }
 

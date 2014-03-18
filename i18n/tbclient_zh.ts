@@ -79,7 +79,7 @@
 <context>
     <name>BaiduParser</name>
     <message>
-        <location filename="../qml/js/BaiduParser.js" line="217"/>
+        <location filename="../qml/js/BaiduParser.js" line="219"/>
         <source>Click to watch video</source>
         <translation>点击查看视频</translation>
     </message>
@@ -117,12 +117,12 @@
         <translation>经验</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/BatchSignPage.qml" line="219"/>
+        <location filename="../qml/tbclient/BatchSignPage.qml" line="218"/>
         <source>Signed %1 days</source>
         <translation>已签到%1天</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/BatchSignPage.qml" line="271"/>
+        <location filename="../qml/tbclient/BatchSignPage.qml" line="270"/>
         <source>Signing</source>
         <translation>正在签到</translation>
     </message>
@@ -377,53 +377,53 @@
     </message>
     <message>
         <location filename="../qml/tbclient/Floor/FloorPage.qml" line="117"/>
-        <location filename="../qml/tbclient/Floor/FloorPage.qml" line="135"/>
-        <location filename="../qml/tbclient/Floor/FloorPage.qml" line="163"/>
+        <location filename="../qml/tbclient/Floor/FloorPage.qml" line="136"/>
+        <location filename="../qml/tbclient/Floor/FloorPage.qml" line="164"/>
         <source>Success</source>
         <translation>发送成功</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Floor/FloorPage.qml" line="172"/>
+        <location filename="../qml/tbclient/Floor/FloorPage.qml" line="173"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Floor/FloorPage.qml" line="173"/>
+        <location filename="../qml/tbclient/Floor/FloorPage.qml" line="174"/>
         <source>Delete this post?</source>
         <translation>要删除此回贴吗？</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Floor/FloorPage.qml" line="174"/>
+        <location filename="../qml/tbclient/Floor/FloorPage.qml" line="175"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Floor/FloorPage.qml" line="175"/>
+        <location filename="../qml/tbclient/Floor/FloorPage.qml" line="176"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Floor/FloorPage.qml" line="186"/>
+        <location filename="../qml/tbclient/Floor/FloorPage.qml" line="187"/>
         <source>Add to bookmark</source>
         <translation>添加到收藏</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Floor/FloorPage.qml" line="190"/>
+        <location filename="../qml/tbclient/Floor/FloorPage.qml" line="191"/>
         <source>Jump to page</source>
         <translation>跳页</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Floor/FloorPage.qml" line="194"/>
+        <location filename="../qml/tbclient/Floor/FloorPage.qml" line="195"/>
         <source>View original thread</source>
         <translation>查看原贴</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Floor/FloorPage.qml" line="203"/>
+        <location filename="../qml/tbclient/Floor/FloorPage.qml" line="204"/>
         <source>Floor %1</source>
         <translation>%1楼</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Floor/FloorPage.qml" line="227"/>
+        <location filename="../qml/tbclient/Floor/FloorPage.qml" line="228"/>
         <source>Reply to %1 :</source>
         <translation>回复 %1 :</translation>
     </message>
@@ -970,8 +970,8 @@
         <translation>标题字数不符合要求</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Post/PostPage.js" line="71"/>
-        <location filename="../qml/tbclient/Post/PostPage.js" line="105"/>
+        <location filename="../qml/tbclient/Post/PostPage.js" line="72"/>
+        <location filename="../qml/tbclient/Post/PostPage.js" line="106"/>
         <source>Success</source>
         <translation>发送成功</translation>
     </message>
@@ -1165,17 +1165,17 @@
 <context>
     <name>QWebViewDownloader</name>
     <message>
-        <location filename="../src/qwebviewitem.cpp" line="176"/>
+        <location filename="../src/qwebviewitem.cpp" line="180"/>
         <source>Download started</source>
         <translation>正在下载文件</translation>
     </message>
     <message>
-        <location filename="../src/qwebviewitem.cpp" line="212"/>
+        <location filename="../src/qwebviewitem.cpp" line="216"/>
         <source>Download finished</source>
         <translation>文件下载完成</translation>
     </message>
     <message>
-        <location filename="../src/qwebviewitem.cpp" line="217"/>
+        <location filename="../src/qwebviewitem.cpp" line="221"/>
         <source>Download failed</source>
         <translation>文件下载失败</translation>
     </message>
@@ -1183,13 +1183,13 @@
 <context>
     <name>QtApplicationCaptions</name>
     <message>
-        <location filename="../../../QtSDK/Desktop/Qt/4.7.4/mingw/mkspecs/common/symbian/appCaptionForTranslation.cpp" line="43"/>
+        <location filename="../../../../QtSDK/Desktop/Qt/4.8.1/mingw/mkspecs/common/symbian/appCaptionForTranslation.cpp" line="43"/>
         <source>Application short caption</source>
         <extracomment>Application short caption, currently only relevant for application projects in Symbian.</extracomment>
         <translation>百度贴吧</translation>
     </message>
     <message>
-        <location filename="../../../QtSDK/Desktop/Qt/4.7.4/mingw/mkspecs/common/symbian/appCaptionForTranslation.cpp" line="46"/>
+        <location filename="../../../../QtSDK/Desktop/Qt/4.8.1/mingw/mkspecs/common/symbian/appCaptionForTranslation.cpp" line="46"/>
         <source>Application long caption</source>
         <extracomment>Application long caption, currently only relevant for application projects in Symbian.</extracomment>
         <translation>百度贴吧</translation>
@@ -1198,13 +1198,13 @@
 <context>
     <name>QtPackageNames</name>
     <message>
-        <location filename="../../../QtSDK/Desktop/Qt/4.7.4/mingw/mkspecs/common/symbian/packageNameForTranslation.cpp" line="43"/>
+        <location filename="../../../../QtSDK/Desktop/Qt/4.8.1/mingw/mkspecs/common/symbian/packageNameForTranslation.cpp" line="43"/>
         <source>Package name</source>
         <extracomment>Installation package name, currently only relevant for Symbian projects that deploy something.</extracomment>
         <translation>百度贴吧</translation>
     </message>
     <message>
-        <location filename="../../../QtSDK/Desktop/Qt/4.7.4/mingw/mkspecs/common/symbian/packageNameForTranslation.cpp" line="47"/>
+        <location filename="../../../../QtSDK/Desktop/Qt/4.8.1/mingw/mkspecs/common/symbian/packageNameForTranslation.cpp" line="47"/>
         <source>Smart installer package name</source>
         <extracomment>Smart installer installation package name, currently only relevant for Symbian projects that deploy something.</extracomment>
         <translation>百度贴吧 installer</translation>
@@ -1924,83 +1924,83 @@
 <context>
     <name>Utility</name>
     <message>
-        <location filename="../src/utility.cpp" line="398"/>
+        <location filename="../src/utility.cpp" line="434"/>
         <source>%1 %2 %3</source>
         <comment>e.g. %1 is number value such as 2, %2 is mins, %3 is ago</comment>
         <translation>%1%2%3</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="492"/>
+        <location filename="../src/utility.cpp" line="536"/>
         <source>ago</source>
         <translation>前</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="493"/>
+        <location filename="../src/utility.cpp" line="537"/>
         <source>From Now</source>
         <translation>后</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="494"/>
+        <location filename="../src/utility.cpp" line="538"/>
         <source>just now</source>
         <translation>1分钟前</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="495"/>
+        <location filename="../src/utility.cpp" line="539"/>
         <source>min</source>
         <translation>分钟</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="496"/>
+        <location filename="../src/utility.cpp" line="540"/>
         <source>mins</source>
         <translation>分钟</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="497"/>
+        <location filename="../src/utility.cpp" line="541"/>
         <source>hr</source>
         <translation>小时</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="498"/>
+        <location filename="../src/utility.cpp" line="542"/>
         <source>hrs</source>
         <translation>小时</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="499"/>
+        <location filename="../src/utility.cpp" line="543"/>
         <source>day</source>
         <translation>天</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="500"/>
+        <location filename="../src/utility.cpp" line="544"/>
         <source>days</source>
         <translation>天</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="501"/>
+        <location filename="../src/utility.cpp" line="545"/>
         <source>wk</source>
         <translation>周</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="502"/>
+        <location filename="../src/utility.cpp" line="546"/>
         <source>wks</source>
         <translation>周</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="503"/>
+        <location filename="../src/utility.cpp" line="547"/>
         <source>mth</source>
         <translation>个月</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="504"/>
+        <location filename="../src/utility.cpp" line="548"/>
         <source>mths</source>
         <translation>个月</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="505"/>
+        <location filename="../src/utility.cpp" line="549"/>
         <source>yr</source>
         <translation>年</translation>
     </message>
     <message>
-        <location filename="../src/utility.cpp" line="506"/>
+        <location filename="../src/utility.cpp" line="550"/>
         <source>yrs</source>
         <translation>年</translation>
     </message>
@@ -2008,27 +2008,26 @@
 <context>
     <name>VCodeDialog</name>
     <message>
-        <location filename="../qml/tbclient/Dialog/VCodeDialog.qml" line="13"/>
         <source>Please enter verify code:</source>
-        <translation>请输入验证码：</translation>
+        <translation type="obsolete">请输入验证码：</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Dialog/VCodeDialog.qml" line="14"/>
+        <location filename="../qml/tbclient/Dialog/VCodeDialog.qml" line="16"/>
         <source>Continue</source>
         <translation>继续</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Dialog/VCodeDialog.qml" line="14"/>
+        <location filename="../qml/tbclient/Dialog/VCodeDialog.qml" line="17"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Dialog/VCodeDialog.qml" line="33"/>
+        <location filename="../qml/tbclient/Dialog/VCodeDialog.qml" line="32"/>
         <source>Please input these characters</source>
         <translation>请输入图片中的字符</translation>
     </message>
     <message>
-        <location filename="../qml/tbclient/Dialog/VCodeDialog.qml" line="63"/>
+        <location filename="../qml/tbclient/Dialog/VCodeDialog.qml" line="62"/>
         <source>Input verify code</source>
         <translation>输入验证码</translation>
     </message>
@@ -2193,7 +2192,7 @@
         <translation>操作已取消</translation>
     </message>
     <message>
-        <location filename="../qml/js/main.js" line="942"/>
+        <location filename="../qml/js/main.js" line="952"/>
         <source>Success</source>
         <translation>操作成功</translation>
     </message>
