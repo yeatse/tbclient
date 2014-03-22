@@ -48,20 +48,19 @@ QtObject {
     }
 
     // Dialogs
-    function needVCode(caller, vcodeMd5, vcodePicUrl){
-        if (!vcodeDialogComp){
-            vcodeDialogComp = Qt.createComponent("Dialog/VCodeDialog.qml");
-        }
+    function needVCode(caller, vcodeMd5, vcodePicUrl, isNew){
         var prop = { caller: caller, vcodeMd5: vcodeMd5, vcodePicUrl: vcodePicUrl }
-        vcodeDialogComp.createObject(pageStack.currentPage, prop);
-    }
-
-    function needVCodeNew(caller, vcodeMd5, vcodePicUrl){
-        if (!newVCodeDialogComp){
-            newVCodeDialogComp = Qt.createComponent("Dialog/NewVCodeDialog.qml");
+        if (isNew){
+            if (!newVCodeDialogComp){
+                newVCodeDialogComp = Qt.createComponent("Dialog/NewVCodeDialog.qml");
+            }
+            newVCodeDialogComp.createObject(pageStack.currentPage, prop);
+        } else {
+            if (!vcodeDialogComp){
+                vcodeDialogComp = Qt.createComponent("Dialog/VCodeDialog.qml");
+            }
+            vcodeDialogComp.createObject(pageStack.currentPage, prop);
         }
-        var prop = { caller: caller, vcodeMd5: vcodeMd5, vcodePicUrl: vcodePicUrl }
-        newVCodeDialogComp.createObject(pageStack.currentPage, prop);
     }
 
     function createQueryDialog(title, message, acceptText, rejectText, acceptCallback, rejectCallback){

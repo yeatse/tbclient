@@ -15,10 +15,10 @@ Changes:
  .
    * <Add change description here>
 Checksums-Sha1: 
- 257218719236176ffcd3c2f9d99404871437cbee 1321348 tbclient_2.1.4_armel.deb
+ 9c9dd6776490bc1d6037ee9f5cff5af16d5a4586 1321846 tbclient_2.1.4_armel.deb
 Checksums-Sha256: 
- f22fff2d7d9782aecea63c71f0b617f2d72bb2f72bcc8d6baea9e90e21102c71 1321348 tbclient_2.1.4_armel.deb
+ 6add25689949f8c401b7b7a899bd28317b4d1f090c7cb5cb7b20ca092c2e3e23 1321846 tbclient_2.1.4_armel.deb
 Files: 
- afdb262c57d7ab328f3d7e78e8920cee 1321348 user/other optional tbclient_2.1.4_armel.deb
+ 0725d292bf16904fc494a9c17cee5f82 1321846 user/other optional tbclient_2.1.4_armel.deb
 Maemo-Display-Name: tbclient
 Maemo-Display-Name-Zh: 百度贴吧

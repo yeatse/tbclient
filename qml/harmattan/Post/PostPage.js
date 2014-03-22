@@ -44,7 +44,7 @@ function post(vcode, vcodeMd5){
         loading = false;
         signalCenter.showMessage(err);
         if (obj && obj.info && obj.info.need_vcode === "1"){
-            signalCenter.needVCodeNew(page, obj.info.vcode_md5, obj.info.vcode_pic_url);
+            signalCenter.needVCode(page, obj.info.vcode_md5, obj.info.vcode_pic_url, obj.info.vcode_type === "4");
         }
     };
     if (isReply){
@@ -166,28 +166,28 @@ function uploadFinished(response){
         var info = JSON.parse(response).info;
         imageInfoList.push({id: info.pic_id, width: info.width, height: info.height});
         postTimer.start();
-//        offset = chunkFileOffset;
-//        length = 51200;
-//        var fn = attachedArea.imageList[imageCursor];
+        //        offset = chunkFileOffset;
+        //        length = 51200;
+        //        var fn = attachedArea.imageList[imageCursor];
 
-//        if (offset + length >= utility.fileSize(fn)){
-//            imageCursor ++;
-//            chunkFileOffset = 0;
+        //        if (offset + length >= utility.fileSize(fn)){
+        //            imageCursor ++;
+        //            chunkFileOffset = 0;
 
-//            opt = { md5: utility.fileHash(fn) }
-//            s = function(obj){
-//                        if (obj.error && obj.error.errno != "0"){
-//                            console.log(JSON.stringify(obj));
-//                        } else {
-//                            var info = obj.info;
-//                            imageInfoList.push({id: info.pic_id, width: info.width, height: info.height});
-//                        }
-//                        postTimer.start();
-//                    }
-//            Script.imageFinChunkUpload(opt, s, f);
-//        } else {
-//            chunkFileOffset = offset + length;
-//            postTimer.start();
-//        }
+        //            opt = { md5: utility.fileHash(fn) }
+        //            s = function(obj){
+        //                        if (obj.error && obj.error.errno != "0"){
+        //                            console.log(JSON.stringify(obj));
+        //                        } else {
+        //                            var info = obj.info;
+        //                            imageInfoList.push({id: info.pic_id, width: info.width, height: info.height});
+        //                        }
+        //                        postTimer.start();
+        //                    }
+        //            Script.imageFinChunkUpload(opt, s, f);
+        //        } else {
+        //            chunkFileOffset = offset + length;
+        //            postTimer.start();
+        //        }
     }
 }

@@ -49,7 +49,7 @@ MyPage {
             loading = false;
             signalCenter.showMessage(err);
             if (obj && obj.anti && obj.anti.need_vcode === "1"){
-                signalCenter.needVCode(page, obj.anti.vcode_md5, obj.anti.vcode_pic_url);
+                signalCenter.needVCode(page, obj.anti.vcode_md5, obj.anti.vcode_pic_url, obj.info.vcode_type === "4");
                 return;
             }
             pwField.forceActiveFocus();

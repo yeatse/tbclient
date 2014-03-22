@@ -127,6 +127,11 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     utility->setEngine(viewer.engine());
     viewer.rootContext()->setContextProperty("utility", utility);
 
+#ifdef Q_OS_HARMATTAN
+    HarmattanBackgroundProvider provider;
+    viewer.engine()->addImageProvider("bgProvider", &provider);
+#endif
+
     // For smoother flicking (only supported by Belle FP2)
     if (utility->qtVersion() > 0x040800)
         QApplication::setStartDragDistance(2);
