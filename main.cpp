@@ -9,6 +9,7 @@
 #include "src/audiorecorder.h"
 #include "src/scribblearea.h"
 #include "src/qwebviewitem.h"
+#include "src/imageuploader.h"
 
 #ifdef Q_WS_SIMULATOR
 #include <QtNetwork/QNetworkProxy>
@@ -85,6 +86,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterType<AudioRecorder>("com.yeatse.tbclient", 1, 0, "AudioRecorder");
     qmlRegisterType<ScribbleArea>("com.yeatse.tbclient", 1, 0, "ScribbleArea");
     qmlRegisterType<QWebViewItem>("com.yeatse.tbclient", 1, 0, "WebView");
+    qmlRegisterType<ImageUploader>("com.yeatse.tbclient", 1, 0, "ImageUploader");
 
 #ifdef QVIBRA
     qmlRegisterType<QVibra>("com.yeatse.tbclient", 1, 0, "Vibra");

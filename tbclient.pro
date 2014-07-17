@@ -18,7 +18,8 @@ HEADERS += \
     src/audiorecorder.h \
     src/scribblearea.h \
     src/flickcharm.h \
-    src/qwebviewitem.h
+    src/qwebviewitem.h \
+    src/imageuploader.h
 
 SOURCES += main.cpp \
     src/utility.cpp \
@@ -43,6 +44,7 @@ SOURCES += main.cpp \
 #    qml/js/main.js \
 #    qml/js/BaiduParser.js \
 #    qml/js/LinkDecoder.js
+    src/imageuploader.cpp
 
 TRANSLATIONS += i18n/tbclient_zh.ts
 RESOURCES += tbclient-res.qrc

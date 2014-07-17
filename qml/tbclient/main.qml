@@ -33,6 +33,14 @@ PageStackWindow {
         onMessage: running = messageObject.running;
     }
 
+    ImageUploader {
+        id: imageUploader;
+        uploader: HttpUploader {}
+        function jsonParse(data){
+            return JSON.parse(data);
+        }
+    }
+
     HttpUploader {
         id: uploader;
         property variant caller: null;
