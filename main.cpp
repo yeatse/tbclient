@@ -115,7 +115,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 #ifdef Q_WS_SIMULATOR
     QNetworkProxy proxy;
     proxy.setType(QNetworkProxy::HttpProxy);
-    proxy.setHostName("localhost");
+    proxy.setHostName("192.168.1.37");
     proxy.setPort(8888);
     QNetworkProxy::setApplicationProxy(proxy);
 #endif

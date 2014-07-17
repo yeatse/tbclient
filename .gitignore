@@ -28,3 +28,5 @@ bld.inf
 *_exe.mmp
 *.pkg
 *.sis
+ABLD.BAT
+*.mk

@@ -95,6 +95,8 @@ public:             // Other functions.
     Q_INVOKABLE QString percentDecode(const QString &encodedString) const;
     // Return forum name if it is a tieba link
     Q_INVOKABLE QString hasForumName(const QByteArray &link);
+    // Fix unsupported url
+    Q_INVOKABLE QString fixUrl(const QString &url) const;
 
     // Return image url if it is an existing emoticon
     Q_INVOKABLE QString emoticonUrl(const QString &name) const;

@@ -215,7 +215,7 @@ void QWebViewDownloader::downloadFinished()
     if (ok){
         ut->showNotification(tr("Download finished"), output->fileName());
 #ifdef Q_OS_SYMBIAN
-        TRAP_IGNORE(ut->LaunchL(0x101f84EB, output->fileName().replace("/","\\")))
+        TRAP_IGNORE(ut->LaunchL(0x101f84EB, output->fileName().replace("/","\\")));
 #endif
     } else {
         ut->showNotification(tr("Download failed"), "");
@@ -398,9 +398,9 @@ bool QWebViewItem::sceneEvent(QEvent *event)
             || event->type() == QEvent::TouchUpdate)
     {
         if (event->type() == QEvent::TouchBegin)
-            forceActiveFocus();
-        proxy->view()->page()->event(event);
-        return true;
+            setFocus(true);
+
+        return proxy->view()->event(event);
     }
     return QDeclarativeItem::sceneEvent(event);
 }
@@ -412,9 +412,8 @@ QVariant QWebViewItem::inputMethodQuery(Qt::InputMethodQuery query) const
 
 void QWebViewItem::inputMethodEvent(QInputMethodEvent *event)
 {
-    proxy->view()->event(event);
-    if (!event->isAccepted())
-        QDeclarativeItem::inputMethodEvent(event);
+    QInputMethodEvent* ev = new QInputMethodEvent(*event);
+    QApplication::postEvent(proxy->view()->page(), ev);
 }
 
 void QWebViewItem::keyPressEvent(QKeyEvent *event)
@@ -425,7 +424,7 @@ void QWebViewItem::keyPressEvent(QKeyEvent *event)
                                   event->text(),
                                   event->isAutoRepeat(),
                                   event->count());
-    QApplication::postEvent(proxy->view(), ev);
+    QApplication::postEvent(proxy->view()->page(), ev);
 }
 
 void QWebViewItem::keyReleaseEvent(QKeyEvent *event)
@@ -436,5 +435,5 @@ void QWebViewItem::keyReleaseEvent(QKeyEvent *event)
                                   event->text(),
                                   event->isAutoRepeat(),
                                   event->count());
-    QApplication::postEvent(proxy->view(), ev);
+    QApplication::postEvent(proxy->view()->page(), ev);
 }

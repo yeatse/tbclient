@@ -473,6 +473,16 @@ QString Utility::hasForumName(const QByteArray &link)
     return kw;
 }
 
+QString Utility::fixUrl(const QString &url) const
+{
+    QUrl tmp(url);
+    const QString urlPrefix = "http://tieba.baidu.com/mo/q/checkurl";
+    if ( url.startsWith(urlPrefix) && tmp.hasQueryItem("url") )
+    {
+
+    }
+}
+
 QString Utility::emoticonUrl(const QString &name) const
 {
 #ifdef Q_OS_HARMATTAN
