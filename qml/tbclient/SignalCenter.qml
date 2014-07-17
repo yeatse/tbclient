@@ -194,9 +194,8 @@ QtObject {
     }
 
     function openBrowser(url){
+        url = utility.fixUrl(url);
         if (tbsettings.browser == ""){
-            if ( url.indexOf("http://tieba.baidu.com/mo/q/checkurl?url=") < 0 )
-                url = utility.percentDecode(url);
             pageStack.push(Qt.resolvedUrl("Browser/WebPage.qml"), {url: url});
         } else {
             utility.openURLDefault(url);

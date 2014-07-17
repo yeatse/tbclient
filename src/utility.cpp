@@ -475,12 +475,14 @@ QString Utility::hasForumName(const QByteArray &link)
 
 QString Utility::fixUrl(const QString &url) const
 {
-    QUrl tmp(url);
-    const QString urlPrefix = "http://tieba.baidu.com/mo/q/checkurl";
-    if ( url.startsWith(urlPrefix) && tmp.hasQueryItem("url") )
-    {
-
+    const QString prefix = "http://tieba.baidu.com/mo/q/checkurl";
+    if (url.startsWith(prefix)){
+        QUrl temp(url);
+        if (temp.hasEncodedQueryItem("url")){
+            return QUrl::fromEncoded(temp.queryItemValue("url").toAscii()).toString();
+        }
     }
+    return url;
 }
 
 QString Utility::emoticonUrl(const QString &name) const
