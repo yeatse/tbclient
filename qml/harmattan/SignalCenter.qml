@@ -200,6 +200,6 @@ QtObject {
     }
 
     function openBrowser(url){
-        utility.openURLDefault(url);
+        utility.openURLDefault(utility.fixUrl(url));
     }
 }
