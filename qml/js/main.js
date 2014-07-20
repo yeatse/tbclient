@@ -4,16 +4,17 @@ Qt.include("BaiduService.js");
 Qt.include("storage.js");
 Qt.include("BaiduParser.js");
 
-var signalCenter, tbsettings, utility, workerScript, uploader;
+var signalCenter, tbsettings, utility, workerScript, uploader, imageUploader;
 var __name, __bduss, __portrait;
 var tbs;
 
-function initialize(sc, ts, ut, ws, ul){
+function initialize(sc, ts, ut, ws, ul, iu){
     signalCenter = sc;
     tbsettings = ts;
     utility = ut;
     workerScript = ws;
     uploader = ul;
+    imageUploader = iu;
     if (checkAuthData(tbsettings.currentUid)){
         signalCenter.userChanged();
     } else {
@@ -364,24 +365,9 @@ function addThread(option, onSuccess, onFailed){
 }
 
 function uploadImage(caller, filename){
-    if (uploader.uploadState == 2)
-        uploader.abort();
-    uploader.caller = caller;
-    uploader.open(BaiduApi.C_C_IMG_UPLOAD);
-    uploader.addField("net_type", BaiduConst.net_type);
-    uploader.addField("ka", BaiduConst.ka);
-    uploader.addField("_phone_imei", BaiduConst._phone_imei);
-    uploader.addField("BDUSS", __bduss);
-    uploader.addField("_timestamp", Date.now());
-    uploader.addField("_client_version", BaiduConst._client_version);
-    uploader.addField("_phone_newimei", BaiduConst._phone_newimei);
-    uploader.addField("from", BaiduConst.from);
-    uploader.addField("_client_type", BaiduConst._client_type);
-    uploader.addField("_client_id", BaiduConst._client_id);
-    uploader.addField("cuid", BaiduConst.cuid);
-    uploader.addField("pic_type", 0);
-    uploader.addFile("pic", filename);
-    uploader.send();
+    imageUploader.caller = caller;
+    var extras = { BDUSS: __bduss }
+    imageUploader.startUpload(filename, extras);
 }
 
 function chunkUpload(caller, type, filename, offset){

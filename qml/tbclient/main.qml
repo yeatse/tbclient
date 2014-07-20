@@ -35,10 +35,15 @@ PageStackWindow {
 
     ImageUploader {
         id: imageUploader;
-        uploader: HttpUploader {}
+        property variant caller: null;
+        function signForm(params){
+            return Script.BaiduRequest.generateSignature(params);
+        }
         function jsonParse(data){
             return JSON.parse(data);
         }
+        uploader: HttpUploader {}
+        onUploadFinished: signalCenter.imageUploadFinished(caller, result);
     }
 
     HttpUploader {
@@ -81,5 +86,5 @@ PageStackWindow {
     Keys.onVolumeUpPressed: audioWrapper.volumeUp();
     Keys.onVolumeDownPressed: audioWrapper.volumeDown();
 
-    Component.onCompleted: Script.initialize(signalCenter, tbsettings, utility, worker, uploader);
+    Component.onCompleted: Script.initialize(signalCenter, tbsettings, utility, worker, uploader, imageUploader);
 }

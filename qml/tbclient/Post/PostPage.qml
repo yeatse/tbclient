@@ -18,9 +18,11 @@ MyPage {
         BackButton {
             onClicked: {
                 tbsettings.draftBox = contentArea.text;
+                Post.uploadCanceled = true;
                 if (uploader.uploadState == HttpUploader.Loading){
                     uploader.abort();
                 }
+                imageUploader.abortUpload();
             }
         }
     }
@@ -29,6 +31,7 @@ MyPage {
         target: signalCenter;
         onUploadFailed: if (caller === page) Post.uploadFailed();
         onUploadFinished: if (caller === page) Post.uploadFinished(response);
+        onImageUploadFinished: if (caller === page) Post.imageUploadFinished(result);
         onVcodeSent: if (caller === page) Post.post(vcode, vcodeMd5);
         onFriendSelected: {
             if (caller === page){
@@ -158,7 +161,8 @@ MyPage {
 
     AttachedArea {
         id: attachedArea;
-        enabled: uploader.uploadState != HttpUploader.Loading||uploader.caller != page;
+        enabled: (uploader.uploadState != HttpUploader.Loading||uploader.caller != page)
+                 &&(!imageUploader.isRunning||imageUploader.caller != page);
         onStateChanged: {
             picBtn.checked = state === "Image";
             voiBtn.checked = state === "Voice";
@@ -174,7 +178,7 @@ MyPage {
         ProgressBar {
             anchors.bottom: parent.bottom;
             width: parent.width;
-            value: uploader.progress;
+            value: imageUploader.isRunning ? imageUploader.progress : uploader.progress;
             platformInverted: tbsettings.whiteTheme;
             visible: !(attachedArea.enabled||attachedArea.state=="");
         }

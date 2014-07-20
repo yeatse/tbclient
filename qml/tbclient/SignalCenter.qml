@@ -27,6 +27,7 @@ QtObject {
 
     signal uploadFinished(variant caller, string response);
     signal uploadFailed(variant caller);
+    signal imageUploadFinished(variant caller, variant result);
 
     // Common functions
     function showMessage(msg){

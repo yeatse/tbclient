@@ -157,6 +157,17 @@ BaiduRequest.prototype.sendRequest = function(onSuccess, onFailed){
             }
         }
 
+BaiduRequest.generateSignature = function(params){
+            var paramArray = [];
+            for (var i in params){
+                paramArray.push(i+"="+params[i]);
+            }
+            paramArray = paramArray.sort();
+            var temp = paramArray.join("")+"tiebaclient!!!";
+            var sign = Qt.md5(temp).toUpperCase();
+            return sign;
+        }
+
 BaiduRequest.intercomm = function(){
             var xhr = new XMLHttpRequest();
             var postData = "sName=1&appid=1&tpl=tb&devicetype=ios&bduss="+__bduss;
