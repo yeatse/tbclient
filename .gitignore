@@ -33,5 +33,5 @@ ABLD.BAT
 
 # debian-es
 tbclient
-*_armel.changes
-*_armel.deb
+*.changes
+*.deb
