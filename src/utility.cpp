@@ -231,6 +231,8 @@ void Utility::launchPlayer(const QString &url)
 #ifdef Q_OS_SYMBIAN
     QString ramPath = tempPath() + QDir::separator() + "video.ram";
     QFile file(ramPath);
+    if (file.exists())
+        file.remove();
     if (file.open(QIODevice::ReadWrite)){
         QTextStream out(&file);
         out << url;
