@@ -30,6 +30,7 @@ SOURCES += main.cpp \
     src/scribblearea.cpp \
     src/flickcharm.cpp \
     src/qwebviewitem.cpp \
+    src/imageuploader.cpp
 #    qml/tbclient/*.qml \
 #    qml/tbclient/Browser/*.qml \
 #    qml/tbclient/Component/*.qml \
@@ -44,7 +45,6 @@ SOURCES += main.cpp \
 #    qml/js/main.js \
 #    qml/js/BaiduParser.js \
 #    qml/js/LinkDecoder.js
-    src/imageuploader.cpp
 
 TRANSLATIONS += i18n/tbclient_zh.ts
 RESOURCES += tbclient-res.qrc
@@ -65,7 +65,7 @@ folder_js.target = qml
 folder_emo.source = qml/emo
 folder_emo.target = qml
 
-DEPLOYMENTFOLDERS = folder_js #folder_emo
+DEPLOYMENTFOLDERS = folder_js folder_emo
 
 simulator {
     DEPLOYMENTFOLDERS += folder_symbian3 folder_harmattan

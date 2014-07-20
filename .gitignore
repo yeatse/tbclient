@@ -30,3 +30,8 @@ bld.inf
 *.sis
 ABLD.BAT
 *.mk
+
+# debian-es
+tbclient
+*_armel.changes
+*_armel.deb

@@ -1,4 +1,4 @@
-var imageCursor = 0;    // index of current image
+var uploadCanceled = false;
 var imageInfoList = []; // id, width, height
 
 var voiceUploaded = false;
@@ -8,7 +8,7 @@ var chunkFileOffset = 0;
 
 function post(vcode, vcodeMd5){
     if (isReply){
-        if (contentArea.text == ""&&attachedArea.imageList.length == 0 && attachedArea.audioFile == ""){
+        if (contentArea.text == "" && attachedArea.imageList.length == 0 && attachedArea.audioFile == ""){
             signalCenter.showMessage(qsTr("Content required"));
             return;
         }
@@ -19,26 +19,20 @@ function post(vcode, vcodeMd5){
         }
     }
 
-    if (imageCursor < attachedArea.imageList.length){
-        var fn = attachedArea.imageList[imageCursor];
-        if (utility.fileSize(fn) >= 0x160000){
-            fn = utility.resizeImage(fn);
-        }
-        if (fn !== ""){
-            Script.uploadImage(page, fn);
-        } else {
-            imageCursor ++;
-            postTimer.start();
-        }
+    if (imageInfoList.length < attachedArea.imageList.length){
+        var fileName = attachedArea.imageList[imageInfoList.length];
+        Script.uploadImage(page, fileName);
         return;
     }
+
     if (!voiceUploaded && attachedArea.audioFile != ""){
         Script.chunkUpload(page, "Voice", attachedArea.audioFile, chunkFileOffset);
         return;
     }
     var content = contentArea.text;
     imageInfoList.forEach(function(info){
-                              content += "#(pic,"+info.id+","+info.width+","+info.height+")";
+                              if (info != null)
+                                  content += "#(pic,"+info.id+","+info.width+","+info.height+")";
                           });
     var opt, s, f = function(err, obj){
         loading = false;
@@ -118,8 +112,6 @@ function isVoiceUpload(){
 function uploadFailed(){
     if (isVoiceUpload())
         voiceUploaded = true;
-    else
-        imageCursor ++;
     chunkFileOffset = 0;
     postTimer.start();
 }
@@ -133,7 +125,6 @@ function uploadFinished(response){
 
     if (obj.error && obj.error.errno != "0"){
         if (isVoice) voiceUploaded = true;
-        else imageCursor ++;;
         chunkFileOffset = 0;
 
         postTimer.start();
@@ -161,33 +152,15 @@ function uploadFinished(response){
             chunkFileOffset = offset + length;
             postTimer.start();
         }
-    } else {
-        imageCursor ++;
-        var info = JSON.parse(response).info;
-        imageInfoList.push({id: info.pic_id, width: info.width, height: info.height});
-        postTimer.start();
-        //        offset = chunkFileOffset;
-        //        length = 51200;
-        //        var fn = attachedArea.imageList[imageCursor];
-
-        //        if (offset + length >= utility.fileSize(fn)){
-        //            imageCursor ++;
-        //            chunkFileOffset = 0;
-
-        //            opt = { md5: utility.fileHash(fn) }
-        //            s = function(obj){
-        //                        if (obj.error && obj.error.errno != "0"){
-        //                            console.log(JSON.stringify(obj));
-        //                        } else {
-        //                            var info = obj.info;
-        //                            imageInfoList.push({id: info.pic_id, width: info.width, height: info.height});
-        //                        }
-        //                        postTimer.start();
-        //                    }
-        //            Script.imageFinChunkUpload(opt, s, f);
-        //        } else {
-        //            chunkFileOffset = offset + length;
-        //            postTimer.start();
-        //        }
     }
+}
+
+function imageUploadFinished(result){
+    if (result.success){
+        imageInfoList.push({id: result.picId, width: result.width, height: result.height});
+    } else {
+        imageInfoList.push(null);
+    }
+    if (!uploadCanceled)
+        postTimer.start();
 }

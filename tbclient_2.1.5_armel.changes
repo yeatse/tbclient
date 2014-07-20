@@ -1,9 +1,9 @@
 Format: 1.8
-Date: Tue, 18 Mar 2014 10:50:00 +0800
+Date: Sun, 20 Jul 2014 19:43:13 +0800
 Source: tbclient
 Binary: tbclient
 Architecture: armel
-Version: 2.1.4
+Version: 2.1.5
 Distribution: unstable
 Urgency: low
 Maintainer: Yeatse CC <iyeatse@gmail.com>
@@ -11,14 +11,14 @@ Changed-By: Yeatse CC <iyeatse@gmail.com>
 Description: 
  tbclient   - 贴吧Qt版
 Changes: 
- tbclient (2.1.4) unstable; urgency=low
+ tbclient (2.1.5) unstable; urgency=low
  .
    * <Add change description here>
 Checksums-Sha1: 
- 9c9dd6776490bc1d6037ee9f5cff5af16d5a4586 1321846 tbclient_2.1.4_armel.deb
+ a4e39f012513ec6d3d2c603516b0d6cab737abc6 1334340 tbclient_2.1.5_armel.deb
 Checksums-Sha256: 
- 6add25689949f8c401b7b7a899bd28317b4d1f090c7cb5cb7b20ca092c2e3e23 1321846 tbclient_2.1.4_armel.deb
+ a9bb30e35cf362a4f8bd4fa310fe24b120ad8e98642cf16383b080ded812dc76 1334340 tbclient_2.1.5_armel.deb
 Files: 
- 0725d292bf16904fc494a9c17cee5f82 1321846 user/other optional tbclient_2.1.4_armel.deb
+ 59d07092ad3e49e68a6873249d65eacc 1334340 user/other optional tbclient_2.1.5_armel.deb
 Maemo-Display-Name: tbclient
 Maemo-Display-Name-Zh: 百度贴吧

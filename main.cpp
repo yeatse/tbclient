@@ -114,14 +114,13 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 #endif
 
     // For fiddler network debugging
-//#ifdef Q_WS_SIMULATOR
+#ifdef Q_WS_SIMULATOR
     QNetworkProxy proxy;
     proxy.setType(QNetworkProxy::HttpProxy);
-//    proxy.setHostName("localhost");
-    proxy.setHostName("192.168.1.114");
+    proxy.setHostName("localhost");
     proxy.setPort(8888);
     QNetworkProxy::setApplicationProxy(proxy);
-//#endif
+#endif
 
     TBNetworkAccessManagerFactory factory;
     viewer.engine()->setNetworkAccessManagerFactory(&factory);

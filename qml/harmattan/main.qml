@@ -36,6 +36,19 @@ PageStackWindow {
         onMessage: running = messageObject.running;
     }
 
+    ImageUploader {
+        id: imageUploader;
+        property variant caller: null;
+        function signForm(params){
+            return Script.BaiduRequest.generateSignature(params);
+        }
+        function jsonParse(data){
+            return JSON.parse(data);
+        }
+        uploader: HttpUploader{}
+        onUploadFinished: signalCenter.imageUploadFinished(caller, result);
+    }
+
     HttpUploader {
         id: uploader;
         property variant caller: null;
@@ -55,6 +68,6 @@ PageStackWindow {
         value: !tbsettings.whiteTheme;
     }
 
-    Component.onCompleted: Script.initialize(signalCenter, tbsettings, utility, worker, uploader);
+    Component.onCompleted: Script.initialize(signalCenter, tbsettings, utility, worker, uploader, imageUploader);
     Component.onDestruction: utility.clearNotifications();
 }
