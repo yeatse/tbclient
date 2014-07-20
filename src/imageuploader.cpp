@@ -14,8 +14,6 @@ public:
     QString fileName;
     int width;
     int height;
-    int smallWidth;
-    int smallHeight;
     int chunkNo;
     int chunkCount;
 };
@@ -30,6 +28,7 @@ ImageUploader::ImageUploader(QObject *parent) :
     mReader(new QImageReader()),
     mUploader(0)
 {
+    connect(this, SIGNAL(uploadFinished(QVariantMap)), SIGNAL(isRunningChanged()));
 }
 
 ImageUploader::~ImageUploader()
@@ -86,11 +85,26 @@ void ImageUploader::startUpload(const QString &fileName, const QVariantMap &extr
         delete mData;
 
     QFileInfo info(fileName);
+    if (info.size() > 0x160000 || mReader->size().width() > 1200){
+        int width = qMin(1200, mReader->size().width());
+        int height = 1200 * mReader->size().height() / mReader->size().width();
+        mReader->setScaledSize(QSize(width, height));
+        QImage scaledImage = mReader->read();
+        if (scaledImage.isNull())
+            return;
+
+        QString tempFileName = Utility::Instance()->tempPath().append(QDir::separator()).append("temp.jpg");
+        if (!scaledImage.save(tempFileName))
+            return;
+
+        info.setFile(tempFileName);
+        mReader->setFileName(tempFileName);
+    }
 
     mData = new ImageUploadData;
-    mData->resourceId = generateResourceId(fileName);
+    mData->resourceId = generateResourceId(info.filePath());
     mData->BDUSS = extras.value("BDUSS").toString();
-    mData->fileName = fileName;
+    mData->fileName = info.filePath();
     mData->width = mReader->size().width();
     mData->height = mReader->size().height();
     mData->chunkNo = 0;
@@ -184,21 +198,19 @@ void ImageUploader::startSingleUpload()
 
 QString ImageUploader::generateResourceId(const QString &fileName)
 {
-//    QFile file(fileName);
-//    QByteArray hashData;
-//    if (file.open(QIODevice::ReadOnly)){
-//        if (file.size() > ImageUploadData::CHUNK_SIZE){
-//            hashData = file.read(ImageUploadData::CHUNK_SIZE);
-//        } else {
-//            hashData = file.readAll();
-//        }
-//        file.close();
-//    } else {
-//        hashData = fileName.toAscii();
-//    }
-//    return QString(QCryptographicHash::hash(hashData, QCryptographicHash::Md5).toHex().toUpper());
-    return QString(QCryptographicHash::hash(QByteArray::number(QDateTime::currentMSecsSinceEpoch()),
-                                            QCryptographicHash::Md5).toHex().toUpper());
+    QFile file(fileName);
+    QByteArray hashData;
+    if (file.open(QIODevice::ReadOnly)){
+        if (file.size() > ImageUploadData::CHUNK_SIZE){
+            hashData = file.read(ImageUploadData::CHUNK_SIZE);
+        } else {
+            hashData = file.readAll();
+        }
+        file.close();
+    } else {
+        hashData = fileName.toAscii();
+    }
+    return QString(QCryptographicHash::hash(hashData, QCryptographicHash::Md5).toHex().toUpper());
 }
 
 QString ImageUploader::signForm(const QVariantMap &params)
@@ -233,7 +245,9 @@ void ImageUploader::slotProgressChanged()
 
 void ImageUploader::slotStateChanged()
 {
-    if (mUploader->state() == HttpUploader::Done){
+    if (mUploader->state() == HttpUploader::Loading)
+        emit isRunningChanged();
+    else if (mUploader->state() == HttpUploader::Done){
         if (mUploader->status() != 200){
             emit uploadFinished(QVariantMap());
         } else {
@@ -250,10 +264,16 @@ void ImageUploader::slotStateChanged()
                     mData->chunkNo = resp.value("chunkNo").toInt() - 1;
                     QTimer::singleShot(0, this, SLOT(startSingleUpload()));
                 }
+            } else if (resp.value("error_code").toString() == "2230203"){
+                if (resp.contains("chunkNo")){
+                    mData->chunkNo = resp.value("chunkNo").toInt() - 1;
+                    QTimer::singleShot(0, this, SLOT(startSingleUpload()));
+                } else {
+                    emit uploadFinished(QVariantMap());
+                }
             } else {
                 emit uploadFinished(QVariantMap());
             }
         }
     }
-    emit isRunningChanged();
 }
