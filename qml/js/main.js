@@ -429,20 +429,17 @@ function chunkUpload(caller, type, filename, offset){
 function uploadAvatar(caller, filename){
     if (uploader.uploadState == 2)
         uploader.abort();
+
     uploader.caller = caller;
     uploader.open(BaiduApi.C_C_IMG_PORTRAIT);
-    uploader.addField("net_type", BaiduConst.net_type);
-    uploader.addField("ka", BaiduConst.ka);
-    uploader.addField("_phone_imei", BaiduConst._phone_imei);
     uploader.addField("BDUSS", __bduss);
-    uploader.addField("_timestamp", Date.now());
-    uploader.addField("_client_version", BaiduConst._client_version);
-    uploader.addField("_phone_newimei", BaiduConst._phone_newimei);
-    uploader.addField("from", BaiduConst.from);
-    uploader.addField("_client_type", BaiduConst._client_type);
     uploader.addField("_client_id", BaiduConst._client_id);
-    uploader.addField("cuid", BaiduConst.cuid);
-    uploader.addField("pic_type", 1);
+    uploader.addField("_client_type", "3");
+    uploader.addField("_client_version", "5.7.0");
+    uploader.addField("_phone_imei", BaiduConst._phone_imei);
+    uploader.addField("from", "tieba");
+    uploader.addField("net_type", "1");
+    uploader.addField("timestamp", Date.now());
     uploader.addFile("pic", filename);
     uploader.send();
 }

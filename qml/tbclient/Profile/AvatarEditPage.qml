@@ -65,7 +65,7 @@ MyPage {
                     property real prevScale
 
                     function fitToScreen() {
-                        scale = Math.min(imageFlickable.width / width, imageFlickable.height / height);
+                        scale = Math.max(imageFlickable.width / width, imageFlickable.height / height);
                         pinchArea.minScale = scale
                         prevScale = scale
                     }

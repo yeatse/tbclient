@@ -107,7 +107,7 @@ MyPage {
                     source: "gfx/person_photo_bg.png"
                     Image {
                         anchors { fill: parent; margins: constant.paddingMedium; }
-                        source: userData ? "http://tb.himg.baidu.com/sys/portraith/item/"+userData.portraith
+                        source: userData ? "http://himg.baidu.com/sys/portraith/item/"+userData.portraith
                                          : "gfx/photo.png";
                     }
                 }
@@ -263,6 +263,7 @@ MyPage {
                 ProfileCell {
                     iconName: "tiezi";
                     title: qsTr("Posts");
+                    subTitle: userData ? userData.post_num : "";
                     onClicked: {
                         var prop = { title: title, uid: getUid() };
                         pageStack.push(Qt.resolvedUrl("Profile/ProfilePost.qml"), prop);
