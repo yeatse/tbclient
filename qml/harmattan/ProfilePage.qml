@@ -104,7 +104,7 @@ MyPage {
                     source: "gfx/person_photo_bg.png"
                     Image {
                         anchors { fill: parent; margins: constant.paddingMedium; }
-                        source: userData ? "http://tb.himg.baidu.com/sys/portraith/item/"+userData.portraith
+                        source: userData ? "http://himg.baidu.com/sys/portraith/item/"+userData.portraith
                                          : "gfx/person_photo.png";
                     }
                 }
