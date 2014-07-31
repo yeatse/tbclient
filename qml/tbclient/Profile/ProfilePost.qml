@@ -81,7 +81,6 @@ MyPage {
                 Row {
                     x: constant.paddingLarge;
                     Image {
-                        asynchronous: true;
                         source: "../gfx/icon_time_node"+constant.invertedString+".png"
                     }
                     Text {

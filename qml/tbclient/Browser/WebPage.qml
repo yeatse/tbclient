@@ -25,7 +25,7 @@ MyPage {
         }
         ToolButtonWithTip {
             toolTipText: webView.locking ? qsTr("Locked") : qsTr("Unlocked");
-            iconSource: webView.locking ? "../gfx/lock.svg" : "../gfx/unlock.svg";
+            iconSource: webView.locking ? "../gfx/lock"+constant.invertedString+".svg" : "../gfx/unlock"+constant.invertedString+".svg";
             onClicked: {
                 if (!webView.locking){
                     webView.locking = true;
