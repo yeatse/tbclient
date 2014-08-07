@@ -68,7 +68,7 @@ folder_emo.target = qml
 DEPLOYMENTFOLDERS = folder_js folder_emo
 
 simulator {
-    DEPLOYMENTFOLDERS += folder_symbian3 folder_harmattan
+    DEPLOYMENTFOLDERS += folder_symbian3 folder_symbian1 folder_harmattan
 }
 
 contains(MEEGO_EDITION,harmattan){
@@ -94,10 +94,13 @@ contains(MEEGO_EDITION,harmattan){
 }
 
 symbian {
-    contains(S60_VERSION, 5.0){
+#    contains(S60_VERSION, 5.0){
+    contains(QT_VERSION, 4.7.3){
         DEFINES += Q_OS_S60V5
         INCLUDEPATH += $$[QT_INSTALL_PREFIX]/epoc32/include/middleware
         INCLUDEPATH += $$[QT_INSTALL_PREFIX]/include/Qt
+        DEPLOYMENTFOLDERS += folder_symbian1
+        DEPLOYMENTFOLDERS -= emo
     } else {
         CONFIG += qt-components
         MMP_RULES += "OPTION gcce -march=armv6 -mfpu=vfp -mfloat-abi=softfp -marm"
@@ -123,6 +126,10 @@ symbian {
         -lapparc -lws32 -lapgrfx \      #for Launching app
         -lServiceHandler -lnewservice \ #and -lbafl for Camera
         -lavkon \                       #for notification
+
+    contains(DEFINES, Q_OS_S60V5){
+        LIBS *= -laknnotify -leiksrv    #for global notes
+    }
 
     DEFINES += QVIBRA
 

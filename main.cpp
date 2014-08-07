@@ -52,7 +52,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     // Symbian specific
 #ifdef Q_OS_SYMBIAN
+#ifndef Q_OS_S60V5
     QApplication::setAttribute(Qt::AA_CaptureMultimediaKeys);
+#endif
     QScopedPointer<QApplication> app(new SymbianApplication(argc, argv));
 #else
     QScopedPointer<QApplication> app(createApplication(argc, argv));
@@ -66,7 +68,11 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     app->setApplicationName("tbclient");
     app->setOrganizationName("Yeatse");
+#ifdef Q_OS_S60V5
+    app->setApplicationVersion("2.1.5");
+#else
     app->setApplicationVersion(VER);
+#endif
 
     // Install translator for qt
     QString locale = QLocale::system().name();
@@ -141,15 +147,21 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     // Initialize settings
     if (!utility->getValue("AppVersion","").toString().startsWith("2.1")){
         utility->clearSettings();
+#ifdef Q_OS_S60V5
+        utility->setValue("AppVersion", "2.1.5");
+#else
         utility->setValue("AppVersion", VER);
+#endif
     }
 
-#ifdef Q_OS_SYMBIAN
+#ifdef Q_OS_S60V5
+    viewer.setMainQmlFile(QLatin1String("qml/symbian1/main.qml"));
+#elif defined(Q_OS_SYMBIAN)
     viewer.setMainQmlFile(QLatin1String("qml/tbclient/main.qml"));
 #elif defined(Q_OS_HARMATTAN)
     viewer.setMainQmlFile(QLatin1String("qml/harmattan/main.qml"));
 #else
-    viewer.setMainQmlFile(QLatin1String("qml/tbclient/main.qml"));
+    viewer.setMainQmlFile(QLatin1String("qml/symbian1/main.qml"));
 #endif
     viewer.showExpanded();
 
