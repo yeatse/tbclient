@@ -1,10 +1,10 @@
-import QtQuick 1.1
+import QtQuick 1.0
 import "../Component"
 
 AbstractItem {
     id: root;
 
-    implicitHeight: contentCol.height + constant.paddingLarge;
+    height: contentCol.height + constant.paddingLarge;
 
     Column {
         id: contentCol;

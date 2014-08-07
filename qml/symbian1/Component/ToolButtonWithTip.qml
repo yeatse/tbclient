@@ -1,18 +1,18 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 
 ToolButton {
     id: root;
 
     property string toolTipText;
     opacity: enabled ? 1 : 0.25;
-    platformInverted: tbsettings.whiteTheme;
+    //platformInverted: tbsettings.whiteTheme;
     onPlatformPressAndHold: {
         toolTip.target = root;
         toolTip.text = toolTipText;
-        toolTip.show();
+        toolTip.visible = true;
     }
     onPlatformReleased: {
-        toolTip.hide();
+        toolTip.visible = false;
     }
 }

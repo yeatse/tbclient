@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 
 Item {
     id: root
@@ -21,7 +21,8 @@ Item {
         if (root.enabled) timer.restart();
     }
 
-    property bool platformInverted: tbsettings.whiteTheme;
+    //property bool platformInverted: tbsettings.whiteTheme;
+    property bool platformInverted: false;
     property bool isHeader: true;
 
     signal refresh;
@@ -81,11 +82,11 @@ Item {
         }
         Column {
             Label {
-                platformInverted: root.platformInverted
+                //platformInverted: root.platformInverted
                 text: root.enabled ? reloadTriggered ? releaseRefreshMessage : pullDownMessage : disabledMessage;
             }
             Label {
-                platformInverted: root.platformInverted;
+                //platformInverted: root.platformInverted;
                 visible: root.enabled && root.lastUpdateTime != 0;
                 Timer {
                     id: timer;

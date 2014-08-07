@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import "Component"
 import "../js/main.js" as Script
 
@@ -77,7 +77,7 @@ MyPage {
         anchors.top: searchItem.bottom;
         width: parent.width;
         TabButton {
-            platformInverted: tbsettings.whiteTheme;
+            //platformInverted: tbsettings.whiteTheme;
             text: qsTr("Search tieba");
             tab: suggestView;
             onClicked: {
@@ -89,7 +89,7 @@ MyPage {
             }
         }
         TabButton {
-            platformInverted: tbsettings.whiteTheme;
+            //platformInverted: tbsettings.whiteTheme;
             text: qsTr("Search posts");
             tab: searchView;
             onClicked: {
@@ -100,7 +100,7 @@ MyPage {
             }
         }
         TabButton {
-            platformInverted: tbsettings.whiteTheme;
+            //platformInverted: tbsettings.whiteTheme;
             text: qsTr("Search web");
             onClicked: {
                 var url = "http://m.baidu.com/"
@@ -132,7 +132,7 @@ MyPage {
             model: ListModel {}
             delegate: ListItem {
                 subItemIndicator: true;
-                platformInverted: tbsettings.whiteTheme;
+                //platformInverted: tbsettings.whiteTheme;
                 Text {
                     anchors.fill: parent.paddingItem;
                     verticalAlignment: Text.AlignVCenter;
@@ -182,7 +182,7 @@ MyPage {
                 id: searchDelegate;
                 AbstractItem {
                     id: root;
-                    implicitHeight: contentCol.height + constant.paddingLarge*2;
+                    height: contentCol.height + constant.paddingLarge*2;
                     onClicked: signalCenter.createEnterThreadDialog(title, is_floor, pid, tid, fname, true);
                     Column {
                         id: contentCol;
@@ -201,7 +201,7 @@ MyPage {
                         }
                         Item {
                             width: parent.width;
-                            implicitHeight: label.height+constant.paddingMedium*2+5;
+                            //implicitHeight: label.height+constant.paddingMedium*2+5;
                             BorderImage {
                                 anchors.fill: parent;
                                 asynchronous: true;
@@ -220,7 +220,7 @@ MyPage {
                                 color: constant.colorMid;
                                 wrapMode: Text.WrapAnywhere;
                                 elide: Text.ElideRight;
-                                maximumLineCount: 1;
+                                //maximumLineCount: 1;
                                 textFormat: Text.PlainText;
                             }
                         }

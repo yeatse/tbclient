@@ -1,6 +1,6 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
-import com.nokia.extras 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
+import com.nokia.extras 1.0
 import com.yeatse.tbclient 1.0
 import "Component"
 import "../js/main.js" as Script
@@ -8,7 +8,7 @@ import "../js/main.js" as Script
 PageStackWindow {
     id: app;
 
-    platformInverted: tbsettings.whiteTheme;
+    //platformInverted: tbsettings.whiteTheme;
     platformSoftwareInputPanelEnabled: utility.qtVersion > 0x040800;
     showStatusBar: inPortrait || !(platformSoftwareInputPanelEnabled && inputContext.visible);
 
@@ -59,14 +59,14 @@ PageStackWindow {
 
     ToolTip {
         id: toolTip;
-        platformInverted: tbsettings.whiteTheme;
+        //platformInverted: tbsettings.whiteTheme;
         visible: false;
     }
 
     InfoBanner {
         id: infoBanner;
         iconSource: "gfx/error.svg";
-        platformInverted: tbsettings.whiteTheme;
+        //platformInverted: tbsettings.whiteTheme;
     }
 
     // Background image
@@ -87,4 +87,5 @@ PageStackWindow {
     Keys.onVolumeDownPressed: audioWrapper.volumeDown();
 
     Component.onCompleted: Script.initialize(signalCenter, tbsettings, utility, worker, uploader, imageUploader);
+
 }

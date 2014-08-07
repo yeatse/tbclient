@@ -1,9 +1,9 @@
-import QtQuick 1.1
+import QtQuick 1.0
 import "../Component"
 
 AbstractItem {
     id: root;
-    implicitHeight: contentCol.height + constant.paddingLarge;
+    height: contentCol.height + constant.paddingLarge;
     onClicked: {
         var prop = { threadId: thread_id, title: title };
         signalCenter.enterThread(prop);
@@ -72,7 +72,7 @@ AbstractItem {
                 wrapMode: Text.WrapAnywhere;
                 textFormat: Text.PlainText;
                 elide: Text.ElideRight;
-                maximumLineCount: thumbnail.enabled ? 2 : 1;
+                //maximumLineCount: thumbnail.enabled ? 2 : 1;
             }
             Image {
                 id: thumbnail;

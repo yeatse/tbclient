@@ -1,9 +1,9 @@
-import QtQuick 1.1
+import QtQuick 1.0
 
 Item {
     id: root;
 
-    implicitHeight: bheight;
+    height: bheight;
 
     MouseArea {
         width: bwidth;

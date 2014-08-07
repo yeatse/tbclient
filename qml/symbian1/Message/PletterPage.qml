@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import "../Component"
 import "../Silica"
 import "../../js/main.js" as Script
@@ -123,7 +123,7 @@ MyPage {
                     Text {
                         width: parent.width;
                         wrapMode: Text.WrapAnywhere;
-                        maximumLineCount: 2;
+                        //maximumLineCount: 2;
                         elide: Text.ElideRight;
                         text: model.text;
                         color: constant.colorMid;
@@ -153,5 +153,7 @@ MyPage {
             }
         }
     }
-    ScrollDecorator { flickableItem: view; platformInverted: tbsettings.whiteTheme; }
+    ScrollDecorator {
+        flickableItem: view; //platformInverted: tbsettings.whiteTheme;
+    }
 }

@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import "Component"
 import "Profile"
 import "../js/main.js" as Script
@@ -144,7 +144,7 @@ MyPage {
                         width: parent.width;
                         elide: Text.ElideRight;
                         wrapMode: Text.Wrap;
-                        maximumLineCount: 1;
+                        //maximumLineCount: 1;
                         textFormat: Text.PlainText;
                         font: constant.labelFont;
                         color: constant.colorLight;

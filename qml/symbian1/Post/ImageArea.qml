@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 
 Item {
     id: root;
@@ -69,7 +69,7 @@ Item {
                             top: parent.top; right: parent.right;
                             margins: -constant.paddingMedium;
                         }
-                        platformInverted: tbsettings.whiteTheme;
+                        //platformInverted: tbsettings.whiteTheme;
                         iconSource: "../gfx/tb_close_stop"+constant.invertedString+".svg";
                         onClicked: internal.removeImage(modelData);
                     }
@@ -82,8 +82,9 @@ Item {
                 Button {
                     width: height;
                     anchors.centerIn: parent;
-                    platformInverted: tbsettings.whiteTheme;
-                    iconSource: privateStyle.toolBarIconPath("toolbar-add", platformInverted);
+                    //platformInverted: tbsettings.whiteTheme;
+                    //iconSource: privateStyle.toolBarIconPath("toolbar-add", platformInverted);
+                    iconSource: privateStyle.toolBarIconPath("toolbar-add", false);
                     onClicked: internal.selectImage();
                 }
             }

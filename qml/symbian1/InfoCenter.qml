@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.extras 1.1
+import QtQuick 1.0
+import com.nokia.extras 1.0
 import QtMobility.systeminfo 1.2
 import com.yeatse.tbclient 1.0
 import "../js/main.js" as Script
@@ -120,7 +120,7 @@ Item {
         id: infoBanner;
         property string type;
         interactive: true;
-        platformInverted: tbsettings.whiteTheme;
+        //platformInverted: tbsettings.whiteTheme;
         onClicked: signalCenter.readMessage(type);
     }
 

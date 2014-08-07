@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 
 CommonDialog {
     id: root;
@@ -8,7 +8,31 @@ CommonDialog {
     property int totalPage: 1;
 
     titleText: qsTr("Jump to page: [1-%1]").arg(totalPage);
-    buttonTexts: [qsTr("OK"), qsTr("Cancel")];
+    //buttonTexts: [qsTr("OK"), qsTr("Cancel")];
+    buttons: ToolBar {
+        id: buttons
+        //width: parent.width
+        height: privateStyle.toolBarHeightLandscape + 2 * platformStyle.paddingSmall
+        tools: Row {
+            //id: buttonRow
+            anchors.centerIn: parent
+            spacing: platformStyle.paddingMedium
+
+            ToolButton {
+                //id: acceptButton
+                // Different widths for 1 and 2 button cases
+                text: qsTr("OK");
+                width: (buttons.width - 3 * platformStyle.paddingMedium) / 2
+                onClicked: accept();
+            }
+            ToolButton {
+                //id: rejectButton
+                width: (buttons.width - 3 * platformStyle.paddingMedium) / 2
+                text: qsTr("Cancel");
+                onClicked: reject();
+            }
+        }
+    }
     privateCloseIcon: true;
 
     content: Item {
@@ -52,7 +76,7 @@ CommonDialog {
         }
     }
 
-    onButtonClicked: index === 0 ? accept() : reject();
+    //onButtonClicked: index === 0 ? accept() : reject();
     onStatusChanged: {
         if (status === DialogStatus.Open){
             textField.forceActiveFocus();

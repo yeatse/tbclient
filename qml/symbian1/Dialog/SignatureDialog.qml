@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 
 CommonDialog {
     id: root;
@@ -7,6 +7,44 @@ CommonDialog {
     titleText: qsTr("Signature");
     buttonTexts: [qsTr("Save"), qsTr("Clear"), qsTr("Cancel")];
 
+    buttons: ToolBar {
+        id: buttons
+        //width: parent.width
+        height: privateStyle.toolBarHeightLandscape + 2 * platformStyle.paddingSmall
+        tools: Row {
+            //id: buttonRow
+            anchors.centerIn: parent
+            spacing: platformStyle.paddingMedium
+
+            ToolButton {
+                //id: acceptButton
+                // Different widths for 1 and 2 button cases
+                text: qsTr("Save");
+                width: (buttons.width - 4 * platformStyle.paddingMedium) / 3
+                onClicked: {
+                    tbsettings.signature = textArea.text;
+                    root.accept();
+                }
+            }
+            ToolButton {
+                //id: rejectButton
+                width: (buttons.width - 4 * platformStyle.paddingMedium) / 3
+                text: qsTr("Clear");
+                onClicked: {
+                    tbsettings.signature = "";
+                    root.accept();
+                }
+            }
+            ToolButton {
+                //id: rejectButton
+                width: (buttons.width - 4 * platformStyle.paddingMedium) / 3
+                text: qsTr("Cancel");
+                onClicked: {
+                    root.reject();
+                }
+            }
+        }
+    }
     content: Item {
         width: platformContentMaximumWidth;
         height: Math.min(platformContentMaximumHeight, 180);
@@ -18,7 +56,7 @@ CommonDialog {
             text: tbsettings.signature;
         }
     }
-
+/*
     onButtonClicked: {
         switch (index){
         case 0:
@@ -34,7 +72,7 @@ CommonDialog {
             break;
         }
     }
-
+*/
     onStatusChanged: {
         if (status === DialogStatus.Open){
             textArea.forceActiveFocus();

@@ -1,12 +1,30 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 
 CommonDialog {
     id: root;
 
     titleText: qsTr("Remind settings");
-    buttonTexts: [qsTr("OK")];
+    //buttonTexts: [qsTr("OK")];
 
+    buttons: ToolBar {
+        id: buttons
+        //width: parent.width
+        height: privateStyle.toolBarHeightLandscape + 2 * platformStyle.paddingSmall
+        tools: Row {
+            //id: buttonRow
+            anchors.centerIn: parent
+            spacing: platformStyle.paddingMedium
+
+            ToolButton {
+                //id: acceptButton
+                // Different widths for 1 and 2 button cases
+                text: qsTr("OK");
+                width: (buttons.width - 3 * platformStyle.paddingMedium) / 2
+                //onClicked: accept();
+            }
+        }
+    }
     QtObject {
         id: internal;
         function getValue(){

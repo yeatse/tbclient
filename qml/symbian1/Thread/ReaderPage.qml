@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import QtWebKit 1.0
 import "../Component"
 import "../../js/Utils.js" as Utils
@@ -32,18 +32,18 @@ MyPage {
 
     ListHeading {
         id: viewHeader;
-        platformInverted: tbsettings.whiteTheme;
+        //platformInverted: tbsettings.whiteTheme;
         z: 10;
         ListItemText {
             anchors.fill: parent.paddingItem;
             role: "SubTitle";
-            platformInverted: parent.platformInverted;
+            //platformInverted: parent.platformInverted;
             text: view.currentItem ? listModel.get(view.currentIndex).floor+"#" : "";
         }
         ListItemText {
             anchors.fill: parent.paddingItem;
             role: "Heading";
-            platformInverted: parent.platformInverted;
+            //platformInverted: parent.platformInverted;
             text: view.currentItem ? listModel.get(view.currentIndex).authorName : "";
         }
     }
@@ -68,8 +68,8 @@ MyPage {
                 id: root;
 
                 property bool loading: false;
-                implicitWidth: view.width;
-                implicitHeight: view.height;
+                width: view.width;
+                height: view.height;
 
                 Keys.onPressed: {
                     if (!event.isAutoRepeat) {
@@ -183,7 +183,9 @@ if(tagName=='a'){window.clickListener.onClick(target.href)}}");
                         }
                     }
                 }
-                ScrollDecorator { flickableItem: flickable; platformInverted: tbsettings.whiteTheme; }
+                ScrollDecorator {
+                    flickableItem: flickable; //platformInverted: tbsettings.whiteTheme;
+                }
             }
         }
     }

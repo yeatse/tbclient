@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import "../Component"
 import "../../js/main.js" as Script
 
@@ -82,10 +82,10 @@ MyPage {
             id: contentCol;
             width: parent.width;
             ListHeading {
-                platformInverted: tbsettings.whiteTheme;
+                //platformInverted: tbsettings.whiteTheme;
                 ListItemText {
                     anchors.fill: parent.paddingItem;
-                    platformInverted: parent.platformInverted;
+                    //platformInverted: parent.platformInverted;
                     role: "Heading";
                     text: qsTr("Avatar");
                 }
@@ -119,10 +119,10 @@ MyPage {
                 }
             }
             ListHeading {
-                platformInverted: tbsettings.whiteTheme;
+                //platformInverted: tbsettings.whiteTheme;
                 ListItemText {
                     anchors.fill: parent.paddingItem;
-                    platformInverted: parent.platformInverted;
+                    //platformInverted: parent.platformInverted;
                     role: "Heading";
                     text: qsTr("Gender");
                 }
@@ -138,21 +138,21 @@ MyPage {
                     }
                     RadioButton {
                         id: btn1;
-                        platformInverted: tbsettings.whiteTheme;
+                        //platformInverted: tbsettings.whiteTheme;
                         text: qsTr("Male");
                     }
                     RadioButton {
                         id: btn2;
-                        platformInverted: tbsettings.whiteTheme;
+                        //platformInverted: tbsettings.whiteTheme;
                         text: qsTr("Female");
                     }
                 }
             }
             ListHeading {
-                platformInverted: tbsettings.whiteTheme;
+                //platformInverted: tbsettings.whiteTheme;
                 ListItemText {
                     anchors.fill: parent.paddingItem;
-                    platformInverted: parent.platformInverted;
+                    //platformInverted: parent.platformInverted;
                     role: "Heading";
                     text: qsTr("Intro");
                 }
@@ -167,7 +167,7 @@ MyPage {
                         top: parent.top; margins: constant.paddingLarge;
                     }
                     platformMaxImplicitHeight: 150;
-                    platformInverted: tbsettings.whiteTheme;
+                    //platformInverted: tbsettings.whiteTheme;
                     onActiveFocusChanged: view.positionToBottom();
                     text: userData ? userData.intro : "";
                 }

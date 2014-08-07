@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import "Component"
 import "Silica"
 import "../js/main.js" as Script
@@ -137,17 +137,17 @@ MyPage {
                         }
                     }
                     ListHeading {
-                        platformInverted: tbsettings.whiteTheme;
+                        //platformInverted: tbsettings.whiteTheme;
                         ListItemText {
                             role: "SubTitle";
                             anchors.fill: parent.paddingItem;
-                            platformInverted: parent.platformInverted;
+                            //platformInverted: parent.platformInverted;
                             text: internal.info ? internal.info.title : "";
                         }
                         ListItemText {
                             role: "Heading";
                             anchors.fill: parent.paddingItem;
-                            platformInverted: parent.platformInverted;
+                            //platformInverted: parent.platformInverted;
                             text: qsTr("Signed: %1/%2").arg(internal.signedCount).arg(view.count);
                         }
                     }
@@ -246,7 +246,9 @@ MyPage {
         }
     }
 
-    ScrollDecorator { flickableItem: view; platformInverted: tbsettings.whiteTheme; }
+    ScrollDecorator {
+        flickableItem: view; //platformInverted: tbsettings.whiteTheme;
+    }
 
     Rectangle {
         id: bgRect;

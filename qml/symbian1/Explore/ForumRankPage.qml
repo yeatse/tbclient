@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import "../Component"
 import "../Silica"
 import "../../js/main.js" as Script
@@ -122,13 +122,13 @@ MyPage {
             TabButton {
                 id: leftButton;
                 height: privateStyle.tabBarHeightLandscape;
-                platformInverted: tbsettings.whiteTheme;
+                //platformInverted: tbsettings.whiteTheme;
                 tab: leftView;
             }
             TabButton {
                 id: rightButton;
                 height: privateStyle.tabBarHeightLandscape;
-                platformInverted: tbsettings.whiteTheme;
+                //platformInverted: tbsettings.whiteTheme;
                 tab: rightView;
             }
         }

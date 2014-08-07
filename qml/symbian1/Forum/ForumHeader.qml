@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 
 Item {
     id: root;
@@ -63,7 +63,7 @@ Item {
                 }
                 ProgressBar {
                     width: constant.thumbnailSize;
-                    platformInverted: tbsettings.whiteTheme;
+                    //platformInverted: tbsettings.whiteTheme;
                     minimumValue: 0;
                     maximumValue: internal.forum.levelup_score||0;
                     value: internal.forum.cur_score||0;
@@ -90,7 +90,7 @@ Item {
                 source: "../gfx/btn_sign_"+signBtnMouseArea.stateString+constant.invertedString+".png";
                 BusyIndicator {
                     anchors.centerIn: parent;
-                    platformInverted: tbsettings.whiteTheme;
+                    //platformInverted: tbsettings.whiteTheme;
                     running: true;
                     visible: internal.signing;
                 }

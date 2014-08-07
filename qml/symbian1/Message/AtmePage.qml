@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import "../Component"
 import "../Silica"
 import "../../js/main.js" as Script
@@ -76,7 +76,7 @@ MyPage {
             id: delegateComp;
             AbstractItem {
                 id: root;
-                implicitHeight: contentCol.height + constant.paddingLarge*2;
+                height: contentCol.height + constant.paddingLarge*2;
                 onClicked: signalCenter.createEnterThreadDialog(title, is_floor, post_id, thread_id, fname);
                 Image {
                     id: avatar;
@@ -117,5 +117,7 @@ MyPage {
         }
     }
 
-    ScrollDecorator { flickableItem: view; platformInverted: tbsettings.whiteTheme; }
+    ScrollDecorator {
+        flickableItem: view; //platformInverted: tbsettings.whiteTheme;
+    }
 }

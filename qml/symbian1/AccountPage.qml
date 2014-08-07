@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import "Component"
 import "../js/main.js" as Script
 
@@ -135,8 +135,9 @@ MyPage {
                         Component {
                             id: removeButtonComp;
                             Button {
-                                platformInverted: tbsettings.whiteTheme;
-                                iconSource: privateStyle.toolBarIconPath("toolbar-delete", platformInverted);
+                                //platformInverted: tbsettings.whiteTheme;
+                                //iconSource: privateStyle.toolBarIconPath("toolbar-delete", platformInverted);
+                                iconSource: privateStyle.toolBarIconPath("toolbar-delete", false);
                                 width: height;
                                 onClicked: internal.removeAccount(index);
                             }
@@ -158,7 +159,9 @@ MyPage {
         }
     }
 
-    ScrollDecorator { flickableItem: view; platformInverted: tbsettings.whiteTheme; }
+    ScrollDecorator {
+        flickableItem: view; //platformInverted: tbsettings.whiteTheme;
+    }
 
     onStatusChanged: {
         if (status === PageStatus.Active){

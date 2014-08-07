@@ -1,12 +1,12 @@
-import QtQuick 1.1
+import QtQuick 1.0
 
 Item {
     id: root;
 
     property alias text: label.text;
 
-    implicitHeight: label.paintedHeight + 2*constant.paddingSmall;
-    implicitWidth: Math.max(height, label.paintedWidth + 2*constant.paddingMedium);
+    height: label.paintedHeight + 2*constant.paddingSmall;
+    width: Math.max(height, label.paintedWidth + 2*constant.paddingMedium);
 
     BorderImage {
         anchors.fill: parent;

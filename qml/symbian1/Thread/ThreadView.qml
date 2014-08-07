@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import "../../js/main.js" as Script
 import "../Component"
 
@@ -253,7 +253,7 @@ MyPage {
 
     ScrollDecorator {
         flickableItem: view;
-        platformInverted: tbsettings.whiteTheme;
+        //platformInverted: tbsettings.whiteTheme;
     }
 
     Column {

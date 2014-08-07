@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import QtWebKit 1.0
 import "../Component"
 
@@ -14,7 +14,8 @@ Sheet {
 
     property bool __isClosing: false;
 
-    platformInverted: tbsettings.whiteTheme;
+    //platformInverted: tbsettings.whiteTheme;
+    platformInverted: false;
 
     acceptButtonText: qsTr("Continue");
     rejectButtonText: qsTr("Cancel");
@@ -68,7 +69,7 @@ Sheet {
         BusyIndicator {
             id: busyInd;
             anchors.centerIn: parent;
-            platformInverted: root.platformInverted;
+            //platformInverted: root.platformInverted;
             width: constant.graphicSizeLarge;
             height: constant.graphicSizeLarge;
             running: true;

@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import "../../js/main.js" as Script
 import "../Component"
 import "../Silica"
@@ -85,7 +85,7 @@ MyPage {
             id: bmDelegate;
             AbstractItem {
                 id: root;
-                implicitHeight: contentCol.height + constant.paddingLarge*2;
+                height: contentCol.height + constant.paddingLarge*2;
                 onClicked: {
                     var prop = {
                         threadId: thread_id, title: title, pid: mark_pid,
@@ -143,9 +143,10 @@ MyPage {
                     Component {
                         id: editBtn;
                         Button {
-                            platformInverted: tbsettings.whiteTheme;
+                            //platformInverted: tbsettings.whiteTheme;
                             width: height;
-                            iconSource: privateStyle.toolBarIconPath("toolbar-delete", platformInverted);
+                            //iconSource: privateStyle.toolBarIconPath("toolbar-delete", platformInverted);
+                            iconSource: privateStyle.toolBarIconPath("toolbar-delete", false);
                             onClicked: internal.removeBookmark(index);
                         }
                     }
@@ -154,7 +155,9 @@ MyPage {
         }
     }
 
-    ScrollDecorator { flickableItem: view; platformInverted: tbsettings.whiteTheme; }
+    ScrollDecorator {
+        flickableItem: view; //platformInverted: tbsettings.whiteTheme;
+    }
 
     // For keypad
     onStatusChanged: {

@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import com.yeatse.tbclient 1.0
 import "../Component"
 import "../../js/main.js" as Script
@@ -70,7 +70,7 @@ MyPage {
         anchors.right: parent.right;
         anchors.top: viewHeader.bottom;
         anchors.margins: constant.paddingMedium;
-        platformInverted: tbsettings.whiteTheme;
+        //platformInverted: tbsettings.whiteTheme;
         KeyNavigation.down: contentArea;
         Keys.onPressed: {
             if (event.key == Qt.Key_Select
@@ -97,7 +97,7 @@ MyPage {
                 - toolsBanner.height
                 - attachedArea.height
                 - constant.paddingMedium*4;
-        platformInverted: tbsettings.whiteTheme;
+        //platformInverted: tbsettings.whiteTheme;
         text: tbsettings.draftBox;
     }
 
@@ -112,12 +112,12 @@ MyPage {
             id: toolsRow;
             spacing: constant.paddingSmall;
             ToolButton {
-                platformInverted: tbsettings.whiteTheme;
+                //platformInverted: tbsettings.whiteTheme;
                 iconSource: "../gfx/btn_insert_face"+constant.invertedString+".png"
                 onClicked: signalCenter.createEmoticonDialog(page);
             }
             ToolButton {
-                platformInverted: tbsettings.whiteTheme;
+                //platformInverted: tbsettings.whiteTheme;
                 iconSource: "../gfx/btn_insert_at"+constant.invertedString+".png";
                 onClicked: {
                     var prop = { type: "at", caller: page }
@@ -127,7 +127,7 @@ MyPage {
             ToolButton {
                 id: picBtn;
                 checkable: true;
-                platformInverted: tbsettings.whiteTheme;
+                //platformInverted: tbsettings.whiteTheme;
                 iconSource: "../gfx/btn_insert_pics"+constant.invertedString+".png";
                 onClicked: attachedArea.state = attachedArea.state == "Image" ? "" : "Image";
                 Image {
@@ -139,7 +139,7 @@ MyPage {
             ToolButton {
                 id: voiBtn;
                 checkable: true;
-                platformInverted: tbsettings.whiteTheme;
+                //platformInverted: tbsettings.whiteTheme;
                 iconSource: "../gfx/btn_insert_voice"+constant.invertedString+".png";
                 onClicked: attachedArea.state = attachedArea.state == "Voice" ? "" : "Voice";
                 Image {
@@ -152,7 +152,7 @@ MyPage {
         ToolButton {
             anchors.top: app.inPortrait ? toolsRow.bottom : parent.top;
             anchors.right: parent.right;
-            platformInverted: tbsettings.whiteTheme;
+            //platformInverted: tbsettings.whiteTheme;
             enabled: !loading && attachedArea.enabled;
             text: qsTr("Post");
             onClicked: postTimer.start();
@@ -172,14 +172,14 @@ MyPage {
             running: true;
             width: constant.graphicSizeLarge;
             height: constant.graphicSizeLarge;
-            platformInverted: tbsettings.whiteTheme;
+            //platformInverted: tbsettings.whiteTheme;
             visible: !(attachedArea.enabled||attachedArea.state=="");
         }
         ProgressBar {
             anchors.bottom: parent.bottom;
             width: parent.width;
             value: imageUploader.isRunning ? imageUploader.progress : uploader.progress;
-            platformInverted: tbsettings.whiteTheme;
+            //platformInverted: tbsettings.whiteTheme;
             visible: !(attachedArea.enabled||attachedArea.state=="");
         }
     }

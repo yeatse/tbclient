@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import "Component"
 import "Silica"
 
@@ -32,25 +32,25 @@ MyPage {
                 spacing: constant.paddingLarge;
                 CheckBox {
                     text: qsTr("Night theme");
-                    platformInverted: tbsettings.whiteTheme;
+                    //platformInverted: tbsettings.whiteTheme;
                     checked: !tbsettings.whiteTheme;
                     onClicked: tbsettings.whiteTheme = !checked;
                 }
                 CheckBox {
                     text: qsTr("Show image");
-                    platformInverted: tbsettings.whiteTheme;
+                    //platformInverted: tbsettings.whiteTheme;
                     checked: tbsettings.showImage;
                     onClicked: tbsettings.showImage = checked;
                 }
                 CheckBox {
                     text: qsTr("Show abstract");
-                    platformInverted: tbsettings.whiteTheme;
+                    //platformInverted: tbsettings.whiteTheme;
                     checked: tbsettings.showAbstract;
                     onClicked: tbsettings.showAbstract = checked;
                 }
                 CheckBox {
                     text: qsTr("Monitor network changes");
-                    platformInverted: tbsettings.whiteTheme;
+                    //platformInverted: tbsettings.whiteTheme;
                     checked: tbsettings.monitorNetworkMode;
                     onClicked: tbsettings.monitorNetworkMode = checked;
                 }
@@ -67,7 +67,7 @@ MyPage {
                 minimumValue: constant.fontXSmall;
                 maximumValue: constant.fontXXLarge;
                 value: tbsettings.fontSize;
-                platformInverted: tbsettings.whiteTheme;
+                //platformInverted: tbsettings.whiteTheme;
                 anchors { left: parent.left; right: parent.right; margins: constant.paddingLarge; }
                 stepSize: 1;
                 valueIndicatorVisible: true;
@@ -89,7 +89,7 @@ MyPage {
                 minimumValue: 1;
                 maximumValue: 10;
                 value: tbsettings.maxTabCount;
-                platformInverted: tbsettings.whiteTheme;
+                //platformInverted: tbsettings.whiteTheme;
                 anchors { left: parent.left; right: parent.right; margins: constant.paddingLarge; }
                 stepSize: 1;
                 valueIndicatorVisible: true;
@@ -101,7 +101,7 @@ MyPage {
             }
             SelectionListItem {
                 property variant remindDialog: null;
-                platformInverted: tbsettings.whiteTheme;
+                //platformInverted: tbsettings.whiteTheme;
                 title: qsTr("Remind settings");
                 subTitle: qsTr("Click to set");
                 onClicked: {
@@ -111,20 +111,20 @@ MyPage {
                 }
             }
             SelectionListItem {
-                platformInverted: tbsettings.whiteTheme;
+                //platformInverted: tbsettings.whiteTheme;
                 title: qsTr("Background image(long press to clear)");
                 subTitle: tbsettings.bgImageUrl || qsTr("Click to set")
                 onPressAndHold: tbsettings.bgImageUrl = "";
                 onClicked: tbsettings.bgImageUrl = utility.selectImage()||tbsettings.bgImageUrl;
             }
             SelectionListItem {
-                platformInverted: tbsettings.whiteTheme;
+                //platformInverted: tbsettings.whiteTheme;
                 title: qsTr("Image save path");
                 subTitle: tbsettings.imagePath;
                 onClicked: tbsettings.imagePath = utility.selectFolder()||tbsettings.imagePath;
             }
             SelectionListItem {
-                platformInverted: tbsettings.whiteTheme;
+                //platformInverted: tbsettings.whiteTheme;
                 title: clientTypeSelector.titleText;
                 subTitle: clientTypeSelector.model[clientTypeSelector.selectedIndex];
                 onClicked: clientTypeSelector.open();
@@ -138,7 +138,7 @@ MyPage {
             }
             SelectionListItem {
                 property variant signatureDiag: null;
-                platformInverted: tbsettings.whiteTheme;
+                //platformInverted: tbsettings.whiteTheme;
                 title: qsTr("Signature")
                 subTitle: tbsettings.signature.replace(/(^\s*)|(\s*$)/g,"").replace(/\s/g," ")||qsTr("Click to set");
                 onClicked: {
@@ -148,7 +148,7 @@ MyPage {
                 }
             }
             SelectionListItem {
-                platformInverted: tbsettings.whiteTheme;
+                //platformInverted: tbsettings.whiteTheme;
                 title: browserSelector.titleText;
                 subTitle: browserSelector.model[browserSelector.selectedIndex];
                 onClicked: browserSelector.open();
@@ -184,7 +184,7 @@ MyPage {
             }
             Item { width: 1; height: constant.paddingLarge; }
             Button {
-                platformInverted: tbsettings.whiteTheme;
+                //platformInverted: tbsettings.whiteTheme;
                 anchors { left: parent.left; right: parent.right; margins: constant.paddingLarge*2; }
                 text: qsTr("Clear cache");
                 onClicked: {
@@ -195,7 +195,7 @@ MyPage {
             }
             Item { width: 1; height: constant.paddingLarge; }
             Button {
-                platformInverted: tbsettings.whiteTheme;
+                //platformInverted: tbsettings.whiteTheme;
                 anchors { left: parent.left; right: parent.right; margins: constant.paddingLarge*2; }
                 text: qsTr("Clear cookies");
                 onClicked: {
@@ -206,7 +206,10 @@ MyPage {
         }
     }
 
-    ScrollDecorator { flickableItem: view; platformInverted: tbsettings.whiteTheme; }
+    ScrollDecorator {
+        flickableItem: view;
+        //platformInverted: tbsettings.whiteTheme;
+    }
 
     // For keypad
     Connections {

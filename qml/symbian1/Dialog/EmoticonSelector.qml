@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 
 CommonDialog {
     id: root;
@@ -8,12 +8,30 @@ CommonDialog {
     property bool __isClosing: false;
 
     titleText: qsTr("Select emoticon");
-    titleIcon: "../gfx/btn_insert_face.png";
-    buttonTexts: [qsTr("Close")]
+    //titleIcon: "../gfx/btn_insert_face.png";
+    //buttonTexts: [qsTr("Close")]
 
+    buttons: ToolBar {
+        id: buttons
+        //width: parent.width
+        height: privateStyle.toolBarHeightLandscape + 2 * platformStyle.paddingSmall
+        tools: Row {
+            //id: buttonRow
+            anchors.centerIn: parent
+            spacing: platformStyle.paddingMedium
+
+            ToolButton {
+                //id: acceptButton
+                // Different widths for 1 and 2 button cases
+                text: qsTr("Close");
+                width: (buttons.width - 3 * platformStyle.paddingMedium) / 2
+                //onClicked: accept();
+            }
+        }
+    }
     content: Item {
-        implicitWidth: platformContentMaximumWidth;
-        implicitHeight: platformContentMaximumHeight;
+        width: platformContentMaximumWidth;
+        height: platformContentMaximumHeight;
 
         Item {
             id: iconTip;

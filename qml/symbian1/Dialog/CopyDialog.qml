@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 
 CommonDialog {
     id: root;
@@ -22,9 +22,33 @@ CommonDialog {
         }
     }
 
-    buttonTexts: [qsTr("Copy"), qsTr("Cancel")];
+    //buttonTexts: [qsTr("Copy"), qsTr("Cancel")];
 
-    onButtonClicked: if (index === 0) accept();
+    buttons: ToolBar {
+        id: buttons
+        //width: parent.width
+        height: privateStyle.toolBarHeightLandscape + 2 * platformStyle.paddingSmall
+        tools: Row {
+            //id: buttonRow
+            anchors.centerIn: parent
+            spacing: platformStyle.paddingMedium
+
+            ToolButton {
+                //id: acceptButton
+                // Different widths for 1 and 2 button cases
+                text: qsTr("Copy");
+                width: (buttons.width - 3 * platformStyle.paddingMedium) / 2
+                onClicked: accept();
+            }
+            ToolButton {
+                //id: rejectButton
+                width: (buttons.width - 3 * platformStyle.paddingMedium) / 2
+                text: qsTr("Cancel");
+                onClicked: reject();
+            }
+        }
+    }
+    //onButtonClicked: if (index === 0) accept();
 
     onStatusChanged: {
         if (status === DialogStatus.Closing){

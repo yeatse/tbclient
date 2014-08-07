@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 
 Item {
     id: root;
@@ -11,8 +11,8 @@ Item {
         pageStack.push(Qt.resolvedUrl("../Thread/ThreadPicture.qml"), prop);
     }
 
-    implicitWidth: screen.width / 2;
-    implicitHeight: Math.floor(pheight / pwidth * width);
+    width: screen.width / 2;
+    height: Math.floor(pheight / pwidth * width);
 
     Image {
         id: image;

@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import "../Component"
 import "../Silica"
 import "../../js/main.js" as Script
@@ -71,8 +71,8 @@ MyPage {
                 Component {
                     id: bannerDelegate;
                     Item {
-                        implicitWidth: banner.width;
-                        implicitHeight: banner.height;
+                        width: banner.width;
+                        height: banner.height;
                         Image {
                             id: previewImg;
                             anchors.fill: parent;
@@ -120,7 +120,7 @@ MyPage {
                 Repeater {
                     model: squareData ? squareData.forum_list_recommend : [];
                     MenuItem {
-                        platformInverted: tbsettings.whiteTheme;
+                        //platformInverted: tbsettings.whiteTheme;
                         width: flr.width / 2;
                         text: modelData.title;
                         onClicked: {
@@ -141,10 +141,10 @@ MyPage {
 
             ListHeading {
                 id: fbt;
-                platformInverted: tbsettings.whiteTheme;
+                //platformInverted: tbsettings.whiteTheme;
                 ListItemText {
                     anchors.fill: parent.paddingItem;
-                    platformInverted: parent.platformInverted;
+                    //platformInverted: parent.platformInverted;
                     text: squareData ? squareData.forum_browse_title||"" : "";
                     role: "Heading";
                 }
@@ -153,7 +153,7 @@ MyPage {
                 id: fbr;
                 model: squareData ? squareData.forum_browse : [];
                 ListItem {
-                    platformInverted: tbsettings.whiteTheme;
+                    //platformInverted: tbsettings.whiteTheme;
                     subItemIndicator: true;
                     onClicked: {
                         if (modelData.is_all === "1"){
@@ -200,10 +200,10 @@ MyPage {
             }
             ListHeading {
                 id: tlt;
-                platformInverted: tbsettings.whiteTheme;
+                //platformInverted: tbsettings.whiteTheme;
                 ListItemText {
                     anchors.fill: parent.paddingItem;
-                    platformInverted: parent.platformInverted;
+                    //platformInverted: parent.platformInverted;
                     role: "Heading";
                     text: qsTr("Thread recommend");
                 }

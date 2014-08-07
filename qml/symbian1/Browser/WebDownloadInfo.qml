@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 
 CommonDialog {
     id: downloadingIndicator;
@@ -29,6 +29,25 @@ CommonDialog {
             }
         }
     }
-    buttonTexts: [qsTr("Cancel")];
-    onButtonClicked: webView.abortDownload();
+    //buttonTexts: [qsTr("Cancel")];
+    //onButtonClicked: webView.abortDownload();
+
+    buttons: ToolBar {
+        id: buttons
+        //width: parent.width
+        height: privateStyle.toolBarHeightLandscape + 2 * platformStyle.paddingSmall
+        tools: Row {
+            //id: buttonRow
+            anchors.centerIn: parent
+            spacing: platformStyle.paddingMedium
+
+            ToolButton {
+                //id: acceptButton
+                // Different widths for 1 and 2 button cases
+                text: qsTr("Cancel");
+                width: (buttons.width - 3 * platformStyle.paddingMedium) / 2
+                onClicked: webView.abortDownload();
+            }
+        }
+    }
 }

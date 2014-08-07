@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import "../Component"
 
 Sheet {
@@ -11,7 +11,7 @@ Sheet {
 
     property bool __isClosing: false;
 
-    platformInverted: tbsettings.whiteTheme;
+    //platformInverted: tbsettings.whiteTheme;
 
     acceptButtonText: qsTr("Continue");
     rejectButtonText: qsTr("Cancel");

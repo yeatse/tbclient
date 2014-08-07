@@ -1,7 +1,7 @@
 // Deprecated
 
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import QtWebKit 1.0
 import "../Component"
 
@@ -79,6 +79,7 @@ MyPage {
         onMovementEnded: webView.renderingEnabled = true;
 
         boundsBehavior: Flickable.StopAtBounds;
+        /*
         PinchArea {
             id: pinchArea
             anchors.fill: parent
@@ -109,7 +110,7 @@ MyPage {
                     flickable.zoomActive=false;
                 }
 
-            }
+            }*/
 
             WebView {
                 id: webView
@@ -265,7 +266,7 @@ MyPage {
                     }
                 }
             }
-        }
+        //}
     }
 
     // For keypad

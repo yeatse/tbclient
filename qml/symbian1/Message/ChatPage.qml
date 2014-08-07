@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import "../Component"
 import "../Silica"
 import "../Floor" as Floor
@@ -129,8 +129,8 @@ MyPage {
                 id: root;
                 anchors.left: isMe ? undefined : parent.left;
                 anchors.right: isMe ? parent.right : undefined;
-                implicitWidth: view.width - constant.graphicSizeSmall;
-                implicitHeight: contentCol.height + contentCol.anchors.topMargin*2;
+                width: view.width - constant.graphicSizeSmall;
+                height: contentCol.height + contentCol.anchors.topMargin*2;
 
                 BorderImage {
                     asynchronous: true;
@@ -166,7 +166,9 @@ MyPage {
         }
     }
 
-    ScrollDecorator { flickableItem: view; platformInverted: tbsettings.whiteTheme; }
+    ScrollDecorator {
+        flickableItem: view; //platformInverted: tbsettings.whiteTheme;
+    }
 
     Floor.ToolsArea {
         id: toolsArea;

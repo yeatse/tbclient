@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import "../Component"
 import "../Silica"
 import "../../js/main.js" as Script
@@ -121,9 +121,10 @@ MyPage {
                     Component {
                         id: editBtn;
                         Button {
-                            platformInverted: tbsettings.whiteTheme;
+                            //platformInverted: tbsettings.whiteTheme;
                             width: height;
-                            iconSource: privateStyle.toolBarIconPath("toolbar-delete", platformInverted);
+                            //iconSource: privateStyle.toolBarIconPath("toolbar-delete", platformInverted);
+                            iconSource: privateStyle.toolBarIconPath("toolbar-delete", false);
                             onClicked: removeForum(index);
                         }
                     }
@@ -132,7 +133,9 @@ MyPage {
         }
     }
 
-    ScrollDecorator { flickableItem: view; platformInverted: tbsettings.whiteTheme; }
+    ScrollDecorator {
+        flickableItem: view; //platformInverted: tbsettings.whiteTheme;
+    }
 
     // For keypad
     onStatusChanged: {

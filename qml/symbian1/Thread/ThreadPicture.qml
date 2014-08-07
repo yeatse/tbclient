@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import "../Component"
 import "../Floor" as Floor
 import "../../js/main.js" as Script
@@ -109,17 +109,17 @@ MyPage {
 
     ListHeading {
         id: viewHeader;
-        platformInverted: tbsettings.whiteTheme;
+        //platformInverted: tbsettings.whiteTheme;
         z: 10;
         ListItemText {
             anchors.fill: parent.paddingItem;
-            platformInverted: parent.platformInverted;
+            //platformInverted: parent.platformInverted;
             role: "Heading";
             text: (view.currentIndex+1)+"/"+internal.picAmount;
         }
         BusyIndicator {
             anchors { left: parent.paddingItem.left; verticalCenter: parent.verticalCenter; }
-            platformInverted: parent.platformInverted;
+            //platformInverted: parent.platformInverted;
             running: true;
             visible: view.currentItem != null && view.currentItem.loading;
         }

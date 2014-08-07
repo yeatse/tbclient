@@ -1,6 +1,6 @@
-import QtQuick 1.1
+import QtQuick 1.0
 import QtMultimediaKit 1.1
-import QtMobility.systeminfo 1.2
+import QtMobility.systeminfo 1.1
 import com.yeatse.tbclient 1.0
 import "../../js/Utils.js" as Utils
 

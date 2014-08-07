@@ -1,5 +1,6 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
+import "../Component"
 
 Item {
     id: root;
@@ -51,7 +52,7 @@ Item {
         verticalAlignment: Text.AlignVCenter;
         textFormat: Text.PlainText;
         wrapMode: Text.WrapAnywhere;
-        maximumLineCount: 1;
+        //maximumLineCount: 1;
         text: tab.title;
     }
 

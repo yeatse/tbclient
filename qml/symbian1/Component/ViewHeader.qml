@@ -1,4 +1,4 @@
-import QtQuick 1.1
+import QtQuick 1.0
 
 Rectangle {
     id: root;
@@ -7,8 +7,8 @@ Rectangle {
 
     signal clicked;
 
-    implicitWidth: screen.width;
-    implicitHeight: visible ? constant.headerHeight : 0;
+    width: screen.width;
+    height: visible ? constant.headerHeight : 0;
     color: "#1080dd";
     z: 10;
 
@@ -39,7 +39,7 @@ Rectangle {
         color: "white";
         style: Text.Raised;
         styleColor: platformStyle.colorNormalMid;
-        maximumLineCount: 2;
+        //maximumLineCount: 2;
         elide: Text.ElideRight;
         wrapMode: Text.WrapAnywhere;
     }

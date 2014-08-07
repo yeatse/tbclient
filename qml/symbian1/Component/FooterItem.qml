@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 
 Item {
     id: root;
@@ -16,7 +16,7 @@ Item {
             left: parent.left; right: parent.right; margins: constant.paddingLarge;
             verticalCenter: parent.verticalCenter;
         }
-        platformInverted: tbsettings.whiteTheme;
+        //platformInverted: tbsettings.whiteTheme;
         text: qsTr("Load More");
         onClicked: root.clicked();
     }

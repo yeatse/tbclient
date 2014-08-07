@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import com.yeatse.tbclient 1.0
 import "../Component"
 
@@ -44,7 +44,7 @@ MyPage {
     ToolBarLayout {
         id: importTools;
         ToolButton {
-            platformInverted: tbsettings.whiteTheme;
+            //platformInverted: tbsettings.whiteTheme;
             text: qsTr("OK");
             onClicked: {
                 scribbleArea.loadImage(importer.source, imageLoader.x, imageLoader.y);
@@ -53,7 +53,7 @@ MyPage {
             }
         }
         ToolButton {
-            platformInverted: tbsettings.whiteTheme;
+            //platformInverted: tbsettings.whiteTheme;
             text: qsTr("Cancel");
             onClicked: {
                 importer.state = "";
@@ -190,11 +190,44 @@ MyPage {
         }
     }
 
-    CommonDialog {
+    Dialog {
         id: widthSelector
-        titleText: qsTr("Select pen width(selected: %1)").arg(slider.value);
-        buttonTexts: [ qsTr("OK"), qsTr("Cancel")];
-        onButtonClicked: if (index === 0) accept();
+
+        title: Text {
+            font { family: platformStyle.fontFamilyRegular; pixelSize: platformStyle.fontSizeLarge }
+            color: platformStyle.colorNormalLink
+            text: qsTr("Select pen width(selected: %1)").arg(slider.value);
+            horizontalAlignment: Text.AlignLeft
+            verticalAlignment: Text.AlignVCenter
+            elide: Text.ElideRight
+        }
+        //titleText: qsTr("Select pen width(selected: %1)").arg(slider.value);
+        //buttonTexts: [ qsTr("OK"), qsTr("Cancel")];
+        buttons: ToolBar {
+            id: buttons
+            //width: parent.width
+            height: privateStyle.toolBarHeightLandscape + 2 * platformStyle.paddingSmall
+            tools: Row {
+                //id: buttonRow
+                anchors.centerIn: parent
+                spacing: platformStyle.paddingMedium
+
+                ToolButton {
+                    //id: acceptButton
+                    // Different widths for 1 and 2 button cases
+                    text: qsTr("OK");
+                    width: (buttons.width - 3 * platformStyle.paddingMedium) / 2
+                    onClicked: accept();
+                }
+                ToolButton {
+                    //id: rejectButton
+                    width: (buttons.width - 3 * platformStyle.paddingMedium) / 2
+                    text: qsTr("Cancel");
+                    onClicked: reject();
+                }
+            }
+        }
+        //onButtonClicked: if (index === 0) accept();
         onAccepted: scribbleArea.penWidth = slider.value;
         content: Slider {
             id: slider

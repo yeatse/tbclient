@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import "../Component"
 import "../Silica"
 import "../../js/main.js" as Script
@@ -100,7 +100,7 @@ MyPage {
                     Text {
                         width: parent.width;
                         elide: Text.ElideRight;
-                        maximumLineCount: 1;
+                        //maximumLineCount: 1;
                         wrapMode: Text.WrapAnywhere;
                         textFormat: Text.PlainText;
                         font: constant.subTitleFont;
@@ -130,7 +130,9 @@ MyPage {
         }
     }
 
-    ScrollDecorator { flickableItem: view; platformInverted: tbsettings.whiteTheme; }
+    ScrollDecorator {
+        flickableItem: view; //platformInverted: tbsettings.whiteTheme;
+    }
 
     // For keypad
     onStatusChanged: {

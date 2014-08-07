@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 
 Item {
     id: root;
@@ -9,8 +9,8 @@ Item {
     signal clicked;
     signal pressAndHold;
 
-    implicitWidth: screen.width;
-    implicitHeight: constant.graphicSizeLarge;
+    width: screen.width;
+    height: constant.graphicSizeLarge;
 
     opacity: (ListView.isCurrentItem
               && symbian.listInteractionMode == Symbian.KeyNavigation)

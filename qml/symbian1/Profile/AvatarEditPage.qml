@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import "../Component"
 
 MyPage {
@@ -32,12 +32,12 @@ MyPage {
     }
     ListHeading {
         id: viewHeader;
-        platformInverted: tbsettings.whiteTheme;
+        //platformInverted: tbsettings.whiteTheme;
         z: 10;
         ListItemText {
             anchors.fill: parent.paddingItem;
             role: "Heading";
-            platformInverted: parent.platformInverted;
+            //platformInverted: parent.platformInverted;
             text: qsTr("Edit avatar");
         }
     }
@@ -108,7 +108,7 @@ MyPage {
                 }
             }
 
-            PinchArea {
+/*            PinchArea {
                 id: pinchArea
 
                 property real minScale: 1.0
@@ -139,7 +139,7 @@ MyPage {
                     property: "scale"
                     from: imagePreview.scale
                 }
-            }
+            }*/
         }
 
         BusyIndicator {
@@ -148,7 +148,7 @@ MyPage {
             height: constant.graphicSizeLarge;
             running: true;
             visible: imagePreview.status === Image.Loading;
-            platformInverted: tbsettings.whiteTheme;
+            //platformInverted: tbsettings.whiteTheme;
         }
 
         Rectangle {

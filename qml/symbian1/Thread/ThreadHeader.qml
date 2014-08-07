@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 
 Item {
     id: root;
@@ -27,7 +27,7 @@ Item {
             width: parent.width;
             elide: Text.ElideRight;
             wrapMode: Text.WrapAnywhere;
-            maximumLineCount: 2;
+            //maximumLineCount: 2;
             textFormat: Text.PlainText;
             font: constant.labelFont;
             color: constant.colorLight;
@@ -41,7 +41,7 @@ Item {
                 height: parent.height;
                 TabButton {
                     id: forumBtn;
-                    platformInverted: tbsettings.whiteTheme;
+                    //platformInverted: tbsettings.whiteTheme;
                     height: parent.height;
                     text: forum ? forum.name + qsTr("Bar") : "";
                     onClicked: signalCenter.enterForum(forum.name);

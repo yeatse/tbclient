@@ -32,7 +32,7 @@
 **
 ****************************************************************************************/
 
-import QtQuick 1.1
+import QtQuick 1.0
 
 QtObject {
     property alias fadeDistance: fadeIn.from

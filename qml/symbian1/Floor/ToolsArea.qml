@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import "../Component"
 import "../../js/main.js" as Script
 
@@ -56,7 +56,7 @@ Item {
                 verticalCenter: parent.verticalCenter;
             }
             visible: enabled;
-            platformInverted: tbsettings.whiteTheme;
+            //platformInverted: tbsettings.whiteTheme;
             iconSource: "../gfx/btn_insert_face"+constant.invertedString+".png";
             onClicked: signalCenter.createEmoticonDialog(root);
         }
@@ -79,7 +79,7 @@ Item {
                 verticalCenter: parent.verticalCenter;
             }
             errorHighlight: Script.TextSlicer.textLength(text) > 280;
-            platformInverted: tbsettings.whiteTheme;
+            //platformInverted: tbsettings.whiteTheme;
             platformMaxImplicitHeight: app.inPortrait ? 150 : 100;
         }
     }

@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import "Component"
 
 MyPage {
@@ -159,7 +159,7 @@ MyPage {
                     anchors.horizontalCenter: parent.horizontalCenter
                     height: constant.graphicSizeLarge; width: constant.graphicSizeLarge
                     running: true
-                    platformInverted: tbsettings.whiteTheme;
+                    //platformInverted: tbsettings.whiteTheme;
                 }
 
                 Text {
@@ -184,7 +184,10 @@ MyPage {
         }
     }
 
-    ScrollDecorator { platformInverted: tbsettings.whiteTheme; flickableItem: imageFlickable }
+    ScrollDecorator {
+        //platformInverted: tbsettings.whiteTheme;
+        flickableItem: imageFlickable
+    }
 
     // For keypad
     onStatusChanged: {

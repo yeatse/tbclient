@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import com.yeatse.tbclient 1.0
 import "../Component"
 
@@ -58,7 +58,7 @@ MyPage {
     ProgressBar {
         anchors.top: parent.top;
         width: parent.width;
-        platformInverted: tbsettings.whiteTheme;
+        //platformInverted: tbsettings.whiteTheme;
         value: webView.loadProgress;
         visible: loading;
     }

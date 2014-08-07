@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import "../Component"
 
 MyPage {
@@ -328,11 +328,43 @@ MyPage {
 
     Component {
         id: tabCreator;
-        CommonDialog {
+
+        Dialog {
             id: commonDialog;
-            titleText: qsTr("Create a new tab");
-            titleIcon: "../gfx/edit.svg";
-            buttonTexts: [qsTr("OK"), qsTr("Cancel")];
+
+            title: Text {
+                font { family: platformStyle.fontFamilyRegular; pixelSize: platformStyle.fontSizeLarge }
+                color: platformStyle.colorNormalLink
+                text: qsTr("Create a new tab");
+                horizontalAlignment: Text.AlignLeft
+                verticalAlignment: Text.AlignVCenter
+                elide: Text.ElideRight
+            }
+            //titleIcon: "../gfx/edit.svg";
+            buttons: ToolBar {
+                id: buttons
+                //width: parent.width
+                height: privateStyle.toolBarHeightLandscape + 2 * platformStyle.paddingSmall
+                tools: Row {
+                    //id: buttonRow
+                    anchors.centerIn: parent
+                    spacing: platformStyle.paddingMedium
+
+                    ToolButton {
+                        //id: acceptButton
+                        // Different widths for 1 and 2 button cases
+                        text: qsTr("OK");
+                        width: (buttons.width - 3 * platformStyle.paddingMedium) / 2
+                        onClicked: accept();
+                    }
+                    ToolButton {
+                        //id: rejectButton
+                        width: (buttons.width - 3 * platformStyle.paddingMedium) / 2
+                        text: qsTr("Cancel");
+                        onClicked: reject();
+                    }
+                }
+            }
             content: Item {
                 width: parent.width;
                 height: contentCol.height + constant.paddingLarge*2;
@@ -385,7 +417,7 @@ MyPage {
                     textField.openSoftwareInputPanel();
                 }
             }
-            onButtonClicked: if (index === 0) accept();
+            //onButtonClicked: if (index === 0) accept();
             onAccepted: {
                 if (textField.acceptableInput){
                     var id = textField.text.match(/\d+/)[0];

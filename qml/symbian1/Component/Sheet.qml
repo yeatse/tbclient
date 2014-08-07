@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 
 Item {
     id: root
@@ -165,7 +165,7 @@ Item {
                 ToolButton {
                     id: rejectButton
                     objectName: "rejectButton"
-                    platformInverted: root.platformInverted;
+                    //platformInverted: root.platformInverted;
                     anchors.left: parent.left
                     anchors.leftMargin: root.rejectButtonLeftMargin;
                     anchors.verticalCenter: parent.verticalCenter
@@ -175,7 +175,7 @@ Item {
                 ToolButton {
                     id: acceptButton
                     objectName: "acceptButton"
-                    platformInverted: root.platformInverted;
+                    //platformInverted: root.platformInverted;
                     anchors.right: parent.right
                     anchors.rightMargin: root.acceptButtonRightMargin
                     anchors.verticalCenter: parent.verticalCenter

@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 
 Rectangle {
     id: root;
@@ -7,8 +7,8 @@ Rectangle {
     default property alias content: tabBarLayout.data;
     property alias layout: tabBarLayout;
 
-    implicitWidth: screen.width;
-    implicitHeight: constant.headerHeight;
+    width: screen.width;
+    height: constant.headerHeight;
     color: "#1080dd";
     z: 10;
 

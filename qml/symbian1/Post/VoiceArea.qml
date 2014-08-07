@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import com.yeatse.tbclient 1.0
 import "../../js/Utils.js" as Utils
 
@@ -34,7 +34,7 @@ Item {
         visible: false;
         anchors { left: icon.right; bottom: icon.bottom; bottomMargin: -constant.paddingMedium; }
         iconSource: "toolbar-delete";
-        platformInverted: tbsettings.whiteTheme;
+        //platformInverted: tbsettings.whiteTheme;
         onClicked: {
             audioWrapper.stop();
             audioUrl = "";
@@ -85,7 +85,7 @@ Item {
         State {
             name: "Playback";
             PropertyChanges { target: root; mode: audioWrapper.playing ? "stop" : "play"; }
-            PropertyChanges { target: deleteBtn; visible: true; }
+            //PropertyChanges { target: deleteBtn; visible: true; }
             PropertyChanges {
                 target: mouseArea;
                 onPressAndHold: {}

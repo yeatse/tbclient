@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import "../Floor" as Floor
 import "../Component" as Comp
 import "../Silica" as Silica
@@ -8,8 +8,8 @@ import "../../js/main.js" as Script
 Item {
     id: root;
 
-    implicitWidth: ListView.view.width;
-    implicitHeight: ListView.view.height;
+    width: ListView.view.width;
+    height: ListView.view.height;
 
     Keys.onUpPressed: view.contentY = Math.max(0, view.contentY-view.height);
     Keys.onDownPressed: view.contentY = Math.min(view.contentHeight-view.height,
@@ -74,7 +74,7 @@ Item {
                 }
                 BusyIndicator {
                     anchors.centerIn: parent;
-                    platformInverted: tbsettings.whiteTheme;
+                    //platformInverted: tbsettings.whiteTheme;
                     running: true;
                     visible: preview.status == Image.Loading;
                     width: constant.graphicSizeLarge;
@@ -97,13 +97,13 @@ Item {
                     wrapMode: Text.Wrap;
                     horizontalAlignment: Text.AlignLeft;
                     verticalAlignment: Text.AlignVCenter;
-                    maximumLineCount: 2;
+                    //maximumLineCount: 2;
                     elide: Text.ElideRight;
                     text: descr;
                 }
             }
             ListHeading {
-                platformInverted: tbsettings.whiteTheme;
+                //platformInverted: tbsettings.whiteTheme;
                 Text {
                     anchors {
                         left: parent.paddingItem.left;
@@ -116,7 +116,7 @@ Item {
                 ListItemText {
                     anchors.fill: parent.paddingItem;
                     text: qsTr("Comments")+"(%1)".arg(comment_amount);
-                    platformInverted: parent.platformInverted;
+                    //platformInverted: parent.platformInverted;
                     role: "Heading";
                 }
             }

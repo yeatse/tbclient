@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import "Component"
 import "Silica"
 import "../js/main.js" as Script
@@ -220,7 +220,8 @@ MyPage {
                         anchors.verticalCenter: parent.verticalCenter;
                         width: signText.width + 20;
                         height: Math.floor(width/111*46);
-                        source: "gfx/ico_sign"+constant.invertedString+".png"
+                        //source: "gfx/ico_sign"+constant.invertedString+".png"
+                        source: "gfx/ico_sign.png"
                         visible: is_sign;
                         Text {
                             id: signText;
@@ -249,7 +250,7 @@ MyPage {
     ScrollBar {
         anchors { right: view.right; top: view.top; }
         flickableItem: view;
-        platformInverted: tbsettings.whiteTheme;
+        //platformInverted: tbsettings.whiteTheme;
     }
 
     // For keypad

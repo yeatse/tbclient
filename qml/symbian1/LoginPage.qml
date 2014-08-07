@@ -1,5 +1,5 @@
-import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QtQuick 1.0
+import com.nokia.symbian 1.0
 import "Component"
 import "../js/main.js" as Script
 
@@ -22,7 +22,7 @@ MyPage {
         CheckBox {
             id: phoneNumberCheck;
             enabled: !loading;
-            platformInverted: tbsettings.whiteTheme;
+            //platformInverted: tbsettings.whiteTheme;
             text: qsTr("Use phone number");
             KeyNavigation.up: pwField;
         }
@@ -102,7 +102,7 @@ MyPage {
                     enabled: !loading;
                     width: parent.width;
                     placeholderText: qsTr("Tap to input");
-                    platformInverted: tbsettings.whiteTheme;
+                    //platformInverted: tbsettings.whiteTheme;
                     inputMethodHints: Qt.ImhNoAutoUppercase;
                     KeyNavigation.down: pwField;
                     Keys.onPressed: {
@@ -119,7 +119,7 @@ MyPage {
                     enabled: !loading;
                     width: parent.width;
                     placeholderText: qsTr("Tap to input");
-                    platformInverted: tbsettings.whiteTheme;
+                    //platformInverted: tbsettings.whiteTheme;
                     inputMethodHints: Qt.ImhDialableCharactersOnly;
                     KeyNavigation.down: pwField;
                     Keys.onPressed: {
@@ -160,7 +160,7 @@ MyPage {
                 width: parent.width;
                 enabled: !loading;
                 placeholderText: qsTr("Tap to input");
-                platformInverted: tbsettings.whiteTheme;
+                //platformInverted: tbsettings.whiteTheme;
                 echoMode: TextInput.Password;
                 inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText;
                 KeyNavigation.up: flipable.state === "" ? unField : pnField;
@@ -190,7 +190,7 @@ MyPage {
                     margins: constant.paddingLarge*3;
                 }
                 text: qsTr("Login");
-                platformInverted: tbsettings.whiteTheme;
+                //platformInverted: tbsettings.whiteTheme;
                 onClicked: login();
             }
             Item { width: 1; height: 1; }
