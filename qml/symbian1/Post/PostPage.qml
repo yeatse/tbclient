@@ -211,10 +211,8 @@ MyPage {
         if (status === PageStatus.Active){
             if (titlefield.visible && contentArea.text.length == 0){
                 titlefield.forceActiveFocus();
-                titlefield.openSoftwareInputPanel();
             } else {
                 contentArea.forceActiveFocus();
-                contentArea.openSoftwareInputPanel();
             }
         } else if (status === PageStatus.Deactivating){
             attachedArea.state = "";

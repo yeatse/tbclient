@@ -49,6 +49,7 @@ CommonDialog {
                 text: "关闭";
                 width: (buttons.width - 3 * platformStyle.paddingMedium) / 2
                 //onClicked: webView.abortDownload();
+                onClicked: root.close();
             }
         }
     }

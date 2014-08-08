@@ -146,7 +146,8 @@ MyPage {
                         }
                         ListItemText {
                             role: "Heading";
-                            anchors.fill: parent.paddingItem;
+                            anchors.top: parent.paddingItem.top;
+                            anchors.right: parent.paddingItem.right;
                             //platformInverted: parent.platformInverted;
                             text: qsTr("Signed: %1/%2").arg(internal.signedCount).arg(view.count);
                         }

@@ -249,7 +249,6 @@ MyPage {
             searchInput.forceActiveFocus();
             if (firstStart){
                 firstStart = false;
-                searchInput.openSoftwareInputPanel();
             }
         }
     }
