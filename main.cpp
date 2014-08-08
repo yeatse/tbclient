@@ -61,7 +61,11 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 #endif
 
 #if defined(Q_OS_SYMBIAN)||defined(Q_WS_SIMULATOR)
+#ifdef Q_OS_S60V5
+    QSplashScreen *splash = new QSplashScreen(QPixmap("qml/symbian1/gfx/splash.jpg"));
+#else
     QSplashScreen *splash = new QSplashScreen(QPixmap("qml/tbclient/gfx/splash.jpg"));
+#endif
     splash->show();
     splash->raise();
 #endif
