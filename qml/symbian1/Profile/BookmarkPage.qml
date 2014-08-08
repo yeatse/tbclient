@@ -85,7 +85,7 @@ MyPage {
             id: bmDelegate;
             AbstractItem {
                 id: root;
-                height: contentCol.height + constant.paddingLarge*2;
+                implicitHeight: contentCol.height + constant.paddingLarge*2;
                 onClicked: {
                     var prop = {
                         threadId: thread_id, title: title, pid: mark_pid,

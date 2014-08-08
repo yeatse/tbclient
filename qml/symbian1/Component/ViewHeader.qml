@@ -39,9 +39,7 @@ Rectangle {
         color: "white";
         style: Text.Raised;
         styleColor: platformStyle.colorNormalMid;
-        //maximumLineCount: 2;
         elide: Text.ElideRight;
-        wrapMode: Text.WrapAnywhere;
     }
 
     MouseArea {

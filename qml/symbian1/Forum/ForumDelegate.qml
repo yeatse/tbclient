@@ -4,7 +4,7 @@ import "../Component"
 AbstractItem {
     id: root;
 
-    height: contentCol.height + constant.paddingLarge*2;
+    implicitHeight: contentCol.height + constant.paddingLarge*2;
     onClicked: {
         var prop = { threadId: id, title: title };
         signalCenter.enterThread(prop);
@@ -61,10 +61,8 @@ AbstractItem {
                 text: model.abstract;
                 color: constant.colorMid;
                 font: constant.subTitleFont;
-                wrapMode: Text.WrapAnywhere;
                 textFormat: Text.PlainText;
                 elide: Text.ElideRight;
-                //maximumLineCount: thumbnail.enabled ? 2 : 1;
             }
             Image {
                 id: thumbnail;

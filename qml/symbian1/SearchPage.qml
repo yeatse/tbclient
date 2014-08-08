@@ -182,7 +182,7 @@ MyPage {
                 id: searchDelegate;
                 AbstractItem {
                     id: root;
-                    height: contentCol.height + constant.paddingLarge*2;
+                    implicitHeight: contentCol.height + constant.paddingLarge*2;
                     onClicked: signalCenter.createEnterThreadDialog(title, is_floor, pid, tid, fname, true);
                     Column {
                         id: contentCol;
@@ -201,7 +201,7 @@ MyPage {
                         }
                         Item {
                             width: parent.width;
-                            //implicitHeight: label.height+constant.paddingMedium*2+5;
+                            height: label.height+constant.paddingMedium*2+5;
                             BorderImage {
                                 anchors.fill: parent;
                                 asynchronous: true;
@@ -218,9 +218,7 @@ MyPage {
                                 text: title;
                                 font: constant.labelFont;
                                 color: constant.colorMid;
-                                wrapMode: Text.WrapAnywhere;
                                 elide: Text.ElideRight;
-                                //maximumLineCount: 1;
                                 textFormat: Text.PlainText;
                             }
                         }

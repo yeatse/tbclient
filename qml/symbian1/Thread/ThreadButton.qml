@@ -36,6 +36,8 @@ Item {
             return next
         }
         function getMask(){
+            if (tab == null)
+                return undefined;
             if (tab.loading)
                 return busyIndicator;
             if (sectionMouseArea.pressed)
@@ -51,9 +53,7 @@ Item {
         horizontalAlignment: Text.AlignHCenter;
         verticalAlignment: Text.AlignVCenter;
         textFormat: Text.PlainText;
-        wrapMode: Text.WrapAnywhere;
-        //maximumLineCount: 1;
-        text: tab.title;
+        text: tab ? tab.title : "";
     }
 
     Loader {

@@ -36,7 +36,6 @@ Sheet {
                 width: 150; height: 60;
                 Image {
                     id: pic;
-                    cache: false;
                     asynchronous: true;
                     anchors.fill: parent;
                     smooth: true;

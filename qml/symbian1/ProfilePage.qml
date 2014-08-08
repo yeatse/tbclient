@@ -143,8 +143,6 @@ MyPage {
                     Text {
                         width: parent.width;
                         elide: Text.ElideRight;
-                        wrapMode: Text.Wrap;
-                        //maximumLineCount: 1;
                         textFormat: Text.PlainText;
                         font: constant.labelFont;
                         color: constant.colorLight;

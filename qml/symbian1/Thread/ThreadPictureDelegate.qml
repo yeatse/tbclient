@@ -66,7 +66,6 @@ Item {
                 Image {
                     id: preview;
                     anchors.fill: parent;
-                    cache: false;
                     asynchronous: true;
                     sourceSize.width: width;
                     fillMode: Image.PreserveAspectFit;
@@ -94,10 +93,8 @@ Item {
                     anchors { fill: parent; margins: constant.paddingLarge; }
                     font: constant.labelFont;
                     color: "white";
-                    wrapMode: Text.Wrap;
                     horizontalAlignment: Text.AlignLeft;
                     verticalAlignment: Text.AlignVCenter;
-                    //maximumLineCount: 2;
                     elide: Text.ElideRight;
                     text: descr;
                 }

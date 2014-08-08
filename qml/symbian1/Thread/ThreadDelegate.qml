@@ -4,7 +4,7 @@ import "../Component"
 AbstractItem {
     id: root;
 
-    height: contentCol.height + constant.paddingLarge;
+    implicitHeight: contentCol.height + constant.paddingLarge;
 
     Column {
         id: contentCol;

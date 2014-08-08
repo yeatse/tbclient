@@ -50,7 +50,6 @@ MyPage {
 
                 anchors.centerIn: parent
                 fillMode: Image.PreserveAspectFit
-                cache: false
                 asynchronous: true
                 source: imageUrl
                 sourceSize.height: 1000;

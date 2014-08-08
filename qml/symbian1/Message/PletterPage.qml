@@ -122,7 +122,7 @@ MyPage {
                     }
                     Text {
                         width: parent.width;
-                        wrapMode: Text.WrapAnywhere;
+                        //wrapMode: Text.WrapAnywhere;
                         //maximumLineCount: 2;
                         elide: Text.ElideRight;
                         text: model.text;

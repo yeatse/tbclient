@@ -76,7 +76,7 @@ MyPage {
             id: delegateComp;
             AbstractItem {
                 id: root;
-                height: contentCol.height + constant.paddingLarge*2;
+                implicitHeight: contentCol.height + constant.paddingLarge*2;
                 onClicked: signalCenter.createEnterThreadDialog(title, is_floor, post_id, thread_id, fname);
                 Image {
                     id: avatar;
@@ -132,8 +132,6 @@ MyPage {
                             textFormat: Text.PlainText;
                             font: constant.labelFont;
                             color: constant.colorMid;
-                            wrapMode: Text.WrapAnywhere;
-                            //maximumLineCount: 1;
                         }
                     }
                     Text {

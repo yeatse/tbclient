@@ -100,8 +100,6 @@ MyPage {
                     Text {
                         width: parent.width;
                         elide: Text.ElideRight;
-                        //maximumLineCount: 1;
-                        wrapMode: Text.WrapAnywhere;
                         textFormat: Text.PlainText;
                         font: constant.subTitleFont;
                         color: constant.colorMid;
