@@ -117,9 +117,10 @@ MyPage {
             if (option.fromBookmark) prop.fromBookmark = true;
 
             if (!viewComp) viewComp = Qt.createComponent("ThreadView.qml");
-            var view = viewComp.createObject(tabGroup, prop);
+            var view = viewComp.createObject(tabGroup);
+            for (var i in prop) view[i] = prop[i];
             if (!tabComp) tabComp = Qt.createComponent("ThreadButton.qml");
-            tabComp.createObject(viewHeader.layout, { tab: view });
+            tabComp.createObject(viewHeader.layout).tab = view;
 
 
             if (option.pid)

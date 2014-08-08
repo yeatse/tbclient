@@ -13,7 +13,7 @@ Item {
         property variant menuComp: null;
         function selectImage(){
             if (!menuComp) menuComp = Qt.createComponent("SelectionMethodMenu.qml");
-            menuComp.createObject(root, { caller: root });
+            menuComp.createObject(root).caller = root;
         }
         function imageSelected(urls){
             if (urls.length > 0){

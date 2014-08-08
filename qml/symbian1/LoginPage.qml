@@ -225,7 +225,6 @@ MyPage {
     onStatusChanged: {
         if (status === PageStatus.Active){
             unField.forceActiveFocus();
-            unField.openSoftwareInputPanel();
         }
     }
     Keys.onPressed: {

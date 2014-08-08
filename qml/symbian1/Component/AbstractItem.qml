@@ -1,7 +1,7 @@
 import QtQuick 1.0
 import com.nokia.symbian 1.0
 
-Item {
+ImplicitSizeItem {
     id: root;
 
     property alias paddingItem: paddingItem;
@@ -9,8 +9,8 @@ Item {
     signal clicked;
     signal pressAndHold;
 
-    width: screen.width;
-    height: constant.graphicSizeLarge;
+    implicitWidth: screen.width;
+    implicitHeight: constant.graphicSizeLarge;
 
     opacity: (ListView.isCurrentItem
               && symbian.listInteractionMode == Symbian.KeyNavigation)
@@ -95,17 +95,5 @@ Item {
         }
         if (event.key == Qt.Key_Up || event.key == Qt.Key_Down)
             symbian.privateListItemKeyNavigation(ListView.view)
-    }
-
-    NumberAnimation {
-        id: onAddAnimation
-        target: root
-        property: "opacity"
-        duration: 250
-        from: 0.25; to: 1;
-    }
-
-    ListView.onAdd: {
-        onAddAnimation.start();
     }
 }

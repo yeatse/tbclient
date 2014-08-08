@@ -101,6 +101,7 @@ symbian {
         INCLUDEPATH += $$[QT_INSTALL_PREFIX]/include/Qt
         DEPLOYMENTFOLDERS += folder_symbian1
         DEPLOYMENTFOLDERS -= folder_emo
+        MMP_RULES += "DEBUGGABLE"
     } else {
         CONFIG += qt-components
         MMP_RULES += "OPTION gcce -march=armv6 -mfpu=vfp -mfloat-abi=softfp -marm"

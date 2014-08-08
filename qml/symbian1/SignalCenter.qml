@@ -50,23 +50,28 @@ QtObject {
     // Dialogs
     function needVCode(caller, vcodeMd5, vcodePicUrl, isNew){
         var prop = { caller: caller, vcodeMd5: vcodeMd5, vcodePicUrl: vcodePicUrl }
+        var diag = null;
         if (isNew){
             if (!newVCodeDialogComp){
                 newVCodeDialogComp = Qt.createComponent("Dialog/NewVCodeDialog.qml");
             }
-            newVCodeDialogComp.createObject(pageStack.currentPage, prop);
+            diag = newVCodeDialogComp.createObject(pageStack.currentPage);
         } else {
             if (!vcodeDialogComp){
                 vcodeDialogComp = Qt.createComponent("Dialog/VCodeDialog.qml");
             }
-            vcodeDialogComp.createObject(pageStack.currentPage, prop);
+            diag = vcodeDialogComp.createObject(pageStack.currentPage);
+        }
+        for (var i in prop){
+            diag[i] = prop[i];
         }
     }
 
     function createQueryDialog(title, message, acceptText, rejectText, acceptCallback, rejectCallback){
         if (!queryDialogComp){ queryDialogComp = Qt.createComponent("Dialog/DynamicQueryDialog.qml"); }
         var prop = { titleText: title, message: message.concat("\n"), acceptButtonText: acceptText, rejectButtonText: rejectText };
-        var diag = queryDialogComp.createObject(pageStack.currentPage, prop);
+        var diag = queryDialogComp.createObject(pageStack.currentPage);
+        for (var i in prop) diag[i] = prop[i];
         if (acceptCallback) diag.accepted.connect(acceptCallback);
         if (rejectCallback) diag.rejected.connect(rejectCallback);
     }
@@ -75,18 +80,19 @@ QtObject {
         if (!enterDialogComp){ enterDialogComp = Qt.createComponent("Dialog/EnterThreadDialog.qml"); }
         var prop = { title: title, isfloor: isfloor, pid: pid, tid: tid, fname: fname };
         if (fromSearch) prop.fromSearch = true;
-        enterDialogComp.createObject(pageStack.currentPage, prop);
+        var diag = enterDialogComp.createObject(pageStack.currentPage);
+        for (var i in prop) diag[i] = prop[i];
     }
 
     function copyToClipboard(text){
         if (!copyDialogComp){ copyDialogComp = Qt.createComponent("Dialog/CopyDialog.qml"); }
-        var prop = { text: text };
-        copyDialogComp.createObject(pageStack.currentPage, prop);
+        copyDialogComp.createObject(pageStack.currentPage).text = text;
     }
 
     function commitPrison(prop){
         if (!commDialogComp) commDialogComp = Qt.createComponent("Dialog/CommitDialog.qml");
-        commDialogComp.createObject(pageStack.currentPage, prop);
+        var diag = commDialogComp.createObject(pageStack.currentPage);
+        for (var i in prop) diag[i] = prop[i];
     }
 
     function commitGoodList(list, callback){
@@ -111,8 +117,7 @@ QtObject {
             for (i=1; i<=25; i++) list.push("B_00"+fill(i));
             emoticonModel = list;
         }
-        var prop = { caller: caller }
-        emotDialogComp.createObject(pageStack.currentPage, prop);
+        emotDialogComp.createObject(pageStack.currentPage).caller = caller;
     }
 
     // Pages

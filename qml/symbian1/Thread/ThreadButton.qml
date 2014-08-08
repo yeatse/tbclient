@@ -6,7 +6,7 @@ Item {
     id: root;
 
     property Item tab;
-    property bool checked: tab === internal.tabGroup.currentTab;
+    property bool checked: internal.tabGroup != null && tab === internal.tabGroup.currentTab;
     signal clicked;
 
     QtObject {

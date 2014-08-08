@@ -8,9 +8,7 @@ import "../js/main.js" as Script
 PageStackWindow {
     id: app;
 
-    //platformInverted: tbsettings.whiteTheme;
-    platformSoftwareInputPanelEnabled: utility.qtVersion > 0x040800;
-    showStatusBar: inPortrait || !(platformSoftwareInputPanelEnabled && inputContext.visible);
+    showStatusBar: true;
 
     initialPage: MainPage { id: mainPage; }
 
@@ -70,18 +68,18 @@ PageStackWindow {
     }
 
     // Background image
-    Image {
-        id: background;
-        z: -1;
-        parent: pageStack;
-        width: screen.width; height: screen.height;
-        sourceSize.height: 640;
-        fillMode: Image.PreserveAspectCrop;
-        asynchronous: true;
-        source: tbsettings.bgImageUrl;
-        visible: status === Image.Ready;
-        opacity: tbsettings.whiteTheme ? 0.7 : 0.5;
-    }
+//    Image {
+//        id: background;
+//        z: -1;
+//        parent: pageStack;
+//        width: screen.width; height: screen.height;
+//        sourceSize.height: 640;
+//        fillMode: Image.PreserveAspectCrop;
+//        asynchronous: true;
+//        source: tbsettings.bgImageUrl;
+//        visible: status === Image.Ready;
+//        opacity: tbsettings.whiteTheme ? 0.7 : 0.5;
+//    }
 
     Keys.onVolumeUpPressed: audioWrapper.volumeUp();
     Keys.onVolumeDownPressed: audioWrapper.volumeDown();

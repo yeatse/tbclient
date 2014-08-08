@@ -202,8 +202,13 @@ MyPage {
                 MenuItem {
                     text: qsTr("View photos");
                     enabled: menu.menuEnabled;
-                    onClicked: pageStack.replace(Qt.resolvedUrl("ForumPicture.qml"),
-                                                 {name: internal.getName()});
+                    onClicked: viewPhotoTimer.restart();
+                    Timer {
+                        id: viewPhotoTimer;
+                        interval: 200;
+                        onTriggered: pageStack.replace(Qt.resolvedUrl("ForumPicture.qml"),
+                                                       {name: internal.getName()});
+                    }
                 }
                 MenuItem {
                     text: qsTr("Forum manage");

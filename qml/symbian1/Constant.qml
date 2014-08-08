@@ -6,16 +6,11 @@ QtObject {
     id: constant;
 
     // color
-    property color colorLight: tbsettings.whiteTheme ? platformStyle.colorNormalLightInverted
-                                                     : platformStyle.colorNormalLight;
-    property color colorMid: tbsettings.whiteTheme ? platformStyle.colorNormalMidInverted
-                                                   : platformStyle.colorNormalMid;
-    property color colorMarginLine: tbsettings.whiteTheme ? platformStyle.colorDisabledLightInverted
-                                                          : platformStyle.colorDisabledMid;
-    property color colorTextSelection: tbsettings.whiteTheme ? platformStyle.colorTextSelection
-                                                             : platformStyle.colorTextSelectionInverted;
-    property color colorDisabled: tbsettings.whiteTheme ? platformStyle.colorDisabledMid
-                                                        : platformStyle.colorDisabledMidInverted;
+    property color colorLight: platformStyle.colorNormalLight;
+    property color colorMid: platformStyle.colorNormalMid;
+    property color colorMarginLine: platformStyle.colorDisabledMid;
+    property color colorTextSelection: platformStyle.colorTextSelection;
+    property color colorDisabled: platformStyle.colorDisabledMid;
 
     // padding size
     property int paddingSmall: platformStyle.paddingSmall
