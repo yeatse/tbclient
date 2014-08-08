@@ -86,7 +86,7 @@ MyPage {
             }
         }
 
-        PinchArea {
+        /*PinchArea {
             id: pinchArea
 
             property real minScale: 1.0
@@ -117,7 +117,7 @@ MyPage {
                 property: "scale"
                 from: imagePreview.scale
             }
-        }
+        }*/
         MouseArea {
             id: mouseArea;
             anchors.fill: parent;

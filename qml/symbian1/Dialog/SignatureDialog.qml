@@ -1,12 +1,13 @@
 import QtQuick 1.0
 import com.nokia.symbian 1.0
+import "../Component"
 
-CommonDialog {
+CustomDialog {
     id: root;
 
     titleText: qsTr("Signature");
     buttonTexts: [qsTr("Save"), qsTr("Clear"), qsTr("Cancel")];
-
+/*
     buttons: ToolBar {
         id: buttons
         //width: parent.width
@@ -18,7 +19,6 @@ CommonDialog {
 
             ToolButton {
                 //id: acceptButton
-                // Different widths for 1 and 2 button cases
                 text: qsTr("Save");
                 width: (buttons.width - 4 * platformStyle.paddingMedium) / 3
                 onClicked: {
@@ -44,7 +44,7 @@ CommonDialog {
                 }
             }
         }
-    }
+    }*/
     content: Item {
         width: platformContentMaximumWidth;
         height: Math.min(platformContentMaximumHeight, 180);
@@ -56,7 +56,7 @@ CommonDialog {
             text: tbsettings.signature;
         }
     }
-/*
+
     onButtonClicked: {
         switch (index){
         case 0:
@@ -72,7 +72,7 @@ CommonDialog {
             break;
         }
     }
-*/
+
     onStatusChanged: {
         if (status === DialogStatus.Open){
             textArea.forceActiveFocus();

@@ -38,7 +38,7 @@ MyPage {
             font: constant.labelFont;
             color: constant.colorMid;
             anchors.horizontalCenter: parent.horizontalCenter;
-            text: "Designed for Nokia Belle";
+            text: "Designed for Nokia S60V5";
         }
 
         Text {

@@ -30,12 +30,14 @@ MyPage {
             Column {
                 x: constant.paddingLarge;
                 spacing: constant.paddingLarge;
+                /*
                 CheckBox {
                     text: qsTr("Night theme");
                     //platformInverted: tbsettings.whiteTheme;
                     checked: !tbsettings.whiteTheme;
                     onClicked: tbsettings.whiteTheme = !checked;
                 }
+                */
                 CheckBox {
                     text: qsTr("Show image");
                     //platformInverted: tbsettings.whiteTheme;

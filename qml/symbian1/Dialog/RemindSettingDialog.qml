@@ -1,12 +1,13 @@
 import QtQuick 1.0
 import com.nokia.symbian 1.0
+import "../Component"
 
-CommonDialog {
+CustomDialog {
     id: root;
 
     titleText: qsTr("Remind settings");
-    //buttonTexts: [qsTr("OK")];
-
+    buttonTexts: [qsTr("OK")];
+/*
     buttons: ToolBar {
         id: buttons
         //width: parent.width
@@ -24,7 +25,7 @@ CommonDialog {
                 //onClicked: accept();
             }
         }
-    }
+    }*/
     QtObject {
         id: internal;
         function getValue(){

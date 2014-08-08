@@ -1,7 +1,8 @@
 import QtQuick 1.0
 import com.nokia.symbian 1.0
+import "../Component"
 
-CommonDialog {
+CustomDialog {
     id: root;
 
     property variant caller: null;
@@ -9,10 +10,10 @@ CommonDialog {
 
     titleText: qsTr("Select emoticon");
     //titleIcon: "../gfx/btn_insert_face.png";
-    //buttonTexts: [qsTr("Close")]
-
+    buttonTexts: [qsTr("Close")]
+/*
     buttons: ToolBar {
-        id: buttons
+        id: buttonsTB
         //width: parent.width
         height: privateStyle.toolBarHeightLandscape + 2 * platformStyle.paddingSmall
         tools: Row {
@@ -22,13 +23,12 @@ CommonDialog {
 
             ToolButton {
                 //id: acceptButton
-                // Different widths for 1 and 2 button cases
                 text: qsTr("Close");
-                width: (buttons.width - 3 * platformStyle.paddingMedium) / 2
-                //onClicked: accept();
+                width: (buttonsTB.width - 3 * platformStyle.paddingMedium) / 2
+                onClicked: close();
             }
         }
-    }
+    }*/
     content: Item {
         width: platformContentMaximumWidth;
         height: platformContentMaximumHeight;
