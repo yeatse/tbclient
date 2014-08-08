@@ -100,7 +100,7 @@ symbian {
         INCLUDEPATH += $$[QT_INSTALL_PREFIX]/epoc32/include/middleware
         INCLUDEPATH += $$[QT_INSTALL_PREFIX]/include/Qt
         DEPLOYMENTFOLDERS += folder_symbian1
-        DEPLOYMENTFOLDERS -= emo
+        DEPLOYMENTFOLDERS -= folder_emo
     } else {
         CONFIG += qt-components
         MMP_RULES += "OPTION gcce -march=armv6 -mfpu=vfp -mfloat-abi=softfp -marm"
