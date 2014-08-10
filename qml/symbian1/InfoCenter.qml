@@ -1,6 +1,5 @@
 import QtQuick 1.0
 import com.nokia.extras 1.0
-import QtMobility.systeminfo 1.2
 import com.yeatse.tbclient 1.0
 import "../js/main.js" as Script
 
@@ -34,9 +33,9 @@ Item {
     }
 
     Connections {
-        target: Qt.application;
+        target: activeListener;
         onActiveChanged: {
-            if (Qt.application.active){
+            if (activeListener.active){
                 internal.displayMessage();
             } else {
                 audioWrapper.stop();
@@ -85,7 +84,7 @@ Item {
                 count += atme;
             }
             if (list.length > 0){
-                if (Qt.application.active){
+                if (activeListener.active){
                     infoBanner.text = list.join("\n");
                     infoBanner.open();
                 } else if (tbsettings.remindBackground){
@@ -109,7 +108,7 @@ Item {
         repeat: true;
         running: root.enabled
                  && tbsettings.remindInterval > 0
-                 && (tbsettings.remindBackground||Qt.application.active);
+                 && (tbsettings.remindBackground||activeListener.active);
         onTriggered: {
             loading = true;
             Script.getMessage(internal.loadMessage, internal.loadError);
@@ -122,17 +121,6 @@ Item {
         interactive: true;
         //platformInverted: tbsettings.whiteTheme;
         onClicked: signalCenter.readMessage(type);
-    }
-
-    DeviceInfo {
-        id: deviceInfo;
-        //The property "monitorLockStatusChanges" was introduced in Qt Mobility 1.2
-        //monitorLockStatusChanges: true;
-        //onLockStatusChanged: {
-        //    if (deviceInfo.lockStatus == DeviceInfo.UnknownLock){
-        //        internal.displayMessage();
-        //    }
-        //}
     }
 
     Vibra { id: vibra; }

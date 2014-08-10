@@ -18,7 +18,7 @@ HEADERS += \
     src/audiorecorder.h \
     src/scribblearea.h \
     src/flickcharm.h \
-#    src/qwebviewitem.h \
+    src/qwebviewitem.h \
     src/imageuploader.h
 
 SOURCES += main.cpp \
@@ -29,8 +29,8 @@ SOURCES += main.cpp \
     src/audiorecorder.cpp \
     src/scribblearea.cpp \
     src/flickcharm.cpp \
-#    src/qwebviewitem.cpp \
-    src/imageuploader.cpp
+    src/qwebviewitem.cpp \
+    src/imageuploader.cpp \
 #    qml/tbclient/*.qml \
 #    qml/tbclient/Browser/*.qml \
 #    qml/tbclient/Component/*.qml \
@@ -100,7 +100,6 @@ symbian {
         INCLUDEPATH += $$[QT_INSTALL_PREFIX]/epoc32/include/middleware
         INCLUDEPATH += $$[QT_INSTALL_PREFIX]/include/Qt
         DEPLOYMENTFOLDERS += folder_symbian1
-#        DEPLOYMENTFOLDERS -= folder_emo
         MMP_RULES += "DEBUGGABLE"
     } else {
         CONFIG += qt-components
@@ -130,6 +129,10 @@ symbian {
 
     contains(DEFINES, Q_OS_S60V5){
         LIBS *= -laknnotify -leiksrv    #for global notes
+        HEADERS += src/applicationactivelistener.h
+        SOURCES += src/applicationactivelistener.cpp
+        HEADERS -= src/qwebviewitem.h
+        SOURCES -= src/qwebviewitem.cpp
     }
 
     DEFINES += QVIBRA

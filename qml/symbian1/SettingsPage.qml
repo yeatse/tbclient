@@ -112,13 +112,13 @@ MyPage {
                     remindDialog.open();
                 }
             }
-            SelectionListItem {
-                //platformInverted: tbsettings.whiteTheme;
-                title: qsTr("Background image(long press to clear)");
-                subTitle: tbsettings.bgImageUrl || qsTr("Click to set")
-                onPressAndHold: tbsettings.bgImageUrl = "";
-                onClicked: tbsettings.bgImageUrl = utility.selectImage()||tbsettings.bgImageUrl;
-            }
+//            SelectionListItem {
+//                //platformInverted: tbsettings.whiteTheme;
+//                title: qsTr("Background image(long press to clear)");
+//                subTitle: tbsettings.bgImageUrl || qsTr("Click to set")
+//                onPressAndHold: tbsettings.bgImageUrl = "";
+//                onClicked: tbsettings.bgImageUrl = utility.selectImage()||tbsettings.bgImageUrl;
+//            }
             SelectionListItem {
                 //platformInverted: tbsettings.whiteTheme;
                 title: qsTr("Image save path");

@@ -106,7 +106,7 @@ MyPage {
                     }
                 }
                 Timer {
-                    running: Qt.application.active && banner.count > 1 && !banner.moving && !view.moving;
+                    running: activeListener.active && banner.count > 1 && !banner.moving && !view.moving;
                     interval: 3000;
                     repeat: true;
                     onTriggered: banner.incrementCurrentIndex();

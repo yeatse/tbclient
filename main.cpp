@@ -8,7 +8,9 @@
 #include "src/httpuploader.h"
 #include "src/audiorecorder.h"
 #include "src/scribblearea.h"
-//#include "src/qwebviewitem.h"
+#ifndef Q_OS_S60V5
+#include "src/qwebviewitem.h"
+#endif
 #include "src/imageuploader.h"
 
 #ifdef Q_WS_SIMULATOR
@@ -23,6 +25,10 @@
 #include <QtDBus/QDBusConnection>
 #include "src/tbclientif.h"
 #include "src/harmattanbackgroundprovider.h"
+#endif
+
+#ifdef Q_OS_S60V5
+#include "applicationactivelistener.h"
 #endif
 
 #ifdef Q_OS_SYMBIAN
@@ -95,7 +101,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterType<Downloader>("com.yeatse.tbclient", 1, 0, "Downloader");
     qmlRegisterType<AudioRecorder>("com.yeatse.tbclient", 1, 0, "AudioRecorder");
     qmlRegisterType<ScribbleArea>("com.yeatse.tbclient", 1, 0, "ScribbleArea");
-//    qmlRegisterType<QWebViewItem>("com.yeatse.tbclient", 1, 0, "WebView");
+#ifndef Q_OS_S60V5
+    qmlRegisterType<QWebViewItem>("com.yeatse.tbclient", 1, 0, "WebView");
+#endif
     qmlRegisterType<ImageUploader>("com.yeatse.tbclient", 1, 0, "ImageUploader");
 
 #ifdef QVIBRA
@@ -121,6 +129,11 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QDBusConnection bus = QDBusConnection::sessionBus();
     bus.registerService("com.tbclient");
     bus.registerObject("/com/tbclient", app.data());
+#endif
+
+#ifdef Q_OS_S60V5
+    ApplicationActiveListener listener;
+    viewer.rootContext()->setContextProperty("activeListener", &listener);
 #endif
 
     // For fiddler network debugging
