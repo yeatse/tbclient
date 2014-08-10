@@ -24,7 +24,7 @@ AbstractItem {
             rightMargin: privateStyle.scrollBarThickness;
             verticalCenter: parent.verticalCenter;
         }
-        source: privateStyle.imagePath("qtg_graf_drill_down_indicator", tbsettings.whiteTheme);
+        source: privateStyle.imagePath("qtg_graf_drill_down_indicator");
         sourceSize.width: platformStyle.graphicSizeSmall;
         sourceSize.height: platformStyle.graphicSizeSmall;
     }

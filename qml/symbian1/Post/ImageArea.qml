@@ -40,7 +40,7 @@ Item {
 
     BorderImage {
         anchors.fill: parent;
-        source: privateStyle.imagePath("qtg_fr_list_heading_normal", tbsettings.whiteTheme);
+        source: privateStyle.imagePath("qtg_fr_list_heading_normal");
         border { left: 28; top: 5; right: 28; bottom: 0 }
     }
     Flickable {

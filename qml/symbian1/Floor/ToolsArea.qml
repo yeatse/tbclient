@@ -36,7 +36,7 @@ Item {
         height: Math.max(toolBarHeight, inputArea.height+constant.paddingMedium);
         BorderImage {
             anchors.fill: parent
-            source: privateStyle.imagePath("qtg_fr_toolbar", tbsettings.whiteTheme);
+            source: privateStyle.imagePath("qtg_fr_toolbar");
             border { left: 20; top: 20; right: 20; bottom: 20 }
         }
         ToolButtonWithTip {
