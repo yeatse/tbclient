@@ -16,8 +16,10 @@ ContextMenu {
         MenuItem {
             text: qsTr("Reader mode");
             onClicked: {
-                var prop = { listModel: view.model, currentIndex: index, parentView: view, title: title }
-                pageStack.push(Qt.resolvedUrl("ReaderPage.qml"), prop);
+                //Cannot use due to the error of QWebViewItem
+                /*var prop = { listModel: view.model, currentIndex: index, parentView: view, title: title }
+                pageStack.push(Qt.resolvedUrl("ReaderPage.qml"), prop);*/
+                signalCenter.showMessage("The Reader mode is under debuggingT_T");
             }
         }
         MenuItem {

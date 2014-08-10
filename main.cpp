@@ -8,7 +8,7 @@
 #include "src/httpuploader.h"
 #include "src/audiorecorder.h"
 #include "src/scribblearea.h"
-#include "src/qwebviewitem.h"
+//#include "src/qwebviewitem.h"
 #include "src/imageuploader.h"
 
 #ifdef Q_WS_SIMULATOR
@@ -95,7 +95,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterType<Downloader>("com.yeatse.tbclient", 1, 0, "Downloader");
     qmlRegisterType<AudioRecorder>("com.yeatse.tbclient", 1, 0, "AudioRecorder");
     qmlRegisterType<ScribbleArea>("com.yeatse.tbclient", 1, 0, "ScribbleArea");
-    qmlRegisterType<QWebViewItem>("com.yeatse.tbclient", 1, 0, "WebView");
+//    qmlRegisterType<QWebViewItem>("com.yeatse.tbclient", 1, 0, "WebView");
     qmlRegisterType<ImageUploader>("com.yeatse.tbclient", 1, 0, "ImageUploader");
 
 #ifdef QVIBRA

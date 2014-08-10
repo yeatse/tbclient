@@ -49,6 +49,8 @@ QtObject {
 
     // Dialogs
     function needVCode(caller, vcodeMd5, vcodePicUrl, isNew){
+        showMessage("The verify code cannot be showedT_T");
+        /*
         var prop = { caller: caller, vcodeMd5: vcodeMd5, vcodePicUrl: vcodePicUrl }
         var diag = null;
         if (isNew){
@@ -65,6 +67,7 @@ QtObject {
         for (var i in prop){
             diag[i] = prop[i];
         }
+        */
     }
 
     function createQueryDialog(title, message, acceptText, rejectText, acceptCallback, rejectCallback){
@@ -202,7 +205,8 @@ QtObject {
     function openBrowser(url){
         url = utility.fixUrl(url);
         if (tbsettings.browser == ""){
-            pageStack.push(Qt.resolvedUrl("Browser/WebPage.qml"), {url: url});
+            showMessage("The bulit-in browser is under buildingT_T");
+            /*pageStack.push(Qt.resolvedUrl("Browser/WebPage.qml"), {url: url});*/
         } else {
             utility.openURLDefault(url);
         }

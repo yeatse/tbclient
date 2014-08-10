@@ -126,12 +126,13 @@ Item {
 
     DeviceInfo {
         id: deviceInfo;
-        monitorLockStatusChanges: true;
-        onLockStatusChanged: {
-            if (deviceInfo.lockStatus == DeviceInfo.UnknownLock){
-                internal.displayMessage();
-            }
-        }
+        //The property "monitorLockStatusChanges" was introduced in Qt Mobility 1.2
+        //monitorLockStatusChanges: true;
+        //onLockStatusChanged: {
+        //    if (deviceInfo.lockStatus == DeviceInfo.UnknownLock){
+        //        internal.displayMessage();
+        //    }
+        //}
     }
 
     Vibra { id: vibra; }

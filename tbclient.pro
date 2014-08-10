@@ -18,7 +18,7 @@ HEADERS += \
     src/audiorecorder.h \
     src/scribblearea.h \
     src/flickcharm.h \
-    src/qwebviewitem.h \
+#    src/qwebviewitem.h \
     src/imageuploader.h
 
 SOURCES += main.cpp \
@@ -29,7 +29,7 @@ SOURCES += main.cpp \
     src/audiorecorder.cpp \
     src/scribblearea.cpp \
     src/flickcharm.cpp \
-    src/qwebviewitem.cpp \
+#    src/qwebviewitem.cpp \
     src/imageuploader.cpp
 #    qml/tbclient/*.qml \
 #    qml/tbclient/Browser/*.qml \
@@ -100,7 +100,7 @@ symbian {
         INCLUDEPATH += $$[QT_INSTALL_PREFIX]/epoc32/include/middleware
         INCLUDEPATH += $$[QT_INSTALL_PREFIX]/include/Qt
         DEPLOYMENTFOLDERS += folder_symbian1
-        DEPLOYMENTFOLDERS -= folder_emo
+#        DEPLOYMENTFOLDERS -= folder_emo
         MMP_RULES += "DEBUGGABLE"
     } else {
         CONFIG += qt-components

@@ -99,10 +99,10 @@ Item {
 
     DeviceInfo {
         id: devInfo;
-        monitorCurrentProfileChanges: true;
+        /*monitorCurrentProfileChanges: true;
         onCurrentProfileChanged: {
             root.volume = devInfo.voiceRingtoneVolume / 100;
-        }
+        }*/
     }
 
     Connections {
