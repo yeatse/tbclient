@@ -49,8 +49,6 @@ QtObject {
 
     // Dialogs
     function needVCode(caller, vcodeMd5, vcodePicUrl, isNew){
-        showMessage("The verify code cannot be showedT_T");
-        /*
         var prop = { caller: caller, vcodeMd5: vcodeMd5, vcodePicUrl: vcodePicUrl }
         var diag = null;
         if (isNew){
@@ -67,7 +65,6 @@ QtObject {
         for (var i in prop){
             diag[i] = prop[i];
         }
-        */
     }
 
     function createQueryDialog(title, message, acceptText, rejectText, acceptCallback, rejectCallback){
