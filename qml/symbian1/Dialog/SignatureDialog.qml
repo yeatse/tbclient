@@ -76,7 +76,7 @@ CustomDialog {
     onStatusChanged: {
         if (status === DialogStatus.Open){
             textArea.forceActiveFocus();
-            textArea.openSoftwareInputPanel();
+            //textArea.openSoftwareInputPanel();
         }
     }
 }

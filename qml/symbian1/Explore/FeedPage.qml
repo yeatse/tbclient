@@ -59,7 +59,7 @@ MyPage {
     SilicaListView {
         id: view;
         anchors { fill: parent; topMargin: viewHeader.height; }
-        cacheBuffer: height * 5;
+        cacheBuffer: 0//height * 5;
         model: ListModel {}
         delegate: FeedDelegate {
         }

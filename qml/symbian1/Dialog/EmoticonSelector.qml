@@ -11,24 +11,6 @@ CustomDialog {
     titleText: qsTr("Select emoticon");
     //titleIcon: "../gfx/btn_insert_face.png";
     buttonTexts: [qsTr("Close")]
-/*
-    buttons: ToolBar {
-        id: buttonsTB
-        //width: parent.width
-        height: privateStyle.toolBarHeightLandscape + 2 * platformStyle.paddingSmall
-        tools: Row {
-            //id: buttonRow
-            anchors.centerIn: parent
-            spacing: platformStyle.paddingMedium
-
-            ToolButton {
-                //id: acceptButton
-                text: qsTr("Close");
-                width: (buttonsTB.width - 3 * platformStyle.paddingMedium) / 2
-                onClicked: close();
-            }
-        }
-    }*/
     content: Item {
         width: platformContentMaximumWidth;
         height: platformContentMaximumHeight;

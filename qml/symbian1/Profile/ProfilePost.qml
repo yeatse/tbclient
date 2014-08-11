@@ -57,7 +57,7 @@ MyPage {
     SilicaListView {
         id: view;
         anchors { fill: parent; topMargin: viewHeader.height; }
-        cacheBuffer: view.height * 5;
+        cacheBuffer: 0//view.height * 5;
         model: ListModel {}
         delegate: postDelegate;
         header: PullToActivate {

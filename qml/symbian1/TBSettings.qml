@@ -16,7 +16,7 @@ QtObject {
     property string imagePath: utility.getValue("imagePath", utility.defaultPictureLocation);
     onImagePathChanged: utility.setValue("imagePath", imagePath);
 
-    property string browser: utility.getValue("browser", "");
+    property string browser: utility.getValue("browser", "System");
     onBrowserChanged: utility.setValue("browser", browser);
 
     property string signature: utility.getValue("signature", "");
@@ -27,6 +27,9 @@ QtObject {
 
     property string draftBox: utility.getValue("draftBox", "");
     onDraftBoxChanged: utility.setValue("draftBox", draftBox);
+
+    property int volumeLevel: utility.getValue("volumeLevel", 7);
+    onVolumeLevelChanged: utility.setValue("volumeLevel", volumeLevel);
 
     property string currentBearerName;
     onCurrentBearerNameChanged: {

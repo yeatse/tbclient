@@ -213,7 +213,7 @@ MyPage {
             top: viewHeader.bottom;
         }
         height: screen.height - privateStyle.statusBarHeight - viewHeader.height - toolsArea.height;
-        cacheBuffer: height * 3;
+        cacheBuffer: 0//height * 3;
         model: ListModel {}
         header: internal.post ? headerComp : null;
         Component {

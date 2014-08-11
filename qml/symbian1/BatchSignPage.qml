@@ -82,7 +82,7 @@ MyPage {
         header: headerComp;
         delegate: deleComp;
         footer: footerComp;
-        cacheBuffer: view.height * 5;
+        cacheBuffer: 0//view.height * 5;
         Component {
             id: headerComp;
             Rectangle {

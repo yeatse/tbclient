@@ -158,7 +158,6 @@ MyPage {
                     id: browserSelector;
                     titleText: qsTr("Default browser")
                     model: [
-                        qsTr("Built-in"),
                         qsTr("System browser"),
                         qsTr("UC"),
                         qsTr("UC International"),
@@ -166,20 +165,20 @@ MyPage {
                     ]
                     selectedIndex: {
                         switch (tbsettings.browser){
-                        case "System": return 1;
-                        case "UC": return 2;
-                        case "UC International": return 3;
-                        case "Opera": return 4;
+                        case "System": return 0;
+                        case "UC": return 1;
+                        case "UC International": return 2;
+                        case "Opera": return 3;
                         default: return 0;
                         }
                     }
                     onAccepted: {
                         switch (selectedIndex){
-                        case 1: tbsettings.browser = "System"; break;
-                        case 2: tbsettings.browser = "UC"; break;
-                        case 3: tbsettings.browser = "UC International"; break;
-                        case 4: tbsettings.browser = "Opera"; break;
-                        default: tbsettings.browser = ""; break;
+                        case 0: tbsettings.browser = "System"; break;
+                        case 1: tbsettings.browser = "UC"; break;
+                        case 2: tbsettings.browser = "UC International"; break;
+                        case 3: tbsettings.browser = "Opera"; break;
+                        default: tbsettings.browser = "System"; break;
                         }
                     }
                 }

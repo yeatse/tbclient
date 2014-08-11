@@ -282,7 +282,7 @@ MyPage {
     SilicaListView {
         id: view;
         anchors { fill: parent; topMargin: viewHeader.height; }
-        cacheBuffer: 7200;
+        cacheBuffer: 0//7200;
         model: ListModel {}
         header: ForumHeader {
             PullToActivate {

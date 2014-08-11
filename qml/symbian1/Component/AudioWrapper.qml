@@ -9,7 +9,7 @@ Item {
 
     // public api:
     property string currentMd5;
-    property real volume: devInfo.voiceRingtoneVolume / 100;
+    property real volume: tbsettings.volumeLevel / 10;
     property int position: audio.position;
     property bool playing: audio.playing;
     property bool loading: downloader.state == 2;

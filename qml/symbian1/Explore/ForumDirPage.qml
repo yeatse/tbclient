@@ -34,7 +34,7 @@ MyPage {
     SilicaListView {
         id: view;
         anchors { fill: parent; topMargin: viewHeader.height; }
-        cacheBuffer: view.height * 3;
+        cacheBuffer: 0//view.height * 3;
         model: ListModel {}
         delegate: dirDelegate;
 

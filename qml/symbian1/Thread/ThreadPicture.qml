@@ -129,7 +129,7 @@ MyPage {
         id: view;
         focus: true;
         anchors { fill: parent; topMargin: viewHeader.height; }
-        cacheBuffer: 1;
+        cacheBuffer: 0//1;
         highlightFollowsCurrentItem: true;
         highlightMoveDuration: 300;
         highlightRangeMode: ListView.StrictlyEnforceRange;

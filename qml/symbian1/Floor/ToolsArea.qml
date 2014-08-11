@@ -102,7 +102,7 @@ Item {
                 ScriptAction {
                     script: {
                         inputArea.forceActiveFocus();
-                        inputArea.openSoftwareInputPanel();
+                        //inputArea.openSoftwareInputPanel();
                     }
                 }
             }

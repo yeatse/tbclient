@@ -2,6 +2,7 @@ import QtQuick 1.0
 import com.nokia.symbian 1.0
 import com.yeatse.tbclient 1.0
 import "../../js/Utils.js" as Utils
+import "../Component"
 
 Item {
     id: root;
@@ -29,15 +30,66 @@ Item {
         source: "../gfx/but_posts_record_%1_%2.png".arg(mode).arg(stateString);
     }
 
-    ToolButton {
+    ToolButtonWithTip {
+        id: volumeBtn;
+        toolTipText: "音量";
+        anchors { right: icon.left; bottom: icon.bottom; bottomMargin: -constant.paddingMedium; }
+        iconSource: "../gfx/volume.svg";
+        //platformInverted: tbsettings.whiteTheme;
+        onClicked: {
+            volumeSelector.open();
+        }
+    }
+    ToolButtonWithTip {
         id: deleteBtn;
-        visible: false;
+        enabled: false;
+        toolTipText: "删除";
         anchors { left: icon.right; bottom: icon.bottom; bottomMargin: -constant.paddingMedium; }
         iconSource: "toolbar-delete";
         //platformInverted: tbsettings.whiteTheme;
         onClicked: {
             audioWrapper.stop();
             audioUrl = "";
+        }
+    }
+    CustomDialog {
+        id: volumeSelector
+
+        //titleText: qsTr("Select pen width(selected: %1)").arg(slider.value);
+        titleText: "调节音量";
+        buttonTexts: ["确定", "取消"];
+
+        onButtonClicked: if (index === 0) accept();
+        onAccepted: tbsettings.volumeLevel = slider.value;
+        content: Slider {
+            id: slider
+            anchors {
+                left: parent.left;
+                right: parent.right;
+                margins: constant.paddingLarge
+                verticalCenter: parent.verticalCenter
+            }
+            valueIndicatorVisible: true;
+            minimumValue: 0
+            maximumValue: 10
+            stepSize: 1
+            value: tbsettings.volumeLevel
+            Keys.onPressed: {
+                if (event.key == Qt.Key_Select
+                        ||event.key == Qt.Key_Enter
+                        ||event.key == Qt.Key_Return){
+                    widthSelector.accept();
+                    event.accepted = true;
+                } else if (event.key == Qt.Key_Backspace){
+                    widthSelector.reject();
+                    event.accepted = true;
+                }
+            }
+        }
+        onStatusChanged: {
+            if (status === DialogStatus.Open){
+                slider.forceActiveFocus();
+            }
         }
     }
 
@@ -85,7 +137,7 @@ Item {
         State {
             name: "Playback";
             PropertyChanges { target: root; mode: audioWrapper.playing ? "stop" : "play"; }
-            PropertyChanges { target: deleteBtn; visible: true; }
+            PropertyChanges { target: deleteBtn; enabled: true; }
             PropertyChanges {
                 target: mouseArea;
                 onPressAndHold: {}

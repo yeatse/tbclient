@@ -69,7 +69,7 @@ MyPage {
         id: view;
         anchors { fill: parent; topMargin: viewHeader.height; }
         model: ListModel {}
-        cacheBuffer: view.height * 3;
+        cacheBuffer: 0//view.height * 3;
         delegate: bmDelegate;
         header: PullToActivate {
             myView: view;

@@ -205,8 +205,7 @@ QtObject {
     function openBrowser(url){
         url = utility.fixUrl(url);
         if (tbsettings.browser == ""){
-            showMessage("The bulit-in browser is under buildingT_T");
-            /*pageStack.push(Qt.resolvedUrl("Browser/WebPage.qml"), {url: url});*/
+            showMessage("很遗憾，V5版本贴吧客户端没有内置浏览器！");
         } else {
             utility.openURLDefault(url);
         }
