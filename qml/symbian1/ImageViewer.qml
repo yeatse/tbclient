@@ -44,7 +44,7 @@ MyPage {
 
                 function fitToScreen() {
                     scale = Math.min(imageFlickable.width / width, imageFlickable.height / height, 1)
-                    pinchArea.minScale = scale
+                    slider.minimumValue = scale;
                     prevScale = scale
                 }
 
@@ -72,6 +72,7 @@ MyPage {
                 }
 
                 onScaleChanged: {
+                    slider.value = scale;
                     if ((width * scale) > imageFlickable.width) {
                         var xoff = (imageFlickable.width / 2 + imageFlickable.contentX) * scale / prevScale;
                         imageFlickable.contentX = xoff - imageFlickable.width / 2
@@ -85,48 +86,16 @@ MyPage {
             }
         }
 
-        /*PinchArea {
-            id: pinchArea
-
-            property real minScale: 1.0
-            property real maxScale: 3.0
-
-            anchors.fill: parent
-            enabled: imagePreview.status === Image.Ready
-            pinch.target: imagePreview
-            pinch.minimumScale: minScale * 0.5 // This is to create "bounce back effect"
-            pinch.maximumScale: maxScale * 1.5 // when over zoomed
-
-            onPinchFinished: {
-                imageFlickable.returnToBounds()
-                if (imagePreview.scale < pinchArea.minScale) {
-                    bounceBackAnimation.to = pinchArea.minScale
-                    bounceBackAnimation.start()
-                }
-                else if (imagePreview.scale > pinchArea.maxScale) {
-                    bounceBackAnimation.to = pinchArea.maxScale
-                    bounceBackAnimation.start()
-                }
-            }
-
-            NumberAnimation {
-                id: bounceBackAnimation
-                target: imagePreview
-                duration: 250
-                property: "scale"
-                from: imagePreview.scale
-            }
-        }*/
         MouseArea {
             id: mouseArea;
             anchors.fill: parent;
             enabled: imagePreview.status === Image.Ready;
             onDoubleClicked: {
-                if (imagePreview.scale > pinchArea.minScale){
-                    bounceBackAnimation.to = pinchArea.minScale
+                if (imagePreview.scale > slider.minimumValue){
+                    bounceBackAnimation.to = slider.minimumValue;
                     bounceBackAnimation.start()
                 } else {
-                    bounceBackAnimation.to = pinchArea.maxScale
+                    bounceBackAnimation.to = Math.min(1, slider.maximumValue);
                     bounceBackAnimation.start()
                 }
             }
@@ -186,6 +155,29 @@ MyPage {
     ScrollDecorator {
         //platformInverted: tbsettings.whiteTheme;
         flickableItem: imageFlickable
+    }
+
+    Slider {
+        id: slider;
+
+        anchors {
+            left: parent.left; right: parent.right;
+            bottom: parent.bottom; margins: constant.paddingLarge;
+        }
+
+        enabled: imagePreview.status === Image.Ready;
+        minimumValue: 1.0;
+        maximumValue: 2.0;
+
+        onValueChanged: imagePreview.scale = value;
+
+        NumberAnimation {
+            id: bounceBackAnimation
+            target: imagePreview
+            duration: 250
+            property: "scale"
+            from: imagePreview.scale
+        }
     }
 
     // For keypad

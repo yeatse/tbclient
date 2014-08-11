@@ -192,19 +192,10 @@ QtObject {
     }
 
     function viewImage(url){
-        if (tbsettings.browser == ""){
-            pageStack.push(Qt.resolvedUrl("ImageViewer.qml"), { imageUrl: url })
-        } else {
-            utility.openURLDefault(url);
-        }
+        pageStack.push(Qt.resolvedUrl("ImageViewer.qml"), { imageUrl: url });
     }
 
     function openBrowser(url){
-        url = utility.fixUrl(url);
-        if (tbsettings.browser == ""){
-            showMessage("很遗憾，V5版本贴吧客户端没有内置浏览器！");
-        } else {
-            utility.openURLDefault(url);
-        }
+        utility.openURLDefault(utility.fixUrl(url));
     }
 }

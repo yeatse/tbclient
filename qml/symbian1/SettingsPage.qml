@@ -30,14 +30,6 @@ MyPage {
             Column {
                 x: constant.paddingLarge;
                 spacing: constant.paddingLarge;
-                /*
-                CheckBox {
-                    text: qsTr("Night theme");
-                    //platformInverted: tbsettings.whiteTheme;
-                    checked: !tbsettings.whiteTheme;
-                    onClicked: tbsettings.whiteTheme = !checked;
-                }
-                */
                 CheckBox {
                     text: qsTr("Show image");
                     //platformInverted: tbsettings.whiteTheme;
@@ -112,13 +104,6 @@ MyPage {
                     remindDialog.open();
                 }
             }
-//            SelectionListItem {
-//                //platformInverted: tbsettings.whiteTheme;
-//                title: qsTr("Background image(long press to clear)");
-//                subTitle: tbsettings.bgImageUrl || qsTr("Click to set")
-//                onPressAndHold: tbsettings.bgImageUrl = "";
-//                onClicked: tbsettings.bgImageUrl = utility.selectImage()||tbsettings.bgImageUrl;
-//            }
             SelectionListItem {
                 //platformInverted: tbsettings.whiteTheme;
                 title: qsTr("Image save path");

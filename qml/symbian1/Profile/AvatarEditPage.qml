@@ -66,7 +66,7 @@ MyPage {
 
                     function fitToScreen() {
                         scale = Math.max(imageFlickable.width / width, imageFlickable.height / height);
-                        pinchArea.minScale = scale
+                        slider.minimumValue = scale;
                         prevScale = scale
                     }
 
@@ -94,6 +94,7 @@ MyPage {
                     }
 
                     onScaleChanged: {
+                        slider.value = scale;
                         if ((width * scale) > imageFlickable.width) {
                             var xoff = (imageFlickable.width / 2 + imageFlickable.contentX) * scale / prevScale;
                             imageFlickable.contentX = xoff - imageFlickable.width / 2
@@ -106,39 +107,6 @@ MyPage {
                     }
                 }
             }
-
-/*            PinchArea {
-                id: pinchArea
-
-                property real minScale: 1.0
-                property real maxScale: Math.max(minScale, 1.0);
-
-                anchors.fill: parent
-                enabled: imagePreview.status === Image.Ready
-                pinch.target: imagePreview
-                pinch.minimumScale: minScale * 0.5 // This is to create "bounce back effect"
-                pinch.maximumScale: maxScale * 1.5 // when over zoomed
-
-                onPinchFinished: {
-                    imageFlickable.returnToBounds()
-                    if (imagePreview.scale < pinchArea.minScale) {
-                        bounceBackAnimation.to = pinchArea.minScale
-                        bounceBackAnimation.start()
-                    }
-                    else if (imagePreview.scale > pinchArea.maxScale) {
-                        bounceBackAnimation.to = pinchArea.maxScale
-                        bounceBackAnimation.start()
-                    }
-                }
-
-                NumberAnimation {
-                    id: bounceBackAnimation
-                    target: imagePreview
-                    duration: 250
-                    property: "scale"
-                    from: imagePreview.scale
-                }
-            }*/
         }
 
         BusyIndicator {
@@ -168,5 +136,17 @@ MyPage {
             border { width: 2; color: "white"; }
             color: "transparent";
         }
+    }
+
+    Slider {
+        id: slider;
+        anchors {
+            left: parent.left; right: parent.right; bottom: parent.bottom;
+            margins: constant.paddingLarge;
+        }
+        minimumValue: 1.0;
+        maximumValue: 2.0;
+        enabled: imagePreview.status === Image.Ready;
+        onValueChanged: imagePreview.scale = value;
     }
 }
