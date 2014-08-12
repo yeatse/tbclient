@@ -48,7 +48,7 @@ TextField {
             id: clearMouseArea;
             anchors.fill: parent;
             onClicked: {
-                root.closeSoftwareInputPanel();
+                //root.closeSoftwareInputPanel();
                 root.text = "";
                 root.parent.forceActiveFocus();
                 root.cleared();
