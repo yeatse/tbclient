@@ -330,42 +330,12 @@ MyPage {
     Component {
         id: tabCreator;
 
-        Dialog {
+        CustomDialog {
             id: commonDialog;
 
-            title: Text {
-                font { family: platformStyle.fontFamilyRegular; pixelSize: platformStyle.fontSizeLarge }
-                color: platformStyle.colorNormalLink
-                text: qsTr("Create a new tab");
-                horizontalAlignment: Text.AlignLeft
-                verticalAlignment: Text.AlignVCenter
-                elide: Text.ElideRight
-            }
+            titleText: qsTr("Create a new tab");
             //titleIcon: "../gfx/edit.svg";
-            buttons: ToolBar {
-                id: buttons
-                //width: parent.width
-                height: privateStyle.toolBarHeightLandscape + 2 * platformStyle.paddingSmall
-                tools: Row {
-                    //id: buttonRow
-                    anchors.centerIn: parent
-                    spacing: platformStyle.paddingMedium
-
-                    ToolButton {
-                        //id: acceptButton
-                        // Different widths for 1 and 2 button cases
-                        text: qsTr("OK");
-                        width: (buttons.width - 3 * platformStyle.paddingMedium) / 2
-                        onClicked: accept();
-                    }
-                    ToolButton {
-                        //id: rejectButton
-                        width: (buttons.width - 3 * platformStyle.paddingMedium) / 2
-                        text: qsTr("Cancel");
-                        onClicked: reject();
-                    }
-                }
-            }
+            buttonTexts: [qsTr("OK"), qsTr("Cancel")];
             content: Item {
                 width: parent.width;
                 height: contentCol.height + constant.paddingLarge*2;
@@ -402,11 +372,12 @@ MyPage {
                                 }
                             }
                         }
-                        Button {
+                        ToolButtonWithTip {
                             id: pasteButton
                             anchors.verticalCenter: parent.verticalCenter;
                             iconSource: privateStyle.imagePath("qtg_toolbar_paste");
                             onClicked: textField.paste();
+                            toolTipText: "粘贴";
                         }
                     }
                 }
@@ -418,7 +389,7 @@ MyPage {
                     textField.openSoftwareInputPanel();
                 }
             }
-            //onButtonClicked: if (index === 0) accept();
+            onButtonClicked: if (index === 0) accept();
             onAccepted: {
                 if (textField.acceptableInput){
                     var id = textField.text.match(/\d+/)[0];

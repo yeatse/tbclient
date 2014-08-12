@@ -272,9 +272,9 @@ MyPage {
                 anchors.fill: parent;
                 onClicked: {
                     view.contentY -= view.height;
-                    if (view.atYBeginning) view.positionViewAtBeginning();
+                    if (view.atYBeginning) view.positionViewAtIndex(0, ListView.Beginning);
                 }
-                onPressAndHold: view.positionViewAtBeginning();
+                onPressAndHold: view.positionViewAtIndex(0, ListView.Beginning);
             }
         }
         Image {
@@ -287,9 +287,9 @@ MyPage {
                 anchors.fill: parent;
                 onClicked: {
                     view.contentY += view.height;
-                    if (view.atYEnd) view.positionViewAtEnd();
+                    if (view.atYEnd) view.positionViewAtIndex((view.count - 1, ListView.End);
                 }
-                onPressAndHold: view.positionViewAtEnd();
+                onPressAndHold: view.positionViewAtIndex(view.count - 1, ListView.End);
             }
         }
     }
