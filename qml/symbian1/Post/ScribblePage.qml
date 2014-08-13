@@ -189,7 +189,7 @@ MyPage {
         }
     }
 
-    Dialog {
+    CustomDialog {
         id: widthSelector
 
         title: Text {
@@ -200,33 +200,9 @@ MyPage {
             verticalAlignment: Text.AlignVCenter
             elide: Text.ElideRight
         }
-        //titleText: qsTr("Select pen width(selected: %1)").arg(slider.value);
-        //buttonTexts: [ qsTr("OK"), qsTr("Cancel")];
-        buttons: ToolBar {
-            id: buttons
-            //width: parent.width
-            height: privateStyle.toolBarHeightLandscape + 2 * platformStyle.paddingSmall
-            tools: Row {
-                //id: buttonRow
-                anchors.centerIn: parent
-                spacing: platformStyle.paddingMedium
-
-                ToolButton {
-                    //id: acceptButton
-                    // Different widths for 1 and 2 button cases
-                    text: qsTr("OK");
-                    width: (buttons.width - 3 * platformStyle.paddingMedium) / 2
-                    onClicked: accept();
-                }
-                ToolButton {
-                    //id: rejectButton
-                    width: (buttons.width - 3 * platformStyle.paddingMedium) / 2
-                    text: qsTr("Cancel");
-                    onClicked: reject();
-                }
-            }
-        }
-        //onButtonClicked: if (index === 0) accept();
+        titleText: qsTr("Select pen width(selected: %1)").arg(slider.value);
+        buttonTexts: [ qsTr("OK"), qsTr("Cancel")];
+        onButtonClicked: if (index === 0) accept();
         onAccepted: scribbleArea.penWidth = slider.value;
         content: Slider {
             id: slider

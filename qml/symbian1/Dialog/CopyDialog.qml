@@ -1,7 +1,8 @@
 import QtQuick 1.0
 import com.nokia.symbian 1.0
+import "../Component"
 
-CommonDialog {
+CustomDialog {
     id: root;
 
     property alias text: textArea.text;
@@ -21,35 +22,8 @@ CommonDialog {
             textFormat: TextEdit.PlainText;
         }
     }
-
-    //buttonTexts: [qsTr("Copy"), qsTr("Cancel")];
-
-    buttons: ToolBar {
-        id: buttons
-        //width: parent.width
-        height: privateStyle.toolBarHeightLandscape + 2 * platformStyle.paddingSmall
-        tools: Row {
-            //id: buttonRow
-            anchors.centerIn: parent
-            spacing: platformStyle.paddingMedium
-
-            ToolButton {
-                //id: acceptButton
-                // Different widths for 1 and 2 button cases
-                text: qsTr("Copy");
-                width: (buttons.width - 3 * platformStyle.paddingMedium) / 2
-                onClicked: accept();
-            }
-            ToolButton {
-                //id: rejectButton
-                width: (buttons.width - 3 * platformStyle.paddingMedium) / 2
-                text: qsTr("Cancel");
-                onClicked: reject();
-            }
-        }
-    }
-    //onButtonClicked: if (index === 0) accept();
-
+    buttonTexts: [qsTr("Copy"), qsTr("Cancel")];
+    onButtonClicked: if (index === 0) accept();
     onStatusChanged: {
         if (status === DialogStatus.Closing){
             __isClosing = true;
