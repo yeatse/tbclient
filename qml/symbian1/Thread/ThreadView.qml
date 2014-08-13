@@ -287,7 +287,7 @@ MyPage {
                 anchors.fill: parent;
                 onClicked: {
                     view.contentY += view.height;
-                    if (view.atYEnd) view.positionViewAtIndex((view.count - 1, ListView.End);
+                    if (view.atYEnd) view.positionViewAtIndex(view.count - 1, ListView.End);
                 }
                 onPressAndHold: view.positionViewAtIndex(view.count - 1, ListView.End);
             }
