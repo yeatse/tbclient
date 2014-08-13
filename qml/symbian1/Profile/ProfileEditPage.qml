@@ -12,7 +12,7 @@ MyPage {
         BackButton {}
         ToolButtonWithTip {
             toolTipText: qsTr("OK");
-            iconSource: "../gfx/ok"+constant.invertedString+".svg";
+            iconSource: "../gfx/ok.svg";
             onClicked: save();
         }
     }

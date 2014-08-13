@@ -73,7 +73,7 @@ Item {
                 visible: !internal.isLike;
                 anchors.verticalCenter: parent.verticalCenter;
                 sourceSize: Qt.size(width, height);
-                source: "../gfx/btn_like_"+likeBtnMouseArea.stateString+constant.invertedString+".png";
+                source: "../gfx/btn_like_"+likeBtnMouseArea.stateString+".png";
                 MouseArea {
                     id: likeBtnMouseArea;
                     property string stateString: pressed ? "s" : "n";
@@ -86,7 +86,7 @@ Item {
                 visible: !internal.hasSigned;
                 anchors.verticalCenter: parent.verticalCenter;
                 sourceSize: Qt.size(width, height);
-                source: "../gfx/btn_sign_"+signBtnMouseArea.stateString+constant.invertedString+".png";
+                source: "../gfx/btn_sign_"+signBtnMouseArea.stateString+".png";
                 BusyIndicator {
                     anchors.centerIn: parent;
                     //platformInverted: tbsettings.whiteTheme;

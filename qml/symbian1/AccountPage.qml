@@ -12,7 +12,7 @@ MyPage {
         BackButton {}
         ToolButtonWithTip {
             toolTipText: internal.isEdit ? qsTr("OK") : qsTr("Edit");
-            iconSource: "gfx/"+(internal.isEdit?"ok":"edit")+constant.invertedString+".svg";
+            iconSource: "gfx/"+(internal.isEdit?"ok":"edit")+".svg";
             onClicked: internal.isEdit = !internal.isEdit;
         }
     }
@@ -124,7 +124,7 @@ MyPage {
                         Component {
                             id: currentActiveIcon;
                             Image {
-                                source: "gfx/ok"+constant.invertedString+".svg"
+                                source: "gfx/ok.svg"
                             }
                         }
                     }

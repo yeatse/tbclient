@@ -16,7 +16,7 @@ MyPage {
         }
         ToolButtonWithTip {
             toolTipText: internal.editMode ? qsTr("OK") : qsTr("Edit");
-            iconSource: "../gfx/"+(internal.editMode?"ok":"edit")+constant.invertedString+".svg";
+            iconSource: "../gfx/"+(internal.editMode?"ok":"edit")+".svg";
             onClicked: internal.editMode = !internal.editMode;
         }
     }
@@ -120,7 +120,7 @@ MyPage {
                     }
                     Image {
                         visible: isVisible;
-                        source: "../gfx/btn_icon_comment_n"+constant.invertedString+".png"
+                        source: "../gfx/btn_icon_comment_n.png"
                     }
                     Text {
                         anchors.verticalCenter: parent.verticalCenter;

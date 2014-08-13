@@ -16,7 +16,7 @@ MyPage {
         }
         ToolButtonWithTip {
             toolTipText: qsTr("Square");
-            iconSource: "../gfx/compass"+constant.invertedString+".svg";
+            iconSource: "../gfx/compass.svg";
             onClicked: pageStack.push(Qt.resolvedUrl("SquarePage.qml"));
         }
     }

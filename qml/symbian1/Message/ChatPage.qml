@@ -18,7 +18,7 @@ MyPage {
         BackButton {}
         ToolButtonWithTip {
             toolTipText: qsTr("Edit");
-            iconSource: "../gfx/edit"+constant.invertedString+".svg";
+            iconSource: "../gfx/edit.svg";
             onClicked: toolsArea.state = "Input";
         }
         ToolButtonWithTip {

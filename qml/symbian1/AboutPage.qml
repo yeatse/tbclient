@@ -66,7 +66,7 @@ MyPage {
             font: constant.subTitleFont;
             color: constant.colorMid;
             anchors.horizontalCenter: parent.horizontalCenter;
-            text: "Yeatse CC, 2014";
+            text: "Yeatse CC & Perqin, 2014";
         }
     }
 

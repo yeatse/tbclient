@@ -28,7 +28,7 @@ MyPage {
         ToolButtonWithTip {
             toolTipText: qsTr("Reply");
             enabled: internal.post != null;
-            iconSource: "../gfx/edit"+constant.invertedString+".svg";
+            iconSource: "../gfx/edit.svg";
             onClicked: toolsArea.state = "Input";
         }
         ToolButtonWithTip {

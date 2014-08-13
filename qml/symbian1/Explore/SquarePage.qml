@@ -273,7 +273,7 @@ MyPage {
                                 }
                                 Image {
                                     asynchronous: true;
-                                    source: "../gfx/btn_icon_comment_n"+constant.invertedString+".png";
+                                    source: "../gfx/btn_icon_comment_n.png";
                                 }
                                 Text {
                                     anchors.verticalCenter: parent.verticalCenter;

@@ -56,7 +56,7 @@ Item {
                 Component {
                     id: livePostBtn;
                     Image {
-                        source: "../gfx/icon_live"+constant.invertedString+".png";
+                        source: "../gfx/icon_live.png";
                         opacity: livePostMouseArea.pressed ? 0.6 : 1;
                         MouseArea {
                             id: livePostMouseArea;

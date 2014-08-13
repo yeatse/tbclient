@@ -52,7 +52,7 @@ Item {
             id: contentMouseArea;
             width: parent.width;
             height: Math.min(contentLabel.height, constant.graphicSizeLarge);
-            onHeightChanged: view.positionViewAtBeginning();
+            onHeightChanged: view.positionViewAtIndex(0, ListView.Beginning);
             clip: true;
             onClicked: state = state === "" ? "Expanded" : "";
             states: [
@@ -89,7 +89,7 @@ Item {
                 anchors.right: parent.right;
                 Image {
                     asynchronous: true;
-                    source: "../gfx/btn_icon_comment_n"+constant.invertedString+".png";
+                    source: "../gfx/btn_icon_comment_n.png";
                 }
                 Text {
                     anchors.verticalCenter: parent.verticalCenter;

@@ -70,7 +70,7 @@ Item {
                             margins: -constant.paddingMedium;
                         }
                         //platformInverted: tbsettings.whiteTheme;
-                        iconSource: "../gfx/tb_close_stop"+constant.invertedString+".svg";
+                        iconSource: "../gfx/tb_close_stop.svg";
                         onClicked: internal.removeImage(modelData);
                     }
                 }

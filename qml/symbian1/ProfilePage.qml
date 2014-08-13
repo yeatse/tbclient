@@ -46,7 +46,7 @@ MyPage {
         }
         ToolButtonWithTip {
             toolTipText: qsTr("Chat");
-            iconSource: "gfx/instant_messenger_chat"+constant.invertedString+".svg";
+            iconSource: "gfx/instant_messenger_chat.svg";
             enabled: !isMe && userData != null;
             onClicked: {
                 var prop = { chatName: userData.name_show, chatId: getUid() };
@@ -130,9 +130,9 @@ MyPage {
                             source: {
                                 if (userData){
                                     if (userData.sex === "1"){
-                                        return "gfx/icon_man"+constant.invertedString+".png";
+                                        return "gfx/icon_man.png";
                                     } else {
-                                        return "gfx/icon_woman"+constant.invertedString+".png";
+                                        return "gfx/icon_woman.png";
                                     }
                                 } else {
                                     return "";
@@ -167,7 +167,7 @@ MyPage {
                             BorderImage {
                                 anchors.fill: parent;
                                 border { left: 25; right: 25; top: 0; bottom: 0; }
-                                source: "gfx/btn_bg_"+parent.pressString+constant.invertedString+".png";
+                                source: "gfx/btn_bg_"+parent.pressString+".png";
                                 smooth: true;
                             }
                             Row {
@@ -176,7 +176,7 @@ MyPage {
                                 spacing: constant.paddingSmall;
                                 Image {
                                     anchors.verticalCenter: parent.verticalCenter;
-                                    source: "gfx/btn_icon_edit"+constant.invertedString+".png";
+                                    source: "gfx/btn_icon_edit.png";
                                 }
                                 Text {
                                     anchors.verticalCenter: parent.verticalCenter;
@@ -200,7 +200,7 @@ MyPage {
                                 id: icon;
                                 anchors.fill: parent;
                                 border { left: 25; right: 25; top: 0; bottom: 0; }
-                                source: "gfx/btn_%1_%2%3.png".arg(parent.name).arg(parent.pressString).arg(constant.invertedString);
+                                source: "gfx/btn_%1_%2%3.png".arg(parent.name).arg(parent.pressString).arg("");
                             }
                             Text {
                                 visible: isLike;

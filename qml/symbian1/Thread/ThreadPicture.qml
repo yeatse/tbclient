@@ -21,13 +21,13 @@ MyPage {
         }
         ToolButtonWithTip {
             toolTipText: qsTr("Reply");
-            iconSource: "../gfx/edit"+constant.invertedString+".svg";
+            iconSource: "../gfx/edit.svg";
             enabled: view.currentItem != null;
             onClicked: toolsArea.state = "Input";
         }
         ToolButtonWithTip {
             toolTipText: qsTr("Save");
-            iconSource: "../gfx/save"+constant.invertedString+".svg";
+            iconSource: "../gfx/save.svg";
             enabled: view.currentItem != null;
             onClicked: {
                 var url = view.model.get(view.currentIndex).url;

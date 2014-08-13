@@ -33,13 +33,13 @@ AbstractItem {
                     asynchronous: true;
                     enabled: is_good;
                     visible: enabled;
-                    source: enabled ? "../gfx/icon_elite"+constant.invertedString+".png" : "";
+                    source: enabled ? "../gfx/icon_elite.png" : "";
                 }
                 Image {
                     asynchronous: true;
                     enabled: is_top;
                     visible: enabled;
-                    source: enabled ? "../gfx/icon_top"+constant.invertedString+".png" : "";
+                    source: enabled ? "../gfx/icon_top.png" : "";
                 }
             }
         }
@@ -86,7 +86,7 @@ AbstractItem {
         anchors { right: parent.right; bottom: parent.bottom; margins: constant.paddingSmall; }
         Image {
             asynchronous: true;
-            source: "../gfx/btn_icon_comment_n"+constant.invertedString+".png";
+            source: "../gfx/btn_icon_comment_n.png";
         }
         Text {
             anchors.verticalCenter: parent.verticalCenter;
