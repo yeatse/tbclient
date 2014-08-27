@@ -8,7 +8,9 @@
 #include "src/httpuploader.h"
 #include "src/audiorecorder.h"
 #include "src/scribblearea.h"
+#ifndef Q_OS_S60V5
 #include "src/qwebviewitem.h"
+#endif
 #include "src/imageuploader.h"
 
 #ifdef Q_WS_SIMULATOR
@@ -23,6 +25,10 @@
 #include <QtDBus/QDBusConnection>
 #include "src/tbclientif.h"
 #include "src/harmattanbackgroundprovider.h"
+#endif
+
+#ifdef Q_OS_S60V5
+#include "applicationactivelistener.h"
 #endif
 
 #ifdef Q_OS_SYMBIAN
@@ -52,21 +58,31 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     // Symbian specific
 #ifdef Q_OS_SYMBIAN
+#ifndef Q_OS_S60V5
     QApplication::setAttribute(Qt::AA_CaptureMultimediaKeys);
+#endif
     QScopedPointer<QApplication> app(new SymbianApplication(argc, argv));
 #else
     QScopedPointer<QApplication> app(createApplication(argc, argv));
 #endif
 
 #if defined(Q_OS_SYMBIAN)||defined(Q_WS_SIMULATOR)
+#ifdef Q_OS_S60V5
+    QSplashScreen *splash = new QSplashScreen(QPixmap("qml/symbian1/gfx/splash.jpg"));
+#else
     QSplashScreen *splash = new QSplashScreen(QPixmap("qml/tbclient/gfx/splash.jpg"));
+#endif
     splash->show();
     splash->raise();
 #endif
 
     app->setApplicationName("tbclient");
     app->setOrganizationName("Yeatse");
+#ifdef Q_OS_S60V5
+    app->setApplicationVersion("2.1.5");
+#else
     app->setApplicationVersion(VER);
+#endif
 
     // Install translator for qt
     QString locale = QLocale::system().name();
@@ -85,7 +101,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterType<Downloader>("com.yeatse.tbclient", 1, 0, "Downloader");
     qmlRegisterType<AudioRecorder>("com.yeatse.tbclient", 1, 0, "AudioRecorder");
     qmlRegisterType<ScribbleArea>("com.yeatse.tbclient", 1, 0, "ScribbleArea");
+#ifndef Q_OS_S60V5
     qmlRegisterType<QWebViewItem>("com.yeatse.tbclient", 1, 0, "WebView");
+#endif
     qmlRegisterType<ImageUploader>("com.yeatse.tbclient", 1, 0, "ImageUploader");
 
 #ifdef QVIBRA
@@ -111,6 +129,11 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QDBusConnection bus = QDBusConnection::sessionBus();
     bus.registerService("com.tbclient");
     bus.registerObject("/com/tbclient", app.data());
+#endif
+
+#ifdef Q_OS_S60V5
+    ApplicationActiveListener listener;
+    viewer.rootContext()->setContextProperty("activeListener", &listener);
 #endif
 
     // For fiddler network debugging
@@ -141,15 +164,21 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     // Initialize settings
     if (!utility->getValue("AppVersion","").toString().startsWith("2.1")){
         utility->clearSettings();
+#ifdef Q_OS_S60V5
+        utility->setValue("AppVersion", "2.1.5");
+#else
         utility->setValue("AppVersion", VER);
+#endif
     }
 
-#ifdef Q_OS_SYMBIAN
+#ifdef Q_OS_S60V5
+    viewer.setMainQmlFile(QLatin1String("qml/symbian1/main.qml"));
+#elif defined(Q_OS_SYMBIAN)
     viewer.setMainQmlFile(QLatin1String("qml/tbclient/main.qml"));
 #elif defined(Q_OS_HARMATTAN)
     viewer.setMainQmlFile(QLatin1String("qml/harmattan/main.qml"));
 #else
-    viewer.setMainQmlFile(QLatin1String("qml/tbclient/main.qml"));
+    viewer.setMainQmlFile(QLatin1String("qml/symbian1/main.qml"));
 #endif
     viewer.showExpanded();
 

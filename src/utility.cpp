@@ -5,7 +5,11 @@
 #include <QtNetwork>
 
 #ifdef Q_OS_SYMBIAN
+#ifdef Q_OS_S60V5
+#include <aknglobalnote.h>
+#else
 #include <akndiscreetpopup.h>       //for discreet popup
+#endif
 #include <avkon.hrh>                //..
 #include <apgcli.h>                 //for launch apps
 #include <apgtask.h>                //..
@@ -298,7 +302,20 @@ QColor Utility::selectColor(const QColor &defaultColor)
 
 void Utility::showNotification(const QString &title, const QString &message)
 {
-#ifdef Q_OS_SYMBIAN
+#ifdef Q_OS_S60V5
+    QtMobility::QSystemDeviceInfo deviceInfo;
+    bool silent = deviceInfo.currentProfile() != QtMobility::QSystemDeviceInfo::NormalProfile
+            && deviceInfo.currentProfile() != QtMobility::QSystemDeviceInfo::LoudProfile;
+    TPtrC16 sMessage(static_cast<const TUint16 *>(message.utf16()), message.length());
+    CAknGlobalNote* note = CAknGlobalNote::NewLC();
+    if (silent){
+        note->SetTone(0);
+    } else {
+        note->SetTone(EAvkonSIDReadialCompleteTone);
+    }
+    note->ShowNoteL(EAknGlobalInformationNote, sMessage);
+    CleanupStack::PopAndDestroy(note);
+#elif defined(Q_OS_SYMBIAN)
     TPtrC16 sTitle(static_cast<const TUint16 *>(title.utf16()), title.length());
     TPtrC16 sMessage(static_cast<const TUint16 *>(message.utf16()), message.length());
     TUid uid = TUid::Uid(0x2006622A);
@@ -774,13 +791,21 @@ QString Utility::CaptureImage()
     CAiwGenericParamList* paramList = CAiwGenericParamList::NewLC();
 
     TAiwVariant variant(EFalse);
+#ifdef Q_OS_S60V5
+    TAiwGenericParam param1(170, variant);
+#else
     TAiwGenericParam param1(EGenericParamMMSSizeLimit, variant);
+#endif
     paramList->AppendL( param1 );
 
     TSize resolution = TSize(1600, 1200);
     TPckgBuf<TSize> buffer( resolution );
     TAiwVariant resolutionVariant( buffer );
+#ifdef Q_OS_S60V5
+    TAiwGenericParam param( 171, resolutionVariant );
+#else
     TAiwGenericParam param( EGenericParamResolution, resolutionVariant );
+#endif
     paramList->AppendL( param );
 
     const TUid KUidCamera = { 0x101F857A }; // Camera UID for S60 5th edition

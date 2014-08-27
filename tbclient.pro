@@ -30,7 +30,7 @@ SOURCES += main.cpp \
     src/scribblearea.cpp \
     src/flickcharm.cpp \
     src/qwebviewitem.cpp \
-    src/imageuploader.cpp
+    src/imageuploader.cpp \
 #    qml/tbclient/*.qml \
 #    qml/tbclient/Browser/*.qml \
 #    qml/tbclient/Component/*.qml \
@@ -68,7 +68,7 @@ folder_emo.target = qml
 DEPLOYMENTFOLDERS = folder_js folder_emo
 
 simulator {
-    DEPLOYMENTFOLDERS += folder_symbian3 folder_harmattan
+    DEPLOYMENTFOLDERS += folder_symbian3 folder_symbian1 folder_harmattan
 }
 
 contains(MEEGO_EDITION,harmattan){
@@ -94,10 +94,13 @@ contains(MEEGO_EDITION,harmattan){
 }
 
 symbian {
-    contains(S60_VERSION, 5.0){
+#    contains(S60_VERSION, 5.0){
+    contains(QT_VERSION, 4.7.3){
         DEFINES += Q_OS_S60V5
         INCLUDEPATH += $$[QT_INSTALL_PREFIX]/epoc32/include/middleware
         INCLUDEPATH += $$[QT_INSTALL_PREFIX]/include/Qt
+        DEPLOYMENTFOLDERS += folder_symbian1
+        MMP_RULES += "DEBUGGABLE"
     } else {
         CONFIG += qt-components
         MMP_RULES += "OPTION gcce -march=armv6 -mfpu=vfp -mfloat-abi=softfp -marm"
@@ -123,6 +126,14 @@ symbian {
         -lapparc -lws32 -lapgrfx \      #for Launching app
         -lServiceHandler -lnewservice \ #and -lbafl for Camera
         -lavkon \                       #for notification
+
+    contains(DEFINES, Q_OS_S60V5){
+        LIBS *= -laknnotify -leiksrv    #for global notes
+        HEADERS += src/applicationactivelistener.h
+        SOURCES += src/applicationactivelistener.cpp
+        HEADERS -= src/qwebviewitem.h
+        SOURCES -= src/qwebviewitem.cpp
+    }
 
     DEFINES += QVIBRA
 
